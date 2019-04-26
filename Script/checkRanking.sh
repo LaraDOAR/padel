@@ -2,13 +2,10 @@
 
 #================================================================================
 #
-# Script que genera/actualiza un ranking = clasificacion del torneo
-#  - Puede generar de manera inicial, donde se conserva el orden que haya en parejas.txt
-#  - Puede actualizar el fichero ranking.txt ya existente, dados los resultados de la jornada anterior
+# Script que comprueba que el fichero ranking.txt sea valido y coherente.
 #
 # Entrada
-#  -i     --> Indica que es un ranking inicial
-#  -j [n] --> Numero de la jornada (1,2,3...)
+#  (no tiene)
 #
 # Salida
 #   0 --> ejecucion correcta
@@ -54,6 +51,7 @@ function prt_debug { if [ "${1}" == "true" ]; then shift; local _s; _s=$(aTS "${
 if [ "$( basename ${PWD} )" != "Padel" ]; then prt_error "ERROR: se debe ejecutar desde el directorio Padel"; exit 1; fi
 
 # Deben existir los siguientes ficheros
+if [ ! -f ranking.txt ]; then prt_error "ERROR: no existe el fichero [ranking.txt] en el directorio actual"; exit 1; fi
 if [ ! -f parejas.txt ]; then prt_error "ERROR: no existe el fichero [parejas.txt] en el directorio actual"; exit 1; fi
 
 # Carga la informacion del torneo, por si se necesita
@@ -71,35 +69,25 @@ if [ ! -f infoTorneo.cfg ];                     then prt_error "ERROR: no existe
 AYUDA="
  ${SCRIPT}
 
- Script que genera/actualiza un ranking = clasificacion del torneo
-  - Puede generar de manera inicial, donde se conserva el orden que haya en parejas.txt
-  - Puede actualizar el fichero ranking.txt ya existente, dados los resultados de la jornada anterior
+ Script que comprueba que el fichero ranking.txt sea valido y coherente.
 
  Entrada:
-  -i     --> Indica que es un ranking inicial
-  -j [n] --> Numero de la jornada (1,2,3...)
+  (no tiene)
 
  Salida:
   0 --> ejecucion correcta
   1 --> ejecucion con errores
 "
 
-ARG_INICIAL=false  # por defecto no se trata de generar el ranking inicial
-ARG_JORNADA=""     # parametro obligatorio
-
 # Procesamos los argumentos de entrada
-while getopts ij:h opt
+while getopts h opt
 do
     case "${opt}" in
-        i) ARG_INICIAL=true;;
-        j) ARG_JORNADA=$OPTARG;;
         h) echo -e "${AYUDA}"; exit 0;;
         *) prt_error "Parametro [${opt}] invalido"; echo -e "${AYUDA}"; exit 1;;
     esac
 done
 
-if [ "${ARG_JORNADA}" == "" ];         then prt_error "ERROR: ARG_JORNADA vacio (param -j)";                                         exit 1; fi
-if ! [[ ${ARG_JORNADA} =~ ^[0-9]+$ ]]; then prt_error "ERROR: ARG_JORNADA=${ARG_JORNADA}, no es un numero entero valido (param -j)"; exit 1; fi
 
 
 
@@ -161,6 +149,7 @@ function limpiaTabla {
 
 
 
+
 ###############################################
 ###
 ### Captura de senal
@@ -197,9 +186,6 @@ trap "salir;" EXIT
 ###
 ###############################################
 
-### CABECERA DEL FICHERO DE RANKING ---> POSICION |       PAREJA  |  PUNTOS | PARTIDOS_JUGADOS | PARTIDOS_GANADOS | JUEGOS_FAVOR | JUEGOS_CONTRA
-###                                             1 | AlbertoMateos |      10 |                3 |                2 |           12 |             6
-
 
 ############# INICIALIZACION
 
@@ -208,16 +194,8 @@ prt_info "Inicializacion..."
 # Resetea un directorio temporal solo para este script, dentro de tmp/
 mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${DIR_TMP}"
 
-# Existencia de ficheros
-if [ "${ARG_INICIAL}" == "false" ]
-then
-    if [ ! -f ranking.txt ];                        then prt_error "ERROR: no existe el fichero [ranking.txt] en el directorio actual";                        exit 1; fi
-    if [ ! -f partidos-jornada${ARG_JORNADA}.txt ]; then prt_error "ERROR: no existe el fichero [partidos-jornada${ARG_JORNADA}.txt] en el directorio actual"; exit 1; fi
-    out=$( limpiaTabla ranking.txt                        "${DIR_TMP}/ranking"  false )
-    out=$( limpiaTabla partidos-jornada${ARG_JORNADA}.txt "${DIR_TMP}/partidos" false )
-fi
-
 # Limpia los diferentes ficheros
+out=$( limpiaTabla ranking.txt "${DIR_TMP}/ranking" false )
 out=$( limpiaTabla parejas.txt "${DIR_TMP}/parejas" false )
 
 
@@ -227,85 +205,47 @@ out=$( limpiaTabla parejas.txt "${DIR_TMP}/parejas" false )
 
 prt_info "Ejecucion..."
 
+# 1/4 - No hay celdas vacias
+prt_info "-- 1/6 - No hay celdas vacias"
+out=$( gawk -F"|" '{for (i=1;i<=NF;i++) { if ($i=="") print "Hay celda vacia en la fila " NR ", columna " i}}' "${DIR_TMP}/ranking" )
+if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
-if [ "${ARG_INICIAL}" == "false" ]
-then
-    prt_info "-- ACTUALIZACION de ranking anterior"
-    prt_error "---- No implementado todavia"
-    exit 1
-else
-    prt_info "-- GENERACION de un ranking inicial"
+# 2/6 - Registros (lineas) unicos
+prt_info "-- 2/6 - Registros (lineas) unicos"
+out=$( sort "${DIR_TMP}/ranking" | uniq -c | gawk '{if ($1>1) print "El registro " $2 " no es unico, aparece " $1 " veces"}' )
+if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
-    # -- cabecera
-    echo "POSICION|PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA" > ranking-jornada${ARG_JORNADA}.txt
-    
-    # -- inicializa todo a 0
-    nParejas=$( wc -l "${DIR_TMP}/parejas" | gawk '{printf("%d",($1+1)/2)}' )
-    gawk 'BEGIN{OFS=FS="|";}{if (NR%2==0) print NR/2,ant"-"$2$3,1+N-NR/2,"0","0","0","0"; ant=$2$3;}' N="${nParejas}" "${DIR_TMP}/parejas" >> ranking-jornada${ARG_JORNADA}.txt
-    
-fi
-prt_info "---- Generado ranking-jornada${ARG_JORNADA}.txt"
+# 3/6 - Formato de las columnas
+prt_info "-- 3/6 - Formato de las columnas"
+while IFS="|" read -r POSICION PAREJA PUNTOS JUGADOS GANADOS FAVOR CONTRA
+do
+    if ! [[ ${POSICION} =~ ^[0-9]+$                                         ]]; then echo "El campo POSICION=${PAREJA} no es un numero entero";         exit 1; fi
+    if ! [[ ${PAREJA}   =~ ^[A-Z][a-z]+[A-Z][a-z]+\-[A-Z][a-z]+[A-Z][a-z]+$ ]]; then echo "El campo PAREJA=${PAREJA} no tiene el formato de la pareja"; exit 1; fi
+    if ! [[ ${PUNTOS}   =~ ^[0-9]+$                                         ]]; then echo "El campo PUNTOS=${PUNTOS} no es un numero entero";           exit 1; fi
+    if ! [[ ${JUGADOS}  =~ ^[0-9]+$                                         ]]; then echo "El campo JUGADOS=${JUGADOS} no es un numero entero";         exit 1; fi
+    if ! [[ ${GANADOS}  =~ ^[0-9]+$                                         ]]; then echo "El campo GANADOS=${GANADOS} no es un numero entero";         exit 1; fi
+    if ! [[ ${FAVOR}    =~ ^[0-9]+$                                         ]]; then echo "El campo FAVOR=${FAVOR} no es un numero entero";             exit 1; fi
+    if ! [[ ${CONTRA}   =~ ^[0-9]+$                                         ]]; then echo "El campo CONTRA=${CONTRA} no es un numero entero";           exit 1; fi
+done < "${DIR_TMP}/ranking"
 
-# Da forma y comprueba que esta bien generado
-prt_info "-- Se formatea ranking-jornada${ARG_JORNADA}.txt y se valida su contenido"
-out=$( bash Script/formateaTabla.sh -f ranking-jornada${ARG_JORNADA}.txt ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+# 4/6 - Las posiciones estan seguidas y estan ordenadas
+prt_info "-- 4/6 - Las posiciones estan seguidas y estan ordenadas"
+out=$( gawk -F"|" '{if ($1!=NR) print "La posicion de la linea " NR " deberia ser " NR ", pero es " $1}' "${DIR_TMP}/ranking" )
+if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
-# Se genera el html
-prt_info "-- Se genera el html a partir de ese fichero"
+# 5/6 - Los puntos estan ordenados
+prt_info "-- 5/6 - Las ranking estan ordenadas, y van seguidas"
+out=$( gawk -F"|" '{if (NR>1 && $3>ant) print "La columna de los puntos no esta bien ordenada. La linea " NR " tiene " $3 " puntos y la anterior " ant; ant=$3;}' "${DIR_TMP}/ranking" )
+if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
-# -- limpia la tabla
-out=$( limpiaTabla ranking-jornada${ARG_JORNADA}.txt "${DIR_TMP}/ranking" true ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+# 6/6 - La clave nombre+apellido esta en la lista de parejas
+prt_info "-- 6/6 - La clave nombre+apellido esta en la lista de parejas"
+while IFS="|" read -r POSICION PAREJA PUNTOS JUGADOS GANADOS FAVOR CONTRA
+do
+    persona=$( echo "${PAREJA}" | gawk -F"-" '{print $1}' )
+    if [ "$( gawk -F"|" '{print FS $2$3 FS}' "${DIR_TMP}/parejas" | grep "|${persona}|" )" == "" ]; then echo "La persona [${persona}] no aparece en el fichero parejas.txt"; exit 1; fi
+done < "${DIR_TMP}/ranking"
 
-# -- genera el html
-cat <<EOM >ranking-jornada${ARG_JORNADA}.html
-<!DOCTYPE html>
-<html>
-  <head>
-<style>
-      #customers {
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-      }
-      #customers td, #customers th {
-        border: 1px solid #ddd;
-        padding: 8px;
-      }
-      #customers tr:nth-child(even){background-color: #f2f2f2;}
-      #customers tr:hover {background-color: #ddd;}
-      #customers th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: left;
-        background-color: #4CAF50;
-        color: white;
-      }
-      h1 {
-        margin-left: 20px;
-      	color: #343434;
-      	font-weight: normal;
-      	font-family: 'Ultra', sans-serif;   
-      	font-size: 36px;
-      	line-height: 42px;
-      	text-transform: uppercase;
-      	text-shadow: 0 2px white, 0 3px #777;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>TORNEO DE PADEL</h1>
-    <br>
-    <table id="customers">
-EOM
-head -1   "${DIR_TMP}/ranking" | gawk -F"|" '{print "<tr>";for(i=1;i<=NF;i++)print "<th>" $i"</th>";print "</tr>"}' >> ranking-jornada${ARG_JORNADA}.html
-tail -n+2 "${DIR_TMP}/ranking" | gawk -F"|" '{print "<tr>";for(i=1;i<=NF;i++)print "<td>" $i"</td>";print "</tr>"}' >> ranking-jornada${ARG_JORNADA}.html
-cat <<EOM >>ranking-jornada${ARG_JORNADA}.html
-    </table>
-  </body>
-</html>
-EOM
-
-prt_info "---- Generado ranking-jornada${ARG_JORNADA}.html"
 
 
 ############# FIN

@@ -52,6 +52,8 @@ bash Script/getRanking.sh -i -j01
 cp ranking-jornada01.txt  ranking.txt 
 cp ranking-jornada01.html ranking.html
 
+# -- comprueba que el fichero de salida es valido y coherente
+bash Script/checkRanking.sh
 
 
 ##### 3/6 - Generar los primeros partidos, los de la jornada 01
