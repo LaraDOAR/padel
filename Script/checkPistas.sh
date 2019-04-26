@@ -2,10 +2,10 @@
 
 #================================================================================
 #
-# Script que da formato a una tabla de texto.
+# Script que comprueba que el fichero pistas.txt sea valido y coherente.
 #
 # Entrada
-#  -f [path] --> Ruta al fichero al que dar formato
+#  (no tiene)
 #
 # Salida
 #   0 --> ejecucion correcta
@@ -50,6 +50,12 @@ function prt_debug { if [ "${1}" == "true" ]; then shift; local _s; _s=$(aTS "${
 # Debe estar en el directorio correcto
 if [ "$( basename ${PWD} )" != "Padel" ]; then prt_error "ERROR: se debe ejecutar desde el directorio Padel"; exit 1; fi
 
+# Deben existir los siguientes ficheros
+if [ ! -f pistas.txt ]; then prt_error "ERROR: no existe el fichero [pistas.txt] en el directorio actual";        exit 1; fi
+
+# Carga la informacion del torneo, por si se necesita
+if [ ! -f infoTorneo.cfg ];                     then prt_error "ERROR: no existe el fichero [infoTorneo.cfg] en el directorio actual"; exit 1; fi
+. infoTorneo.cfg; rv=$?; if [ "${rv}" != "0" ]; then prt_error "ERROR: cargando la configuracion del fichero [infoTorneo.cfg]";        exit 1; fi
 
 
 
@@ -62,30 +68,24 @@ if [ "$( basename ${PWD} )" != "Padel" ]; then prt_error "ERROR: se debe ejecuta
 AYUDA="
  ${SCRIPT}
 
- Script que da formato a una tabla de texto.
+ Script que comprueba que el fichero pistas.txt sea valido y coherente.
 
  Entrada:
-  -f [path] --> Ruta al fichero al que dar formato
+  (no tiene)
 
  Salida:
   0 --> ejecucion correcta
   1 --> ejecucion con errores
 "
 
-ARG_TABLA="" # parametro obligatorio
-
 # Procesamos los argumentos de entrada
-while getopts f:h opt
+while getopts h opt
 do
     case "${opt}" in
-        f) ARG_TABLA=$OPTARG;;
         h) echo -e "${AYUDA}"; exit 0;;
         *) prt_error "Parametro [${opt}] invalido"; echo -e "${AYUDA}"; exit 1;;
     esac
 done
-
-if [ "${ARG_TABLA}" == "" ]; then prt_error "ERROR: ARG_TABLA vacio (param -f)";                  exit 1; fi
-if [ ! -f "${ARG_TABLA}" ];  then prt_error "ERROR: ARG_TABLA=${ARG_TABLA} no existe (param -f)"; exit 1; fi
 
 
 
@@ -194,7 +194,8 @@ prt_info "Inicializacion..."
 mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${DIR_TMP}"
 
 # Limpia los diferentes ficheros
-lineaFinCabecera=$( limpiaTabla "${ARG_TABLA}" "${DIR_TMP}/tabla" true )
+out=$( limpiaTabla pistas.txt "${DIR_TMP}/pistas" false )
+
 
 
 
@@ -202,41 +203,41 @@ lineaFinCabecera=$( limpiaTabla "${ARG_TABLA}" "${DIR_TMP}/tabla" true )
 
 prt_info "Ejecucion..."
 
-# Calcula numero de columnas
-nCols=$( gawk -F"|" '{print NF}' "${DIR_TMP}/tabla" | sort -u )
+# 1/4 - No hay celdas vacias
+prt_info "-- 1/4 - No hay celdas vacias"
+out=$( gawk -F"|" '{for (i=1;i<=NF;i++) { if ($i=="") print "Hay celda vacia en la fila " NR ", columna " i}}' "${DIR_TMP}/pistas" )
+if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
-# Comprueba que hay columnas
-if [ "${nCols}" == "0" ]; then prt_error "-- No hay columnas"; exit 1; fi
+# 2/4 - Registros (lineas) unicos
+prt_info "-- 2/4 - Registros (lineas) unicos"
+out=$( sort "${DIR_TMP}/pistas" | uniq -c | gawk '{if ($1>1) print "El registro " $2 " no es unico, aparece " $1 " veces"}' )
+if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
-# Comprueba que todas las filas tienen el mismo numero de columnas
-if [ "$( echo -e "${nCols}" | wc -l )" -gt "1" ]; then prt_error "-- Hay filas con diferentes numeros de columnas"; exit 1; fi
-
-# Por cada columna, imprime en una celda de tamano el maximo que haya
-for i in $( seq 1 "${nCols}" )
+# 3/4 - Fechas y horas validas
+prt_info "-- 3/4 - Fechas y horas validas"
+while IFS="|" read -r _ FECHA HINI HFIN
 do
-    tam=$( gawk -F"|" '{print length($COL)}' COL="${i}" "${DIR_TMP}/tabla" | sort -g -u | tail -1 )
+    date +"%Y%m%d"     -d "${FECHA}         +5 days"  > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La fecha ${FECHA} no es una fecha valida";                   exit 1; fi
+    date +"%Y%m%d%H%M" -d "${FECHA} ${HINI} +2 hours" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La hora ${HINI} no es una hora valida para el dia ${FECHA}"; exit 1; fi
+    date +"%Y%m%d%H%M" -d "${FECHA} ${HFIN} +2 hours" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La hora ${HFIN} no es una hora valida para el dia ${FECHA}"; exit 1; fi
+    if ! [[ ${HINI} =~ ^([0-1][0-9]|2[0-3]):[0-5][0-9]$ ]]; then echo "La hora ${HINI} no es de la forma HH:MM"; exit 1; fi
+    if ! [[ ${HFIN} =~ ^([0-1][0-9]|2[0-3]):[0-5][0-9]$ ]]; then echo "La hora ${HFIN} no es de la forma HH:MM"; exit 1; fi
+done < "${DIR_TMP}/pistas"
 
-    gawk -F"|" '{
-      for (j=1;j<NCOLS;j++) {
-          if (j==COL) { printf("%" TAM "s|",$COL); }
-          else        { printf("%s|",$j);         }
-      }
-      if (NCOLS==COL) { printf("%" TAM "s\n",$COL); }
-      else            { printf("%s\n",$NCOLS);     }
-    }' COL="${i}" TAM="${tam}" NCOLS="${nCols}" "${DIR_TMP}/tabla" > "${DIR_TMP}/tabla.tmp"
-
-    mv "${DIR_TMP}/tabla.tmp" "${DIR_TMP}/tabla"
-done
-
-# Anade al fichero la cabecera
-if [ "${lineaFinCabecera}" != "0" ]
-then
-    head -"${lineaFinCabecera}" "${ARG_TABLA}"  > "${DIR_TMP}/tabla.tmp"
-    cat "${DIR_TMP}/tabla"                     >> "${DIR_TMP}/tabla.tmp"
-    mv "${DIR_TMP}/tabla.tmp" "${DIR_TMP}/tabla"
-fi
-
-mv "${DIR_TMP}/tabla" "${ARG_TABLA}"
+# 4/4 - No se pisan
+prt_info "-- 4/4 - No se pisan"
+while IFS="|" read -r PISTA FECHA HINI HFIN
+do
+    while read -r line
+    do
+        horaI=$( echo -e "${line}" | gawk -F"|" '{print $3}' )
+        horaF=$( echo -e "${line}" | gawk -F"|" '{print $4}' )
+        if [ "${HINI:0:2}"  -le "${horaI:0:2}" ] && [ "${HFIN:0:2}"  -le "${horaI:0:2}" ]; then continue; fi
+        if [ "${horaI:0:2}" -le "${HINI:0:2}"  ] && [ "${horaF:0:2}" -le "${HINI:0:2}"  ]; then continue; fi
+        echo "El registro [${PISTA}|${FECHA}|${HINI}|${HFIN}] entra en conflicto con [${line}]"
+        exit 1
+    done < <( grep "^${PISTA}|${FECHA}" "${DIR_TMP}/pistas" | grep -v "${PISTA}|${FECHA}|${HINI}|${HFIN}" )
+done < "${DIR_TMP}/pistas"
 
 
 

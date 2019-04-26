@@ -315,8 +315,6 @@ out=$( limpiaTabla pistas.txt                         "${DIR_TMP}/pistas"       
 out=$( limpiaTabla restricciones.txt                  "${DIR_TMP}/restricciones" false )
 out=$( limpiaTabla partidos-jornada${ARG_JORNADA}.txt "${DIR_TMP}/partidos"      false )
 
-prt_info "-- ok (inicializacion)"
-
 
 
 ############# EJECUCION
@@ -329,7 +327,6 @@ gawk -F"|" '{if ($4>=FINI && $4<=FFIN) print $1"-"$4"-"substr($2,1,2)}' FINI="${
 nHuecos=$(   wc -l "${DIR_TMP}/huecos"   | gawk '{print $1}' )
 nPartidos=$( wc -l "${DIR_TMP}/partidos" | gawk '{print $1}' )
 if [ "${nPartidos}" -gt "${nHuecos}" ]; then prt_error "---- Hay mas partidos [${nPartidos}] que huecos disponibles [${nHuecos}]"; exit 1; fi
-prt_info "---- Ok"
 
 # 2/8 - Se une partido=Pareja1+Pareja2 con todos los huecos posibles
 prt_info "-- 2/8 - Se une partido=Pareja1+Pareja2 con todos los huecos posibles"
@@ -338,7 +335,6 @@ gawk -F"|" '{print $2"-"$3}' "${DIR_TMP}/partidos" |
     do
         gawk '{print "-"L"-"$0}' L="${linea}" "${DIR_TMP}/huecos"
     done > "${DIR_TMP}/combinaciones_todas"
-prt_info "---- Ok: generado ${DIR_TMP}/combinaciones_todas"
 
 # 3/8 - Se elimina de la lista anterior, los partidos que no se pueden jugar por tener alguna restriccion
 prt_info "-- 3/8 - Se elimina de la lista anterior, los partidos que no se pueden jugar por tener alguna restriccion"
@@ -346,12 +342,10 @@ while IFS="|" read -r NOMBRE APELLIDO FECHA
 do
     sed -i "/-${NOMBRE}${APELLIDO}-.*-${FECHA}-.*/d"  "${DIR_TMP}/combinaciones_todas"
 done < "${DIR_TMP}/restricciones"
-prt_info "---- Ok: actualizado ${DIR_TMP}/combinaciones_todas"
 
 # 4/8 - Se ordenan los partidos por numero de veces que si se pueden jugar
 prt_info "-- 4/8 - Se ordenan los partidos por numero de veces que si se pueden jugar"
 gawk -F"-" '{print $2"-"$3 " vs " $4"-"$5}' "${DIR_TMP}/combinaciones_todas" | sort | uniq -c > "${DIR_TMP}/combinaciones_ordenadas"
-prt_info "---- Ok: generado ${DIR_TMP}/combinaciones_ordenadas"
 
 # 5/8 - Se comprueba que todas las parejas tienen algun hueco
 prt_info "-- 5/8 - Se comprueba que todas las parejas tienen algun hueco"
@@ -360,7 +354,6 @@ do
     out=$( grep -e " ${LOCAL} vs ${VISITANTE}" "${DIR_TMP}/combinaciones_ordenadas" )
     if [ "${out}" == "" ]; then prt_error "---- El partido [${LOCAL} vs ${VISITANTE}] no se puede jugar, no esta en las opciones disponibles ordenadas"; exit 1; fi
 done < "${DIR_TMP}/partidos"
-prt_info "---- Ok"
 
 # 6/8 - Se calculan todas las permutaciones posibles
 # line 1 --> line 1 --> line 2 --> line 2 --> line 3 --> line 3
@@ -374,7 +367,6 @@ prt_info "---- Hay ${nPermutaciones} posibles a probar"
 
 # 7/8 - Se ordenan las permutaciones para probar primero los partidos que tienen menos opciones
 prt_info "-- 7/8 - Se ordenan las permutaciones para probar primero los partidos que tienen menos opciones"
-prt_info "---- Ok"
 
 # 8/8 - Se prueban cada una de las permutaciones
 prt_info "-- 8/8 - Se prueban cada una de las permutaciones"
@@ -444,8 +436,6 @@ do
     fi
     
 done
-
-prt_info "-- ok (ejecucion)"
 
 
 
