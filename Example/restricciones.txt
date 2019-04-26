@@ -1,0 +1,9 @@
+####################################################
+#
+# INFORMACION SOBRE LAS RESTRICCIONES QUE TIENE CADA PERSONA
+#
+####################################################
+
+NOMBRE|APELLIDO|FECHA
+  Paco|  Garcia|20190805
+   Ana|   Perez|20110528

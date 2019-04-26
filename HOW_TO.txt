@@ -1,0 +1,204 @@
+#!/bin/bash
+
+####################################################
+#
+# MANUAL DE COMO EJECUTAR SCRIPTS PARA ORGANIZAR TORNEO DE PADEL
+#
+####################################################
+
+
+###################################################################################################################################
+################## EMPEZAR A ORGANIZAR EL TORNEO: JORNADA 1
+
+
+##### 1/6 - Configurar ficheros iniciales
+
+# -- copiar de los de ejemplo
+cp Example/infoTorneo.cfg .   # datos del torneo
+cp Example/pistas.txt         # informacion sobre las pistas disponibles
+cp Example/parejas.txt        # informacion sobre las personas y las parejas que forman
+cp Example/restricciones.txt  # restricciones de las personsa
+
+# -- editar
+vim infoTorneo.cfg
+vim pistas.txt
+vim parejas.txt
+vim restricciones.txt
+
+# -- dar formato a las tablas (sobreescribe las tablas)
+bash Script/formateaTabla.sh -f pistas.txt
+bash Script/formateaTabla.sh -f parejas.txt
+bash Script/formateaTabla.sh -f restricciones.txt
+
+# -- comprueba que el formato de los ficheros es bueno (no salida, solo ok o error)
+bash Script/checkPistas.sh
+bash Script/checkParejas.sh
+bash Script/checkRestricciones.sh
+
+
+
+##### 2/6 - Generar el primer ranking
+# -- Mismo orden de las parejas
+# -- Puntos iniciales para conservar el ranking
+
+# -- ejecuta con opcion inicial
+bash Script/getRanking.sh -i -j01
+
+# -- ficheros de salida
+# ranking-jornada01.txt
+# ranking-jornada01.html
+
+# -- se copia al ranking general
+cp ranking-jornada01.txt  ranking.txt 
+cp ranking-jornada01.html ranking.html
+
+
+
+##### 3/6 - Generar los primeros partidos, los de la jornada 01
+# -- Se generan a partir del fichero de ranking
+# -- Pareja1 vs Pareja2; Pareja3 vs Pareja4 ...
+# -- Si hay parejas impares, elimina una pareja del ranking y hace los emparejamientos
+# -- Ademas registra la pareja que se queda sin jugar
+
+# -- ejecuta script
+getPartidos.sh -j 01
+
+# -- ficheros de salida
+# partidos-jornada01.txt
+# parejasSinJugar-jornada01.txt
+
+# -- se inicializa el registro de todos los partidos
+head -1 partidos-jornada01.txt > partidos.txt
+cp parejasSinJugar-jornada01.txt parejasSinJugar.txt
+
+
+
+##### 4/6 - Generar calendario de cuando se juega cada partido
+# -- Se genera a partir del fichero de partidos de la jornada
+# -- Genera los ficheros de calendario, pero tambien actualiza el fichero de partidos anterior
+
+# -- inicializa variables
+FECHA_INI_JORNADA=20190507
+FECHA_FIN_JORNADA=20190517
+
+# -- ejecuta el script
+getCalendario.sh -j 01 -i "${FECHA_INI_JORNADA}" -f "${FECHA_FIN_JORNADA}"
+
+# -- ficheros de salida
+# calendario-jornada01.txt
+# calendario-jornada01.html
+# ** update del fichero partidos-jornada01.txt
+
+# -- se copia al calendario general
+cp calendario-jornada01.txt  calendario.txt
+cp calendario-jornada01.html calendario.html
+
+
+
+##### 5/6 - Hacer backup de todos los ficheros generados
+# -- Sirve para tener constancia de todos los ficheros que se van generando
+
+mkdir Historico
+for infoTorneo.cfg pistas.txt parejas.txt rextricciones.txt; do if [ -f $f ]; then cp ${f}                          Historico/${f}-versionInicial; fi; done
+for f in ranking calendario partidos parejasSinJugar;        do if [ -f $f ]; then cp ${f}.txt  ${f}-jornada01.txt  Historico/;                    fi; done
+for f in ranking calendario;                                 do if [ -f $f ]; then cp ${f}.html ${f}-jornada01.html Historico/;                    fi; done
+
+
+
+##### 6/6 - Subir los html para que sean visibles para todo el mundo
+# -- Los unicos ficheros html que se van a publicar son ranking y calendario
+
+scp ranking.html calendario.html [USUARIO]@TESLA:[PATH]
+
+
+
+
+
+###################################################################################################################################
+################## GRABAR RESULTADOS Y ACTUALIZAR RANKING
+
+JORNADA=01
+
+# Se suponen ya jugados los partidos de la jornada indicada
+
+
+##### 1/3 - Grabar los resultado de la jornada
+
+# -- editar el fichero de partidos de la jornada y actualizar las columnas de los sets
+# ---- set no jugado: -
+# ---- set jugado: 5/3, por ejemplo, donde 5 es local y 4 visitante
+vim partidos-jornada${JORNADA}.txt
+
+# -- acumular en el registro general de partidos
+# ---- el +2 es para no volver a copiar la cabecera
+tail -n+2 partidos-jornada${JORNADA}.txt >> partidos.txt
+
+# -- hacer backup de los ficheros nuevos
+cp partidos-jornada${JORNADA}.txt Historico/
+cp partidos.txt                   Historico/
+
+
+
+##### 2/3 - Actualizar ranking con los resultados
+
+# -- ejecuta script
+bash Script/getRanking.sh -j${JORNADA}
+
+# -- ficheros de salida
+# ranking-jornadaX.txt
+# ranking-jornadaX.html
+
+# -- se copia al ranking general
+cp ranking-jornada${JORNADA}.txt  ranking.txt 
+cp ranking-jornada${JORNADA}.html ranking.html
+
+# -- hacer backup de los ficheros nuevos
+cp ranking.txt  ranking-jornada${JORNADA}.txt  Historico/
+cp ranking.html ranking-jornada${JORNADA}.html Historico/
+
+
+
+##### 3/3 - Subir el nuevo ranking a la web
+scp ranking.html [USUARIO]@TESLA:[PATH]
+
+
+
+
+
+
+###################################################################################################################################
+################## GENERAR PARTIDOS PARA EL RESTO DE JORNADAS
+
+JORNADA=02
+FECHA_INI_JORNADA=20190521
+FECHA_FIN_JORNADA=20190531
+
+# Se supone ya actualizado el ranking con los resultados de la ultima jornada
+
+##### 1/2 - Generar calendario de cuando se juega cada partido
+
+# -- ejecuta el script
+getCalendario.sh -j "${JORNADA}" -i "${FECHA_INI_JORNADA}" -f "${FECHA_FIN_JORNADA}"
+
+# -- ficheros de salida
+# calendario-jornadaX.txt
+# calendario-jornadaX.html
+# ** update del fichero partidos-jornadaX.txt
+
+# -- se copia al calendario general
+cp calendario-jornada${JORNADA}.txt  calendario.txt
+cp calendario-jornada${JORNADA}.html calendario.html
+
+# -- hacer backup de los ficheros nuevos
+cp calendario.txt  calendario-jornada${JORNADA}.txt  Historico/
+cp calendario.html calendario-jornada${JORNADA}.html Historico/
+cp partidos-jornada${JORNADA}.txt Historico/
+
+
+
+##### 2/2 - Subir el nuevo calendario a la web
+scp calendario.html [USUARIO]@TESLA:[PATH]
+
+
+
+

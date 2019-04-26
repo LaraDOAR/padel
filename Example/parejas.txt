@@ -1,0 +1,13 @@
+####################################################
+#
+# INFORMACION SOBRE LOS PARTICIPANTES Y LAS PAREJAS QUE FORMAN
+#
+####################################################
+
+PAREJA|NOMBRE|APELLIDO|                 EMAIL
+     1|  Paco|  Garcia|paco.garcia@iic.uam.es
+     1|   Ana|   Perez|  ana.perez@iic.uam.es
+     2|  Pepe|     Ran|   pepe.pun@iic.uam.es
+     2|  Fran|     Pun|   fran.pun@iic.uam.es
+     3|Lorena|    Chun|lorena.chun@iic.uam.es
+     3| Anton|    Khan| anton.khan@iic.uam.es
