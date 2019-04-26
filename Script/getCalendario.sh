@@ -223,6 +223,8 @@ function getPermutacion {
     local _base
     local _f
     local _files
+    local _nPosiciones
+    local _i
     
     # Condicion de parada: cuando solo queda un elemento
     if [ "$( wc -l "${_file}" | gawk '{print $1}' )" == "1" ]
@@ -236,20 +238,28 @@ function getPermutacion {
 
     # Se calculan las permutaciones del fichero restante
     getPermutacion "${_file}.${_iteracion}" "${_iteracion}"
+    rm "${_file}.${_iteracion}"
 
     # Se calculan las combinaciones: se pone la primera linea de _file
     # delante de todos los ficheros resultado
     _dir=$(  dirname  "${_file}" )
     _base=$( basename "${_file}" )
-    _files=$( find "${_dir}/" "${_base}.${_iteracion}.perm*" )
+    _files=$( find "${_dir}/" -type f -name "${_base}.${_iteracion}.perm*" )
+    _newLine=$( head -1 "${_file}" )
     for _f in ${_files}
     do
-        {
-            head -1 "${_file}"
-            cat "${_f}"
-        } > "${_file}.perm${_iteracion}"
-        rm "${_f}"
+        # En el fichero _f tengo "2 er" y "3 tq", y newLine es "1 ab"
+        # Lo que quiero es meter "1 ab" en todas las posiciones posibles
+        # En este caso: en la 1 (antes de "2 er"), en la 2 (entre "2 er" y "3 tq"), y en la 3 (despues de "3 tq")
+        _nPosiciones=$( wc -l "${_f}" | gawk '{print $1}' )
+        for _i in $( seq 1 "${_nPosiciones}" )
+        do
+            gawk '{if (NR==POSICION) print NEW; print;}' POSICION="${_i}" NEW="${_newLine}" "${_f}" > "${_file}.perm${_iteracion}"
+            _iteracion=$(( _iteracion + 1 ))
+        done
+        cat "${_f}" > "${_file}.perm${_iteracion}"; echo "${_newLine}" >> "${_file}.perm${_iteracion}"
         _iteracion=$(( _iteracion + 1 ))
+        rm "${_f}"
     done
 
     # Fin
