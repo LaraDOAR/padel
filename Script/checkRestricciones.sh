@@ -2,7 +2,7 @@
 
 #================================================================================
 #
-# Script que comprueba que el fichero pistas.txt sea valido y coherente.
+# Script que comprueba que el fichero restricciones.txt sea valido y coherente.
 #
 # Entrada
 #  (no tiene)
@@ -51,7 +51,8 @@ function prt_debug { if [ "${1}" == "true" ]; then shift; local _s; _s=$(aTS "${
 if [ "$( basename ${PWD} )" != "Padel" ]; then prt_error "ERROR: se debe ejecutar desde el directorio Padel"; exit 1; fi
 
 # Deben existir los siguientes ficheros
-if [ ! -f pistas.txt ]; then prt_error "ERROR: no existe el fichero [pistas.txt] en el directorio actual"; exit 1; fi
+if [ ! -f restricciones.txt ]; then prt_error "ERROR: no existe el fichero [restricciones.txt] en el directorio actual"; exit 1; fi
+if [ ! -f parejas.txt ];       then prt_error "ERROR: no existe el fichero [parejas.txt] en el directorio actual";       exit 1; fi
 
 # Carga la informacion del torneo, por si se necesita
 if [ ! -f infoTorneo.cfg ];                     then prt_error "ERROR: no existe el fichero [infoTorneo.cfg] en el directorio actual"; exit 1; fi
@@ -68,7 +69,7 @@ if [ ! -f infoTorneo.cfg ];                     then prt_error "ERROR: no existe
 AYUDA="
  ${SCRIPT}
 
- Script que comprueba que el fichero pistas.txt sea valido y coherente.
+ Script que comprueba que el fichero restricciones.txt sea valido y coherente.
 
  Entrada:
   (no tiene)
@@ -194,7 +195,8 @@ prt_info "Inicializacion..."
 mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${DIR_TMP}"
 
 # Limpia los diferentes ficheros
-out=$( limpiaTabla pistas.txt "${DIR_TMP}/pistas" false )
+out=$( limpiaTabla restricciones.txt "${DIR_TMP}/restricciones" false )
+out=$( limpiaTabla parejas.txt       "${DIR_TMP}/parejas"       false )
 
 
 
@@ -205,42 +207,30 @@ prt_info "Ejecucion..."
 
 # 1/4 - No hay celdas vacias
 prt_info "-- 1/4 - No hay celdas vacias"
-out=$( gawk -F"|" '{for (i=1;i<=NF;i++) { if ($i=="") print "Hay celda vacia en la fila " NR ", columna " i}}' "${DIR_TMP}/pistas" )
+out=$( gawk -F"|" '{for (i=1;i<=NF;i++) { if ($i=="") print "Hay celda vacia en la fila " NR ", columna " i}}' "${DIR_TMP}/restricciones" )
 if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
 # 2/4 - Registros (lineas) unicos
 prt_info "-- 2/4 - Registros (lineas) unicos"
-out=$( sort "${DIR_TMP}/pistas" | uniq -c | gawk '{if ($1>1) print "El registro " $2 " no es unico, aparece " $1 " veces"}' )
+out=$( sort "${DIR_TMP}/restricciones" | uniq -c | gawk '{if ($1>1) print "El registro " $2 " no es unico, aparece " $1 " veces"}' )
 if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
 # 3/4 - Formato de las columnas
 prt_info "-- 3/4 - Formato de las columnas"
-while IFS="|" read -r PAREJA FECHA HINI HFIN
+while IFS="|" read -r NOMBRE APELLIDO FECHA
 do
-    if ! [[ ${PAREJA}   =~ ^[0-9]+$                      ]]; then echo "El campo PAREJA=${PAREJA} no es un numero entero";  exit 1; fi
-    if ! [[ ${FECHA} =~ ^[0-9]{8}$                       ]]; then echo "La fecha ${FECHA} no es de la forma YYYYMMDD";      exit 1; fi
-    if ! [[ ${HINI}  =~ ^([0-1][0-9]|2[0-3]):[0-5][0-9]$ ]]; then echo "La hora ${HINI} no es de la forma HH:MM";           exit 1; fi
-    if ! [[ ${HFIN}  =~ ^([0-1][0-9]|2[0-3]):[0-5][0-9]$ ]]; then echo "La hora ${HFIN} no es de la forma HH:MM";           exit 1; fi
-    date +"%Y%m%d"     -d "${FECHA}         +5 days"  > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La fecha ${FECHA} no es una fecha valida";                   exit 1; fi
-    date +"%Y%m%d%H%M" -d "${FECHA} ${HINI} +2 hours" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La hora ${HINI} no es una hora valida para el dia ${FECHA}"; exit 1; fi
-    date +"%Y%m%d%H%M" -d "${FECHA} ${HFIN} +2 hours" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La hora ${HFIN} no es una hora valida para el dia ${FECHA}"; exit 1; fi
-done < "${DIR_TMP}/pistas"
+    if ! [[ ${FECHA}    =~ ^[0-9]{8}$    ]]; then echo "La fecha ${FECHA} no es de la forma YYYYMMDD";                             exit 1; fi
+    if ! [[ ${NOMBRE}   =~ ^[A-Z][a-z]+$ ]]; then echo "El campo NOMBRE=${NOMBRE} no es un string que empieza por mayusculas";     exit 1; fi
+    if ! [[ ${APELLIDO} =~ ^[A-Z][a-z]+$ ]]; then echo "El campo APELLIDO=${APELLIDO} no es un string que empieza por mayusculas"; exit 1; fi
+    date +"%Y%m%d" -d "${FECHA} +5 days" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La fecha ${FECHA} no es una fecha valida"; exit 1; fi
+done < "${DIR_TMP}/restricciones"
 
-# 4/4 - No se pisan
-prt_info "-- 4/4 - No se pisan"
-while IFS="|" read -r PISTA FECHA HINI HFIN
+# 4/4 - La clave nombre+apellido esta en la lista de parejas
+prt_info "-- 4/4 - La clave nombre+apellido esta en la lista de parejas"
+while IFS="|" read -r NOMBRE APELLIDO _
 do
-    while read -r line
-    do
-        horaI=$( echo -e "${line}" | gawk -F"|" '{print $3}' )
-        horaF=$( echo -e "${line}" | gawk -F"|" '{print $4}' )
-        if [ "${HINI:0:2}"  -le "${horaI:0:2}" ] && [ "${HFIN:0:2}"  -le "${horaI:0:2}" ]; then continue; fi
-        if [ "${horaI:0:2}" -le "${HINI:0:2}"  ] && [ "${horaF:0:2}" -le "${HINI:0:2}"  ]; then continue; fi
-        echo "El registro [${PISTA}|${FECHA}|${HINI}|${HFIN}] entra en conflicto con [${line}]"
-        exit 1
-    done < <( grep "^${PISTA}|${FECHA}" "${DIR_TMP}/pistas" | grep -v "${PISTA}|${FECHA}|${HINI}|${HFIN}" )
-done < "${DIR_TMP}/pistas"
-
+    if [ "$( grep "|${NOMBRE}|${APELLIDO}|" "${DIR_TMP}/parejas" )" == "" ]; then echo "La persona [${NOMBRE}|${APELLIDO}] no aparece en el fichero parejas.txt"; exit 1; fi
+done < "${DIR_TMP}/restricciones"
 
 
 

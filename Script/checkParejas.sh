@@ -51,7 +51,7 @@ function prt_debug { if [ "${1}" == "true" ]; then shift; local _s; _s=$(aTS "${
 if [ "$( basename ${PWD} )" != "Padel" ]; then prt_error "ERROR: se debe ejecutar desde el directorio Padel"; exit 1; fi
 
 # Deben existir los siguientes ficheros
-if [ ! -f parejas.txt ]; then prt_error "ERROR: no existe el fichero [parejas.txt] en el directorio actual";        exit 1; fi
+if [ ! -f parejas.txt ]; then prt_error "ERROR: no existe el fichero [parejas.txt] en el directorio actual"; exit 1; fi
 
 # Carga la informacion del torneo, por si se necesita
 if [ ! -f infoTorneo.cfg ];                     then prt_error "ERROR: no existe el fichero [infoTorneo.cfg] en el directorio actual"; exit 1; fi
@@ -204,17 +204,17 @@ out=$( limpiaTabla parejas.txt "${DIR_TMP}/parejas" false )
 prt_info "Ejecucion..."
 
 # 1/4 - No hay celdas vacias
-prt_info "-- 1/4 - No hay celdas vacias"
+prt_info "-- 1/5 - No hay celdas vacias"
 out=$( gawk -F"|" '{for (i=1;i<=NF;i++) { if ($i=="") print "Hay celda vacia en la fila " NR ", columna " i}}' "${DIR_TMP}/parejas" )
 if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
-# 2/4 - Registros (lineas) unicos
-prt_info "-- 2/4 - Registros (lineas) unicos"
+# 2/5 - Registros (lineas) unicos
+prt_info "-- 2/5 - Registros (lineas) unicos"
 out=$( sort "${DIR_TMP}/parejas" | uniq -c | gawk '{if ($1>1) print "El registro " $2 " no es unico, aparece " $1 " veces"}' )
 if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
-# 3/4 - Formato de las columnas
-prt_info "-- 3/4 - Formato de las columnas"
+# 3/5 - Formato de las columnas
+prt_info "-- 3/5 - Formato de las columnas"
 while IFS="|" read -r PAREJA NOMBRE APELLIDO EMAIL
 do
     if ! [[ ${PAREJA}   =~ ^[0-9]+$                      ]]; then echo "El campo PAREJA=${PAREJA} no es un numero entero";                         exit 1; fi
@@ -223,8 +223,8 @@ do
     if ! [[ ${EMAIL}    =~ ^[a-z]+\.[a-z]+@iic\.uam\.es$ ]]; then echo "El campo EMAIL=${EMAIL} no es de la forma [nombre].[apellido]@iic.uam.es"; exit 1; fi
 done < "${DIR_TMP}/parejas"
 
-# 4/4 - Las parejas tienen 2 componentes
-prt_info "-- 4/4 - Las parejas tienen 2 componentes"
+# 4/5 - Las parejas tienen 2 componentes
+prt_info "-- 4/5 - Las parejas tienen 2 componentes"
 out=$( gawk -F"|" '{print $1}' "${DIR_TMP}/parejas" | sort | uniq -c | gawk '{if ($1!=2) print "La pareja " $2 " la componen " $1 " personas, cuando solo pueden ser 2"}' )
 if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
