@@ -2,7 +2,7 @@
 
 #================================================================================
 #
-# Script que comprueba que el fichero ranking.txt sea valido y coherente.
+# Script que comprueba que el fichero partidos.txt sea valido y coherente.
 #
 # Entrada
 #  (no tiene)
@@ -51,7 +51,7 @@ function prt_debug { if [ "${1}" == "true" ]; then shift; local _s; _s=$(aTS "${
 if [ "$( basename ${PWD} )" != "Padel" ]; then prt_error "ERROR: se debe ejecutar desde el directorio Padel"; exit 1; fi
 
 # Deben existir los siguientes ficheros
-if [ ! -f ranking.txt ]; then prt_error "ERROR: no existe el fichero [ranking.txt] en el directorio actual"; exit 1; fi
+if [ ! -f partidos.txt ]; then prt_error "ERROR: no existe el fichero [partidos.txt] en el directorio actual"; exit 1; fi
 if [ ! -f parejas.txt ]; then prt_error "ERROR: no existe el fichero [parejas.txt] en el directorio actual"; exit 1; fi
 
 # Carga la informacion del torneo, por si se necesita
@@ -69,7 +69,7 @@ if [ ! -f infoTorneo.cfg ];                     then prt_error "ERROR: no existe
 AYUDA="
  ${SCRIPT}
 
- Script que comprueba que el fichero ranking.txt sea valido y coherente.
+ Script que comprueba que el fichero partidos.txt sea valido y coherente.
 
  Entrada:
   (no tiene)
@@ -195,8 +195,8 @@ prt_info "Inicializacion..."
 mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${DIR_TMP}"
 
 # Limpia los diferentes ficheros
-out=$( limpiaTabla ranking.txt "${DIR_TMP}/ranking" false )
-out=$( limpiaTabla parejas.txt "${DIR_TMP}/parejas" false )
+out=$( limpiaTabla partidos.txt "${DIR_TMP}/partidos" false )
+out=$( limpiaTabla parejas.txt  "${DIR_TMP}/parejas"  false )
 
 
 
@@ -206,47 +206,47 @@ out=$( limpiaTabla parejas.txt "${DIR_TMP}/parejas" false )
 prt_info "Ejecucion..."
 
 # 1/4 - No hay celdas vacias
-prt_info "-- 1/6 - No hay celdas vacias"
-out=$( gawk -F"|" '{for (i=1;i<=NF;i++) { if ($i=="") print "Hay celda vacia en la fila " NR ", columna " i}}' "${DIR_TMP}/ranking" )
+prt_info "-- 1/4 - No hay celdas vacias"
+out=$( gawk -F"|" '{for (i=1;i<=NF;i++) { if ($i=="") print "Hay celda vacia en la fila " NR ", columna " i}}' "${DIR_TMP}/partidos" )
 if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
-# 2/6 - Registros (lineas) unicos
-prt_info "-- 2/6 - Registros (lineas) unicos"
-out=$( sort "${DIR_TMP}/ranking" | uniq -c | gawk '{if ($1>1) print "El registro " $2 " no es unico, aparece " $1 " veces"}' )
+# 2/4 - Registros (lineas) unicos
+prt_info "-- 2/4 - Registros (lineas) unicos"
+out=$( sort "${DIR_TMP}/partidos" | uniq -c | gawk '{if ($1>1) print "El registro " $2 " no es unico, aparece " $1 " veces"}' )
 if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
-# 3/6 - Formato de las columnas
-prt_info "-- 3/6 - Formato de las columnas"
-while IFS="|" read -r POSICION PAREJA PUNTOS JUGADOS GANADOS FAVOR CONTRA
+# 3/4 - Formato de las columnas
+prt_info "-- 3/4 - Formato de las columnas"
+while IFS="|" read -r JORNADA LOCAL VISITANTE FECHA HINI HFIN LUGAR SET1 SET2 SET3
 do
-    if ! [[ ${POSICION} =~ ^[0-9]+$                                         ]]; then echo "El campo POSICION=${PAREJA} no es un numero entero";         exit 1; fi
-    if ! [[ ${PAREJA}   =~ ^[A-Z][a-z]+[A-Z][a-z]+\-[A-Z][a-z]+[A-Z][a-z]+$ ]]; then echo "El campo PAREJA=${PAREJA} no tiene el formato de la pareja"; exit 1; fi
-    if ! [[ ${PUNTOS}   =~ ^[0-9]+$                                         ]]; then echo "El campo PUNTOS=${PUNTOS} no es un numero entero";           exit 1; fi
-    if ! [[ ${JUGADOS}  =~ ^[0-9]+$                                         ]]; then echo "El campo JUGADOS=${JUGADOS} no es un numero entero";         exit 1; fi
-    if ! [[ ${GANADOS}  =~ ^[0-9]+$                                         ]]; then echo "El campo GANADOS=${GANADOS} no es un numero entero";         exit 1; fi
-    if ! [[ ${FAVOR}    =~ ^[0-9]+$                                         ]]; then echo "El campo FAVOR=${FAVOR} no es un numero entero";             exit 1; fi
-    if ! [[ ${CONTRA}   =~ ^[0-9]+$                                         ]]; then echo "El campo CONTRA=${CONTRA} no es un numero entero";           exit 1; fi
-done < "${DIR_TMP}/ranking"
+    if ! [[ ${JORNADA}   =~ ^[0-9]+$                                         ]]; then echo "El campo JORNADA=${JORNADA} no es un numero entero";               exit 1; fi
+    if ! [[ ${LOCAL}     =~ ^[A-Z][a-z]+[A-Z][a-z]+\-[A-Z][a-z]+[A-Z][a-z]+$ ]]; then echo "El campo LOCAL=${LOCAL} no tiene el formato de la pareja";         exit 1; fi
+    if ! [[ ${VISITANTE} =~ ^[A-Z][a-z]+[A-Z][a-z]+\-[A-Z][a-z]+[A-Z][a-z]+$ ]]; then echo "El campo VISITANTE=${VISITANTE} no tiene el formato de la pareja"; exit 1; fi
+    if ! [[ ${FECHA}     =~ ^[0-9]{8}$                                       ]]; then echo "El campo FECHA=${FECHA} no es de la forma YYYYMMDD";               exit 1; fi
+    if ! [[ ${HINI}      =~ ^([0-1][0-9]|2[0-3]):[0-5][0-9]$                 ]]; then echo "El campo HORA_INI=${HINI} no es de la forma HH:MM";                exit 1; fi
+    if ! [[ ${HFIN}      =~ ^([0-1][0-9]|2[0-3]):[0-5][0-9]$                 ]]; then echo "El campo HORA_FIN=${HFIN} no es de la forma HH:MM";                exit 1; fi
+    # el lugar se deja libre, no se obliga a cumplir ningun formato
+    if ! [[ ${SET1}      =~ ^[1-7]+/[1-7]$ ]] && [ "${SET1}" != "-"           ]; then echo "El campo SET1=${SET1} no es de la forma '-' ni [1-7]/[1-7]";       exit 1; fi
+    if ! [[ ${SET2}      =~ ^[1-7]+/[1-7]$ ]] && [ "${SET2}" != "-"           ]; then echo "El campo SET2=${SET2} no es de la forma '-' ni [1-7]/[1-7]";       exit 1; fi
+    if ! [[ ${SET3}      =~ ^[1-7]+/[1-7]$ ]] && [ "${SET3}" != "-"           ]; then echo "El campo SET3=${SET3} no es de la forma '-' ni [1-7]/[1-7]";       exit 1; fi
+    date +"%Y%m%d"     -d "${FECHA}         +5 days"  > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La fecha ${FECHA} no es una fecha valida";                   exit 1; fi
+    date +"%Y%m%d%H%M" -d "${FECHA} ${HINI} +2 hours" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La hora ${HINI} no es una hora valida para el dia ${FECHA}"; exit 1; fi
+    date +"%Y%m%d%H%M" -d "${FECHA} ${HFIN} +2 hours" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La hora ${HFIN} no es una hora valida para el dia ${FECHA}"; exit 1; fi
+done < "${DIR_TMP}/partidos"
 
-# 4/6 - Las posiciones estan seguidas y estan ordenadas
-prt_info "-- 4/6 - Las posiciones estan seguidas y estan ordenadas"
-out=$( gawk -F"|" '{if ($1!=NR) print "La posicion de la linea " NR " deberia ser " NR ", pero es " $1}' "${DIR_TMP}/ranking" )
-if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
-
-# 5/6 - Los puntos estan ordenados
-prt_info "-- 5/6 - Las ranking estan ordenadas, y van seguidas"
-out=$( gawk -F"|" '{if (NR>1 && $3>ant) print "La columna de los puntos no esta bien ordenada. La linea " NR " tiene " $3 " puntos y la anterior " ant; ant=$3;}' "${DIR_TMP}/ranking" )
-if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
-
-# 6/6 - La clave nombre+apellido esta en la lista de parejas
-prt_info "-- 6/6 - La clave nombre+apellido esta en la lista de parejas"
-while IFS="|" read -r POSICION PAREJA PUNTOS JUGADOS GANADOS FAVOR CONTRA
+# 4/4 - La clave nombre+apellido esta en la lista de parejas
+prt_info "-- 4/4 - La clave nombre+apellido esta en la lista de parejas"
+while IFS="|" read -r _ LOCAL VISITANTE _ _ _ _ _ _ _
 do
-    persona=$( echo "${PAREJA}" | gawk -F"-" '{print $1}' )
+    persona=$( echo "${LOCAL}" | gawk -F"-" '{print $1}' )
     if [ "$( gawk -F"|" '{print FS $2$3 FS}' "${DIR_TMP}/parejas" | grep "|${persona}|" )" == "" ]; then echo "La persona [${persona}] no aparece en el fichero parejas.txt"; exit 1; fi
-    persona=$( echo "${PAREJA}" | gawk -F"-" '{print $2}' )
+    persona=$( echo "${LOCAL}" | gawk -F"-" '{print $2}' )
     if [ "$( gawk -F"|" '{print FS $2$3 FS}' "${DIR_TMP}/parejas" | grep "|${persona}|" )" == "" ]; then echo "La persona [${persona}] no aparece en el fichero parejas.txt"; exit 1; fi
-done < "${DIR_TMP}/ranking"
+    persona=$( echo "${VISITANTE}" | gawk -F"-" '{print $1}' )
+    if [ "$( gawk -F"|" '{print FS $2$3 FS}' "${DIR_TMP}/parejas" | grep "|${persona}|" )" == "" ]; then echo "La persona [${persona}] no aparece en el fichero parejas.txt"; exit 1; fi
+    persona=$( echo "${VISITANTE}" | gawk -F"-" '{print $2}' )
+    if [ "$( gawk -F"|" '{print FS $2$3 FS}' "${DIR_TMP}/parejas" | grep "|${persona}|" )" == "" ]; then echo "La persona [${persona}] no aparece en el fichero parejas.txt"; exit 1; fi
+done < "${DIR_TMP}/partidos"
 
 
 

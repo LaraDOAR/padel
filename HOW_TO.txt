@@ -63,16 +63,28 @@ bash Script/checkRanking.sh
 # -- Ademas registra la pareja que se queda sin jugar
 
 # -- ejecuta script
-getPartidos.sh -j 01
+bash Script/getPartidos.sh -j 01
 
 # -- ficheros de salida
 # partidos-jornada01.txt
 # parejasSinJugar-jornada01.txt
 
 # -- se inicializa el registro de todos los partidos
-head -1 partidos-jornada01.txt > partidos.txt
-cp parejasSinJugar-jornada01.txt parejasSinJugar.txt
+if [ -f parejasSinJugar-jornada01.txt ]; then cp parejasSinJugar-jornada01.txt parejasSinJugar.txt; fi
+{
+    echo "####################################################"
+    echo "#"
+    echo "# INFORMACION SOBRE LAS RESTRICCIONES QUE TIENE CADA PERSONA"
+    echo "#"
+    echo "####################################################"
+    echo ""
+    head -1 partidos-jornada01.txt
+} > partidos.txt
 
+
+# -- comprueba que los ficheros de salida son validos y coherentes
+if [ -f parejasSinJugar.txt ]; then bash Script/checkParejasSinJugar.sh; fi
+bash Script/checkPartidos.sh
 
 
 ##### 4/6 - Generar calendario de cuando se juega cada partido
@@ -94,6 +106,10 @@ getCalendario.sh -j 01 -i "${FECHA_INI_JORNADA}" -f "${FECHA_FIN_JORNADA}"
 # -- se copia al calendario general
 cp calendario-jornada01.txt  calendario.txt
 cp calendario-jornada01.html calendario.html
+
+# -- comprueba que el fichero de salida es valido y coherente
+bash Script/checkCalendario.sh
+
 
 
 
@@ -157,6 +173,9 @@ cp ranking-jornada${JORNADA}.html ranking.html
 # -- hacer backup de los ficheros nuevos
 cp ranking.txt  ranking-jornada${JORNADA}.txt  Historico/
 cp ranking.html ranking-jornada${JORNADA}.html Historico/
+
+# -- comprueba que el fichero de salida es valido y coherente
+bash Script/checkRanking.sh
 
 
 
