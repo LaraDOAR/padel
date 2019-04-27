@@ -331,64 +331,87 @@ out=$( limpiaTabla partidos-jornada${ARG_JORNADA}.txt "${DIR_TMP}/partidos"     
 
 prt_info "Ejecucion..."
 
-# 1/8 - Se comprueba que hay suficientes huecos para poder colocar todos los partidos
-prt_info "-- 1/8 - Se comprueba que hay suficientes huecos para poder colocar todos los partidos"
-gawk -F"|" '{if ($4>=FINI && $4<=FFIN) print $1"-"$4"-"substr($2,1,2)}' FINI="${ARG_FECHA_INI}" FFIN="${ARG_FECHA_FIN}" "${DIR_TMP}/pistas" > "${DIR_TMP}/huecos"
+# 1/9 - Se comprueba que hay suficientes huecos para poder colocar todos los partidos
+prt_info "-- 1/9 - Se comprueba que hay suficientes huecos para poder colocar todos los partidos"
+gawk -F"|" '{if ($2>=FINI && $2<=FFIN) print}' FINI="${ARG_FECHA_INI}" FFIN="${ARG_FECHA_FIN}" "${DIR_TMP}/pistas" | sed 's/|/-/g' > "${DIR_TMP}/huecos"
 nHuecos=$(   wc -l "${DIR_TMP}/huecos"   | gawk '{print $1}' )
 nPartidos=$( wc -l "${DIR_TMP}/partidos" | gawk '{print $1}' )
 if [ "${nPartidos}" -gt "${nHuecos}" ]; then prt_error "---- Hay mas partidos [${nPartidos}] que huecos disponibles [${nHuecos}]"; exit 1; fi
 
-# 2/8 - Se une partido=Pareja1+Pareja2 con todos los huecos posibles
-prt_info "-- 2/8 - Se une partido=Pareja1+Pareja2 con todos los huecos posibles"
+# 2/9 - Se une partido=Pareja1+Pareja2 con todos los huecos posibles
+prt_info "-- 2/9 - Se une partido=Pareja1+Pareja2 con todos los huecos posibles"
 gawk -F"|" '{print $2"-"$3}' "${DIR_TMP}/partidos" |
     while read -r linea
     do
         gawk '{print "-"L"-"$0}' L="${linea}" "${DIR_TMP}/huecos"
     done > "${DIR_TMP}/combinaciones_todas"
 
-# 3/8 - Se elimina de la lista anterior, los partidos que no se pueden jugar por tener alguna restriccion
-prt_info "-- 3/8 - Se elimina de la lista anterior, los partidos que no se pueden jugar por tener alguna restriccion"
+# 3/9 - Se elimina de la lista anterior, los partidos que no se pueden jugar por tener alguna restriccion
+prt_info "-- 3/9 - Se elimina de la lista anterior, los partidos que no se pueden jugar por tener alguna restriccion"
 while IFS="|" read -r NOMBRE APELLIDO FECHA
 do
-    sed -i "/-${NOMBRE}${APELLIDO}-.*-${FECHA}-.*/d"  "${DIR_TMP}/combinaciones_todas"
+    sed -i "/-${NOMBRE}${APELLIDO}-.*-${FECHA}-/d"  "${DIR_TMP}/combinaciones_todas"
 done < "${DIR_TMP}/restricciones"
 
-# 4/8 - Se ordenan los partidos por numero de veces que si se pueden jugar
-prt_info "-- 4/8 - Se ordenan los partidos por numero de veces que si se pueden jugar"
+# 4/9 - Se ordenan los partidos por numero de veces que si se pueden jugar
+prt_info "-- 4/9 - Se ordenan los partidos por numero de veces que si se pueden jugar"
 gawk -F"-" '{print $2"-"$3 " vs " $4"-"$5}' "${DIR_TMP}/combinaciones_todas" | sort | uniq -c > "${DIR_TMP}/combinaciones_ordenadas"
 
-# 5/8 - Se comprueba que todas las parejas tienen algun hueco
-prt_info "-- 5/8 - Se comprueba que todas las parejas tienen algun hueco"
+# 5/9 - Se comprueba que todas las parejas tienen algun hueco
+prt_info "-- 5/9 - Se comprueba que todas las parejas tienen algun hueco"
 while IFS="|" read -r _ LOCAL VISITANTE _ _ _ _ _ _ _
 do
     out=$( grep -e " ${LOCAL} vs ${VISITANTE}" "${DIR_TMP}/combinaciones_ordenadas" )
     if [ "${out}" == "" ]; then prt_error "---- El partido [${LOCAL} vs ${VISITANTE}] no se puede jugar, no esta en las opciones disponibles ordenadas"; exit 1; fi
 done < "${DIR_TMP}/partidos"
 
-# 6/8 - Se calculan todas las permutaciones posibles
+# 6/9 - Se calculan todas las permutaciones posibles
 # line 1 --> line 1 --> line 2 --> line 2 --> line 3 --> line 3
 # line 2 --> line 3 --> line 1 --> line 3 --> line 1 --> line 2
 # line 3 --> line 2 --> line 3 --> line 1 --> line 2 --> line 1
-prt_info "-- 6/8 - Se calculan todas las permutaciones posibles"
+prt_info "-- 6/9 - Se calculan todas las permutaciones posibles"
 getPermutacion "${DIR_TMP}/combinaciones_ordenadas" 1 # genera los ficheros DIR_TMP/combinaciones_ordenadas.permX donde X=numero de la permutacion
 nLineas=$( wc -l "${DIR_TMP}/combinaciones_ordenadas" | gawk '{print $1}' )
 nPermutaciones=$( factorial ${nLineas} )
 prt_info "---- Hay ${nPermutaciones} posibles a probar"
 
-# 7/8 - Se ordenan las permutaciones para probar primero los partidos que tienen menos opciones
-prt_info "-- 7/8 - Se ordenan las permutaciones para probar primero los partidos que tienen menos opciones"
+# 7/9 - Se ordenan las permutaciones para probar primero los partidos que tienen menos opciones
+prt_info "-- 7/9 - Se ordenan las permutaciones para probar primero los partidos que tienen menos opciones"
+contador=1
+for i in $( seq 1 "${nLineas}" )
+do
+    # Se cogen las "i" primeras lineas de todos los ficheros disponibles
+    files=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.perm*" )
+    for f in ${files}; do head -"${i}" ${f} > ${f}.processing; done
 
-# 8/8 - Se prueban cada una de las permutaciones
-prt_info "-- 8/8 - Se prueban cada una de las permutaciones"
-for f in "${DIR_TMP}/combinaciones_ordenadas.perm"*
+    # Se suman los pesos y se ordenan
+    files=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.*.processing" )
+    out=$(
+        for f in ${files}; do gawk '{sum+=$1}END{printf("%d|",sum)}' "${f}"; echo "${f}"; done |  # se calcula <peso total>|<nombre_fichero>
+            sort |    # se ordenan por peso
+            head -2 | # nos quedamos con las 2 primeras
+            tac |     # imprimimos primero la 2da y despues la 1ra
+            gawk -F"|" '{if (NR==1) ant=$1; if (NR==2 && $1<ant) print $2;}' | # solo nos quedamos con la permutacion (la primera) si el peso de la primera es < la segunda (no <=)
+            sed 's/.processing//g'
+       )
+    if [ "${out}" != "" ]; then mv "${out}" "${DIR_TMP}/combinaciones_ordenadas.done.perm${contador}"; contador=$(( contador + 1 )); fi
+    rm "${DIR_TMP}/combinaciones_ordenadas."*".processing"
+done
+# -- cuando ya son todas iguales, se dejan tal y como estan
+files=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.perm*" )
+for f in ${files}; do mv "${f}" "${DIR_TMP}/combinaciones_ordenadas.done.perm${contador}"; contador=$(( contador + 1 )); done
+
+# 8/9 - Se prueban cada una de las permutaciones
+prt_info "-- 8/9 - Se prueban cada una de las permutaciones"
+for f in "${DIR_TMP}/combinaciones_ordenadas.done.perm"*
 do
     
     prt_info "*** Probando iteracion ${f} (de ${nPermutaciones} posibles)"
 
     # Inicializacion = reset
-    rm calendario-jornada${ARG_JORNADA}.txt; touch calendario-jornada${ARG_JORNADA}.txt
-    cp "${DIR_TMP}/combinaciones_todas"      "${DIR_TMP}/comb_todas"
-    cp "${f}"                                "${DIR_TMP}/comb_ordenadas"
+    rm -f "${DIR_TMP}/calendario-jornada${ARG_JORNADA}.txt"; touch "${DIR_TMP}/calendario-jornada${ARG_JORNADA}.txt"
+    cp "${DIR_TMP}/combinaciones_todas" "${DIR_TMP}/comb_todas"
+    cp "${f}"                           "${DIR_TMP}/comb_ordenadas"
 
     # Se ejecuta hasta conseguir encajar todos los partidos
     vuelveAEmpezar=false
@@ -419,7 +442,7 @@ do
         prt_debug "${ARG_VERBOSO}" "---- en el hueco [${hueco}]"
 
         # Se comprueba si ese hueco esta disponible
-        if [ "$( grep -e "${hueco}" calendario-jornada${ARG_JORNADA}.txt )" != "" ]
+        if [ "$( grep -e "${hueco}" "${DIR_TMP}/calendario-jornada${ARG_JORNADA}.txt" )" != "" ]
         then
             prt_debug "${ARG_VERBOSO}" "---- El partido [${pLocal} vs ${pVisitante}] no puede ir en el hueco [${hueco}] porque esta ocupado. Pasa a probar otro hueco"
             sed -i "/-${pLocal}-${pVisitante}-${hueco}/d" "${DIR_TMP}/comb_todas"  # Elimina ese hueco de los posibles para ese partido
@@ -429,9 +452,9 @@ do
         # Si esta disponible
         prt_debug "${ARG_VERBOSO}" "---- El partido [${pLocal} vs ${pVisitante}] SI se puede jugar en [${hueco}]. Se registra"
         primerPartido=false  # el primer partido ya ha sido colocado
-        grep -e "-${pLocal}-${pVisitante}-${hueco}" "${DIR_TMP}/comb_todas" >> calendario-jornada${ARG_JORNADA}.txt  # Se anade ese partido en ese huecos al calendario
-        sed -i "/-${pLocal}-${pVisitante}-/d" "${DIR_TMP}/comb_todas"                                                # Dada la pareja, se eliminan todos los huecos de esa pareja
-        sed -i "/-${hueco}/d" "${DIR_TMP}/comb_todas"                                                                # Dado el hueco, se eliminan todas las parejas que tenian posibilidad de jugar en ese hueco
+        grep -e "-${pLocal}-${pVisitante}-${hueco}" "${DIR_TMP}/comb_todas" >> "${DIR_TMP}/calendario-jornada${ARG_JORNADA}.txt"  # Se anade ese partido en ese huecos al calendario
+        sed -i "/-${pLocal}-${pVisitante}-/d" "${DIR_TMP}/comb_todas"  # Dada la pareja, se eliminan todos los huecos de esa pareja
+        sed -i "/-${hueco}/d" "${DIR_TMP}/comb_todas"                  # Dado el hueco, se eliminan todas las parejas que tenian posibilidad de jugar en ese hueco
 
         # Se recalculan las combinaciones ordenadas
         gawk -F"-" '{print $2"-"$3 " vs " $4"-"$5}' "${DIR_TMP}/comb_todas" | sort | uniq -c > "${DIR_TMP}/comb_ordenadas"
@@ -446,6 +469,16 @@ do
     fi
     
 done
+
+# 9/9 - Se actualiza el fichero de partidos de la jornada
+prt_info "-- 9/9 - Se actualiza el fichero de partidos de la jornada: partidos-jornada${ARG_JORNADA}.txt"
+while IFS="-" read -r _ L1 L2 V1 V2 L F HI HF
+do
+    gawk 'BEGIN{FS=OFS="|";}{j=$1; l=$2; v=$3; gsub(" ","",j); gsub(" ","",l); gsub(" ","",v); if (j==JO && l==LO && v==VI) {$4=FE; $5=HI; $6=HF; $7=LU}; print;}' \
+         JO="${ARG_JORNADA}" LO="${L1}-${L2}" VI="${V1}-${V2}" FE="${F}" HI="${HI}" HF="${HF}" LU="${L}" "partidos-jornada${ARG_JORNADA}.txt" > "partidos-jornada${ARG_JORNADA}.txt.tmp"
+    mv "partidos-jornada${ARG_JORNADA}.txt.tmp" "partidos-jornada${ARG_JORNADA}.txt"
+done < "${DIR_TMP}/calendario-jornada${ARG_JORNADA}.txt"
+out=$( bash Script/formateaTabla.sh -f "partidos-jornada${ARG_JORNADA}.txt" ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 
 
 

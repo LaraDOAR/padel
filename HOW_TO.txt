@@ -83,7 +83,7 @@ if [ -f parejasSinJugar-jornada01.txt ]; then cp parejasSinJugar-jornada01.txt p
 
 
 # -- comprueba que los ficheros de salida son validos y coherentes
-if [ -f parejasSinJugar.txt ]; then bash Script/checkParejasSinJugar.sh; fi
+#if [ -f parejasSinJugar.txt ]; then bash Script/checkParejasSinJugar.sh; fi
 bash Script/checkPartidos.sh
 
 
@@ -96,7 +96,7 @@ FECHA_INI_JORNADA=20190507
 FECHA_FIN_JORNADA=20190517
 
 # -- ejecuta el script
-getCalendario.sh -j 01 -i "${FECHA_INI_JORNADA}" -f "${FECHA_FIN_JORNADA}"
+bash Script/getCalendario.sh -j 01 -i "${FECHA_INI_JORNADA}" -f "${FECHA_FIN_JORNADA}"
 
 # -- ficheros de salida
 # calendario-jornada01.txt
