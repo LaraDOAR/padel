@@ -465,6 +465,8 @@ do
     if  [ "$( cat "${DIR_TMP}/comb_ordenadas" )" == "" ] && [ "${vuelveAEmpezar}" == "false" ]
     then
         prt_info "-- Esta iteracion es buena y se han podido colocar todos los partidos. Se termina"
+        prt_info "--- Generado el fichero ${DIR_TMP}/calendario-jornada${ARG_JORNADA}.txt"
+        cp "${DIR_TMP}/calendario-jornada${ARG_JORNADA}.txt" "calendario-jornada${ARG_JORNADA}.txt"
         break
     fi
     
@@ -480,6 +482,102 @@ do
 done < "${DIR_TMP}/calendario-jornada${ARG_JORNADA}.txt"
 out=$( bash Script/formateaTabla.sh -f "partidos-jornada${ARG_JORNADA}.txt" ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 
+
+
+# Se genera el html
+prt_info "-- Se genera el html del calendario"
+# -- limpia la tabla
+out=$( limpiaTabla calendario-jornada${ARG_JORNADA}.txt "${DIR_TMP}/calendario" true ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+# -- genera el html
+cat <<EOM >calendario-jornada${ARG_JORNADA}.html
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
+    <link href='Calendario/packages/core/main.css' rel='stylesheet' />
+    <link href='Calendario/packages/bootstrap/main.css' rel='stylesheet' />
+    <link href='Calendario/packages/timegrid/main.css' rel='stylesheet' />
+    <link href='Calendario/packages/daygrid/main.css' rel='stylesheet' />
+    <link href='Calendario/packages/list/main.css' rel='stylesheet' />
+    <link href='Calendario/packages/bootstrap/main.css' rel='stylesheet' />
+    <script src='Calendario/packages/core/main.js'></script>
+    <script src='Calendario/packages/interaction/main.js'></script>
+    <script src='Calendario/packages/bootstrap/main.js'></script>
+    <script src='Calendario/packages/daygrid/main.js'></script>
+    <script src='Calendario/packages/timegrid/main.js'></script>
+    <script src='Calendario/packages/list/main.js'></script>
+    <script src='Calendario/packages/bootstrap/main.js'></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'list' ],
+          themeSystem: 'bootstrap4',
+          header: {
+            left: 'prevYear,prev,next,nextYear today',
+            center: 'title',
+            right: 'dayGridMonth,dayGridWeek,dayGridDay,listMonth'
+          },
+          editable: false,
+          resources: [
+EOM
+gawk -F"|" '{print $1}' "${DIR_TMP}/pistas" | sort -u |
+gawk '
+{
+    print "            {";
+    print "              id: \x27" $1 "\x27,";
+    print "              title: \x27" $1 "\x27";
+    print "            },";
+}' >>calendario-jornada${ARG_JORNADA}.html
+sed -i '$ s/.$//' calendario-jornada${ARG_JORNADA}.html
+cat <<EOM >>calendario-jornada${ARG_JORNADA}.html
+          ],
+          events: [
+EOM
+gawk -F"-" '
+{
+    print "            {";
+    print "              id: " NR",";
+    print "              title: \x27"$2" vs "$3"\x27,";
+    print "              start: \x27" substr($7,1,4)"-"substr($7,5,2)"-"substr($7,7,2)"T"$8":00\x27,";
+    print "              end: \x27" substr($7,1,4)"-"substr($7,5,2)"-"substr($7,7,2)"T"$9":00\x27,";
+    print "              resourceId: \x27" $6 "\x27";
+    print "            },";
+}' "${DIR_TMP}/calendario" >> calendario-jornada${ARG_JORNADA}.html
+sed -i '$ s/.$//' calendario-jornada${ARG_JORNADA}.html
+cat <<EOM >>calendario-jornada${ARG_JORNADA}.html
+          ]
+        });
+        calendar.render();
+      });
+    </script>
+    <style>
+      h1 {
+        color: #343434;
+        font-weight: normal;
+        font-family: 'Ultra', sans-serif;   
+        font-size: 36px;
+        line-height: 42px;
+        text-transform: uppercase;
+        text-shadow: 0 2px white, 0 3px #777;
+        text-align: center;
+      }
+      #calendar {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+EOM
+echo "<h1>TORNEO DE PADEL - ${CFG_NOMBRE}</h1>" >> calendario-jornada${ARG_JORNADA}.html
+cat <<EOM >>calendario-jornada${ARG_JORNADA}.html
+    <div id='calendar'></div>
+  </body>
+</html>
+EOM
+
+prt_info "---- Generado calendario-jornada${ARG_JORNADA}.html"
 
 
 ############# FIN
