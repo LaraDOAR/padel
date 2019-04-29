@@ -507,18 +507,30 @@ cat <<EOM >calendario-jornada${ARG_JORNADA}.html
     <script src='Calendario/packages/timegrid/main.js'></script>
     <script src='Calendario/packages/list/main.js'></script>
     <script src='Calendario/packages/bootstrap/main.js'></script>
+    <script src='Calendario/packages/resource-common/main.js'></script>
+    <script src='Calendario/packages/resource-daygrid/main.js'></script>
+    <script src='Calendario/packages/resource-timegrid/main.js'></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'list' ],
+          plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list', 'resourceDayGrid', 'resourceTimeGrid' ],
           themeSystem: 'bootstrap4',
           header: {
             left: 'prevYear,prev,next,nextYear today',
             center: 'title',
-            right: 'dayGridMonth,dayGridWeek,dayGridDay,listMonth'
+            right: 'dayGridMonth,listMonth,resourceTimeGridDay'
           },
-          editable: false,
+          aspectRatio: 2.5,
+          firstDay: 1,
+          navLinks: true,
+          businessHours: true,
+          minTime: "13:00",
+          maxTime: "23:00",
+          navLinks: true, 
+          selectable: true,
+          selectMirror: true,
+          editable: true,
           resources: [
 EOM
 gawk -F"|" '{print $1}' "${DIR_TMP}/pistas" | sort -u |
@@ -528,7 +540,7 @@ gawk '
     print "              id: \x27" $1 "\x27,";
     print "              title: \x27" $1 "\x27";
     print "            },";
-}' >>calendario-jornada${ARG_JORNADA}.html
+}' >> calendario-jornada${ARG_JORNADA}.html
 sed -i '$ s/.$//' calendario-jornada${ARG_JORNADA}.html
 cat <<EOM >>calendario-jornada${ARG_JORNADA}.html
           ],
@@ -563,7 +575,7 @@ cat <<EOM >>calendario-jornada${ARG_JORNADA}.html
         text-align: center;
       }
       #calendar {
-        max-width: 900px;
+        width: 90%;
         margin: 0 auto;
       }
     </style>
@@ -573,6 +585,7 @@ EOM
 echo "<h1>TORNEO DE PADEL - ${CFG_NOMBRE}</h1>" >> calendario-jornada${ARG_JORNADA}.html
 cat <<EOM >>calendario-jornada${ARG_JORNADA}.html
     <div id='calendar'></div>
+
   </body>
 </html>
 EOM
@@ -583,3 +596,4 @@ prt_info "---- Generado calendario-jornada${ARG_JORNADA}.html"
 ############# FIN
 exit 0
 
+#<div id='calendar'></div>

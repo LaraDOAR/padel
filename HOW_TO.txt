@@ -144,7 +144,7 @@ JORNADA=01
 
 # -- editar el fichero de partidos de la jornada y actualizar las columnas de los sets
 # ---- set no jugado: -
-# ---- set jugado: 5/3, por ejemplo, donde 5 es local y 4 visitante
+# ---- set jugado: 6/4, por ejemplo, donde 6 es local y 4 visitante
 vim partidos-jornada${JORNADA}.txt
 
 # -- acumular en el registro general de partidos
