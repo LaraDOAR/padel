@@ -92,28 +92,35 @@ bash Script/getHTML_fromPartidos.sh
 
 
 ##### 4/6 - Generar calendario de cuando se juega cada partido
-# -- Se genera a partir del fichero de partidos de la jornada
+# -- Se genera a partir del fichero de partidos del mes
 # -- Genera los ficheros de calendario, pero tambien actualiza el fichero de partidos anterior
 
 # -- inicializa variables
-FECHA_INI_JORNADA=20190604
-FECHA_FIN_JORNADA=20190613
+FECHA_INI_MES=20190603
+FECHA_FIN_MES=20190628
 
 # -- ejecuta el script
-bash Script/getCalendario.sh -j 01 -i "${FECHA_INI_JORNADA}" -f "${FECHA_FIN_JORNADA}"
+bash Script/getCalendario.sh -m 01 -i "${FECHA_INI_MES}" -f "${FECHA_FIN_MES}"
 
 # -- ficheros de salida
-# calendario-jornada01.txt
-# calendario-jornada01.html
-# ** update del fichero partidos-jornada01.txt
+# calendario-mes01.txt
+# calendario-mes01.html
+# ** update del fichero partidos-mes01.txt
 
 # -- se copia al calendario general
-cp calendario-jornada01.txt  calendario.txt
-cp calendario-jornada01.html calendario.html
+cp calendario-mes01.txt  calendario.txt
+cp calendario-mes01.html calendario.html
 
 # -- comprueba que el fichero de salida es valido y coherente
 bash Script/checkCalendario.sh
 
+# -- actualizar el registro de partidos general
+bash Script/updatePartidos.txt       # modificar partidos.txt
+bash Script/checkPartidos.sh
+bash Script/getHTML_fromPartidos.sh  # regenera partidos.html
+
+# -- enviar email con la informacion de los partidos de cada persona
+bash Script/sendMails.sh -m 01
 
 
 
