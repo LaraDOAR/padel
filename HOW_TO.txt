@@ -14,10 +14,10 @@
 ##### 1/6 - Configurar ficheros iniciales
 
 # -- copiar de los de ejemplo
-cp Example/infoTorneo.cfg .   # datos del torneo
-cp Example/pistas.txt         # informacion sobre las pistas disponibles
-cp Example/parejas.txt        # informacion sobre las personas y las parejas que forman
-cp Example/restricciones.txt  # restricciones de las personsa
+cp Example/infoTorneo.cfg .    # datos del torneo
+cp Example/pistas.txt .        # informacion sobre las pistas disponibles
+cp Example/parejas.txt .       # informacion sobre las personas y las parejas que forman
+cp Example/restricciones.txt . # restricciones de las personsa
 
 # -- editar
 vim infoTorneo.cfg
@@ -83,7 +83,7 @@ if [ -f parejasSinJugar-jornada01.txt ]; then cp parejasSinJugar-jornada01.txt p
 
 
 # -- comprueba que los ficheros de salida son validos y coherentes
-#if [ -f parejasSinJugar.txt ]; then bash Script/checkParejasSinJugar.sh; fi
+if [ -f parejasSinJugar.txt ]; then bash Script/checkParejasSinJugar.sh; fi
 bash Script/checkPartidos.sh
 
 
@@ -92,8 +92,8 @@ bash Script/checkPartidos.sh
 # -- Genera los ficheros de calendario, pero tambien actualiza el fichero de partidos anterior
 
 # -- inicializa variables
-FECHA_INI_JORNADA=20190507
-FECHA_FIN_JORNADA=20190517
+FECHA_INI_JORNADA=20190604
+FECHA_FIN_JORNADA=20190613
 
 # -- ejecuta el script
 bash Script/getCalendario.sh -j 01 -i "${FECHA_INI_JORNADA}" -f "${FECHA_FIN_JORNADA}"

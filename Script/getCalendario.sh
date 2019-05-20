@@ -544,13 +544,22 @@ gawk '
 sed -i '$ s/.$//' calendario-jornada${ARG_JORNADA}.html
 cat <<EOM >>calendario-jornada${ARG_JORNADA}.html
           ],
+          eventRender: function(info) {
+            var tooltip = new Tooltip(info.el, {
+              title: info.event.extendedProps.description,
+              placement: 'top',
+              trigger: 'hover',
+              container: 'body'
+            });
+          },
           events: [
 EOM
 gawk -F"-" '
 {
     print "            {";
     print "              id: " NR",";
-    print "              title: \x27"$2" vs "$3"\x27,";
+    print "              title: \x27"$2"-"$3" vs "$4"-"$5"\x27,";
+    print "              description: \x27"$2"-"$3" vs "$4"-"$5"\x27,";
     print "              start: \x27" substr($7,1,4)"-"substr($7,5,2)"-"substr($7,7,2)"T"$8":00\x27,";
     print "              end: \x27" substr($7,1,4)"-"substr($7,5,2)"-"substr($7,7,2)"T"$9":00\x27,";
     print "              resourceId: \x27" $6 "\x27";

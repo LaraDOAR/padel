@@ -4,14 +4,34 @@
 #
 ####################################################
 
-PAREJA|NOMBRE|APELLIDO|                 EMAIL
-     1|  Paco|  Garcia|paco.garcia@iic.uam.es
-     1|   Ana|   Perez|  ana.perez@iic.uam.es
-     2|  Pepe|     Ran|   pepe.pun@iic.uam.es
-     2|  Fran|     Pun|   fran.pun@iic.uam.es
-     3|Lorena|    Chun|lorena.chun@iic.uam.es
-     3| Anton|    Khan| anton.khan@iic.uam.es
-     4| Maria|     Pam|  maria.pam@iic.uam.es
-     4|   Ana|    Chin|   ana.chin@iic.uam.es
-     5|Andres|    Tras|andres.tras@iic.uam.es
-     5|  Juan|    Trun|  juan.trun@iic.uam.es
+PAREJA| NOMBRE|  APELLIDO| NOMBRE.APELLIDO@iic.uam.es
+     1|   Paco|    Garcia|     paco.garcia@iic.uam.es
+     1|    Ana|     Perez|       ana.perez@iic.uam.es
+     2|   Pepe|       Ran|        pepe.ran@iic.uam.es
+     2|   Fran|       Pun|        fran.pun@iic.uam.es
+     3| Lorena|      Chun|     lorena.chun@iic.uam.es
+     3|  Anton|      Khan|      anton.khan@iic.uam.es
+     4|  Maria|       Pam|       maria.pam@iic.uam.es
+     4|    Ana|      Chin|        ana.chin@iic.uam.es
+     5| Andres|      Tras|     andres.tras@iic.uam.es
+     5|   Juan|      Trun|       juan.trun@iic.uam.es
+     6|   Eric|     Perez|      eric.perez@iic.uam.es
+     6| Israel|    Alonso|   israel.alonso@iic.uam.es
+     7|Alberto|    Mateos|  alberto.mateos@iic.uam.es
+     7|  Diego|   Chicote|   diego.chicote@iic.uam.es
+     8|   Dani|     Ramos|      dani.ramos@iic.uam.es
+     8|Antonio|   Sanchez| antonio.sanchez@iic.uam.es
+     9|   Lara| Dominguez|  lara.dominguez@iic.uam.es
+     9|  Ramon|Costafreda|ramon.costafreda@iic.uam.es
+    10| Miguel|   Yustres|  miguel.yustres@iic.uam.es
+    10| Miguel|     Lopez|    miguel.lopez@iic.uam.es
+    11|   Jose|   Cordoba|    jose.cordoba@iic.uam.es
+    11|   Manu|  Delvalle|   manu.delvalle@iic.uam.es
+    12|Alberto|    Angulo|  alberto.angulo@iic.uam.es
+    12| Andres|     Munoz|    andres.munoz@iic.uam.es
+    13|  Nuria|   Herranz|   nuria.herranz@iic.uam.es
+    13|    Bea|      Diez|        bea.diez@iic.uam.es
+    14| Esther|  Madrigal| esther.madrigal@iic.uam.es
+    14| Angela|    Garcia|   angela.garcia@iic.uam.es
+    15|  Sonia|   Herranz|   sonia.herranz@iic.uam.es
+    15|    Ana|  Talavera|    ana.talavera@iic.uam.es
