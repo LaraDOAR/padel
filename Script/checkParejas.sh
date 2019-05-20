@@ -57,6 +57,10 @@ if [ ! -f parejas.txt ]; then prt_error "ERROR: no existe el fichero [parejas.tx
 if [ ! -f infoTorneo.cfg ];                     then prt_error "ERROR: no existe el fichero [infoTorneo.cfg] en el directorio actual"; exit 1; fi
 . infoTorneo.cfg; rv=$?; if [ "${rv}" != "0" ]; then prt_error "ERROR: cargando la configuracion del fichero [infoTorneo.cfg]";        exit 1; fi
 
+# Carga las funciones generales, por si se quieren usar
+if [ ! -f Script/functions.sh ];                     then prt_error "ERROR: no existe el fichero [Script/functions.sh] en el directorio actual"; exit 1; fi
+. Script/functions.sh; rv=$?; if [ "${rv}" != "0" ]; then prt_error "ERROR: cargando la configuracion las funciones [Script/functions.sh]";      exit 1; fi
+
 
 
 ###############################################
@@ -97,52 +101,7 @@ done
 ###
 ###############################################
 
-##########
-# - limpiaTabla
-#     Funcion   --->  dado un fichero (que contiene una tabla) elimina cabecera y blancos
-#     Entrada   --->  $1 = fichero entrada
-#                     $2 = fichero salida
-#                     $3 = true/false para indicar si se mantiene la cabecera o no
-#     Salida    --->  0 = ok
-#                     1 = error
-#                ECHO lineaFinCabecera por si hiciera falta restaurarla despues
-#
-function limpiaTabla {
-
-    # Argumentos
-    local _fIn="$1"
-    local _fOut="$2"
-    local _conservarCabecera="$3"
-
-    # Variables internas
-    local _lineaFinCabecera
-    local _line
-
-    # Copia el fichero original para no corromperlo
-    cp "${_fIn}" "${_fOut}"
-
-    # Calcula en que linea termina la cabecera del fichero
-    _lineaFinCabecera=0
-    while read -r _line
-    do
-        if [ "$( echo -e "${_line}" | grep -e ^# -e '^[[:space:]]*$' )" == "${_line}" ]; then _lineaFinCabecera=$(( _lineaFinCabecera + 1 ))
-        else break
-        fi
-    done < "${_fOut}"
-
-    # Segun se quiera mantener la cabecera o no
-    if [ "${_conservarCabecera}" == "false" ]; then _lineaFinCabecera=$(( _lineaFinCabecera + 1 )); fi
-
-    # Quita la cabecera
-    if [ "${_lineaFinCabecera}" != "0" ]; then sed -i -e "1,${_lineaFinCabecera}d" "${_fOut}"; fi
-
-    # Quita todos los espacios
-    sed -i 's/ //g' "${_fOut}"
-
-    # Fin
-    echo "${_lineaFinCabecera}"
-    return 0
-}
+# No hay funciones especificas en este script
 
 
 
@@ -194,7 +153,7 @@ prt_info "Inicializacion..."
 mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${DIR_TMP}"
 
 # Limpia los diferentes ficheros
-out=$( limpiaTabla parejas.txt "${DIR_TMP}/parejas" false )
+out=$( FGRL_limpiaTabla parejas.txt "${DIR_TMP}/parejas" false )
 
 
 

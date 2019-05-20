@@ -8,7 +8,8 @@
 
 
 ###################################################################################################################################
-################## EMPEZAR A ORGANIZAR EL TORNEO: JORNADA 1
+################## EMPEZAR A ORGANIZAR EL TORNEO: MES/JORNADA 1
+
 
 
 ##### 1/6 - Configurar ficheros iniciales
@@ -37,54 +38,57 @@ bash Script/checkRestricciones.sh
 
 
 
+
+
 ##### 2/6 - Generar el primer ranking
 # -- Mismo orden de las parejas
 # -- Puntos iniciales para conservar el ranking
 
 # -- ejecuta con opcion inicial
-bash Script/getRanking.sh -i -j01
+bash Script/getRanking.sh -i -m 01
 
 # -- ficheros de salida
-# ranking-jornada01.txt
-# ranking-jornada01.html
+# ranking-mes01.txt
+# ranking-mes01.html
 
 # -- se copia al ranking general
-cp ranking-jornada01.txt  ranking.txt 
-cp ranking-jornada01.html ranking.html
+cp ranking-mes01.txt  ranking.txt 
+cp ranking-mes01.html ranking.html
 
 # -- comprueba que el fichero de salida es valido y coherente
 bash Script/checkRanking.sh
 
 
-##### 3/6 - Generar los primeros partidos, los de la jornada 01
+
+
+
+##### 3/6 - Generar los primeros partidos, los del primer mes, los del mes 01
 # -- Se generan a partir del fichero de ranking
-# -- Pareja1 vs Pareja2; Pareja3 vs Pareja4 ...
-# -- Si hay parejas impares, elimina una pareja del ranking y hace los emparejamientos
-# -- Ademas registra la pareja que se queda sin jugar
+# -- Se divide el ranking en divisiones. Dentro de cada division es un todos contra todos
 
 # -- ejecuta script
-bash Script/getPartidos.sh -j 01
+NUMERO_PAREJAS_POR_DIVISION=5
+bash Script/getPartidos.sh -m 01 -n "${NUMERO_PAREJAS_POR_DIVISION}"
 
 # -- ficheros de salida
-# partidos-jornada01.txt
-# parejasSinJugar-jornada01.txt
+# partidos-mes01.txt
+# parejasSinJugar-mes01.txt
 
 # -- se inicializa el registro de todos los partidos
-if [ -f parejasSinJugar-jornada01.txt ]; then cp parejasSinJugar-jornada01.txt parejasSinJugar.txt; fi
-{
-    echo "####################################################"
-    echo "#"
-    echo "# INFORMACION SOBRE LAS RESTRICCIONES QUE TIENE CADA PERSONA"
-    echo "#"
-    echo "####################################################"
-    echo ""
-    head -1 partidos-jornada01.txt
-} > partidos.txt
-
+if [ -f parejasSinJugar-mes01.txt ]; then cp parejasSinJugar-mes01.txt parejasSinJugar.txt; fi
+cp partidos-mes01.txt  partidos.txt
 
 # -- comprueba que los ficheros de salida son validos y coherentes
 if [ -f parejasSinJugar.txt ]; then bash Script/checkParejasSinJugar.sh; fi
 bash Script/checkPartidos.sh
+
+# -- genera el html de los partidos
+bash Script/getHTML_fromPartidos.sh
+# -- ficheros de salida
+# partidos.html
+
+
+
 
 
 ##### 4/6 - Generar calendario de cuando se juega cada partido
@@ -113,6 +117,7 @@ bash Script/checkCalendario.sh
 
 
 
+
 ##### 5/6 - Hacer backup de todos los ficheros generados
 # -- Sirve para tener constancia de todos los ficheros que se van generando
 
@@ -120,6 +125,8 @@ mkdir Historico
 for infoTorneo.cfg pistas.txt parejas.txt rextricciones.txt; do if [ -f $f ]; then cp ${f}                          Historico/${f}-versionInicial; fi; done
 for f in ranking calendario partidos parejasSinJugar;        do if [ -f $f ]; then cp ${f}.txt  ${f}-jornada01.txt  Historico/;                    fi; done
 for f in ranking calendario;                                 do if [ -f $f ]; then cp ${f}.html ${f}-jornada01.html Historico/;                    fi; done
+
+
 
 
 

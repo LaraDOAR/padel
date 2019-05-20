@@ -58,6 +58,10 @@ if [ ! -f parejas.txt ]; then prt_error "ERROR: no existe el fichero [parejas.tx
 if [ ! -f infoTorneo.cfg ];                     then prt_error "ERROR: no existe el fichero [infoTorneo.cfg] en el directorio actual"; exit 1; fi
 . infoTorneo.cfg; rv=$?; if [ "${rv}" != "0" ]; then prt_error "ERROR: cargando la configuracion del fichero [infoTorneo.cfg]";        exit 1; fi
 
+# Carga las funciones generales, por si se quieren usar
+if [ ! -f Script/functions.sh ];                     then prt_error "ERROR: no existe el fichero [Script/functions.sh] en el directorio actual"; exit 1; fi
+. Script/functions.sh; rv=$?; if [ "${rv}" != "0" ]; then prt_error "ERROR: cargando la configuracion las funciones [Script/functions.sh]";      exit 1; fi
+
 
 
 ###############################################
@@ -98,52 +102,7 @@ done
 ###
 ###############################################
 
-##########
-# - limpiaTabla
-#     Funcion   --->  dado un fichero (que contiene una tabla) elimina cabecera y blancos
-#     Entrada   --->  $1 = fichero entrada
-#                     $2 = fichero salida
-#                     $3 = true/false para indicar si se mantiene la cabecera o no
-#     Salida    --->  0 = ok
-#                     1 = error
-#                ECHO lineaFinCabecera por si hiciera falta restaurarla despues
-#
-function limpiaTabla {
-
-    # Argumentos
-    local _fIn="$1"
-    local _fOut="$2"
-    local _conservarCabecera="$3"
-
-    # Variables internas
-    local _lineaFinCabecera
-    local _line
-
-    # Copia el fichero original para no corromperlo
-    cp "${_fIn}" "${_fOut}"
-
-    # Calcula en que linea termina la cabecera del fichero
-    _lineaFinCabecera=0
-    while read -r _line
-    do
-        if [ "$( echo -e "${_line}" | grep -e ^# -e '^[[:space:]]*$' )" == "${_line}" ]; then _lineaFinCabecera=$(( _lineaFinCabecera + 1 ))
-        else break
-        fi
-    done < "${_fOut}"
-
-    # Segun se quiera mantener la cabecera o no
-    if [ "${_conservarCabecera}" == "false" ]; then _lineaFinCabecera=$(( _lineaFinCabecera + 1 )); fi
-
-    # Quita la cabecera
-    if [ "${_lineaFinCabecera}" != "0" ]; then sed -i -e "1,${_lineaFinCabecera}d" "${_fOut}"; fi
-
-    # Quita todos los espacios
-    sed -i 's/ //g' "${_fOut}"
-
-    # Fin
-    echo "${_lineaFinCabecera}"
-    return 0
-}
+# No hay funciones especificas en este script
 
 
 
@@ -195,8 +154,8 @@ prt_info "Inicializacion..."
 mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${DIR_TMP}"
 
 # Limpia los diferentes ficheros
-out=$( limpiaTabla partidos.txt "${DIR_TMP}/partidos" false )
-out=$( limpiaTabla parejas.txt  "${DIR_TMP}/parejas"  false )
+out=$( FGRL_limpiaTabla partidos.txt "${DIR_TMP}/partidos" false )
+out=$( FGRL_limpiaTabla parejas.txt  "${DIR_TMP}/parejas"  false )
 
 
 
@@ -217,26 +176,36 @@ if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
 # 3/4 - Formato de las columnas
 prt_info "-- 3/4 - Formato de las columnas"
-while IFS="|" read -r JORNADA LOCAL VISITANTE FECHA HINI HFIN LUGAR SET1 SET2 SET3
+while IFS="|" read -r MES DIVISION LOCAL VISITANTE FECHA HINI HFIN LUGAR SET1 SET2 SET3
 do
-    if ! [[ ${JORNADA}   =~ ^[0-9]+$                                         ]]; then echo "El campo JORNADA=${JORNADA} no es un numero entero";               exit 1; fi
+    if ! [[ ${MES}       =~ ^[0-9]+$                                         ]]; then echo "El campo MES=${MES} no es un numero entero";                       exit 1; fi
+    if ! [[ ${DIVISION}  =~ ^[0-9]+$                                         ]]; then echo "El campo DIVISION=${DIVISION} no es un numero entero";             exit 1; fi
     if ! [[ ${LOCAL}     =~ ^[A-Z][a-z]+[A-Z][a-z]+\-[A-Z][a-z]+[A-Z][a-z]+$ ]]; then echo "El campo LOCAL=${LOCAL} no tiene el formato de la pareja";         exit 1; fi
     if ! [[ ${VISITANTE} =~ ^[A-Z][a-z]+[A-Z][a-z]+\-[A-Z][a-z]+[A-Z][a-z]+$ ]]; then echo "El campo VISITANTE=${VISITANTE} no tiene el formato de la pareja"; exit 1; fi
-    if ! [[ ${FECHA}     =~ ^[0-9]{8}$                                       ]]; then echo "El campo FECHA=${FECHA} no es de la forma YYYYMMDD";               exit 1; fi
-    if ! [[ ${HINI}      =~ ^([0-1][0-9]|2[0-3]):[0-5][0-9]$                 ]]; then echo "El campo HORA_INI=${HINI} no es de la forma HH:MM";                exit 1; fi
-    if ! [[ ${HFIN}      =~ ^([0-1][0-9]|2[0-3]):[0-5][0-9]$                 ]]; then echo "El campo HORA_FIN=${HFIN} no es de la forma HH:MM";                exit 1; fi
-    # el lugar se deja libre, no se obliga a cumplir ningun formato
-    if ! [[ ${SET1}      =~ ^[1-7]+/[1-7]$ ]] && [ "${SET1}" != "-"           ]; then echo "El campo SET1=${SET1} no es de la forma '-' ni [1-7]/[1-7]";       exit 1; fi
-    if ! [[ ${SET2}      =~ ^[1-7]+/[1-7]$ ]] && [ "${SET2}" != "-"           ]; then echo "El campo SET2=${SET2} no es de la forma '-' ni [1-7]/[1-7]";       exit 1; fi
-    if ! [[ ${SET3}      =~ ^[1-7]+/[1-7]$ ]] && [ "${SET3}" != "-"           ]; then echo "El campo SET3=${SET3} no es de la forma '-' ni [1-7]/[1-7]";       exit 1; fi
-    date +"%Y%m%d"     -d "${FECHA}         +5 days"  > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La fecha ${FECHA} no es una fecha valida";                   exit 1; fi
-    date +"%Y%m%d%H%M" -d "${FECHA} ${HINI} +2 hours" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La hora ${HINI} no es una hora valida para el dia ${FECHA}"; exit 1; fi
-    date +"%Y%m%d%H%M" -d "${FECHA} ${HFIN} +2 hours" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La hora ${HFIN} no es una hora valida para el dia ${FECHA}"; exit 1; fi
+    if [ "${FECHA}" == "-" ]
+    then
+        if [ "${HINI}" != "-" ]; then echo "El campo HORA_INI=${HINI} debe ser '-' porque la fecha es '-'"; exit 1; fi
+        if [ "${HFIN}" != "-" ]; then echo "El campo HORA_FIN=${HFIN} debe ser '-' porque la fecha es '-'"; exit 1; fi
+        if [ "${SET1}" != "-" ]; then echo "El campo SET1=${SET1} debe ser '-' porque la fecha es '-'";     exit 1; fi
+        if [ "${SET2}" != "-" ]; then echo "El campo SET2=${SET2} debe ser '-' porque la fecha es '-'";     exit 1; fi
+        if [ "${SET3}" != "-" ]; then echo "El campo SET3=${SET3} debe ser '-' porque la fecha es '-'";     exit 1; fi
+    else
+        if ! [[ ${FECHA}     =~ ^[0-9]{8}$                                       ]]; then echo "El campo FECHA=${FECHA} no es de la forma YYYYMMDD";               exit 1; fi
+        if ! [[ ${HINI}      =~ ^([0-1][0-9]|2[0-3]):[0-5][0-9]$                 ]]; then echo "El campo HORA_INI=${HINI} no es de la forma HH:MM";                exit 1; fi
+        if ! [[ ${HFIN}      =~ ^([0-1][0-9]|2[0-3]):[0-5][0-9]$                 ]]; then echo "El campo HORA_FIN=${HFIN} no es de la forma HH:MM";                exit 1; fi
+        # el lugar se deja libre, no se obliga a cumplir ningun formato
+        if ! [[ ${SET1}      =~ ^[1-7]+/[1-7]$ ]] && [ "${SET1}" != "-"           ]; then echo "El campo SET1=${SET1} no es de la forma '-' ni [1-7]/[1-7]";       exit 1; fi
+        if ! [[ ${SET2}      =~ ^[1-7]+/[1-7]$ ]] && [ "${SET2}" != "-"           ]; then echo "El campo SET2=${SET2} no es de la forma '-' ni [1-7]/[1-7]";       exit 1; fi
+        if ! [[ ${SET3}      =~ ^[1-7]+/[1-7]$ ]] && [ "${SET3}" != "-"           ]; then echo "El campo SET3=${SET3} no es de la forma '-' ni [1-7]/[1-7]";       exit 1; fi
+        date +"%Y%m%d"     -d "${FECHA}         +5 days"  > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La fecha ${FECHA} no es una fecha valida";                   exit 1; fi
+        date +"%Y%m%d%H%M" -d "${FECHA} ${HINI} +2 hours" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La hora ${HINI} no es una hora valida para el dia ${FECHA}"; exit 1; fi
+        date +"%Y%m%d%H%M" -d "${FECHA} ${HFIN} +2 hours" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La hora ${HFIN} no es una hora valida para el dia ${FECHA}"; exit 1; fi
+    fi
 done < "${DIR_TMP}/partidos"
 
 # 4/4 - La clave nombre+apellido esta en la lista de parejas
 prt_info "-- 4/4 - La clave nombre+apellido esta en la lista de parejas"
-while IFS="|" read -r _ LOCAL VISITANTE _ _ _ _ _ _ _
+while IFS="|" read -r _ _ LOCAL VISITANTE _ _ _ _ _ _ _
 do
     persona=$( echo "${LOCAL}" | gawk -F"-" '{print $1}' )
     if [ "$( gawk -F"|" '{print FS $2$3 FS}' "${DIR_TMP}/parejas" | grep "|${persona}|" )" == "" ]; then echo "La persona [${persona}] no aparece en el fichero parejas.txt"; exit 1; fi

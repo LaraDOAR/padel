@@ -63,6 +63,10 @@ if [ ! -f restricciones.txt ]; then prt_error "ERROR: no existe el fichero [rest
 if [ ! -f infoTorneo.cfg ];                     then prt_error "ERROR: no existe el fichero [infoTorneo.cfg] en el directorio actual"; exit 1; fi
 . infoTorneo.cfg; rv=$?; if [ "${rv}" != "0" ]; then prt_error "ERROR: cargando la configuracion del fichero [infoTorneo.cfg]";        exit 1; fi
 
+# Carga las funciones generales, por si se quieren usar
+if [ ! -f Script/functions.sh ];                     then prt_error "ERROR: no existe el fichero [Script/functions.sh] en el directorio actual"; exit 1; fi
+. Script/functions.sh; rv=$?; if [ "${rv}" != "0" ]; then prt_error "ERROR: cargando la configuracion las funciones [Script/functions.sh]";      exit 1; fi
+
 
 
 ###############################################
@@ -124,54 +128,6 @@ date +"%Y%m%d" -d "${ARG_FECHA_FIN} +5 days" > /dev/null 2>&1; rv=$?; if [ "${rv
 ###############################################
 
 ##########
-# - limpiaTabla
-#     Funcion   --->  dado un fichero (que contiene una tabla) elimina cabecera y blancos
-#     Entrada   --->  $1 = fichero entrada
-#                     $2 = fichero salida
-#                     $3 = true/false para indicar si se mantiene la cabecera o no
-#     Salida    --->  0 = ok
-#                     1 = error
-#                ECHO lineaFinCabecera por si hiciera falta restaurarla despues
-#
-function limpiaTabla {
-
-    # Argumentos
-    local _fIn="$1"
-    local _fOut="$2"
-    local _conservarCabecera="$3"
-
-    # Variables internas
-    local _lineaFinCabecera
-    local _line
-
-    # Copia el fichero original para no corromperlo
-    cp "${_fIn}" "${_fOut}"
-
-    # Calcula en que linea termina la cabecera del fichero
-    _lineaFinCabecera=0
-    while read -r _line
-    do
-        if [ "$( echo -e "${_line}" | grep -e ^# -e '^[[:space:]]*$' )" == "${_line}" ]; then _lineaFinCabecera=$(( _lineaFinCabecera + 1 ))
-        else break
-        fi
-    done < "${_fOut}"
-
-    # Segun se quiera mantener la cabecera o no
-    if [ "${_conservarCabecera}" == "false" ]; then _lineaFinCabecera=$(( _lineaFinCabecera + 1 )); fi
-
-    # Quita la cabecera
-    if [ "${_lineaFinCabecera}" != "0" ]; then sed -i -e "1,${_lineaFinCabecera}d" "${_fOut}"; fi
-
-    # Quita todos los espacios
-    sed -i 's/ //g' "${_fOut}"
-
-    # Fin
-    echo "${_lineaFinCabecera}"
-    return 0
-}
-
-
-##########
 # - factorial
 #     Funcion   --->  calcula el factorial de un numero
 #     Entrada   --->  $1 = numero
@@ -201,70 +157,6 @@ function factorial {
 }
 
 
-##########
-# - getPermutacion
-#     Funcion   --->  genera n ficheros nuevos con las diferentes permutaciones de sus linea posibles
-#     Entrada   --->  $1 = fichero
-#     Entrada   --->  $2 = iteracion: numero de la iteracion
-#     Salida    --->  0 = ok
-#                     1 = error
-#                   $1.perm1
-#                   $1.perm2
-#                   $1.perm(...)
-#
-function getPermutacion {
-
-    # Argumentos
-    local _file=$1
-    local _iteracion=$2
-
-    # Variables internas
-    local _dir
-    local _base
-    local _f
-    local _files
-    local _nPosiciones
-    local _i
-    
-    # Condicion de parada: cuando solo queda un elemento
-    if [ "$( wc -l "${_file}" | gawk '{print $1}' )" == "1" ]
-    then
-        cat "${_file}" > "${_file}.perm${_iteracion}"
-        return 0
-    fi
-
-    # Se genera un fichero que no tiene la primer linea
-    tail -n+2 "${_file}" > "${_file}.${_iteracion}"
-
-    # Se calculan las permutaciones del fichero restante
-    getPermutacion "${_file}.${_iteracion}" "${_iteracion}"
-    rm "${_file}.${_iteracion}"
-
-    # Se calculan las combinaciones: se pone la primera linea de _file
-    # delante de todos los ficheros resultado
-    _dir=$(  dirname  "${_file}" )
-    _base=$( basename "${_file}" )
-    _files=$( find "${_dir}/" -type f -name "${_base}.${_iteracion}.perm*" )
-    _newLine=$( head -1 "${_file}" )
-    for _f in ${_files}
-    do
-        # En el fichero _f tengo "2 er" y "3 tq", y newLine es "1 ab"
-        # Lo que quiero es meter "1 ab" en todas las posiciones posibles
-        # En este caso: en la 1 (antes de "2 er"), en la 2 (entre "2 er" y "3 tq"), y en la 3 (despues de "3 tq")
-        _nPosiciones=$( wc -l "${_f}" | gawk '{print $1}' )
-        for _i in $( seq 1 "${_nPosiciones}" )
-        do
-            gawk '{if (NR==POSICION) print NEW; print;}' POSICION="${_i}" NEW="${_newLine}" "${_f}" > "${_file}.perm${_iteracion}"
-            _iteracion=$(( _iteracion + 1 ))
-        done
-        cat "${_f}" > "${_file}.perm${_iteracion}"; echo "${_newLine}" >> "${_file}.perm${_iteracion}"
-        _iteracion=$(( _iteracion + 1 ))
-        rm "${_f}"
-    done
-
-    # Fin
-    return 0
-}
 
 
 
@@ -321,9 +213,9 @@ mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${
 if [ ! -f partidos-jornada${ARG_JORNADA}.txt ]; then prt_error "ERROR: no existe el fichero [partidos-jornada${ARG_JORNADA}.txt] en el directorio actual"; exit 1; fi
 
 # Limpia los diferentes ficheros
-out=$( limpiaTabla pistas.txt                         "${DIR_TMP}/pistas"        false )
-out=$( limpiaTabla restricciones.txt                  "${DIR_TMP}/restricciones" false )
-out=$( limpiaTabla partidos-jornada${ARG_JORNADA}.txt "${DIR_TMP}/partidos"      false )
+out=$( FGRL_limpiaTabla pistas.txt                         "${DIR_TMP}/pistas"        false )
+out=$( FGRL_limpiaTabla restricciones.txt                  "${DIR_TMP}/restricciones" false )
+out=$( FGRL_limpiaTabla partidos-jornada${ARG_JORNADA}.txt "${DIR_TMP}/partidos"      false )
 
 
 
@@ -370,7 +262,7 @@ done < "${DIR_TMP}/partidos"
 # line 2 --> line 3 --> line 1 --> line 3 --> line 1 --> line 2
 # line 3 --> line 2 --> line 3 --> line 1 --> line 2 --> line 1
 prt_info "-- 6/9 - Se calculan todas las permutaciones posibles"
-getPermutacion "${DIR_TMP}/combinaciones_ordenadas" 1 # genera los ficheros DIR_TMP/combinaciones_ordenadas.permX donde X=numero de la permutacion
+FGRL_getPermutacion "${DIR_TMP}/combinaciones_ordenadas" 1 # genera los ficheros DIR_TMP/combinaciones_ordenadas.permX donde X=numero de la permutacion
 nLineas=$( wc -l "${DIR_TMP}/combinaciones_ordenadas" | gawk '{print $1}' )
 nPermutaciones=$( factorial ${nLineas} )
 prt_info "---- Hay ${nPermutaciones} posibles a probar"
@@ -487,7 +379,7 @@ out=$( bash Script/formateaTabla.sh -f "partidos-jornada${ARG_JORNADA}.txt" ); r
 # Se genera el html
 prt_info "-- Se genera el html del calendario"
 # -- limpia la tabla
-out=$( limpiaTabla calendario-jornada${ARG_JORNADA}.txt "${DIR_TMP}/calendario" true ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+out=$( FGRL_limpiaTabla calendario-jornada${ARG_JORNADA}.txt "${DIR_TMP}/calendario" true ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 # -- genera el html
 cat <<EOM >calendario-jornada${ARG_JORNADA}.html
 <!DOCTYPE html>

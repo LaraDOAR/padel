@@ -7,17 +7,18 @@ pistas.txt
 parejas.txt
 restricciones.txt
 
-ranking-jornada??.txt
-ranking-jornada??.html
+ranking-mes??.txt
+ranking-mes??.html
 ranking.txt
 ranking.html
 
-parejasSinJugar-jornada??.txt
+parejasSinJugar-mes??.txt
 parejasSinJugar.txt
-partidos-jornada??.txt
+partidos-mes??.txt
 partidos.txt
+partidos.html
 
-calendario-jornada??.txt
-calendario-jornada??.html
+calendario-mes??.txt
+calendario-mes??.html
 calendario.txt
 calendario.html

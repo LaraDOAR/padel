@@ -2,13 +2,11 @@
 
 #================================================================================
 #
-# Script que genera/actualiza un ranking = clasificacion del torneo
-#  - Puede generar de manera inicial, donde se conserva el orden que haya en parejas.txt
-#  - Puede actualizar el fichero ranking.txt ya existente, dados los resultados del mes anterior
+# Script que genera un HTML para mostrar de manera bonita la informacion que hay
+# dentro del fichero partidos.txt
 #
 # Entrada
-#  -i     --> Indica que es un ranking inicial
-#  -m [n] --> Numero del mes (1,2,3...)
+#  (no tiene)
 #
 # Salida
 #   0 --> ejecucion correcta
@@ -54,7 +52,7 @@ function prt_debug { if [ "${1}" == "true" ]; then shift; local _s; _s=$(aTS "${
 if [ "$( basename ${PWD} )" != "Padel" ]; then prt_error "ERROR: se debe ejecutar desde el directorio Padel"; exit 1; fi
 
 # Deben existir los siguientes ficheros
-if [ ! -f parejas.txt ]; then prt_error "ERROR: no existe el fichero [parejas.txt] en el directorio actual"; exit 1; fi
+if [ ! -f partidos.txt ]; then prt_error "ERROR: no existe el fichero [partidos.txt] en el directorio actual"; exit 1; fi
 
 # Carga la informacion del torneo, por si se necesita
 if [ ! -f infoTorneo.cfg ];                     then prt_error "ERROR: no existe el fichero [infoTorneo.cfg] en el directorio actual"; exit 1; fi
@@ -75,35 +73,26 @@ if [ ! -f Script/functions.sh ];                     then prt_error "ERROR: no e
 AYUDA="
  ${SCRIPT}
 
- Script que genera/actualiza un ranking = clasificacion del torneo
-  - Puede generar de manera inicial, donde se conserva el orden que haya en parejas.txt
-  - Puede actualizar el fichero ranking.txt ya existente, dados los resultados del mes anterior
+ Script que genera un HTML para mostrar de manera bonita la informacion que hay
+ dentro del fichero partidos.txt
 
  Entrada:
-  -i     --> Indica que es un ranking inicial
-  -m [n] --> Numero del mes (1,2,3...)
+  (no tiene)
 
  Salida:
   0 --> ejecucion correcta
   1 --> ejecucion con errores
 "
 
-ARG_INICIAL=false  # por defecto no se trata de generar el ranking inicial
-ARG_MES=""         # parametro obligatorio
-
 # Procesamos los argumentos de entrada
-while getopts im:h opt
+while getopts h opt
 do
     case "${opt}" in
-        i) ARG_INICIAL=true;;
-        m) ARG_MES=$OPTARG;;
         h) echo -e "${AYUDA}"; exit 0;;
         *) prt_error "Parametro [${opt}] invalido"; echo -e "${AYUDA}"; exit 1;;
     esac
 done
 
-if [ "${ARG_MES}" == "" ];         then prt_error "ERROR: ARG_MES vacio (param -m)";                                     exit 1; fi
-if ! [[ ${ARG_MES} =~ ^[0-9]+$ ]]; then prt_error "ERROR: ARG_MES=${ARG_MES}, no es un numero entero valido (param -m)"; exit 1; fi
 
 
 
@@ -156,8 +145,8 @@ trap "salir;" EXIT
 ###
 ###############################################
 
-### CABECERA DEL FICHERO DE RANKING ---> POSICION |       PAREJA  |  PUNTOS | PARTIDOS_JUGADOS | PARTIDOS_GANADOS | JUEGOS_FAVOR | JUEGOS_CONTRA
-###                                             1 | AlbertoMateos |      10 |                3 |                2 |           12 |             6
+### CABECERA DEL FICHERO DE PARTIDOS ---> Mes | Division |                     Local |            Visitante |    Fecha | Hora_ini | Hora_fin |   Lugar | Set1 | Set2 | Set3
+###                                         1 |        1 | AlbertoMateos-IsraelAlonso| EricPerez-DanielRamos| 20190507 |    18:00 |    19:30 | Pista 7 |  7/6 |  6/4 |    -
 
 
 ############# INICIALIZACION
@@ -167,17 +156,8 @@ prt_info "Inicializacion..."
 # Resetea un directorio temporal solo para este script, dentro de tmp/
 mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${DIR_TMP}"
 
-# Existencia de ficheros
-if [ "${ARG_INICIAL}" == "false" ]
-then
-    if [ ! -f ranking.txt ];                then prt_error "ERROR: no existe el fichero [ranking.txt] en el directorio actual";                exit 1; fi
-    if [ ! -f partidos-mes${ARG_MES}.txt ]; then prt_error "ERROR: no existe el fichero [partidos-mes${ARG_MES}.txt] en el directorio actual"; exit 1; fi
-    out=$( FGRL_limpiaTabla ranking.txt                "${DIR_TMP}/ranking"  false )
-    out=$( FGRL_limpiaTabla partidos-mes${ARG_MES}.txt "${DIR_TMP}/partidos" false )
-fi
-
 # Limpia los diferentes ficheros
-out=$( FGRL_limpiaTabla parejas.txt "${DIR_TMP}/parejas" false )
+out=$( FGRL_limpiaTabla partidos.txt "${DIR_TMP}/partidos" true )
 
 
 
@@ -186,41 +166,17 @@ out=$( FGRL_limpiaTabla parejas.txt "${DIR_TMP}/parejas" false )
 
 prt_info "Ejecucion..."
 
-
-if [ "${ARG_INICIAL}" == "false" ]
-then
-    prt_info "-- ACTUALIZACION de ranking anterior"
-    prt_error "---- No implementado todavia"
-    exit 1
-else
-    prt_info "-- GENERACION de un ranking inicial"
-
-    # -- cabecera
-    echo "POSICION|PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA" > ranking-mes${ARG_MES}.txt
-    
-    # -- inicializa todo a 0
-    nParejas=$( wc -l "${DIR_TMP}/parejas" | gawk '{printf("%d",($1+1)/2)}' )
-    gawk 'BEGIN{OFS=FS="|";}{if (NR%2==0) print NR/2,ant"-"$2$3,1+N-NR/2,"0","0","0","0"; ant=$2$3;}' N="${nParejas}" "${DIR_TMP}/parejas" >> ranking-mes${ARG_MES}.txt
-    
-fi
-prt_info "---- Generado ranking-mes${ARG_MES}.txt"
-
-# Da forma y comprueba que esta bien generado
-prt_info "-- Se formatea ranking-mes${ARG_MES}.txt y se valida su contenido"
-out=$( bash Script/formateaTabla.sh -f ranking-mes${ARG_MES}.txt ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
-
-# Se genera el html
-prt_info "-- Se genera el html a partir de ese fichero"
-
-# -- limpia la tabla
-out=$( FGRL_limpiaTabla ranking-mes${ARG_MES}.txt "${DIR_TMP}/ranking" true ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
-
-# -- genera el html
-cat <<EOM >ranking-mes${ARG_MES}.html
+cat <<EOM >partidos.html
 <!DOCTYPE html>
 <html>
   <head>
-<style>
+   <style>
+      #myInput {
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-bottom: 1%;
+        width: 50%;
+      }
       #customers {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
@@ -238,6 +194,7 @@ cat <<EOM >ranking-mes${ARG_MES}.html
         text-align: left;
         background-color: #4CAF50;
         color: white;
+        cursor: pointer;
       }
       h1 {
       	color: #343434;
@@ -261,21 +218,105 @@ cat <<EOM >ranking-mes${ARG_MES}.html
   </head>
   <body>
 EOM
-echo "<h1>TORNEO DE PADEL - ${CFG_NOMBRE}</h1>" >> ranking-mes${ARG_MES}.html
-echo "<h2>Ranking</h2>" >> ranking-mes${ARG_MES}.html
-cat <<EOM >>ranking-mes${ARG_MES}.html
+echo "<h1>TORNEO DE PADEL - ${CFG_NOMBRE}</h1>" >> partidos.html
+echo "<h2>Partidos</h2>" >> partidos.html
+cat <<EOM >>partidos.html
     <br>
+
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Busca..." title="Busca en cualquier columna">
+    <br>
+
     <table id="customers">
 EOM
-head -1   "${DIR_TMP}/ranking" | gawk -F"|" '{print "<tr>";for(i=1;i<=NF;i++)print "<th>" $i"</th>";print "</tr>"}' >> ranking-mes${ARG_MES}.html
-tail -n+2 "${DIR_TMP}/ranking" | gawk -F"|" '{print "<tr>";for(i=1;i<=NF;i++)print "<td>" $i"</td>";print "</tr>"}' >> ranking-mes${ARG_MES}.html
-cat <<EOM >>ranking-mes${ARG_MES}.html
+head -1   "${DIR_TMP}/partidos" | gawk -F"|" '{print "<tr>";for(i=1;i<=NF;i++)print "<th onclick=\"sortTable("i-1")\">" $i"</th>";print "</tr>"}' >> partidos.html
+tail -n+2 "${DIR_TMP}/partidos" | gawk -F"|" '{print "<tr>";for(i=1;i<=NF;i++)print "<td>"                              $i"</td>";print "</tr>"}' >> partidos.html
+cat <<EOM >>partidos.html
     </table>
+
+    <script>
+      function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("customers");
+        tr = table.getElementsByTagName("tr");
+        th = table.getElementsByTagName("th");
+        for (i = 0; i < tr.length; i++) {
+          for(var j=0; j<th.length; j++){
+            td = tr[i].getElementsByTagName("td")[j];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+                break;
+              } else {
+                tr[i].style.display = "none";
+              }
+            }       
+          }
+        }
+      }
+      function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("customers");
+        switching = true;
+        //Set the sorting direction to ascending:
+        dir = "asc"; 
+        /*Make a loop that will continue until
+        no switching has been done:*/
+        while (switching) {
+          //start by saying: no switching is done:
+          switching = false;
+          rows = table.rows;
+          /*Loop through all table rows (except the
+          first, which contains table headers):*/
+          for (i = 1; i < (rows.length - 1); i++) {
+            //start by saying there should be no switching:
+            shouldSwitch = false;
+            /*Get the two elements you want to compare,
+            one from current row and one from the next:*/
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+            /*check if the two rows should switch place,
+            based on the direction, asc or desc:*/
+            if (dir == "asc") {
+              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                //if so, mark as a switch and break the loop:
+                shouldSwitch= true;
+                break;
+              }
+            } else if (dir == "desc") {
+              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                //if so, mark as a switch and break the loop:
+                shouldSwitch = true;
+                break;
+              }
+            }
+          }
+          if (shouldSwitch) {
+            /*If a switch has been marked, make the switch
+            and mark that a switch has been done:*/
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            //Each time a switch is done, increase this count by 1:
+            switchcount ++;      
+          } else {
+            /*If no switching has been done AND the direction is "asc",
+            set the direction to "desc" and run the while loop again.*/
+            if (switchcount == 0 && dir == "asc") {
+              dir = "desc";
+              switching = true;
+            }
+          }
+        }
+      }
+    </script>
+
   </body>
 </html>
 EOM
 
-prt_info "---- Generado ranking-mes${ARG_MES}.html"
+prt_info "---- Generado partidos.html"
 
 
 ############# FIN
