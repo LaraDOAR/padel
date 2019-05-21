@@ -9,6 +9,7 @@
 ############### FUNCIONES DISPONIBLES
 # - FGRL_limpiaTabla
 # - FGRL_getPermutacion
+# - FGRL_backupFile
 
 
 
@@ -66,7 +67,7 @@ export -f FGRL_limpiaTabla
 # - FGRL_getPermutacion
 #     Funcion   --->  genera n ficheros nuevos con las diferentes permutaciones de sus linea posibles
 #     Entrada   --->  $1 = fichero
-#     Entrada   --->  $2 = iteracion: numero de la iteracion
+#                     $2 = iteracion: numero de la iteracion
 #     Salida    --->  0 = ok
 #                     1 = error
 #                   $1.perm1
@@ -127,3 +128,39 @@ function FGRL_getPermutacion {
     return 0
 }
 export -f FGRL_getPermutacion
+
+
+##########
+# - FGRL_backupFile
+#     Funcion   --->  hace backup del fichero actual
+#     Entrada   --->  $1 = fichero (ranking, partidos...)
+#                     $2 = terminacion del fichero (txt, html)
+#     Salida    --->  0 = ok
+#                     1 = error
+#                   $1-ID.$2
+#
+function FGRL_backupFile {
+    
+    # Argumentos
+    local _file=$1
+    local _term=$2
+
+    # Variables internas
+    local _nFiles
+    local _newID
+
+    if [ ! -f "${_file}.${_term}" ]; then prt_warn "<FGRL_backupFile> No existe el fichero ${_file}.${_term}"; return 0; fi
+
+    _nFiles=$( find . -maxdepth 1 -type f -name "${_file}-*.${_term}" | wc -l )
+    if [ "${_nFiles}" == "0" ]
+    then
+        _newID=1
+    else
+        _newID=$( find . -maxdepth 1 -type f -name "${_file}-*.${_term}" -printf "%f\n" | gawk -F"${file}-" '{print $2}' | gawk -F".${_term}" '{print $1+1}' )
+    fi
+    prt_warn "-- El fichero ${_file}.${_term} pasa a ser ${G}ranking-${_newID}.${_term}${NC}"
+    cp "${_file}.${_term}" "${_file}-${_newID}.${_term}"
+    
+    return 0
+}
+export -f FGRL_backupFile

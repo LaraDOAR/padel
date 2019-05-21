@@ -2,11 +2,12 @@
 
 #================================================================================
 #
-# Script que genera un HTML para mostrar de manera bonita la informacion que hay
-# dentro del fichero partidos.txt
+# Script que actualiza el fichero partidos.txt de diferentes maneras segun
+# parametros de entrada.
 #
 # Entrada
-#  (no tiene)
+#  -f --> Actualiza fechas+horas+lugar en partidos.txt dado calendario.txt
+#  -w --> Genera partidos.html a partir de partidos.txt
 #
 # Salida
 #   0 --> ejecucion correcta
@@ -73,25 +74,32 @@ if [ ! -f Script/functions.sh ];                     then prt_error "ERROR: no e
 AYUDA="
  ${SCRIPT}
 
- Script que genera un HTML para mostrar de manera bonita la informacion que hay
- dentro del fichero partidos.txt
+ Script que actualiza el fichero partidos.txt de diferentes maneras segun
+ parametros de entrada.
 
- Entrada:
-  (no tiene)
+ Entrada
+  -f --> Actualiza fechas+horas+lugar en partidos.txt dado calendario.txt
+  -w --> Genera partidos.html a partir de partidos.txt
 
  Salida:
   0 --> ejecucion correcta
   1 --> ejecucion con errores
 "
 
+ARG_CALENDARIO=false # por defecto, no se actualizan fechas+horas+lugar
+ARG_HTML=false       # por defecto, no se genera el html
+
 # Procesamos los argumentos de entrada
-while getopts h opt
+while getopts fwh opt
 do
     case "${opt}" in
+        f) ARG_CALENDARIO=true;;
+        w) ARG_HTML=true;;
         h) echo -e "${AYUDA}"; exit 0;;
         *) prt_error "Parametro [${opt}] invalido"; echo -e "${AYUDA}"; exit 1;;
     esac
 done
+
 
 
 
@@ -104,6 +112,7 @@ done
 ###############################################
 
 # No hay funciones especificas en este script
+
 
 
 
@@ -156,17 +165,50 @@ prt_info "Inicializacion..."
 # Resetea un directorio temporal solo para este script, dentro de tmp/
 mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${DIR_TMP}"
 
-# Limpia los diferentes ficheros
-out=$( FGRL_limpiaTabla partidos.txt "${DIR_TMP}/partidos" true )
-
-
 
 
 ############# EJECUCION
 
 prt_info "Ejecucion..."
 
-cat <<EOM >partidos.html
+if [ "${ARG_CALENDARIO}" == "false" ]; then prt_warn "-- Se indica no actualizar con los datos de calendario.txt"
+else
+    prt_warn "-- Se indica SI actualizar con los datos de calendario.txt"
+
+    # Deben existir los siguientes ficheros
+    if [ ! -f calendario.txt ]; then prt_error "ERROR: no existe el fichero [calendario.txt] en el directorio actual"; exit 1; fi
+
+    # Limpiar tabla
+    out=$( FGRL_limpiaTabla partidos.txt "${DIR_TMP}/partidos" true )
+    out=$( FGRL_limpiaTabla "calendario.txt" "${DIR_TMP}/calendario" false ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+
+    # Se hace backup de los ficheros de salida, para no sobreescribir
+    FGRL_backupFile partidos txt
+    
+    while IFS="|" read -r MES LO VI LU FE HI HF
+    do
+        gawk 'BEGIN{FS=OFS="|";}{m=$1; l=$3; v=$4; gsub(" ","",m); gsub(" ","",l); gsub(" ","",v); if (m==MES && l==LO && v==VI) {$5=FE; $6=HI; $7=HF; $8=LU}; print;}' \
+             MES="${MES}" LO="${LO}" VI="${VI}" FE="${FE}" HI="${HI}" HF="${HF}" LU="${LU}" "partidos.txt" > "${DIR_TMP}/partidos.txt.tmp"
+        mv "${DIR_TMP}/partidos.txt.tmp" "partidos.txt"
+    done < "${DIR_TMP}/calendario"
+    
+    out=$( bash Script/formateaTabla.sh -f "partidos.txt" ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+
+    prt_info "---- Generado ${G}partidos.txt${N}"
+fi
+
+
+if [ "${ARG_HTML}" == "false" ]; then prt_warn "-- Se indica no generar el fichero partidos.html"
+else
+    prt_info "-- Se indica SI generar el fichero partidos.html"
+
+    # Limpia los diferentes ficheros
+    out=$( FGRL_limpiaTabla partidos.txt "${DIR_TMP}/partidos" true )
+    
+    # Se hace backup de los ficheros de salida, para no sobreescribir
+    FGRL_backupFile partidos html
+    
+    cat <<EOM >partidos.html
 <!DOCTYPE html>
 <html>
   <head>
@@ -218,19 +260,19 @@ cat <<EOM >partidos.html
   </head>
   <body>
 EOM
-echo "<h1>TORNEO DE PADEL - ${CFG_NOMBRE}</h1>" >> partidos.html
-echo "<h2>Partidos</h2>" >> partidos.html
-cat <<EOM >>partidos.html
-    <br>
+    echo "    <h1>TORNEO DE PADEL - ${CFG_NOMBRE}</h1>" >> partidos.html
+    echo "    <h2>Partidos</h2>" >> partidos.html
+    cat <<EOM >>partidos.html
 
+    <br>
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Busca..." title="Busca en cualquier columna">
     <br>
 
     <table id="customers">
 EOM
-head -1   "${DIR_TMP}/partidos" | gawk -F"|" '{print "<tr>";for(i=1;i<=NF;i++)print "<th onclick=\"sortTable("i-1")\">" $i"</th>";print "</tr>"}' >> partidos.html
-tail -n+2 "${DIR_TMP}/partidos" | gawk -F"|" '{print "<tr>";for(i=1;i<=NF;i++)print "<td>"                              $i"</td>";print "</tr>"}' >> partidos.html
-cat <<EOM >>partidos.html
+    head -1   "${DIR_TMP}/partidos" | gawk -F"|" '{print "<tr>";for(i=1;i<=NF;i++)print "<th onclick=\"sortTable("i-1")\">" $i"</th>";print "</tr>"}' >> partidos.html
+    tail -n+2 "${DIR_TMP}/partidos" | gawk -F"|" '{print "<tr>";for(i=1;i<=NF;i++)print "<td>"                              $i"</td>";print "</tr>"}' >> partidos.html
+    cat <<EOM >>partidos.html
     </table>
 
     <script>
@@ -316,7 +358,10 @@ cat <<EOM >>partidos.html
 </html>
 EOM
 
-prt_info "---- Generado partidos.html"
+    prt_info "---- Generado ${G}partidos.html${N}"
+fi
+
+
 
 
 ############# FIN

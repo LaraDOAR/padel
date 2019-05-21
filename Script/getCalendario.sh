@@ -2,9 +2,9 @@
 
 #================================================================================
 #
-# Script que calcula cuando se deben jugar los partidos de un mes dado.
-#  - Actualiza el fichero partidos-mesN.txt, con los datos de: fecha, hora, lugar
-#  - Genera el fichero calendario.html donde aparecen todos los partidos programados
+# Script averigua cuando se juegan los partidos de partidos.txt, que aun no tienen fecha y que son del mes dado
+#  - Genera el fichero calendario.txt con la fecha de los partidos que hay pendiente por jugar
+#  - Genera el fichero calendario.html para poder visualizar la tabla anterior
 #
 # Entrada
 #  -m [n]        --> Numero del mes (1,2,3...)
@@ -57,6 +57,7 @@ if [ "$( basename ${PWD} )" != "Padel" ]; then prt_error "ERROR: se debe ejecuta
 
 # Deben existir los siguientes ficheros
 if [ ! -f pistas.txt ];        then prt_error "ERROR: no existe el fichero [pistas.txt] en el directorio actual";        exit 1; fi
+if [ ! -f partidos.txt ];      then prt_error "ERROR: no existe el fichero [partidos.txt] en el directorio actual";      exit 1; fi
 if [ ! -f restricciones.txt ]; then prt_error "ERROR: no existe el fichero [restricciones.txt] en el directorio actual"; exit 1; fi
 
 # Carga la informacion del torneo, por si se necesita
@@ -78,9 +79,9 @@ if [ ! -f Script/functions.sh ];                     then prt_error "ERROR: no e
 AYUDA="
  ${SCRIPT}
 
- Script que calcula cuando se deben jugar los partidos de un mes dado.
-  - Actualiza el fichero partidos-mesN.txt, con los datos de: fecha, hora, lugar
-  - Genera el fichero calendario.html donde aparecen todos los partidos programados
+ Script averigua cuando se juegan los partidos de partidos.txt, que aun no tienen fecha y que son del mes dado
+  - Genera el fichero calendario.txt con la fecha de los partidos que hay pendiente por jugar
+  - Genera el fichero calendario.html para poder visualizar la tabla anterior
 
  Entrada
   -m [n]        --> Numero del mes (1,2,3...)
@@ -199,7 +200,7 @@ trap "salir;" EXIT
 ###############################################
 
 ### CABECERA DEL FICHERO DE PARTIDOS ---> Mes | Division |                     Local |            Visitante |    Fecha | Hora_ini | Hora_fin |   Lugar | Set1 | Set2 | Set3
-###                                         1 |        1 | AlbertoMateos-IsraelAlonso| EricPerez-DanielRamos| 20190507 |    18:00 |    19:30 | Pista 7 |  7/6 |  6/6 |    -
+###                                         1 |        1 | AlbertoMateos-IsraelAlonso| EricPerez-DanielRamos| 20190507 |    18:00 |    19:30 | Pista 7 |  7/5 |  6/5 |    -
 
 
 ############# INICIALIZACION
@@ -209,13 +210,14 @@ prt_info "Inicializacion..."
 # Resetea un directorio temporal solo para este script, dentro de tmp/
 mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${DIR_TMP}"
 
-# Debe existir el fichero de partidos del mes
-if [ ! -f partidos-mes${ARG_MES}.txt ]; then prt_error "ERROR: no existe el fichero [partidos-mes${ARG_MES}.txt] en el directorio actual"; exit 1; fi
-
 # Limpia los diferentes ficheros
-out=$( FGRL_limpiaTabla pistas.txt                 "${DIR_TMP}/pistas"        false )
-out=$( FGRL_limpiaTabla restricciones.txt          "${DIR_TMP}/restricciones" false )
-out=$( FGRL_limpiaTabla partidos-mes${ARG_MES}.txt "${DIR_TMP}/partidos"      false )
+out=$( FGRL_limpiaTabla pistas.txt        "${DIR_TMP}/pistas"        false )
+out=$( FGRL_limpiaTabla restricciones.txt "${DIR_TMP}/restricciones" false )
+out=$( FGRL_limpiaTabla partidos.txt      "${DIR_TMP}/partidos"      false )
+
+# Se hace backup de los ficheros de salida, para no sobreescribir
+FGRL_backupFile calendario txt
+FGRL_backupFile calendario html
 
 
 
@@ -223,16 +225,17 @@ out=$( FGRL_limpiaTabla partidos-mes${ARG_MES}.txt "${DIR_TMP}/partidos"      fa
 
 prt_info "Ejecucion..."
 
-# 1/6 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana
-prt_info "-- 1/6 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana"
+# 1/5 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana
+prt_info "-- 1/5 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana"
 dIni=$( date -d "${ARG_FECHA_INI}" +%s )
 dFin=$( date -d "${ARG_FECHA_FIN}" +%s )
 nSemanas=$( echo "" | gawk '{printf("%d",((FIN-INI)/(86400*7))+0.5)}' INI="${dIni}" FIN="${dFin}" )
 prt_info "---- Hay ${nSemanas}"
 
 
-# 2/6 - Se coloca un partido en cada semana, que sera la configuracion por defecto
-prt_info "-- 2/6 - Se coloca un partido en cada semana, que sera la configuracion por defecto"
+# 2/5 - Se coloca un partido en cada semana, que sera la configuracion por defecto
+prt_info "-- 2/5 - Se coloca un partido en cada semana, que sera la configuracion por defecto"
+gawk -F"|" '{if ($1==MES && $5=="-") print}' MES="${ARG_MES}" "${DIR_TMP}/partidos" | # solo partidos que no tienen fecha asignada todavia y que son del mes dado
 while read line
 do
     pLocal=$(     echo -e "${line}" | gawk -F"|" '{print $3}' )
@@ -246,21 +249,22 @@ do
     done
     if [ "${fDest}" == "-1" ]; then fDest=$( wc -l "${DIR_TMP}/partidos.semana"* | sort -g | head -1 | gawk -F".semana" '{print $NF}' ); fi
     echo -e "${line}" >> "${DIR_TMP}/partidos.semana${fDest}"
-done < "${DIR_TMP}/partidos"
+done
 mv "${DIR_TMP}/partidos" "${DIR_TMP}/partidos.orig"
 prt_info "---- Generados los ficheros origen"
 
 
-# 3/6 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen
-prt_info "-- 3/6 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen"
+# 3/5 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen
+prt_info "-- 3/5 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen"
 semana=0; FINALIZADO=false
 while [ "${FINALIZADO}" == "false" ]
 do
-    prt_info "----------------------------------------------"
+       
+    prt_info "---------------------------------------------------------------------------------------------"
     
     # 1/10 - Se calculan las fechas limite de la semana
     prt_info "---- 1/10 - Se calculan las fechas limite de la semana"
-    semana=$(( (semana+1) % nSemanas))
+    if [ "${semana}" == "0" ]; then semana=1; else semana=${semanaSig}; fi
     n=$(( (semana - 1) * 7 )); FECHA_INI=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${n} days" )
     n=$(( n + 5 ));            FECHA_FIN=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${n} days" )
     prt_info "------ SEMANA ${semana}/${nSemanas} = ${FECHA_INI} - ${FECHA_FIN}"
@@ -285,11 +289,10 @@ do
 
     # 3/10 - Se une partido=Pareja1+Pareja2 con todos los huecos posibles
     prt_info "---- 3/10 - Se une partido=Pareja1+Pareja2 con todos los huecos posibles"
-    gawk -F"|" '{print $3"-"$4}' "${DIR_TMP}/partidos" |
-        while read -r linea
-        do
-            gawk '{print "-"L"-"$0}' L="${linea}" "${DIR_TMP}/huecos"
-        done > "${DIR_TMP}/combinaciones_todas"
+    while read -r linea
+    do
+        gawk '{print "-"L"-"$0}' L="${linea}" "${DIR_TMP}/huecos"
+    done < <( gawk -F"|" '{print $3"-"$4}' "${DIR_TMP}/partidos" ) > "${DIR_TMP}/combinaciones_todas"
 
     # 4/10 - Se elimina de la lista anterior, los partidos que no se pueden jugar por tener alguna restriccion
     prt_info "---- 4/10 - Se elimina de la lista anterior, los partidos que no se pueden jugar por tener alguna restriccion"
@@ -325,32 +328,47 @@ do
     prt_info "---- 7/10 - Se calculan todas las permutaciones posibles"
     nLineas=$( wc -l "${DIR_TMP}/combinaciones_ordenadas" | gawk '{print $1}' )
     nPermutaciones=$( factorial ${nLineas} )
-    prt_info "------ Hay ${nPermutaciones} posibles a probar"
+    prt_info "------ Hay ${nLineas}! = ${nPermutaciones} posibles a probar"
     FGRL_getPermutacion "${DIR_TMP}/combinaciones_ordenadas" 1 # genera los ficheros DIR_TMP/combinaciones_ordenadas.permX donde X=numero de la permutacion
     prt_info "------ Calculadas todas las permutaciones"
 
+
     # 8/10 - Se ordenan las permutaciones para probar primero los partidos que tienen menos opciones
     prt_info "---- 8/10 - Se ordenan las permutaciones para probar primero los partidos que tienen menos opciones"
-    contador=1
-    for i in $( seq 1 "${nLineas}" )
-    do
-        # Se cogen las "i" primeras lineas de todos los ficheros disponibles
-        files=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.perm*" )
-        for f in ${files}; do head -"${i}" ${f} > ${f}.processing; done
+    # -- se calculan peso minimo y peso maximo para frenarla busqueda
+    pesoMin=$( gawk '{print $1}' "${DIR_TMP}/combinaciones_ordenadas" | sort -g | head -1 )
+    pesoMax=$( gawk '{print $1}' "${DIR_TMP}/combinaciones_ordenadas" | sort -g | tail -1 )
+    if [ "${pesoMin}" == "${pesoMax}" ]
+    then
+        prt_debug "${ARG_VERBOSO}" "---- No se inicia la ordenacion porque no hay diferencias de peso pesoMin=${pesoMin} == pesoMax=${pesoMax}"
+    else
+        contador=1
+        for i in $( seq 1 "${nLineas}" )
+        do
+            # Se calculan peso minimo y peso maximo para frenarla busqueda
+            out=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.perm*" | xargs tail -n+"${i}" -q | gawk 'BEGIN{max=0; min=99999;}{if ($1<min) {min=$1;} if ($1>max) {max=$1;}}END{print "min="min; print "max="max;}' )
+            pesoMin=$( echo -e "${out}" | gawk -F"min=" '{print $2}' )
+            pesoMax=$( echo -e "${out}" | gawk -F"max=" '{print $2}' )
+            if [ "${pesoMin}" == "${pesoMax}" ]; then prt_debug "${ARG_VERBOSO}" "---- Se para la ordenacion porque no hay diferencias de peso pesoMin=${pesoMin} == pesoMax=${pesoMax}"; break; fi
+            
+            # Se cogen las "i" primeras lineas de todos los ficheros disponibles
+            files=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.perm*" )
+            for f in ${files}; do head -"${i}" ${f} > ${f}.processing; done
 
-        # Se suman los pesos y se ordenan
-        files=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.*.processing" )
-        out=$(
-            for f in ${files}; do gawk '{sum+=$1}END{printf("%d|",sum)}' "${f}"; echo "${f}"; done |  # se calcula <peso total>|<nombre_fichero>
-                sort |    # se ordenan por peso
-                head -2 | # nos quedamos con las 2 primeras
-                tac |     # imprimimos primero la 2da y despues la 1ra
-                gawk -F"|" '{if (NR==1) ant=$1; if (NR==2 && $1<ant) print $2;}' | # solo nos quedamos con la permutacion (la primera) si el peso de la primera es < la segunda (no <=)
-                sed 's/.processing//g'
-           )
-        if [ "${out}" != "" ]; then mv "${out}" "${DIR_TMP}/combinaciones_ordenadas.done.perm${contador}"; contador=$(( contador + 1 )); fi
-        rm "${DIR_TMP}/combinaciones_ordenadas."*".processing"
-    done
+            # Se suman los pesos y se ordenan
+            files=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.*.processing" )
+            out=$(
+                for f in ${files}; do gawk '{sum+=$1}END{printf("%d|",sum)}' "${f}"; echo "${f}"; done |  # se calcula <peso total>|<nombre_fichero>
+                    sort |    # se ordenan por peso
+                    head -2 | # nos quedamos con las 2 primeras
+                    tac |     # imprimimos primero la 2da y despues la 1ra
+                    gawk -F"|" '{if (NR==1) ant=$1; if (NR==2 && $1<ant) print $2;}' | # solo nos quedamos con la permutacion (la primera) si el peso de la primera es < la segunda (no <=)
+                    sed 's/.processing//g'
+               )
+            if [ "${out}" != "" ]; then mv "${out}" "${DIR_TMP}/combinaciones_ordenadas.done.perm${contador}"; contador=$(( contador + 1 )); fi
+            find "${DIR_TMP}"/ -type f -name "combinaciones_ordenadas.*.processing" -print0 | xargs -0 --no-run-if-empty rm
+        done
+    fi
     # -- cuando ya son todas iguales, se dejan tal y como estan
     files=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.perm*" )
     for f in ${files}; do mv "${f}" "${DIR_TMP}/combinaciones_ordenadas.done.perm${contador}"; contador=$(( contador + 1 )); done
@@ -363,7 +381,7 @@ do
         prt_info "***** Probando iteracion ${f} (de ${nPermutaciones} posibles)"
 
         # Inicializacion = reset
-        rm -f "${DIR_TMP}/calendario-mes${ARG_MES}.semana${semana}.txt"; touch "${DIR_TMP}/calendario-mes${ARG_MES}.semana${semana}.txt"
+        rm -f "${DIR_TMP}/calendario.semana${semana}.txt"; touch "${DIR_TMP}/calendario.semana${semana}.txt"
         cp "${DIR_TMP}/combinaciones_todas" "${DIR_TMP}/comb_todas"
         cp "${f}"                           "${DIR_TMP}/comb_ordenadas"
 
@@ -396,7 +414,7 @@ do
             prt_debug "${ARG_VERBOSO}" "------ en el hueco [${hueco}]"
 
             # Se comprueba si ese hueco esta disponible
-            if [ "$( grep -e "${hueco}" "${DIR_TMP}/calendario-mes${ARG_MES}.semana${semana}.txt" )" != "" ]
+            if [ "$( grep -e "${hueco}" "${DIR_TMP}/calendario.semana${semana}.txt" )" != "" ]
             then
                 prt_debug "${ARG_VERBOSO}" "------ El partido [${pLocal} vs ${pVisitante}] no puede ir en el hueco [${hueco}] porque esta ocupado. Pasa a probar otro hueco"
                 sed -i "/-${pLocal}-${pVisitante}-${hueco}/d" "${DIR_TMP}/comb_todas"  # Elimina ese hueco de los posibles para ese partido
@@ -406,7 +424,7 @@ do
             # Si esta disponible
             prt_debug "${ARG_VERBOSO}" "------ El partido [${pLocal} vs ${pVisitante}] SI se puede jugar en [${hueco}]. Se registra"
             primerPartido=false  # el primer partido ya ha sido colocado
-            grep -e "-${pLocal}-${pVisitante}-${hueco}" "${DIR_TMP}/comb_todas" >> "${DIR_TMP}/calendario-mes${ARG_MES}.semana${semana}.txt"  # Se anade ese partido en ese huecos al calendario
+            grep -e "-${pLocal}-${pVisitante}-${hueco}" "${DIR_TMP}/comb_todas" >> "${DIR_TMP}/calendario.semana${semana}.txt"  # Se anade ese partido en ese huecos al calendario
             sed -i "/-${pLocal}-${pVisitante}-/d" "${DIR_TMP}/comb_todas"  # Dada la pareja, se eliminan todos los huecos de esa pareja
             sed -i "/-${hueco}/d" "${DIR_TMP}/comb_todas"                  # Dado el hueco, se eliminan todas las parejas que tenian posibilidad de jugar en ese hueco
 
@@ -419,14 +437,14 @@ do
         if  [ "$( cat "${DIR_TMP}/comb_ordenadas" )" == "" ] && [ "${vuelveAEmpezar}" == "false" ]
         then
             prt_info "---- Esta iteracion es buena y se han podido colocar todos los partidos. Se termina con la semana"
-            prt_info "----- Generado el fichero ${DIR_TMP}/calendario-mes${ARG_MES}.semana${semana}.txt"
+            prt_info "----- Generado el fichero ${DIR_TMP}/calendario.semana${semana}.txt"
             break
         fi
         
     done
 
     # Se eliminan ficheros temporales
-    rm "${DIR_TMP}/combinaciones_"* "${DIR_TMP}/comb_"*
+    find "${DIR_TMP}"/ -type f -name "comb*" -print0 | xargs -0 --no-run-if-empty rm
 
     # 10/10 - Comprueba si debe terminar: ya hay un calendario para todas las semanas
     prt_info "---- 10/10 - Comprueba si debe terminar: ya hay un calendario para todas las semanas"
@@ -434,18 +452,22 @@ do
     for s in $( seq 1 "${nSemanas}" )
     do
         # -- debe existir el fichero del calendario de la semana = se ha procesado al menos una vez
-        if [ ! -f "${DIR_TMP}/calendario-mes${ARG_MES}.semana${semana}.txt" ]; then FINALIZADO=false; break; fi
+        if [ ! -f "${DIR_TMP}/calendario.semana${s}.txt" ]; then prt_debug "${ARG_VERBOSO}" "------ Aun no existe ${DIR_TMP}/calendario.semana${s}.txt"; FINALIZADO=false; break; fi
 
         # -- deben tener el mismo numero de lineas = todos los partidos estan en el calendario, y todos los del calendario estan en el partido
-        nCalendario=$( wc -l "${DIR_TMP}/calendario-mes${ARG_MES}.semana${semana}.txt" | gawk '{print $1}' )
-        nPartidos=$(   wc -l "${DIR_TMP}/partidos.semana${semana}"                     | gawk '{print $1}' )
-        if [ "${nCalendario}" != "${nPartidos}" ]; then FINALIZADO=false; break; fi
+        nCalendario=$( wc -l "${DIR_TMP}/calendario.semana${s}.txt" | gawk '{print $1}' )
+        nPartidos=$(   wc -l "${DIR_TMP}/partidos.semana${s}"                     | gawk '{print $1}' )
+        if [ "${nCalendario}" != "${nPartidos}" ]; then prt_debug "${ARG_VERBOSO}" "------ No tienen el mismo numero de lineas ${DIR_TMP}/calendario.semana${s}.txt y ${DIR_TMP}/partidos.semana${s}"; FINALIZADO=false; break; fi
 
         # -- se comprueba la condicion anterior linea por linea
-        while read -r _ _ LOCAL VISITANTE _ _ _ _ _ _ _
+        while IFS='|' read -r _ _ LOCAL VISITANTE _ _ _ _ _ _ _
         do
-            if [ "$( grep -e "-${LOCAL}-${VISITANTE}-" "${DIR_TMP}/calendario-mes${ARG_MES}.semana${semana}.txt" )" == "" ]; then FINALIZADO=false; break; fi
-        done < "${DIR_TMP}/partidos.semana${semana}"
+            if [ "$( grep -e "-${LOCAL}-${VISITANTE}-" "${DIR_TMP}/calendario.semana${s}.txt" )" == "" ]
+            then
+                prt_debug "${ARG_VERBOSO}" "------ La pareja -${LOCAL}-${VISITANTE}- de ${DIR_TMP}/partidos.semana${s}, no esta en ${DIR_TMP}/calendario.semana${s}.txt"
+                FINALIZADO=false; break
+            fi
+        done < "${DIR_TMP}/partidos.semana${s}"
     done
     prt_info "------ Termina porque ya esta el calendario de todos los partidos"
 
@@ -453,29 +475,20 @@ done
 prt_info "---- Ya esta la configuracion definitiva"
 
 
-# 4/6 - Se unen los partidos de todas las semanas
-prt_info "-- 4/6 - Se unen los partidos de todas las semanas"
-cat "${DIR_TMP}/calendario-mes${ARG_MES}.semana*.txt" "calendario-mes${ARG_MES}.txt"
-prt_info "---- Generado el fichero calendario-mes${ARG_MES}.txt"
+# 4/5 - Se unen los partidos de todas las semanas
+prt_info "-- 4/5 - Se unen los partidos de todas las semanas"
+echo "MES|LOCAL|VISITANTE|PISTA|FECHA|HORA_INI|HORA_FIN" > "calendario.txt"
+cat "${DIR_TMP}/calendario.semana"*".txt" | gawk -F"-" 'BEGIN{OFS="|"}{MES=sprintf("%03d",MES); print MES,$2"-"$3,$4"-"$5,$6,$7,$8,$9}' MES="${ARG_MES}" >> "calendario.txt"
+out=$( bash Script/formateaTabla.sh -f "calendario.txt" ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+prt_info "---- Generado ${G}calendario.txt${NC}"
 
-
-# 5/6 - Se actualiza el fichero de partidos del mes
-prt_info "-- 5/6 - Se actualiza el fichero de partidos del mes: partidos-mes${ARG_MES}.txt"
-while IFS="-" read -r _ L1 L2 V1 V2 L F HI HF
-do
-    gawk 'BEGIN{FS=OFS="|";}{j=$1; l=$2; v=$3; gsub(" ","",j); gsub(" ","",l); gsub(" ","",v); if (j==JO && l==LO && v==VI) {$4=FE; $5=HI; $6=HF; $7=LU}; print;}' \
-         JO="${ARG_MES}" LO="${L1}-${L2}" VI="${V1}-${V2}" FE="${F}" HI="${HI}" HF="${HF}" LU="${L}" "partidos-mes${ARG_MES}.txt" > "partidos-mes${ARG_MES}.txt.tmp"
-    mv "partidos-mes${ARG_MES}.txt.tmp" "partidos-mes${ARG_MES}.txt"
-done < "${DIR_TMP}/calendario-mes${ARG_MES}.txt"
-out=$( bash Script/formateaTabla.sh -f "partidos-mes${ARG_MES}.txt" ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
-
-
-# 6/6 - Se genera el html
-prt_info "-- 6/6 - Se genera el html del calendario"
 # -- limpia la tabla
-out=$( FGRL_limpiaTabla calendario-mes${ARG_MES}.txt "${DIR_TMP}/calendario" true ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
-# -- genera el html
-cat <<EOM >calendario-mes${ARG_MES}.html
+out=$( FGRL_limpiaTabla "calendario.txt" "${DIR_TMP}/calendario" false ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+
+
+# 5/5 - Se genera el html
+prt_info "-- 5/5 - Se genera el html del calendario"
+cat <<EOM >calendario.html
 <!DOCTYPE html>
 <html>
   <head>
@@ -526,33 +539,42 @@ gawk '
     print "              id: \x27" $1 "\x27,";
     print "              title: \x27" $1 "\x27";
     print "            },";
-}' >> calendario-mes${ARG_MES}.html
-sed -i '$ s/.$//' calendario-mes${ARG_MES}.html
-cat <<EOM >>calendario-mes${ARG_MES}.html
+}' >> calendario.html
+sed -i '$ s/.$//' calendario.html
+
+# CON TOOLTIP
+# cat <<EOM >>calendario.html
+#           ],
+#           eventRender: function(info) {
+#             var tooltip = new Tooltip(info.el, {
+#               title: info.event.extendedProps.description,
+#               placement: 'top',
+#               trigger: 'hover',
+#               container: 'body'
+#             });
+#           },
+#           events: [
+# EOM
+
+# SIN TOOLTIP
+cat <<EOM >>calendario.html
           ],
-          eventRender: function(info) {
-            var tooltip = new Tooltip(info.el, {
-              title: info.event.extendedProps.description,
-              placement: 'top',
-              trigger: 'hover',
-              container: 'body'
-            });
-          },
           events: [
 EOM
-gawk -F"-" '
+
+gawk -F"|" '
 {
     print "            {";
     print "              id: " NR",";
-    print "              title: \x27"$2"-"$3" vs "$4"-"$5"\x27,";
-    print "              description: \x27"$2"-"$3" vs "$4"-"$5"\x27,";
-    print "              start: \x27" substr($7,1,4)"-"substr($7,5,2)"-"substr($7,7,2)"T"$8":00\x27,";
-    print "              end: \x27" substr($7,1,4)"-"substr($7,5,2)"-"substr($7,7,2)"T"$9":00\x27,";
-    print "              resourceId: \x27" $6 "\x27";
+    print "              title: \x27"$2" vs "$3"\x27,";
+    print "              description: \x27Mes "$1":"$2" vs "$3"\x27,";
+    print "              start: \x27" substr($5,1,4)"-"substr($5,5,2)"-"substr($5,7,2)"T"$6":00\x27,";
+    print "              end:   \x27" substr($5,1,4)"-"substr($5,5,2)"-"substr($5,7,2)"T"$7":00\x27,";
+    print "              resourceId: \x27" $5 "\x27";
     print "            },";
-}' "${DIR_TMP}/calendario" >> calendario-mes${ARG_MES}.html
-sed -i '$ s/.$//' calendario-mes${ARG_MES}.html
-cat <<EOM >>calendario-mes${ARG_MES}.html
+}' "${DIR_TMP}/calendario" >> calendario.html
+sed -i '$ s/.$//' calendario.html
+cat <<EOM >>calendario.html
           ]
         });
         calendar.render();
@@ -577,18 +599,15 @@ cat <<EOM >>calendario-mes${ARG_MES}.html
   </head>
   <body>
 EOM
-echo "<h1>TORNEO DE PADEL - ${CFG_NOMBRE}</h1>" >> calendario-mes${ARG_MES}.html
-cat <<EOM >>calendario-mes${ARG_MES}.html
+echo "    <h1>TORNEO DE PADEL - ${CFG_NOMBRE}</h1>" >> calendario.html
+cat <<EOM >>calendario.html
     <div id='calendar'></div>
-
   </body>
 </html>
 EOM
 
-prt_info "---- Generado calendario-mes${ARG_MES}.html"
+prt_info "---- Generado ${G}calendario.html${NC}"
 
 
 ############# FIN
 exit 0
-
-#<div id='calendar'></div>

@@ -11,9 +11,9 @@
 #             un todos contra todos.
 #
 # Entrada
-#  -j [n] --> Numero del mes (1,2,3...)
+#  -m [n] --> Numero del mes (1,2,3...)
 #  -n [n] --> Numero de parejas en cada division
-#  -o [n] --> (opcional) Opcion 1 o 2 (por defecto 2)
+#  -o [n] --> (opcional) Opcion 1 o 2 (por defecto, 2)
 #
 # Salida
 #   0 --> ejecucion correcta
@@ -89,9 +89,9 @@ AYUDA="
              un todos contra todos.
 
  Entrada
-  -j [n] --> Numero del mes (1,2,3...)
+  -m [n] --> Numero del mes (1,2,3...)
   -n [n] --> Numero de parejas en cada division
-  -o [n] --> (opcional) Opcion 1 o 2 (por defecto 2)
+  -o [n] --> (opcional) Opcion 1 o 2 (por defecto, 2)
 
  Salida:
   0 --> ejecucion correcta
@@ -187,14 +187,18 @@ mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${
 # Limpia los diferentes ficheros
 out=$( FGRL_limpiaTabla ranking.txt "${DIR_TMP}/ranking" false )
 
+# Se hace backup de los ficheros de salida, para no sobreescribir
+FGRL_backupFile partidos txt
 
 
 ############# EJECUCION
 
 prt_info "Ejecucion..."
 
-# -- cabecera
-echo "MES|DIVISION|LOCAL|VISITANTE|FECHA|HORA_INI|HORA_FIN|LUGAR|SET1|SET2|SET3" > partidos-mes${ARG_MES}.txt
+# -- cabecera: solo la primera vez
+if [ ! -f partidos.txt ]; then echo "MES|DIVISION|LOCAL|VISITANTE|FECHA|HORA_INI|HORA_FIN|LUGAR|SET1|SET2|SET3" > partidos.txt
+else                           prt_warn "-- Como ya existe partidos.txt, se anadiran a este fichero los nuevos partidos, no se empieza de cero"
+fi
 
 ##########################################################################
 ### POR JORNADA: pareja1 vs pareja2, pareja3 vs pareja4...
@@ -202,66 +206,72 @@ echo "MES|DIVISION|LOCAL|VISITANTE|FECHA|HORA_INI|HORA_FIN|LUGAR|SET1|SET2|SET3"
 if [ "${ARG_OPCION}" == "1" ]
 then
 
-    prt_info "OPCION: ${ARG_OPCION}"
+    prt_error "Codigo no actualizado"
+    exit 1
+
+    # prt_info "OPCION: ${ARG_OPCION}"
     
-    # 1/2 - Revisa si hay parejas impares
-    prt_info "1/2 - Revisa si hay parejas impares"
-    nParejas=$( wc -l "${DIR_TMP}/ranking" | gawk '{print $1}' )
-    if [ "$(( nParejas % 2))" != "0" ]
-    then
-        prt_warn "-- Hay parejas impares"
+    # # 1/2 - Revisa si hay parejas impares
+    # prt_info "1/2 - Revisa si hay parejas impares"
+    # nParejas=$( wc -l "${DIR_TMP}/ranking" | gawk '{print $1}' )
+    # if [ "$(( nParejas % 2))" != "0" ]
+    # then
+    #     prt_warn "-- Hay parejas impares"
+        
+    #     # -- se hace backup de los ficheros de salida, para no sobreescribir
+    #     FGRL_backupFile parejasSinJugar txt
 
-        # -- comprueba si existe el fichero
-        if [ ! -f parejasSinJugar.txt ]
-        then
-            prt_error "---- No existe el fichero parejasSinJugar.txt"
-            prt_warn "---- Para generarlo ejecuta los siguientes comandos"
-            prt_warn "----   echo \"PAREJA|MES\" > parejasSinJugar.txt"
-            prt_warn "----   bash Script/formateaTabla.sh -f parejasSinJugar.txt"
-            prt_warn "----   bash Script/getPartidos.sh -j${ARG_MES}"
-            exit 1
-        fi
+    #     # -- comprueba si existe el fichero
+    #     if [ ! -f parejasSinJugar.txt ]
+    #     then
+    #         prt_error "---- No existe el fichero parejasSinJugar.txt"
+    #         prt_warn "---- Para generarlo ejecuta los siguientes comandos"
+    #         prt_warn "----   echo \"PAREJA|MES\" > parejasSinJugar.txt"
+    #         prt_warn "----   bash Script/formateaTabla.sh -f parejasSinJugar.txt"
+    #         prt_warn "----   bash Script/getPartidos.sh -j${ARG_MES}"
+    #         exit 1
+    #     fi
 
-        # -- se limpia
-        cp parejasSinJugar.txt parejasSinJugar-mes${ARG_MES}.txt
-        out=$( FGRL_limpiaTabla parejasSinJugar.txt "${DIR_TMP}/sinJugar" false )
+    #     # -- se limpia
+    #     cp parejasSinJugar.txt parejasSinJugar-mes${ARG_MES}.txt
+    #     out=$( FGRL_limpiaTabla parejasSinJugar.txt "${DIR_TMP}/sinJugar" false )
 
-        # -- comprueba si hay que resetear el fichero, porque ya han no jugado todas las parejas
-        reset=true
-        while IFS="|" read -r _ PAREJA _ _ _ _ _
-        do
-            if [ "$( grep -e "${PAREJA}" "${DIR_TMP}/sinJugar" )" == "" ]; then reset=false; fi
-        done < "${DIR_TMP}/ranking"
-        if [ "${reset}" == "true" ]
-        then
-            prt_warn "---- Ya han 'no jugado' todas las parejas, asi que se resetea el fichero"
-            cat /dev/null > parejasSinJugar-mes${ARG_MES}.txt
-        fi
+    #     # -- comprueba si hay que resetear el fichero, porque ya han no jugado todas las parejas
+    #     reset=true
+    #     while IFS="|" read -r _ PAREJA _ _ _ _ _
+    #     do
+    #         if [ "$( grep -e "${PAREJA}" "${DIR_TMP}/sinJugar" )" == "" ]; then reset=false; fi
+    #     done < "${DIR_TMP}/ranking"
+    #     if [ "${reset}" == "true" ]
+    #     then
+    #         prt_warn "---- Ya han 'no jugado' todas las parejas, asi que se resetea el fichero"
+    #         cat /dev/null > parejasSinJugar-mes${ARG_MES}.txt
+    #     fi
 
-        # -- elige aleatoriamente
-        eliminadaPareja=false
-        while [ "${eliminadaPareja}" == "false" ]
-        do
-            n=$( shuf -i 1-${nParejas} -n 1 )
-            parejaElegida=$( head -${n} "${DIR_TMP}/ranking" | tail -1 | gawk -F"|" '{print $2}' )
-            if [ "$( grep -e "${parejaElegida}" "${DIR_TMP}/sinJugar" )" == "" ]
-            then
-                prt_warn "---- Se descarta a la pareja ${parejaElegida}, que no jugara en el mes ${ARG_MES}"
-                grep -v "|${parejaElegida}|" "${DIR_TMP}/ranking" > "${DIR_TMP}/ranking.tmp"; mv "${DIR_TMP}/ranking.tmp" "${DIR_TMP}/ranking"
-                echo "${parejaElegida}|${ARG_MES}" >> parejasSinJugar-mes${ARG_MES}.txt
-                eliminadaPareja=true
-            fi
-        done
+    #     # -- elige aleatoriamente
+    #     eliminadaPareja=false
+    #     while [ "${eliminadaPareja}" == "false" ]
+    #     do
+    #         n=$( shuf -i 1-${nParejas} -n 1 )
+    #         parejaElegida=$( head -${n} "${DIR_TMP}/ranking" | tail -1 | gawk -F"|" '{print $2}' )
+    #         if [ "$( grep -e "${parejaElegida}" "${DIR_TMP}/sinJugar" )" == "" ]
+    #         then
+    #             prt_warn "---- Se descarta a la pareja ${parejaElegida}, que no jugara en el mes ${ARG_MES}"
+    #             grep -v "|${parejaElegida}|" "${DIR_TMP}/ranking" > "${DIR_TMP}/ranking.tmp"; mv "${DIR_TMP}/ranking.tmp" "${DIR_TMP}/ranking"
+    #             echo "${parejaElegida}|${ARG_MES}" >> parejasSinJugar-mes${ARG_MES}.txt
+    #             eliminadaPareja=true
+    #         fi
+    #     done
 
-        # -- se da formato
-        out=$( bash Script/formateaTabla.sh -f parejasSinJugar-mes${ARG_MES}.txt ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
-        prt_info "---- Generado parejasSinJugar-mes${ARG_MES}.txt"
-    fi
+    #     # -- se da formato
+    #     out=$( bash Script/formateaTabla.sh -f parejasSinJugar-mes${ARG_MES}.txt ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+    #     prt_info "---- Generado ${G}parejasSinJugar-mes${ARG_MES}.txt${NC}"
+    # fi
 
 
-    # 2/2 - Se generan los emparejamientos
-    prt_info "2/2 - Se generan los emparejamientos"
-    gawk 'BEGIN{OFS=FS="|";}{if (NR%2==0) print J,"0",ant,$2,"-","-","-","-","-","-","-"; ant=$2}' J="${ARG_MES}" "${DIR_TMP}/ranking" >> partidos-mes${ARG_MES}.txt
+    # # 2/2 - Se generan los emparejamientos
+    # prt_info "2/2 - Se generan los emparejamientos"
+    # gawk 'BEGIN{OFS=FS="|";}{if (NR%2==0) print J,"0",ant,$2,"-","-","-","-","-","-","-"; ant=$2}' J="${ARG_MES}" "${DIR_TMP}/ranking" >> partidos-mes${ARG_MES}.txt
     
 fi
 
@@ -295,7 +305,7 @@ then
         # -- se van anadiendo los partidos
         for f in "${DIR_TMP}/division.perm"*
         do
-            gawk 'BEGIN{OFS=FS="|";}{if (NR%2==0) print J,DIV,ant,$2,"-","-","-","-","-","-","-"; ant=$2}' J="${ARG_MES}" DIV="${i}" "${f}" >> "${DIR_TMP}/division.partidos"
+            gawk 'BEGIN{OFS=FS="|";}{if (NR%2==0) {J=sprintf("%03d",J); print J,DIV,ant,$2,"-","-","-","-","-","-","-";} ant=$2}' J="${ARG_MES}" DIV="${i}" "${f}" >> "${DIR_TMP}/division.partidos"
         done
         sort -u "${DIR_TMP}/division.partidos" > "${DIR_TMP}/division.partidos.tmp"; mv "${DIR_TMP}/division.partidos.tmp" "${DIR_TMP}/division.partidos"
         # -- local y visitante son lo mismo, asi que se eliminan las repetidas
@@ -303,11 +313,11 @@ then
         do
             pLocal=$(     echo -e "${line}" | gawk -F"|" '{print $3}' )
             pVisitante=$( echo -e "${line}" | gawk -F"|" '{print $4}' )
-            out1=$( grep "|${pLocal}|${pVisitante}" partidos-mes${ARG_MES}.txt )
-            out2=$( grep "|${pVisitante}|${pLocal}" partidos-mes${ARG_MES}.txt )
+            out1=$( grep "|${pLocal}|${pVisitante}" partidos.txt )
+            out2=$( grep "|${pVisitante}|${pLocal}" partidos.txt )
             if [ "${out1}" == "" ] && [ "${out2}" == "" ]
             then
-                echo -e "${line}" >> partidos-mes${ARG_MES}.txt
+                echo -e "${line}" >> partidos.txt
             fi
         done < "${DIR_TMP}/division.partidos"
         rm "${DIR_TMP}/division"*
@@ -317,8 +327,8 @@ fi
 
 
 # Se da formato
-out=$( bash Script/formateaTabla.sh -f partidos-mes${ARG_MES}.txt ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
-prt_info "---- Generado partidos-mes${ARG_MES}.txt"
+out=$( bash Script/formateaTabla.sh -f partidos.txt ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+prt_info "---- Generado ${G}partidos.txt${NC}"
 
 
 ############# FIN

@@ -8,7 +8,7 @@
 
 
 ###################################################################################################################################
-################## EMPEZAR A ORGANIZAR EL TORNEO: MES/JORNADA 1
+################## EMPEZAR A ORGANIZAR EL TORNEO
 
 
 
@@ -45,45 +45,37 @@ bash Script/checkRestricciones.sh
 # -- Puntos iniciales para conservar el ranking
 
 # -- ejecuta con opcion inicial
-bash Script/getRanking.sh -i -m 01
-
+bash Script/getRanking.sh -i
 # -- ficheros de salida
-# ranking-mes01.txt
-# ranking-mes01.html
-
-# -- se copia al ranking general
-cp ranking-mes01.txt  ranking.txt 
-cp ranking-mes01.html ranking.html
+# ranking.txt
+# ranking.html
 
 # -- comprueba que el fichero de salida es valido y coherente
 bash Script/checkRanking.sh
+# -- ficheros de salida
+# no tiene, solo hace un check
 
 
 
 
 
-##### 3/6 - Generar los primeros partidos, los del primer mes, los del mes 01
+##### 3/6 - Generar los primeros partidos
 # -- Se generan a partir del fichero de ranking
 # -- Se divide el ranking en divisiones. Dentro de cada division es un todos contra todos
 
 # -- ejecuta script
 NUMERO_PAREJAS_POR_DIVISION=5
-bash Script/getPartidos.sh -m 01 -n "${NUMERO_PAREJAS_POR_DIVISION}"
-
+bash Script/getPartidos.sh -m 1 -n "${NUMERO_PAREJAS_POR_DIVISION}"
 # -- ficheros de salida
-# partidos-mes01.txt
-# parejasSinJugar-mes01.txt
-
-# -- se inicializa el registro de todos los partidos
-if [ -f parejasSinJugar-mes01.txt ]; then cp parejasSinJugar-mes01.txt parejasSinJugar.txt; fi
-cp partidos-mes01.txt  partidos.txt
+# partidos.txt
 
 # -- comprueba que los ficheros de salida son validos y coherentes
-if [ -f parejasSinJugar.txt ]; then bash Script/checkParejasSinJugar.sh; fi
 bash Script/checkPartidos.sh
+# -- ficheros de salida
+# no tiene, solo hace un check
 
 # -- genera el html de los partidos
-bash Script/getHTML_fromPartidos.sh
+bash Script/updatePartidos.sh -w
 # -- ficheros de salida
 # partidos.html
 
@@ -92,7 +84,7 @@ bash Script/getHTML_fromPartidos.sh
 
 
 ##### 4/6 - Generar calendario de cuando se juega cada partido
-# -- Se genera a partir del fichero de partidos del mes
+# -- Se genera a partir del fichero de partidos
 # -- Genera los ficheros de calendario, pero tambien actualiza el fichero de partidos anterior
 
 # -- inicializa variables
@@ -100,24 +92,24 @@ FECHA_INI_MES=20190603
 FECHA_FIN_MES=20190628
 
 # -- ejecuta el script
-bash Script/getCalendario.sh -m 01 -i "${FECHA_INI_MES}" -f "${FECHA_FIN_MES}"
-
+bash Script/getCalendario.sh -m 1 -i "${FECHA_INI_MES}" -f "${FECHA_FIN_MES}"
 # -- ficheros de salida
-# calendario-mes01.txt
-# calendario-mes01.html
-# ** update del fichero partidos-mes01.txt
+# calendario.txt
+# calendario.html
 
-# -- se copia al calendario general
-cp calendario-mes01.txt  calendario.txt
-cp calendario-mes01.html calendario.html
-
-# -- comprueba que el fichero de salida es valido y coherente
+# -- comprueba que los ficheros de salida son validos y coherentes
 bash Script/checkCalendario.sh
+# -- ficheros de salida
+# no tiene, solo hace un check
 
-# -- actualizar el registro de partidos general
-bash Script/updatePartidos.txt       # modificar partidos.txt
+# -- actualiza partidos con fechas del calendario + genera el html de los partidos
+bash Script/updatePartidos.sh -f -w
+# -- ficheros de salida
+# partidos.txt
+# partidos.html
 bash Script/checkPartidos.sh
-bash Script/getHTML_fromPartidos.sh  # regenera partidos.html
+# -- ficheros de salida
+# no tiene, solo hace un check
 
 # -- enviar email con la informacion de los partidos de cada persona
 bash Script/sendMails.sh -m 01
@@ -130,7 +122,7 @@ bash Script/sendMails.sh -m 01
 
 mkdir Historico
 for infoTorneo.cfg pistas.txt parejas.txt rextricciones.txt; do if [ -f $f ]; then cp ${f}                          Historico/${f}-versionInicial; fi; done
-for f in ranking calendario partidos parejasSinJugar;        do if [ -f $f ]; then cp ${f}.txt  ${f}-jornada01.txt  Historico/;                    fi; done
+for f in ranking calendario partidos;                        do if [ -f $f ]; then cp ${f}.txt  ${f}-jornada01.txt  Historico/;                    fi; done
 for f in ranking calendario;                                 do if [ -f $f ]; then cp ${f}.html ${f}-jornada01.html Historico/;                    fi; done
 
 
@@ -204,16 +196,16 @@ scp ranking.html [USUARIO]@TESLA:[PATH]
 ###################################################################################################################################
 ################## GENERAR PARTIDOS PARA EL RESTO DE JORNADAS
 
-JORNADA=02
-FECHA_INI_JORNADA=20190521
-FECHA_FIN_JORNADA=20190531
+MES=02
+FECHA_INI_JORNADA=20190701
+FECHA_FIN_JORNADA=20190726
 
 # Se supone ya actualizado el ranking con los resultados de la ultima jornada
 
 ##### 1/2 - Generar calendario de cuando se juega cada partido
 
 # -- ejecuta el script
-getCalendario.sh -j "${JORNADA}" -i "${FECHA_INI_JORNADA}" -f "${FECHA_FIN_JORNADA}"
+getCalendario.sh -j "${MES}" -i "${FECHA_INI_JORNADA}" -f "${FECHA_FIN_JORNADA}"
 
 # -- ficheros de salida
 # calendario-jornadaX.txt
