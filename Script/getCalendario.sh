@@ -235,7 +235,7 @@ prt_info "---- Hay ${nSemanas}"
 
 # 2/5 - Se coloca un partido en cada semana, que sera la configuracion por defecto
 prt_info "-- 2/5 - Se coloca un partido en cada semana, que sera la configuracion por defecto"
-gawk -F"|" '{if ($1==MES && $5=="-") print}' MES="${ARG_MES}" "${DIR_TMP}/partidos" | # solo partidos que no tienen fecha asignada todavia y que son del mes dado
+gawk -F"|" '{if ($5=="-") print}' "${DIR_TMP}/partidos" | # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
 while read line
 do
     pLocal=$(     echo -e "${line}" | gawk -F"|" '{print $3}' )

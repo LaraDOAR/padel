@@ -158,7 +158,7 @@ function FGRL_backupFile {
     else
         _newID=$( find . -maxdepth 1 -type f -name "${_file}-*.${_term}" -printf "%f\n" | gawk -F"${file}-" '{print $2}' | gawk -F".${_term}" '{print $1+1}' )
     fi
-    prt_warn "-- El fichero ${_file}.${_term} pasa a ser ${G}ranking-${_newID}.${_term}${NC}"
+    prt_warn "-- El fichero ${_file}.${_term} pasa a ser ${G}${_file}-${_newID}.${_term}${NC}"
     cp "${_file}.${_term}" "${_file}-${_newID}.${_term}"
     
     return 0
