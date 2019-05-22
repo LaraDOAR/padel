@@ -156,6 +156,7 @@ scp -r Calendario ranking.html partidos.html calendario.html [USUARIO]@TESLA:[PA
 # ---- partido no jugado: 6/0, 6/0, -   ---> para la pareja ganadora
 # ---- partido no jugado: 0/0, 0/0, 0/0 ---> si se ha cancelado y se ha dado por perdido, y ninguna de las partes gana
 vim partidos.txt
+bash Script/formateaTabla.sh -f partidos.txt
 
 # -- comprueba que el fichero es coherente
 bash Script/checkPartidos.sh
