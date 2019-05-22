@@ -214,6 +214,7 @@ mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${
 out=$( FGRL_limpiaTabla pistas.txt        "${DIR_TMP}/pistas"        false )
 out=$( FGRL_limpiaTabla restricciones.txt "${DIR_TMP}/restricciones" false )
 out=$( FGRL_limpiaTabla partidos.txt      "${DIR_TMP}/partidos"      false )
+if [ -f calendario.txt ]; then out=$( FGRL_limpiaTabla calendario.txt "${DIR_TMP}/calendario" false ); fi
 
 # Se hace backup de los ficheros de salida, para no sobreescribir
 FGRL_backupFile calendario txt
@@ -477,8 +478,15 @@ prt_info "---- Ya esta la configuracion definitiva"
 
 # 4/5 - Se unen los partidos de todas las semanas
 prt_info "-- 4/5 - Se unen los partidos de todas las semanas"
-echo "MES|LOCAL|VISITANTE|PISTA|FECHA|HORA_INI|HORA_FIN" > "calendario.txt"
-cat "${DIR_TMP}/calendario.semana"*".txt" | gawk -F"-" 'BEGIN{OFS="|"}{MES=sprintf("%03d",MES); print MES,$2"-"$3,$4"-"$5,$6,$7,$8,$9}' MES="${ARG_MES}" >> "calendario.txt"
+#  -- cabecera
+echo "MES|LOCAL|VISITANTE|PISTA|FECHA|HORA_INI|HORA_FIN" > calendario.txt.new
+# -- se escriben los nuevos partidos
+cat "${DIR_TMP}/calendario.semana"*".txt" | gawk -F"-" 'BEGIN{OFS="|"}{MES=sprintf("%03d",MES); print MES,$2"-"$3,$4"-"$5,$6,$7,$8,$9}' MES="${ARG_MES}" >> calendario.txt.new
+# -- se escribe lo que ya teniamos
+if [ ! -f calendario.txt ]; then tail -n+2 "${DIR_TMP}/calendario" >> calendario.txt.new; fi
+# -- se cambia el nombre
+mv calendario.txt.new calendario.txt
+# -- se le da formato
 out=$( bash Script/formateaTabla.sh -f "calendario.txt" ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 prt_info "---- Generado ${G}calendario.txt${NC}"
 

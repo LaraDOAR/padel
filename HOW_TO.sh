@@ -7,6 +7,12 @@
 ####################################################
 
 
+echo ""
+echo " Aunque este script fichero contine comandos de bash, no se puede ejecutar. Solo es una guia"
+echo ""
+exit 1
+
+
 ###################################################################################################################################
 ################## EMPEZAR A ORGANIZAR EL TORNEO
 
