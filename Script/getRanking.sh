@@ -177,6 +177,11 @@ out=$( FGRL_limpiaTabla parejas.txt "${DIR_TMP}/parejas" false )
 FGRL_backupFile ranking txt
 FGRL_backupFile ranking html
 
+# Puntos por partidos ganados / perdidos
+PUNTOS_GANA_ARRIBA=1     # puntos que gana la pareja ganadora, si la pareja ganadora estaba situada en el ranking mas arriba que la otra pareja
+PUNTOS_GANA_ABAJO=3      # puntos que gana la pareja ganadora, si la pareja ganadora estaba situada en el ranking mas abajo que la otra pareja
+PUNTOS_PIERDE_ARRIBA=0   # puntos que gana la pareja perdedora, si la pareja ganadora estaba situada en el ranking mas arriba que la otra pareja
+PUNTOR_PIERDE_ABAJO=0    # puntos que gana la pareja perdedora, si la pareja ganadora estaba situada en el ranking mas abajo que la otra pareja
 
 
 ############# EJECUCION
@@ -184,13 +189,9 @@ FGRL_backupFile ranking html
 prt_info "Ejecucion..."
 
 
-if [ "${ARG_INICIAL}" == "false" ]
+if [ "${ARG_INICIAL}" == "true" ]
 then
-    prt_info "-- ACTUALIZACION de ranking anterior"
-    prt_error "---- No implementado todavia"
-    exit 1
-else
-    prt_info "-- GENERACION de un ranking inicial"
+     prt_info "-- GENERACION de un ranking inicial"
 
     # -- cabecera
     echo "POSICION|PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA" > ranking.txt
@@ -198,6 +199,80 @@ else
     # -- inicializa todo a 0
     nParejas=$( wc -l "${DIR_TMP}/parejas" | gawk '{printf("%d",($1+1)/2)}' )
     gawk 'BEGIN{OFS=FS="|";}{if (NR%2==0) { pos=sprintf("%03d", NR/2); punt=sprintf("%03d", 1+N-NR/2); print pos,ant"-"$2$3,punt,"0","0","0","0";} ant=$2$3;}' N="${nParejas}" "${DIR_TMP}/parejas" >> ranking.txt
+    
+else
+    prt_info "-- ACTUALIZACION de ranking anterior"
+
+    # se copia el ranking por si hay algun error entre medias
+    cp ranking.txt "${DIR_TMP}/new_ranking"
+
+    # Se comprueban errores de formato
+    out=$( bash Script/checkPartidos.sh ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+    
+    # Se recorre la lista de partidos
+    while IFS="|" read -r MES DIVISION LOCAL VISITANTE FECHA HINI HFIN LUGAR SET1 SET2 SET3 RANKING
+    do
+        # Se ignora si es un resultado que ya se ha metido en el ranking
+        if [ "${RANKING}" == "true" ]; then continue; fi
+
+        # Se ignora si es un partido que no tiene fecha+hora+lugar
+        if [ "${FECHA}" == "-" ] && [ "${HINI}" == "-" ] && [ "${HFIN}" == "-" ] && [ "${LUGAR}" == "-" ]; then continue; fi
+
+        # Se ignora si es un partido que no tiene inicializados los sets
+        if [ "${SET1}" == "-" ] && [ "${SET2}" == "-" ] && [ "${SET3}" == "-" ]; then continue; fi
+
+        jueL1=$( echo -e "${SET1}" | gawk -F"/" '{print $1}' ); jueV1=$( echo -e "${SET1}" | gawk -F"/" '{print $2}' )
+        jueL2=$( echo -e "${SET2}" | gawk -F"/" '{print $1}' ); jueV2=$( echo -e "${SET2}" | gawk -F"/" '{print $2}' )
+        jueL3=$( echo -e "${SET3}" | gawk -F"/" '{print $1}' ); jueV3=$( echo -e "${SET3}" | gawk -F"/" '{print $2}' )
+        posRankLoc=$( gawk '{if ($2==PAREJA) print $1+0}' PAREJA="${LOCAL}"     "${DIR_TMP}/ranking" )
+        posRankVis=$( gawk '{if ($2==PAREJA) print $1+0}' PAREJA="${VISITANTE}" "${DIR_TMP}/ranking" )
+        difPos=$(( posRankLoc - posRankVis )); if [ "${difPos}" -lt "1" ]; then difPos=$(( difPos * (-1) )); fi
+
+        # Se averigua el ganador
+        ganador="visitante"
+        if [ "${jueL1}" -gt "${jueV1}" ] && [ "${jueL2}" -gt "${jueV2}" ];                                  then ganador="local"; fi
+        if [ "${jueL1}" -gt "${jueV1}" ] && [ "${jueL2}" -lt "${jueV2}" ] && [ "${jueL3}" -gt "${jueV3}" ]; then ganador="local"; fi
+        if [ "${jueL1}" -lt "${jueV1}" ] && [ "${jueL2}" -gt "${jueV2}" ] && [ "${jueL3}" -gt "${jueV3}" ]; then ganador="local"; fi
+
+        # *** PUNTOS (puntosLoc / puntosVis)
+        if [ "${ganador}" == "local" ]     && [ "${posRankLoc}" -gt "${posRankVis}" ]; then puntosLoc=${PUNTOS_GANA_ARRIBA}; puntosVis=${PUNTOS_PIEDE_ABAJO};  fi
+        if [ "${ganador}" == "local" ]     && [ "${posRankLoc}" -lt "${posRankVis}" ]; then puntosLoc=${PUNTOS_GANA_ABAJO};  puntosVis=${PUNTOS_PIEDE_ARRIBA}; fi
+        if [ "${ganador}" == "visitante" ] && [ "${posRankVis}" -gt "${posRankLoc}" ]; then puntosVis=${PUNTOS_GANA_ARRIBA}; puntosLoc=${PUNTOS_PIEDE_ABAJO};  fi
+        if [ "${ganador}" == "visitante" ] && [ "${posRankVis}" -lt "${posRankLoc}" ]; then puntosVis=${PUNTOS_GANA_ABAJO};  puntosLoc=${PUNTOS_PIEDE_ARRIBA}; fi
+
+        # *** PARTIDOS_JUGADOS
+        # no se hacen cuentas: a lo que habia se le suma 1, tanto en local como en visitante)
+
+        # *** PARTIDOS_GANADOS (partGanaLoc / partGanaVis)
+        if [ "${ganador}" == "local" ];     then partGanaLoc=1; partGanaVis=0; fi
+        if [ "${ganador}" == "visitante" ]; then partGanaLoc=0; partGanaVis=1; fi
+
+        # *** JUEGOS_FAVOR (jueFavorLoc / jueFavorVis)
+        jueFavorLoc=$(( jueL1 + jueL2 )); if [ "${SET3}" != "-" ]; then jueFavorLoc=$(( jueFavorLoc + jueL3 )); fi
+        jueFavorVis=$(( jueV1 + jueV2 )); if [ "${SET3}" != "-" ]; then jueFavorVis=$(( jueFavorVis + jueV3 )); fi
+                                                                        
+        # *** JUEGOS_CONTRA (jueContraLoc / jueContraVis)
+        jueContraLoc=${jueFavorVis}
+        jueContraVis=${jueFavorLoc}
+
+        # Actualiza el nuevo ranking: POSICION | PAREJA | PUNTOS | PARTIDOS_JUGADOS | PARTIDOS_GANADOS | JUEGOS_FAVOR | JUEGOS_CONTRA
+        # -- local
+        gawk 'BEGIN{FS=OFS="|"}{if ($2==PAREJA) {$3=$3+PTS; $4=$4+1; $5=$5+GAN; $6=$6+FAV; $7=$7+CON;} print;}' \
+             PAREJA="${LOCAL}" PTS="${puntosLoc}" GAN="${partGanaLoc}" FAV="${jueFavorLoc}" CON="${jueContraLoc}" "${DIR_TMP}/new_ranking" > "${DIR_TMP}/new_ranking.tmp"
+        mv "${DIR_TMP}/new_ranking.tmp"
+        # -- visitante
+        gawk 'BEGIN{FS=OFS="|"}{if ($2==PAREJA) {$3=$3+PTS; $4=$4+1; $5=$5+GAN; $6=$6+FAV; $7=$7+CON;} print;}' \
+             PAREJA="${VISITANTE}" PTS="${puntosVis}" GAN="${partGanaVis}" FAV="${jueFavorVis}" CON="${jueContraVis}" "${DIR_TMP}/new_ranking" > "${DIR_TMP}/new_ranking.tmp"
+        mv "${DIR_TMP}/new_ranking.tmp"
+
+        # Actualiza el fichero partidos.txt para cambiar a RANKING=true
+        gawk 'BEGIN{OFS=FS="|";}{ if ($1==M && $2==D && $3==L && $4==V && $5==F && $6==HI && $7==HF && $8==L && $9==SA && $10==SB && $11==SC) {$12="true";} print}' \
+             M="${MES}" D="${DIVISION}" L="${LOCAL}" V="${VISITANTE}" F="${FECHA}" HI="${HINI}" HF="${HFIN}" L="${LUGAR}" SA="${SET1}" SB="${SET2}" SC="${SET3}" partidos.txt > partidos.txt.new
+        mv partidos.txt.new partidos.txt
+        
+    done < "${DIR_TMP}/partidos"
+
+    prt_info "---- Actualizado ${G}partidos.txt${NC}"
     
 fi
 prt_info "---- Generado ${G}ranking.txt${NC}"

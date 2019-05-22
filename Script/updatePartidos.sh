@@ -210,7 +210,7 @@ else
 
     # Se transforman las fechas a un formato mas legible
     head -1 "${DIR_TMP}/partidos" > "${DIR_TMP}/partidos.tmp"
-    tail -n+2 "${DIR_TMP}/partidos" | gawk 'BEGIN{OFS=FS="|";}{$5=sprintf("%02d/%02d/%04d",substr($5,7,2),substr($5,5,2),substr($5,1,4)); print}' >> "${DIR_TMP}/partidos.tmp"
+    tail -n+2 "${DIR_TMP}/partidos" | gawk 'BEGIN{OFS=FS="|";}{if ($5!="-") {$5=sprintf("%02d/%02d/%04d",substr($5,7,2),substr($5,5,2),substr($5,1,4));} print;}' >> "${DIR_TMP}/partidos.tmp"
     mv "${DIR_TMP}/partidos.tmp" "${DIR_TMP}/partidos"
     
     cat <<EOM >partidos.html

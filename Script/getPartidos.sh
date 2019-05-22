@@ -196,7 +196,7 @@ FGRL_backupFile partidos txt
 prt_info "Ejecucion..."
 
 # -- cabecera: solo la primera vez
-if [ ! -f partidos.txt ]; then echo "MES|DIVISION|LOCAL|VISITANTE|FECHA|HORA_INI|HORA_FIN|LUGAR|SET1|SET2|SET3" > partidos.txt
+if [ ! -f partidos.txt ]; then echo "MES|DIVISION|LOCAL|VISITANTE|FECHA|HORA_INI|HORA_FIN|LUGAR|SET1|SET2|SET3|RANKING" > partidos.txt
 else                           prt_warn "-- Como ya existe partidos.txt, se anadiran a este fichero los nuevos partidos, no se empieza de cero"
 fi
 
@@ -305,7 +305,7 @@ then
         # -- se van anadiendo los partidos
         for f in "${DIR_TMP}/division.perm"*
         do
-            gawk 'BEGIN{OFS=FS="|";}{if (NR%2==0) {J=sprintf("%03d",J); print J,DIV,ant,$2,"-","-","-","-","-","-","-";} ant=$2}' J="${ARG_MES}" DIV="${i}" "${f}" >> "${DIR_TMP}/division.partidos"
+            gawk 'BEGIN{OFS=FS="|";}{if (NR%2==0) {J=sprintf("%03d",J); print J,DIV,ant,$2,"-","-","-","-","-","-","-","false";} ant=$2}' J="${ARG_MES}" DIV="${i}" "${f}" >> "${DIR_TMP}/division.partidos"
         done
         sort -u "${DIR_TMP}/division.partidos" > "${DIR_TMP}/division.partidos.tmp"; mv "${DIR_TMP}/division.partidos.tmp" "${DIR_TMP}/division.partidos"
         # -- local y visitante son lo mismo, asi que se eliminan las repetidas
@@ -325,6 +325,10 @@ then
 
 fi
 
+# Se ordenan por partidos por mes, para tener arriba los mas nuevos
+head -1 partidos.txt > partidos.sorted.txt
+tail -n+2 partidos.txt | sort -t"|" -s -r -k1,1 >> partidos.sorted.txt
+mv partidos.sorted.txt partidos.txt
 
 # Se da formato
 out=$( bash Script/formateaTabla.sh -f partidos.txt ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi

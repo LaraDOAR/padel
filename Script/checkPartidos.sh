@@ -164,19 +164,19 @@ out=$( FGRL_limpiaTabla parejas.txt  "${DIR_TMP}/parejas"  false )
 
 prt_info "Ejecucion..."
 
-# 1/5 - No hay celdas vacias
-prt_info "-- 1/5 - No hay celdas vacias"
+# 1/6 - No hay celdas vacias
+prt_info "-- 1/6 - No hay celdas vacias"
 out=$( gawk -F"|" '{for (i=1;i<=NF;i++) { if ($i=="") print "Hay celda vacia en la fila " NR ", columna " i}}' "${DIR_TMP}/partidos" )
 if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
-# 2/5 - Registros (lineas) unicos
-prt_info "-- 2/5 - Registros (lineas) unicos"
+# 2/6 - Registros (lineas) unicos
+prt_info "-- 2/6 - Registros (lineas) unicos"
 out=$( sort "${DIR_TMP}/partidos" | uniq -c | gawk '{if ($1>1) print "El registro " $2 " no es unico, aparece " $1 " veces"}' )
 if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
-# 3/5 - Formato de las columnas
-prt_info "-- 3/5 - Formato de las columnas"
-while IFS="|" read -r MES DIVISION LOCAL VISITANTE FECHA HINI HFIN LUGAR SET1 SET2 SET3
+# 3/6 - Formato de las columnas
+prt_info "-- 3/6 - Formato de las columnas"
+while IFS="|" read -r MES DIVISION LOCAL VISITANTE FECHA HINI HFIN LUGAR SET1 SET2 SET3 RANKING
 do
     if ! [[ ${MES}       =~ ^[0-9]+$                                         ]]; then echo "El campo MES=${MES} no es un numero entero";                       exit 1; fi
     if ! [[ ${DIVISION}  =~ ^[0-9]+$                                         ]]; then echo "El campo DIVISION=${DIVISION} no es un numero entero";             exit 1; fi
@@ -201,11 +201,23 @@ do
         date +"%Y%m%d%H%M" -d "${FECHA} ${HINI} +2 hours" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La hora ${HINI} no es una hora valida para el dia ${FECHA}"; exit 1; fi
         date +"%Y%m%d%H%M" -d "${FECHA} ${HFIN} +2 hours" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La hora ${HFIN} no es una hora valida para el dia ${FECHA}"; exit 1; fi
     fi
+    if [ "${RANKING}" != "true" ] && [ "${RANKING}" != "false" ]; then echo "El campo RANKING=${RANKING} no es ni true ni false"; exit 1; fi
 done < "${DIR_TMP}/partidos"
 
-# 4/5 - La clave nombre+apellido esta en la lista de parejas
-prt_info "-- 4/5 - La clave nombre+apellido esta en la lista de parejas"
-while IFS="|" read -r _ _ LOCAL VISITANTE _ _ _ _ _ _ _
+# 4/6 - Tienen que estar inicializados todos fecha+hora+lugar o ninguno, no puede estar a medias
+prt_info "-- 4/6 - Tienen que estar inicializados todos fecha+hora+lugar o ninguno, no puede estar a medias"
+while IFS="|" read -r _ _ _ _ FECHA HINI HFIN LUGAR _ _ _ _
+do
+    if [ "${FECHA}" == "-" ] && [ "${HINI}" == "-" ] && [ "${HFIN}" == "-" ] && [ "${LUGAR}" == "-" ]; then continue; fi
+    if [ "${FECHA}" == "-" ]; then echo "-- No puede ser que FECHA='-', y HORA_INI, HORA_FIN o LUGAR no sean tambien '-'"; exit 1; fi
+    if [ "${HINI}" == "-" ];  then echo "-- No puede ser que HORA_INI='-', y FECHA, HORA_FIN o LUGAR no sean tambien '-'"; exit 1; fi
+    if [ "${HFIN}" == "-" ];  then echo "-- No puede ser que HORA_FIN='-', y FECHA, HORA_INI o LUGAR no sean tambien '-'"; exit 1; fi
+    if [ "${LUGAR}" == "-" ]; then echo "-- No puede ser que LUGAR='-', y FECHA, HORA_INI u HORA_FIN no sean tambien '-'"; exit 1; fi
+done < "${DIR_TMP}/partidos"
+
+# 5/6 - La clave nombre+apellido esta en la lista de parejas
+prt_info "-- 5/6 - La clave nombre+apellido esta en la lista de parejas"
+while IFS="|" read -r _ _ LOCAL VISITANTE _ _ _ _ _ _ _ _
 do
     persona=$( echo "${LOCAL}" | gawk -F"-" '{print $1}' )
     if [ "$( gawk -F"|" '{print FS $2$3 FS}' "${DIR_TMP}/parejas" | grep "|${persona}|" )" == "" ]; then echo "La persona [${persona}] no aparece en el fichero parejas.txt"; exit 1; fi
@@ -217,13 +229,13 @@ do
     if [ "$( gawk -F"|" '{print FS $2$3 FS}' "${DIR_TMP}/parejas" | grep "|${persona}|" )" == "" ]; then echo "La persona [${persona}] no aparece en el fichero parejas.txt"; exit 1; fi
 done < "${DIR_TMP}/partidos"
 
-# 5/5 - Los sets son coherentes
-prt_info "-- 5/5 - Formato de las columnas"
+# 6/6 - Los sets son coherentes
+prt_info "-- 6/6 - Formato de las columnas"
 while read -r line
 do
-    set1=$( echo -e "${line}" | gawk -F"|" '{print $(NF-2)}' ); jueL1=$( echo -e "${set1}" | gawk -F"/" '{print $1}' ); jueV1=$( echo -e "${set1}" | gawk -F"/" '{print $2}' )
-    set2=$( echo -e "${line}" | gawk -F"|" '{print $(NF-1)}' ); jueL2=$( echo -e "${set2}" | gawk -F"/" '{print $1}' ); jueV2=$( echo -e "${set2}" | gawk -F"/" '{print $2}' )
-    set3=$( echo -e "${line}" | gawk -F"|" '{print $(NF)}'   ); jueL3=$( echo -e "${set3}" | gawk -F"/" '{print $1}' ); jueV3=$( echo -e "${set3}" | gawk -F"/" '{print $2}' )
+    set1=$( echo -e "${line}" | gawk -F"|" '{print $9}'  ); jueL1=$( echo -e "${set1}" | gawk -F"/" '{print $1}' ); jueV1=$( echo -e "${set1}" | gawk -F"/" '{print $2}' )
+    set2=$( echo -e "${line}" | gawk -F"|" '{print $10}' ); jueL2=$( echo -e "${set2}" | gawk -F"/" '{print $1}' ); jueV2=$( echo -e "${set2}" | gawk -F"/" '{print $2}' )
+    set3=$( echo -e "${line}" | gawk -F"|" '{print $11}' ); jueL3=$( echo -e "${set3}" | gawk -F"/" '{print $1}' ); jueV3=$( echo -e "${set3}" | gawk -F"/" '{print $2}' )
 
     # Si son todo lineas aun no se ha inicializado, es correcto
     if [ "${set1}" == "-" ] && [ "${set2}" == "-" ] && [ "${set3}" == "-" ]; then continue; fi
@@ -231,9 +243,9 @@ do
     # Si set1 == -, set2 != -            : error
     # Si set1 == -, set2 == -, set3 != - : error
     # Si set1 != -, set2 == -            : error
-    if [ "${set1}" == "-" ] && [ "${set2}" != "-" ];                         then echo "-- En la linea ${line}, no puede ser que set1='-' y set2!='-'";            exit 1; fi
-    if [ "${set1}" == "-" ] && [ "${set2}" == "-" ] && [ "${set3}" != "-" ]; then echo "-- En la linea ${line}, no puede ser que set1='-', set2='-' y set3!='-'";  exit 1; fi
-    if [ "${set1}" != "-" ] && [ "${set2}" == "-" ];                         then echo "-- En la linea ${line}, no puede ser que set1!='-' y set2=='-'";           exit 1; fi
+    if [ "${set1}" == "-" ] && [ "${set2}" != "-" ];                         then echo "-- En la linea ${line}, no puede ser que set1='-' y set2!='-'";           exit 1; fi
+    if [ "${set1}" == "-" ] && [ "${set2}" == "-" ] && [ "${set3}" != "-" ]; then echo "-- En la linea ${line}, no puede ser que set1='-', set2='-' y set3!='-'"; exit 1; fi
+    if [ "${set1}" != "-" ] && [ "${set2}" == "-" ];                         then echo "-- En la linea ${line}, no puede ser que set1!='-' y set2=='-'";          exit 1; fi
 
     # Partido cancelado; si un set vale 0/0, todos valen 0/0. Sino es error
     if [ "${set1}" == "0/0" ] && [ "${set2}" == "0/0" ] && [ "${set3}" == "0/0" ]; then continue; fi
