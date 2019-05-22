@@ -199,8 +199,9 @@ then
 else
     prt_info "-- ACTUALIZACION de ranking anterior"
 
-    # se copia el ranking por si hay algun error entre medias
+    # se copian ya que se van a ir modificando
     cp "${DIR_TMP}/ranking" "${DIR_TMP}/new_ranking"
+    cp "${DIR_TMP}/partidos" "${DIR_TMP}/new_partidos"
 
     # Se comprueban errores de formato
     out=$( bash Script/checkPartidos.sh ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
@@ -262,15 +263,15 @@ else
         mv "${DIR_TMP}/new_ranking.tmp" "${DIR_TMP}/new_ranking"
 
         # Actualiza el fichero partidos.txt para cambiar a RANKING=true
-        gawk 'BEGIN{OFS=FS="|";}{if ($1==M && $2==D && $3==L && $4==V && $5==F && $6==HI && $7==HF && $8==L && $9==SA && $10==SB && $11==SC) {$12="true";} print;}' \
-             M="${MES}" D="${DIVISION}" L="${LOCAL}" V="${VISITANTE}" F="${FECHA}" HI="${HINI}" HF="${HFIN}" L="${LUGAR}" SA="${SET1}" SB="${SET2}" SC="${SET3}" "${DIR_TMP}/partidos" > "${DIR_TMP}/partidos.new"
-        mv "${DIR_TMP}/partidos.new"  "${DIR_TMP}/partidos"
+        gawk 'BEGIN{OFS=FS="|";}{if ($1==M && $2==D && $3==LO && $4==V && $5==F && $6==HI && $7==HF && $8==LU && $9==SA && $10==SB && $11==SC) {$12="true";} print;}' \
+             M="${MES}" D="${DIVISION}" LO="${LOCAL}" V="${VISITANTE}" F="${FECHA}" HI="${HINI}" HF="${HFIN}" LU="${LUGAR}" SA="${SET1}" SB="${SET2}" SC="${SET3}" "${DIR_TMP}/new_partidos" > "${DIR_TMP}/new_partidos.new"
+        mv "${DIR_TMP}/new_partidos.new"  "${DIR_TMP}/new_partidos"
         
     done < "${DIR_TMP}/partidos"
 
     {
         head -1 partidos.txt
-        cat "${DIR_TMP}/partidos"
+        cat "${DIR_TMP}/new_partidos"
     } > partidos.txt.new; mv partidos.txt.new partidos.txt
     prt_info "---- Actualizado ${G}partidos.txt${NC}"
 
