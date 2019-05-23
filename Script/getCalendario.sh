@@ -483,7 +483,7 @@ echo "MES|LOCAL|VISITANTE|PISTA|FECHA|HORA_INI|HORA_FIN" > calendario.txt.new
 # -- se escriben los nuevos partidos
 cat "${DIR_TMP}/calendario.semana"*".txt" | gawk -F"-" 'BEGIN{OFS="|"}{MES=sprintf("%03d",MES); print MES,$2"-"$3,$4"-"$5,$6,$7,$8,$9}' MES="${ARG_MES}" >> calendario.txt.new
 # -- se escribe lo que ya teniamos
-if [ ! -f calendario.txt ]; then tail -n+2 "${DIR_TMP}/calendario" >> calendario.txt.new; fi
+if [ ! -f "${DIR_TMP}/calendario" ]; then tail -n+2 "${DIR_TMP}/calendario" >> calendario.txt.new; fi
 # -- se cambia el nombre
 mv calendario.txt.new calendario.txt
 # -- se le da formato
@@ -517,6 +517,9 @@ cat <<EOM >calendario.html
     <script src='Calendario/packages/resource-common/main.js'></script>
     <script src='Calendario/packages/resource-daygrid/main.js'></script>
     <script src='Calendario/packages/resource-timegrid/main.js'></script>
+    <script src='Calendario/other/jquery.min.js'></script>
+    <script src='Calendario/other/popper.min.js'></script>
+    <script src='Calendario/other/tooltip.min.js'></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -549,33 +552,25 @@ gawk '
     print "            },";
 }' >> calendario.html
 sed -i '$ s/.$//' calendario.html
-
-# CON TOOLTIP
-# cat <<EOM >>calendario.html
-#           ],
-#           eventRender: function(info) {
-#             var tooltip = new Tooltip(info.el, {
-#               title: info.event.extendedProps.description,
-#               placement: 'top',
-#               trigger: 'hover',
-#               container: 'body'
-#             });
-#           },
-#           events: [
-# EOM
-
-# SIN TOOLTIP
 cat <<EOM >>calendario.html
           ],
+          eventRender: function(info) {
+            var tooltip = new Tooltip(info.el, {
+              title: info.event.extendedProps.description,
+              html: true,
+              placement: 'top',
+              trigger: 'hover',
+              container: 'body'
+            });
+          },
           events: [
 EOM
-
 gawk -F"|" '
 {
     print "            {";
     print "              id: " NR",";
     print "              title: \x27"$2" vs "$3"\x27,";
-    print "              description: \x27Mes "$1":"$2" vs "$3"\x27,";
+    print "              description: \x27Mes "$1"<br>"$2"<br>vs<br>"$3"\x27,";
     print "              start: \x27" substr($5,1,4)"-"substr($5,5,2)"-"substr($5,7,2)"T"$6":00\x27,";
     print "              end:   \x27" substr($5,1,4)"-"substr($5,5,2)"-"substr($5,7,2)"T"$7":00\x27,";
     print "              resourceId: \x27" $5 "\x27";
@@ -602,6 +597,102 @@ cat <<EOM >>calendario.html
       #calendar {
         width: 90%;
         margin: 0 auto;
+      }
+      .popper,
+      .tooltip {
+        position: absolute;
+        z-index: 9999;
+        background: #668a99;
+        color: white;
+        border-radius: 3px;
+        box-shadow: 0 0 2px rgba(0,0,0,0.5);
+        padding: 10px;
+          text-align: center;
+          font-size: 10pt;
+      }
+      .style5 .tooltip {
+        background: #1E252B;
+        color: #FFFFFF;
+        max-width: 200px;
+        width: auto;
+        font-size: .8rem;
+        padding: .5em 1em;
+      }
+      .popper .popper__arrow,
+      .tooltip .tooltip-arrow {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        position: absolute;
+        margin: 5px;
+      }
+    
+      .tooltip .tooltip-arrow,
+      .popper .popper__arrow {
+        border-color: #668a99;
+      }
+      .style5 .tooltip .tooltip-arrow {
+        border-color: #1E252B;
+      }
+      .popper[x-placement^="top"],
+      .tooltip[x-placement^="top"] {
+        margin-bottom: 5px;
+      }
+      .popper[x-placement^="top"] .popper__arrow,
+      .tooltip[x-placement^="top"] .tooltip-arrow {
+        border-width: 5px 5px 0 5px;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        bottom: -5px;
+        left: calc(50% - 5px);
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .popper[x-placement^="bottom"],
+      .tooltip[x-placement^="bottom"] {
+        margin-top: 5px;
+      }
+      .tooltip[x-placement^="bottom"] .tooltip-arrow,
+      .popper[x-placement^="bottom"] .popper__arrow {
+        border-width: 0 5px 5px 5px;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        border-top-color: transparent;
+        top: -5px;
+        left: calc(50% - 5px);
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .tooltip[x-placement^="right"],
+      .popper[x-placement^="right"] {
+        margin-left: 5px;
+      }
+      .popper[x-placement^="right"] .popper__arrow,
+      .tooltip[x-placement^="right"] .tooltip-arrow {
+        border-width: 5px 5px 5px 0;
+        border-left-color: transparent;
+        border-top-color: transparent;
+        border-bottom-color: transparent;
+        left: -5px;
+        top: calc(50% - 5px);
+        margin-left: 0;
+        margin-right: 0;
+      }
+      .popper[x-placement^="left"],
+      .tooltip[x-placement^="left"] {
+        margin-right: 5px;
+      }
+      .popper[x-placement^="left"] .popper__arrow,
+      .tooltip[x-placement^="left"] .tooltip-arrow {
+        border-width: 5px 0 5px 5px;
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        right: -5px;
+        top: calc(50% - 5px);
+        margin-left: 0;
+        margin-right: 0;
       }
     </style>
   </head>
