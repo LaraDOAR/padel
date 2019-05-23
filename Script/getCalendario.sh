@@ -573,7 +573,7 @@ gawk -F"|" '
     print "              description: \x27Mes "$1"<br>"$2"<br>vs<br>"$3"\x27,";
     print "              start: \x27" substr($5,1,4)"-"substr($5,5,2)"-"substr($5,7,2)"T"$6":00\x27,";
     print "              end:   \x27" substr($5,1,4)"-"substr($5,5,2)"-"substr($5,7,2)"T"$7":00\x27,";
-    print "              resourceId: \x27" $5 "\x27";
+    print "              resourceId: \x27" $4 "\x27";
     print "            },";
 }' "${DIR_TMP}/calendario" >> calendario.html
 sed -i '$ s/.$//' calendario.html
