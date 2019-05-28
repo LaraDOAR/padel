@@ -140,8 +140,8 @@ done
 ##### 6/6 - Subir los html para que sean visibles para todo el mundo
 # -- Los unicos ficheros html que se van a publicar son ranking, partidos y calendario
 # -- En el directorio Calendario esta la configuracion necesaria para mostrar correctamente el Calendario
-
-scp -r Calendario ranking.html partidos.html calendario.html [USUARIO]@TESLA:[PATH]
+bash Script/creaPaquete.sh
+# --ablar con Daniel Duran para que lo suba a la web
 
 
 
@@ -196,7 +196,8 @@ mv ranking-*.txt ranking-*.html Historico/
 
 
 ##### 3/3 - Subir el nuevo ranking a la web y la lista de partidos con los resultados actualizados
-scp ranking.html partidos.html [USUARIO]@TESLA:[PATH]
+bash Script/creaPaquete.sh
+# -- hablar con Daniel Duran para que lo suba a la web
 
 
 
@@ -267,7 +268,8 @@ mv calendario-*.txt calendario-*.html Historico/
 
 
 ##### 3/3 - Subir el nuevo calendario a la web
-scp partidos.html calendario.html [USUARIO]@TESLA:[PATH]
+bash Script/creaPaquete.sh
+# -- hablar con Daniel Duran para que lo suba a la web
 
 
 
