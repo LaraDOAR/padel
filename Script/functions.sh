@@ -65,7 +65,7 @@ export -f FGRL_limpiaTabla
 
 ##########
 # - FGRL_getPermutacion
-#     Funcion   --->  genera n ficheros nuevos con las diferentes permutaciones de sus linea posibles
+#     Funcion   --->  Genera n ficheros nuevos con las diferentes permutaciones de sus linea posibles
 #     Entrada   --->  $1 = fichero
 #                     $2 = iteracion: numero de la iteracion
 #     Salida    --->  0 = ok
@@ -128,6 +128,102 @@ function FGRL_getPermutacion {
     return 0
 }
 export -f FGRL_getPermutacion
+
+
+##########
+# - FGRL_getPermutacion_conPesos
+#     Funcion   --->  Igual que FGRL_getPermutacion_conPesos, pero asume que las lineas de los ficheros
+#                     son de la forma: "peso texto". Esta funcion tambien genera permutaciones, pero lo hace
+#                     de manera ordenada para ir usando esas permutaciones.
+#                     Va registrando las permutaciones que están ya hechas, para porder ir usandolas.
+#                     Cuando detecta la existencia del fichero "${DIR_TMP}/PERMUTACIONES.REGISTRO", para.
+#     Entrada   --->  $1 = fichero
+#                     $2 = iteracion: numero de la iteracion
+#                     $3 = depth (parametro interno para saber cual es la profundidad)
+#     Salida    --->  0 = ok
+#                     1 = error
+#                   $1.perm1
+#                   $1.perm2
+#                   $1.perm(...)
+#                   PERMUTACIONES.REGISTRO
+#
+function FGRL_getPermutacion_conPesos {
+
+    # Argumentos
+    local _file=$1
+    local _iteracion=$2
+    local _depth=$3
+
+    # Variables internas
+    local _dir
+    local _base
+    local _f
+    local _files
+    local _nPosiciones
+    local _i
+
+    if [ -f "${DIR_TMP}/PARA.PERMUTACIONES" ]; then return 0; fi
+    
+    # Crea fichero de registro
+    if [ "${_depth}" == "" ]; then rm -f "${DIR_TMP}/PERMUTACIONES.REGISTRO"; touch "${DIR_TMP}/PERMUTACIONES.REGISTRO"; fi
+    
+    # Condicion de parada: cuando solo queda un elemento
+    if [ "$( wc -l "${_file}" | gawk '{print $1}' )" == "1" ]
+    then
+        if [ -f "${DIR_TMP}/PARA.PERMUTACIONES" ]; then return 0; fi
+        cat "${_file}" > "${_file}.function${_iteracion}"
+
+        if [ "${_depth}" == "" ]; then
+            echo "${_file}.function${_iteracion}" >> "${DIR_TMP}/PERMUTACIONES.REGISTRO"
+            echo "DONE" >> "${DIR_TMP}/PERMUTACIONES.REGISTRO"
+        fi
+        return 0
+    fi
+
+    # Se genera un fichero que no tiene la primera linea
+    if [ -f "${DIR_TMP}/PARA.PERMUTACIONES" ]; then return 0; fi
+    tail -n+2 "${_file}" > "${_file}.${_iteracion}"
+
+    # Se calculan las permutaciones del fichero restante
+    FGRL_getPermutacion_conPesos "${_file}.${_iteracion}" "${_iteracion}" "$(( _depth + 1 ))"
+    if [ -f "${DIR_TMP}/PARA.PERMUTACIONES" ]; then return 0; fi
+    rm "${_file}.${_iteracion}"
+
+    # Se calculan las combinaciones: se pone la primera linea de _file
+    # delante de todos los ficheros resultado
+    _dir=$(  dirname  "${_file}" )
+    _base=$( basename "${_file}" )
+    _files=$( find "${_dir}/" -type f -name "${_base}.${_iteracion}.function*" )
+    _newLine=$( head -1 "${_file}" )
+    for _f in ${_files}
+    do
+        # En el fichero _f tengo "2 er" y "3 tq", y newLine es "1 ab"
+        # Lo que quiero es meter "1 ab" en todas las posiciones posibles
+        # En este caso: en la 1 (antes de "2 er"), en la 2 (entre "2 er" y "3 tq"), y en la 3 (despues de "3 tq")
+        _nPosiciones=$( wc -l "${_f}" | gawk '{print $1}' )
+        for _i in $( seq 1 "${_nPosiciones}" )
+        do
+            if [ -f "${DIR_TMP}/PARA.PERMUTACIONES" ]; then return 0; fi
+            # -- crea iteracion (I)
+            gawk '{if (NR==POSICION) print NEW; print;}' POSICION="${_i}" NEW="${_newLine}" "${_f}" > "${_file}.function${_iteracion}"
+            # -- se registra (I)
+            if [ "${_depth}" == "" ]; then echo "${_file}.function${_iteracion}" >> "${DIR_TMP}/PERMUTACIONES.REGISTRO"; fi
+            _iteracion=$(( _iteracion + 1 ))
+        done
+        if [ -f "${DIR_TMP}/PARA.PERMUTACIONES" ]; then return 0; fi
+        # -- crea iteracion (II)
+        cat "${_f}" > "${_file}.function${_iteracion}"; echo "${_newLine}" >> "${_file}.function${_iteracion}"
+        # -- se registra (II)
+        if [ "${_depth}" == "" ]; then echo "${_file}.function${_iteracion}" >> "${DIR_TMP}/PERMUTACIONES.REGISTRO"; fi
+        _iteracion=$(( _iteracion + 1 ))
+        rm "${_f}"
+    done
+
+    # Fin
+    if [ "${_depth}" == "" ]; then echo "DONE" >> "${DIR_TMP}/PERMUTACIONES.REGISTRO"; fi
+    return 0
+}
+export -f FGRL_getPermutacion_conPesos
 
 
 ##########

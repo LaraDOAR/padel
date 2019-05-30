@@ -178,10 +178,10 @@ if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 prt_info "-- 3/6 - Formato de las columnas"
 while IFS="|" read -r MES DIVISION LOCAL VISITANTE FECHA HINI HFIN LUGAR SET1 SET2 SET3 RANKING
 do
-    if ! [[ ${MES}       =~ ^[0-9]+$                                         ]]; then echo "El campo MES=${MES} no es un numero entero";                       exit 1; fi
-    if ! [[ ${DIVISION}  =~ ^[0-9]+$                                         ]]; then echo "El campo DIVISION=${DIVISION} no es un numero entero";             exit 1; fi
-    if ! [[ ${LOCAL}     =~ ^[A-Z][a-z]+[A-Z][a-z]+\-[A-Z][a-z]+[A-Z][a-z]+$ ]]; then echo "El campo LOCAL=${LOCAL} no tiene el formato de la pareja";         exit 1; fi
-    if ! [[ ${VISITANTE} =~ ^[A-Z][a-z]+[A-Z][a-z]+\-[A-Z][a-z]+[A-Z][a-z]+$ ]]; then echo "El campo VISITANTE=${VISITANTE} no tiene el formato de la pareja"; exit 1; fi
+    if ! [[ ${MES}       =~ ^[0-9]+$                                 ]]; then echo "El campo MES=${MES} no es un numero entero";                       exit 1; fi
+    if ! [[ ${DIVISION}  =~ ^[0-9]+$                                 ]]; then echo "El campo DIVISION=${DIVISION} no es un numero entero";             exit 1; fi
+    if ! [[ ${LOCAL}     =~ ^[a-zA-Z]+[a-zA-Z]+\-[a-zA-Z]+[a-zA-Z]+$ ]]; then echo "El campo LOCAL=${LOCAL} no tiene el formato de la pareja";         exit 1; fi
+    if ! [[ ${VISITANTE} =~ ^[a-zA-Z]+[a-zA-Z]+\-[a-zA-Z]+[a-zA-Z]+$ ]]; then echo "El campo VISITANTE=${VISITANTE} no tiene el formato de la pareja"; exit 1; fi
     if [ "${FECHA}" == "-" ]
     then
         if [ "${HINI}" != "-" ]; then echo "El campo HORA_INI=${HINI} debe ser '-' porque la fecha es '-'"; exit 1; fi

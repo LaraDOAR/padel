@@ -177,8 +177,8 @@ prt_info "-- 3/5 - Formato de las columnas"
 while IFS="|" read -r PAREJA NOMBRE APELLIDO EMAIL
 do
     if ! [[ ${PAREJA}   =~ ^[0-9]+$                      ]]; then echo "El campo PAREJA=${PAREJA} no es un numero entero";                         exit 1; fi
-    if ! [[ ${NOMBRE}   =~ ^[A-Z][a-z]+$                 ]]; then echo "El campo NOMBRE=${NOMBRE} no es un string que empieza por mayusculas";     exit 1; fi
-    if ! [[ ${APELLIDO} =~ ^[A-Z][a-z]+$                 ]]; then echo "El campo APELLIDO=${APELLIDO} no es un string que empieza por mayusculas"; exit 1; fi
+    if ! [[ ${NOMBRE}   =~ ^[a-zA-Z]+$                   ]]; then echo "El campo NOMBRE=${NOMBRE} no es un string con solo letras a-zA-Z";         exit 1; fi
+    if ! [[ ${APELLIDO} =~ ^[a-zA-Z]+$                   ]]; then echo "El campo APELLIDO=${APELLIDO} no es un string con solo letras a-zA-Z";     exit 1; fi
     if ! [[ ${EMAIL}    =~ ^[a-z]+\.[a-z]+@iic\.uam\.es$ ]]; then echo "El campo EMAIL=${EMAIL} no es de la forma [nombre].[apellido]@iic.uam.es"; exit 1; fi
 done < "${DIR_TMP}/parejas"
 

@@ -1,25 +1,8 @@
 # Directorio temporal que se genera en las ejecuciones de algunos scripts
 tmp
 
-# Ficheros del torneo
-infoTorneo.cfg
-pistas.txt
-parejas.txt
-restricciones.txt
-
-ranking-*.txt
-ranking.txt
-ranking-*.html
-ranking.html
-
-partidos-*.txt
-partidos.txt
-partidos-*.html
-partidos.html
-
-calendario-*.txt
-calendario.txt
-calendario-*.html
-calendario.html
-
+# Paquete
 padelToWeb.zip
+
+# backup
+Historico

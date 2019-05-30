@@ -178,13 +178,13 @@ if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 prt_info "-- 3/4 - Formato de las columnas"
 while IFS="|" read -r MES LOCAL VISITANTE LUGAR FECHA HINI HFIN
 do
-    if ! [[ ${MES}       =~ ^[0-9]+$                                         ]]; then echo "El campo MES=${MES} no es un numero entero";                       exit 1; fi
-    if ! [[ ${LOCAL}     =~ ^[A-Z][a-z]+[A-Z][a-z]+\-[A-Z][a-z]+[A-Z][a-z]+$ ]]; then echo "El campo LOCAL=${LOCAL} no tiene el formato de la pareja";         exit 1; fi
-    if ! [[ ${VISITANTE} =~ ^[A-Z][a-z]+[A-Z][a-z]+\-[A-Z][a-z]+[A-Z][a-z]+$ ]]; then echo "El campo VISITANTE=${VISITANTE} no tiene el formato de la pareja"; exit 1; fi
+    if ! [[ ${MES}       =~ ^[0-9]+$                                 ]]; then echo "El campo MES=${MES} no es un numero entero";                       exit 1; fi
+    if ! [[ ${LOCAL}     =~ ^[a-zA-Z]+[a-zA-Z]+\-[a-zA-Z]+[a-zA-Z]+$ ]]; then echo "El campo LOCAL=${LOCAL} no tiene el formato de la pareja";         exit 1; fi
+    if ! [[ ${VISITANTE} =~ ^[a-zA-Z]+[a-zA-Z]+\-[a-zA-Z]+[a-zA-Z]+$ ]]; then echo "El campo VISITANTE=${VISITANTE} no tiene el formato de la pareja"; exit 1; fi
     # el lugar se deja libre, no se obliga a cumplir ningun formato
-    if ! [[ ${FECHA}     =~ ^[0-9]{8}$                                       ]]; then echo "El campo FECHA=${FECHA} no es de la forma YYYYMMDD";               exit 1; fi
-    if ! [[ ${HINI}      =~ ^([0-1][0-9]|2[0-3]):[0-5][0-9]$                 ]]; then echo "El campo HORA_INI=${HINI} no es de la forma HH:MM";                exit 1; fi
-    if ! [[ ${HFIN}      =~ ^([0-1][0-9]|2[0-3]):[0-5][0-9]$                 ]]; then echo "El campo HORA_FIN=${HFIN} no es de la forma HH:MM";                exit 1; fi
+    if ! [[ ${FECHA}     =~ ^[0-9]{8}$                               ]]; then echo "El campo FECHA=${FECHA} no es de la forma YYYYMMDD";               exit 1; fi
+    if ! [[ ${HINI}      =~ ^([0-1][0-9]|2[0-3]):[0-5][0-9]$         ]]; then echo "El campo HORA_INI=${HINI} no es de la forma HH:MM";                exit 1; fi
+    if ! [[ ${HFIN}      =~ ^([0-1][0-9]|2[0-3]):[0-5][0-9]$         ]]; then echo "El campo HORA_FIN=${HFIN} no es de la forma HH:MM";                exit 1; fi
     date +"%Y%m%d"     -d "${FECHA}         +5 days"  > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La fecha ${FECHA} no es una fecha valida";                   exit 1; fi
     date +"%Y%m%d%H%M" -d "${FECHA} ${HINI} +2 hours" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La hora ${HINI} no es una hora valida para el dia ${FECHA}"; exit 1; fi
     date +"%Y%m%d%H%M" -d "${FECHA} ${HFIN} +2 hours" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La hora ${HFIN} no es una hora valida para el dia ${FECHA}"; exit 1; fi

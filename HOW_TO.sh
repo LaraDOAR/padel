@@ -20,6 +20,9 @@ exit 1
 
 ##### 1/6 - Configurar ficheros iniciales
 
+# -- copiar index de la web al home
+cp Example/index.html
+
 # -- copiar de los de ejemplo
 cp Example/infoTorneo.cfg .    # datos del torneo
 cp Example/pistas.txt .        # informacion sobre las pistas disponibles
@@ -70,7 +73,7 @@ bash Script/checkRanking.sh
 # -- Se divide el ranking en divisiones. Dentro de cada division es un todos contra todos
 
 # -- ejecuta script
-NUMERO_PAREJAS_POR_DIVISION=5
+NUMERO_PAREJAS_POR_DIVISION=3
 bash Script/getPartidos.sh -m 1 -n "${NUMERO_PAREJAS_POR_DIVISION}"
 # -- ficheros de salida
 # partidos.txt
@@ -80,7 +83,7 @@ bash Script/checkPartidos.sh
 # -- ficheros de salida
 # no tiene, solo hace un check
 
-# -- genera el html de los partidos
+# -- genera el html de los partidos (o esperar a tener los partidos)
 bash Script/updatePartidos.sh -w
 # -- ficheros de salida
 # partidos.html
@@ -126,7 +129,7 @@ bash Script/checkPartidos.sh
 ##### 5/6 - Hacer backup de todos los ficheros generados
 # -- Sirve para tener constancia de todos los ficheros que se van generando
 
-mkdir Historico
+mkdir -p Historico
 for f in infoTorneo.cfg pistas.txt parejas.txt restricciones.txt ranking.txt ranking.html partidos.txt partidos.html calendario.txt calendario.html
 do
     cp ${f} Historico/versionInicial-${f}
@@ -140,6 +143,7 @@ done
 ##### 6/6 - Subir los html para que sean visibles para todo el mundo
 # -- Los unicos ficheros html que se van a publicar son ranking, partidos y calendario
 # -- En el directorio Calendario esta la configuracion necesaria para mostrar correctamente el Calendario
+cp Example/index.html .
 bash Script/creaPaquete.sh
 # --ablar con Daniel Duran para que lo suba a la web
 
@@ -169,7 +173,7 @@ bash Script/checkPartidos.sh
 # -- ficheros de salida
 # no tiene, solo hace un check
 
-# -- genera el html de los partidos
+# -- genera el html de los partidos (o esperar a tener los partidos)
 bash Script/updatePartidos.sh -w
 # -- ficheros de salida
 # partidos.html
@@ -231,7 +235,7 @@ bash Script/checkPartidos.sh
 # -- ficheros de salida
 # no tiene, solo hace un check
 
-# -- genera el html de los partidos
+# -- genera el html de los partidos (o esperar a tener los partidos)
 bash Script/updatePartidos.sh -w
 # -- ficheros de salida
 # partidos.html

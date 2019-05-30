@@ -1,0 +1,133 @@
+####################################################
+#
+# INFORMACION SOBRE LAS RESTRICCIONES QUE TIENE CADA PERSONA
+#
+####################################################
+
+  NOMBRE|  APELLIDO|   FECHA
+  Ainhoa|      Goni|20190603
+  Ainhoa|      Goni|20190605
+  Ainhoa|      Goni|20190617
+  Ainhoa|      Goni|20190618
+  Ainhoa|      Goni|20190619
+  Ainhoa|      Goni|20190620
+  Ainhoa|      Goni|20190626
+ Alberto|    Angulo|20190605
+ Alberto|    Angulo|20190607
+ Alberto|    Angulo|20190612
+ Alberto|    Angulo|20190614
+ Alberto|    Angulo|20190619
+ Alberto|    Angulo|20190621
+ Alberto|    Angulo|20190626
+ Alberto|    Angulo|20190628
+ Alberto|    Mateos|20190603
+ Alberto|    Mateos|20190604
+ Alberto|    Mateos|20190606
+ Alberto|    Mateos|20190610
+ Alberto|    Mateos|20190611
+ Alberto|    Mateos|20190613
+ Alberto|    Mateos|20190617
+ Alberto|    Mateos|20190618
+ Alberto|    Mateos|20190620
+ Alberto|    Mateos|20190624
+ Alberto|    Mateos|20190625
+ Alberto|    Mateos|20190627
+ Alberto|  Parramon|20190603
+ Alberto|  Parramon|20190605
+ Alberto|  Parramon|20190606
+ Alberto|  Parramon|20190610
+ Alberto|  Parramon|20190612
+ Alberto|  Parramon|20190617
+ Alberto|  Parramon|20190619
+ Alberto|  Parramon|20190624
+ Alberto|  Parramon|20190626
+Ambrosio|   Iniesta|20190607
+Ambrosio|   Iniesta|20190614
+Ambrosio|   Iniesta|20190621
+Ambrosio|   Iniesta|20190628
+  Andres|     Munoz|20190603
+  Andres|     Munoz|20190605
+  Andres|     Munoz|20190606
+  Andres|     Munoz|20190607
+  Andres|     Munoz|20190610
+  Andres|     Munoz|20190611
+  Andres|     Munoz|20190613
+  Andres|     Munoz|20190614
+  Andres|     Munoz|20190627
+  Andres|     Munoz|20190628  
+  Angela|      Ruiz|20190606
+  Angela|      Ruiz|20190611
+  Angela|      Ruiz|20190612
+  Angela|      Ruiz|20190617
+  Angela|      Ruiz|20190618
+  Angela|      Ruiz|20190619
+  Angela|      Ruiz|20190620
+  Angela|      Ruiz|20190621
+  Angela|      Ruiz|20190627
+  Angela|      Ruiz|20190628
+Cristina|      Leon|20190612
+Cristina|   Pruenza|20190603
+Cristina|   Pruenza|20190605
+Cristina|   Pruenza|20190606
+Cristina|   Pruenza|20190610
+Cristina|   Pruenza|20190613
+Cristina|   Pruenza|20190620
+Cristina|   Pruenza|20190627
+  Daniel|   Michaud|20190603
+  Daniel|   Michaud|20190605
+  Daniel|   Michaud|20190610
+  Daniel|   Michaud|20190612
+  Daniel|   Michaud|20190617
+  Daniel|   Michaud|20190619
+  Daniel|   Michaud|20190624
+  Daniel|   Michaud|20190626
+  Daniel|   Morillo|20190604
+  Daniel|   Morillo|20190606
+  Daniel|   Morillo|20190611
+  Daniel|   Morillo|20190613
+  Daniel|   Morillo|20190614
+  Daniel|   Morillo|20190615
+  Daniel|   Morillo|20190616
+  Daniel|   Morillo|20190617
+  Daniel|   Morillo|20190618
+  Daniel|   Morillo|20190619
+  Daniel|   Morillo|20190620
+  Daniel|   Morillo|20190625
+  Daniel|   Morillo|20190627
+  Daniel|    Villar|20190619
+   Diego|   Chicote|20190604
+   Diego|   Chicote|20190606
+   Diego|   Chicote|20190611
+   Diego|   Chicote|20190613
+   Diego|   Chicote|20190618
+   Diego|   Chicote|20190620
+   Diego|   Chicote|20190625
+   Diego|   Chicote|20190627
+  Israel|    Alonso|20190613
+  Israel|    Alonso|20190614
+    Jose|   Cordoba|20190605
+    Jose|   Cordoba|20190612
+    Jose|   Cordoba|20190619
+    Jose|   Cordoba|20190626
+    Lara| Dominguez|20190626
+    Lara| Dominguez|20190627
+    Lara| Dominguez|20190628
+  Monica|    Garcia|20190604
+  Monica|    Garcia|20190605
+  Monica|    Garcia|20190606
+  Monica|    Garcia|20190611
+  Monica|    Garcia|20190618
+  Monica|    Garcia|20190625
+   Ramon|Costafreda|20190607
+   Ramon|Costafreda|20190614
+   Ramon|Costafreda|20190621
+   Ramon|Costafreda|20190628
+    Sara|    Garcia|20190603
+    Sara|    Garcia|20190605
+    Sara|    Garcia|20190610
+    Sara|    Garcia|20190612
+    Sara|    Garcia|20190617
+    Sara|    Garcia|20190619
+    Sara|    Garcia|20190624
+    Sara|    Garcia|20190626
+    Sara|    Garcia|20190628

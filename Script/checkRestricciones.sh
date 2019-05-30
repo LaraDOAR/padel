@@ -164,18 +164,18 @@ out=$( FGRL_limpiaTabla parejas.txt       "${DIR_TMP}/parejas"       false )
 
 prt_info "Ejecucion..."
 
-# 1/4 - No hay celdas vacias
-prt_info "-- 1/4 - No hay celdas vacias"
+# 1/5 - No hay celdas vacias
+prt_info "-- 1/5 - No hay celdas vacias"
 out=$( gawk -F"|" '{for (i=1;i<=NF;i++) { if ($i=="") print "Hay celda vacia en la fila " NR ", columna " i}}' "${DIR_TMP}/restricciones" )
 if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
-# 2/4 - Registros (lineas) unicos
-prt_info "-- 2/4 - Registros (lineas) unicos"
+# 2/5 - Registros (lineas) unicos
+prt_info "-- 2/5 - Registros (lineas) unicos"
 out=$( sort "${DIR_TMP}/restricciones" | uniq -c | gawk '{if ($1>1) print "El registro " $2 " no es unico, aparece " $1 " veces"}' )
 if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
-# 3/4 - Formato de las columnas
-prt_info "-- 3/4 - Formato de las columnas"
+# 3/5 - Formato de las columnas
+prt_info "-- 3/5 - Formato de las columnas"
 while IFS="|" read -r NOMBRE APELLIDO FECHA
 do
     if ! [[ ${FECHA}    =~ ^[0-9]{8}$    ]]; then echo "La fecha ${FECHA} no es de la forma YYYYMMDD";                             exit 1; fi
@@ -184,12 +184,20 @@ do
     date +"%Y%m%d" -d "${FECHA} +5 days" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La fecha ${FECHA} no es una fecha valida"; exit 1; fi
 done < "${DIR_TMP}/restricciones"
 
-# 4/4 - La clave nombre+apellido esta en la lista de parejas
-prt_info "-- 4/4 - La clave nombre+apellido esta en la lista de parejas"
+# 4/5 - La clave nombre+apellido esta en la lista de parejas
+prt_info "-- 4/5 - La clave nombre+apellido esta en la lista de parejas"
 while IFS="|" read -r NOMBRE APELLIDO _
 do
     if [ "$( grep "|${NOMBRE}|${APELLIDO}|" "${DIR_TMP}/parejas" )" == "" ]; then echo "La persona [${NOMBRE}|${APELLIDO}] no aparece en el fichero parejas.txt"; exit 1; fi
 done < "${DIR_TMP}/restricciones"
+
+# 5/5 - Comprueba que el fichero esta ordenado
+prt_info "-- 5/5 - Comprueba que el fichero esta ordenado"
+sort -t"|" -k1,1 -k2,2 -k3,3 "${DIR_TMP}/restricciones" > "${DIR_TMP}/restricciones.sorted"
+while read -r ORIG SORT
+do
+    if [ "${ORIG}" != "${SORT}" ]; then echo "La linea [${ORIG}] no esta ordenada, porque deberia antes deberia estar [${SORT}]"; fi
+done < <(paste "${DIR_TMP}/restricciones" "${DIR_TMP}/restricciones.sorted")
 
 
 

@@ -163,6 +163,7 @@ mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${
 
 prt_info "Ejecucion..."
 
+rm -f  padelToWeb.zip
 zip -r padelToWeb.zip index.html ranking.html partidos.html calendario.html Calendario/*
 prt_info "-- Generado ${G}padelToWeb.zip${NC}"
 

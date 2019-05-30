@@ -178,13 +178,13 @@ if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 prt_info "-- 3/6 - Formato de las columnas"
 while IFS="|" read -r POSICION PAREJA PUNTOS JUGADOS GANADOS FAVOR CONTRA
 do
-    if ! [[ ${POSICION} =~ ^[0-9]+$                                         ]]; then echo "El campo POSICION=${PAREJA} no es un numero entero";         exit 1; fi
-    if ! [[ ${PAREJA}   =~ ^[A-Z][a-z]+[A-Z][a-z]+\-[A-Z][a-z]+[A-Z][a-z]+$ ]]; then echo "El campo PAREJA=${PAREJA} no tiene el formato de la pareja"; exit 1; fi
-    if ! [[ ${PUNTOS}   =~ ^[0-9]+$                                         ]]; then echo "El campo PUNTOS=${PUNTOS} no es un numero entero";           exit 1; fi
-    if ! [[ ${JUGADOS}  =~ ^[0-9]+$                                         ]]; then echo "El campo JUGADOS=${JUGADOS} no es un numero entero";         exit 1; fi
-    if ! [[ ${GANADOS}  =~ ^[0-9]+$                                         ]]; then echo "El campo GANADOS=${GANADOS} no es un numero entero";         exit 1; fi
-    if ! [[ ${FAVOR}    =~ ^[0-9]+$                                         ]]; then echo "El campo FAVOR=${FAVOR} no es un numero entero";             exit 1; fi
-    if ! [[ ${CONTRA}   =~ ^[0-9]+$                                         ]]; then echo "El campo CONTRA=${CONTRA} no es un numero entero";           exit 1; fi
+    if ! [[ ${POSICION} =~ ^[0-9]+$                                 ]]; then echo "El campo POSICION=${PAREJA} no es un numero entero";         exit 1; fi
+    if ! [[ ${PAREJA}   =~ ^[a-zA-Z]+[a-zA-Z]+\-[a-zA-Z]+[a-zA-Z]+$ ]]; then echo "El campo PAREJA=${PAREJA} no tiene el formato de la pareja"; exit 1; fi
+    if ! [[ ${PUNTOS}   =~ ^[0-9]+$                                 ]]; then echo "El campo PUNTOS=${PUNTOS} no es un numero entero";           exit 1; fi
+    if ! [[ ${JUGADOS}  =~ ^[0-9]+$                                 ]]; then echo "El campo JUGADOS=${JUGADOS} no es un numero entero";         exit 1; fi
+    if ! [[ ${GANADOS}  =~ ^[0-9]+$                                 ]]; then echo "El campo GANADOS=${GANADOS} no es un numero entero";         exit 1; fi
+    if ! [[ ${FAVOR}    =~ ^[0-9]+$                                 ]]; then echo "El campo FAVOR=${FAVOR} no es un numero entero";             exit 1; fi
+    if ! [[ ${CONTRA}   =~ ^[0-9]+$                                 ]]; then echo "El campo CONTRA=${CONTRA} no es un numero entero";           exit 1; fi
 done < "${DIR_TMP}/ranking"
 
 # 4/6 - Las posiciones estan seguidas y estan ordenadas
