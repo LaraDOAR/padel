@@ -1,20 +1,41 @@
-MES|DIVISION|                           LOCAL|                       VISITANTE|   FECHA|HORA_INI|HORA_FIN| LUGAR|SET1|SET2|SET3|RANKING
-001|       1|      AlbertoAngulo-RamiroLuengo|          AndresMunoz-JorgeLopez|20190617|   18:00|   19:00|Pista3|   -|   -|   -|  false
-001|       1|      AlbertoAngulo-RamiroLuengo|      JoseCordoba-ManueldelValle|20190617|   19:00|   20:00|Pista3|   -|   -|   -|  false
-001|       1|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|20190624|   19:00|   20:00|Pista3|   -|   -|   -|  false
-001|       2| AinhoaGoni-JuanAntonioMontesino|        DanielRamos-AlvaroRomero|20190610|   20:00|   21:00|Pista3|   -|   -|   -|  false
-001|       2| AinhoaGoni-JuanAntonioMontesino|          IsraelAlonso-EricPerez|20190621|   15:00|   16:00|Pista3|   -|   -|   -|  false
-001|       2|        DanielRamos-AlvaroRomero|          IsraelAlonso-EricPerez|20190624|   20:00|   21:00|Pista3|   -|   -|   -|  false
-001|       3|       AlbertoMateos-JavierVidal|AlbertoParramon-IgnacioHernandez|20190614|   15:00|   16:00|Pista3|   -|   -|   -|  false
-001|       3|       AlbertoMateos-JavierVidal|DiegoChicote-CarlosAlbertoMartin|20190621|   16:00|   17:00|Pista3|   -|   -|   -|  false
-001|       3|AlbertoParramon-IgnacioHernandez|DiegoChicote-CarlosAlbertoMartin|20190628|   15:00|   16:00|Pista3|   -|   -|   -|  false
-001|       4| AmbrosioIniesta-CarlosFernandez|    MonicaGarcia-EnriqueClemente|20190603|   18:00|   19:00|Pista3|   -|   -|   -|  false
-001|       4| AmbrosioIniesta-CarlosFernandez|  RamonCostafreda-AntonioSanchez|20190610|   19:00|   20:00|Pista3|   -|   -|   -|  false
-001|       4|    MonicaGarcia-EnriqueClemente|  RamonCostafreda-AntonioSanchez|20190624|   18:00|   19:00|Pista3|   -|   -|   -|  false
-001|       5|      CristinaLeon-ManuelHidalgo|       DanielMichaud-JavierMunoz|20190604|   19:00|   20:00|Pista3|   -|   -|   -|  false
-001|       5|      CristinaLeon-ManuelHidalgo|      LaraDominguez-TeresaSolano|20190610|   18:00|   19:00|Pista7|   -|   -|   -|  false
-001|       5|       DanielMichaud-JavierMunoz|      LaraDominguez-TeresaSolano|20190618|   18:00|   19:00|Pista3|   -|   -|   -|  false
-001|       6|        AngelaRuiz-AlvaroBarbero|      CristinaPruenza-SofiaCerda|20190604|   18:00|   19:00|Pista3|   -|   -|   -|  false
-001|       6|        AngelaRuiz-AlvaroBarbero|       DanielMorillo-AdrianGalan|20190610|   18:00|   19:00|Pista3|   -|   -|   -|  false
-001|       6|      CristinaPruenza-SofiaCerda|       DanielMorillo-AdrianGalan|20190621|   17:00|   18:00|Pista3|   -|   -|   -|  false
-001|       7|  DanielVillar-MariaLuisaBagaces|          SaraGarcia-AnaAlastuey|20190604|   20:00|   21:00|Pista3|   -|   -|   -|  false
+MES|DIVISION|                           LOCAL|                       VISITANTE|FECHA|HORA_INI|HORA_FIN|LUGAR|SET1|SET2|SET3|RANKING
+001|       1| AinhoaGoni-JuanAntonioMontesino|      AlbertoAngulo-RamiroLuengo|    -|       -|       -|    -|   -|   -|   -|  false
+001|       1| AinhoaGoni-JuanAntonioMontesino|          AndresMunoz-JorgeLopez|    -|       -|       -|    -|   -|   -|   -|  false
+001|       1| AinhoaGoni-JuanAntonioMontesino|        DanielRamos-AlvaroRomero|    -|       -|       -|    -|   -|   -|   -|  false
+001|       1| AinhoaGoni-JuanAntonioMontesino|      JoseCordoba-ManueldelValle|    -|       -|       -|    -|   -|   -|   -|  false
+001|       1|      AlbertoAngulo-RamiroLuengo|          AndresMunoz-JorgeLopez|    -|       -|       -|    -|   -|   -|   -|  false
+001|       1|      AlbertoAngulo-RamiroLuengo|        DanielRamos-AlvaroRomero|    -|       -|       -|    -|   -|   -|   -|  false
+001|       1|      AlbertoAngulo-RamiroLuengo|      JoseCordoba-ManueldelValle|    -|       -|       -|    -|   -|   -|   -|  false
+001|       1|          AndresMunoz-JorgeLopez|        DanielRamos-AlvaroRomero|    -|       -|       -|    -|   -|   -|   -|  false
+001|       1|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|    -|       -|       -|    -|   -|   -|   -|  false
+001|       1|        DanielRamos-AlvaroRomero|      JoseCordoba-ManueldelValle|    -|       -|       -|    -|   -|   -|   -|  false
+001|       2|       AlbertoMateos-JavierVidal|AlbertoParramon-IgnacioHernandez|    -|       -|       -|    -|   -|   -|   -|  false
+001|       2|       AlbertoMateos-JavierVidal|DiegoChicote-CarlosAlbertoMartin|    -|       -|       -|    -|   -|   -|   -|  false
+001|       2|       AlbertoMateos-JavierVidal|          IsraelAlonso-EricPerez|    -|       -|       -|    -|   -|   -|   -|  false
+001|       2|       AlbertoMateos-JavierVidal|  RamonCostafreda-AntonioSanchez|    -|       -|       -|    -|   -|   -|   -|  false
+001|       2|AlbertoParramon-IgnacioHernandez|DiegoChicote-CarlosAlbertoMartin|    -|       -|       -|    -|   -|   -|   -|  false
+001|       2|AlbertoParramon-IgnacioHernandez|          IsraelAlonso-EricPerez|    -|       -|       -|    -|   -|   -|   -|  false
+001|       2|AlbertoParramon-IgnacioHernandez|  RamonCostafreda-AntonioSanchez|    -|       -|       -|    -|   -|   -|   -|  false
+001|       2|DiegoChicote-CarlosAlbertoMartin|          IsraelAlonso-EricPerez|    -|       -|       -|    -|   -|   -|   -|  false
+001|       2|DiegoChicote-CarlosAlbertoMartin|  RamonCostafreda-AntonioSanchez|    -|       -|       -|    -|   -|   -|   -|  false
+001|       2|          IsraelAlonso-EricPerez|  RamonCostafreda-AntonioSanchez|    -|       -|       -|    -|   -|   -|   -|  false
+001|       3| AmbrosioIniesta-CarlosFernandez|      CristinaLeon-ManuelHidalgo|    -|       -|       -|    -|   -|   -|   -|  false
+001|       3| AmbrosioIniesta-CarlosFernandez|       DanielMichaud-JavierMunoz|    -|       -|       -|    -|   -|   -|   -|  false
+001|       3| AmbrosioIniesta-CarlosFernandez|      LaraDominguez-TeresaSolano|    -|       -|       -|    -|   -|   -|   -|  false
+001|       3| AmbrosioIniesta-CarlosFernandez|    MonicaGarcia-EnriqueClemente|    -|       -|       -|    -|   -|   -|   -|  false
+001|       3|      CristinaLeon-ManuelHidalgo|       DanielMichaud-JavierMunoz|    -|       -|       -|    -|   -|   -|   -|  false
+001|       3|      CristinaLeon-ManuelHidalgo|      LaraDominguez-TeresaSolano|    -|       -|       -|    -|   -|   -|   -|  false
+001|       3|      CristinaLeon-ManuelHidalgo|    MonicaGarcia-EnriqueClemente|    -|       -|       -|    -|   -|   -|   -|  false
+001|       3|       DanielMichaud-JavierMunoz|      LaraDominguez-TeresaSolano|    -|       -|       -|    -|   -|   -|   -|  false
+001|       3|       DanielMichaud-JavierMunoz|    MonicaGarcia-EnriqueClemente|    -|       -|       -|    -|   -|   -|   -|  false
+001|       3|      LaraDominguez-TeresaSolano|    MonicaGarcia-EnriqueClemente|    -|       -|       -|    -|   -|   -|   -|  false
+001|       4|        AngelaRuiz-AlvaroBarbero|      CristinaPruenza-SofiaCerda|    -|       -|       -|    -|   -|   -|   -|  false
+001|       4|        AngelaRuiz-AlvaroBarbero|       DanielMorillo-AdrianGalan|    -|       -|       -|    -|   -|   -|   -|  false
+001|       4|        AngelaRuiz-AlvaroBarbero|  DanielVillar-MariaLuisaBagaces|    -|       -|       -|    -|   -|   -|   -|  false
+001|       4|        AngelaRuiz-AlvaroBarbero|          SaraGarcia-AnaAlastuey|    -|       -|       -|    -|   -|   -|   -|  false
+001|       4|      CristinaPruenza-SofiaCerda|       DanielMorillo-AdrianGalan|    -|       -|       -|    -|   -|   -|   -|  false
+001|       4|      CristinaPruenza-SofiaCerda|  DanielVillar-MariaLuisaBagaces|    -|       -|       -|    -|   -|   -|   -|  false
+001|       4|      CristinaPruenza-SofiaCerda|          SaraGarcia-AnaAlastuey|    -|       -|       -|    -|   -|   -|   -|  false
+001|       4|       DanielMorillo-AdrianGalan|  DanielVillar-MariaLuisaBagaces|    -|       -|       -|    -|   -|   -|   -|  false
+001|       4|       DanielMorillo-AdrianGalan|          SaraGarcia-AnaAlastuey|    -|       -|       -|    -|   -|   -|   -|  false
+001|       4|  DanielVillar-MariaLuisaBagaces|          SaraGarcia-AnaAlastuey|    -|       -|       -|    -|   -|   -|   -|  false

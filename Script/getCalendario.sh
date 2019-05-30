@@ -160,10 +160,11 @@ function factorial {
 
 ##########
 # - moverPartido
-#     Funcion   --->  Se elige el partido de la semana con mas restricciones y se pone en la semana siguiente.
+#     Funcion   --->  Se elige un partido aleatorio y se pone en la semana siguiente. Se evita que una pareja juegue la misma semana.
 #                     Para no acumular partidos en una semana, si una semana se llena, se moverá a otra que tenga menos,
 #                     de manera rotativa hasta que todos esten mas o menos igualados.             
 #     Entrada   --->  $1 = semana actual
+#                     $2 = (opcional) "check" si no se quiere mover, solo comprobar
 #     Salida    --->  0 = ok
 #                     1 = error
 #                Modifica los ficheros partidos.semana*
@@ -172,60 +173,77 @@ function moverPartido {
 
     # Argumentos
     local _s=$1
+    local _check=$2
 
     # Variables internas
+    local _nLineas
+    local _num
+    local _sSig
+    local _partido
     local _LOC
     local _VIS
-    local _LOCAL
-    local _VISITANTE
-    local _nResLoc
-    local _nResVis
-    local _partido
-    local _sSig
-    local _indS
+    local _seMueve
     local _finalizado
-    local _nPartidosTotal
-    local _nPartidos
-    local _contador
-    
-    # Se escribe en un fichero la cantidad de restricciones que tiene cada partido (suma de las 2 parejas)
-    rm -f "${DIR_TMP}/moverPartido.lista"; touch "${DIR_TMP}/moverPartido.lista"
-    while IFS='|' read -r _ _ _LOCAL _VISITANTE _ _ _ _ _ _ _
-    do
-        _LOC=$( echo "${_LOCAL}"     | gawk -F"-" '{print $1}' ); _nResLoc=$( grep -c -e "${_LOC}|" )
-        _VIS=$( echo "${_VISITANTE}" | gawk -F"-" '{print $1}' ); _nResVis=$( grep -c -e "${_VIS}|" )
-        echo "${_LOCAL}|${_VISITANTE}|$((_nResLoc+_nResVis))" >> "${DIR_TMP}/moverPartido.lista"
-    done < "${DIR_TMP}/partidos.semana${_s}"
+    local _indS
+    local _rv
+    local _aux
 
-    # Se elige el partido que tiene mas problemas
-    _partido=$( sort -t"|" -k3,3 -g "${DIR_TMP}/moverPartido.lista" | head -1 )
-    _LOC=$( echo -e "${_partido}" | gawk -F"|" '{print $1}' )
-    _VIS=$( echo -e "${_partido}" | gawk -F"|" '{print $2}' )
+    _nLineas=$( wc -l "${DIR_TMP}/partidos.semana${_s}" | gawk '{print $1}' )
     _sSig=$(( (_s % nSemanas) + 1 ))
-    prt_info "------- <moverPartido ${_s}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}"
-    grep -e "|${_LOC}|${_VIS}|"   "${DIR_TMP}/partidos.semana${_s}" >> "${DIR_TMP}/partidos.semana${_sSig}"  # se mueve a la semana siguiente
-    sed -i "/|${_LOC}|${_VIS}|/d" "${DIR_TMP}/partidos.semana${_s}"                                          # se quita de la semana actual
+    
+    # Se elige un partido que este repetido
+    _seMueve=false
+    for _num in $( seq 1 "${_nLineas}" )
+    do
+        _LOC=$( head -"${_num}" "${DIR_TMP}/partidos.semana${_s}" | tail -1 | gawk -F"|" '{print $3}' )
+        _VIS=$( head -"${_num}" "${DIR_TMP}/partidos.semana${_s}" | tail -1 | gawk -F"|" '{print $4}' )
+        _aux=$(( _num + 1 ))
+        if [ "$( tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_LOC}" )" != "" ] || [ "$( tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_VIS}" )" != "" ]
+        then
+            prt_info "------- <moverPartido ${_s}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}"
+            #prt_info "----------- partidos pareja local:"
+            #tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_LOC}"
+            #prt_info "----------- partidos pareja visitante:"
+            #tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_VIS}"
+            _seMueve=true
+            break
+        fi
+    done
 
-    # Comprueba que todas la semanas tienen el mismo numero de partidos
+    # Si solo es check y no hay ninguno repetido termina
+    if [ "${_check}" == "check" ] && [ "${_seMueve}" == "false" ]; then return 0; fi
+    
+    # Si no se ha movido, se elige uno al azar
+    if [ "${_seMueve}" == "false" ]
+    then
+        _num=$( shuf -i 1-${_nLineas} -n 1 )
+        _partido=$( head -${_num} "${DIR_TMP}/partidos.semana${_s}" | tail -1 )
+        _LOC=$( echo -e "${_partido}" | gawk -F"|" '{print $1}' )
+        _VIS=$( echo -e "${_partido}" | gawk -F"|" '{print $2}' )
+        prt_info "------- <moverPartido ${_s}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}, elegido aleatoriamente"
+        _seMueve=true
+    fi
+
+    # Se mueve
+    if [ "${_seMueve}" == "true" ]
+    then
+        grep -e "|${_LOC}|${_VIS}|"   "${DIR_TMP}/partidos.semana${_s}" >> "${DIR_TMP}/partidos.semana${_sSig}"  # se mueve a la semana siguiente
+        sed -i "/|${_LOC}|${_VIS}|/d" "${DIR_TMP}/partidos.semana${_s}"                                          # se quita de la semana actual
+    fi
+
+    # Comprueba que el resto de semanas estan bien configuradas
     _finalizado=false
-    _nPartidosTotal=$( wc -l "${DIR_TMP}/partidos.semana"* | tail -1 | gawk '{printf("%d",$1/N+1)}' N="${nSemanas}")
     while [ "${_finalizado}" == "false" ]
     do
         # -- condicion de parada
         _finalizado=true
         for _indS in $( seq 1 "${nSemanas}" )
         do
-            _nPartidos=$( wc -l "${DIR_TMP}/partidos.semana${_indS}" | gawk '{print $1}' )
-            if [ "${_nPartidos}" -gt "${_nPartidosTotal}" ] && [ "${_indS}" != "${_s}" ]
-            then
-                moverPartido "${_indS}"
-                _finalizado=false
-                break  
-            fi
+            moverPartido "${_indS}" "check"; _rv=$?
+            if [ "${_rv}" != "0" ]; then _finalizado=false; break; fi
         done       
     done
 
-    rm -f "${DIR_TMP}/moverPartido.lista"
     return 0
 }
 
@@ -356,8 +374,9 @@ done
 
 # 2/6 - Comprueba que todos los partidos se pueden jugar al menos un dia
 prt_info "-- 2/6 - Comprueba que todos los partidos se pueden jugar al menos un dia"
-# -- se generan los huecos disponibles
-sed 's/|/-/g' "${DIR_TMP}/pistas" > "${DIR_TMP}/huecos"
+# -- se generan los huecos disponibles, poniendo al principio la pista 7
+#sed 's/|/-/g' "${DIR_TMP}/pistas" | sort -t"-" -k1,1r -k3,3 -k2,2  > "${DIR_TMP}/huecos" #-----------------------------------------PRIORIZANDO POR PISTA, DESPUES HORA, Y DESPUES DIA
+sed 's/|/-/g' "${DIR_TMP}/pistas"  > "${DIR_TMP}/huecos"
 nHuecos=$(   wc -l "${DIR_TMP}/huecos"   | gawk '{print $1}' )
 nPartidos=$( wc -l "${DIR_TMP}/partidos" | gawk '{print $1}' )
 if [ "${nPartidos}" -gt "${nHuecos}" ]; then prt_error "------ Hay mas partidos [${nPartidos}] que huecos disponibles [${nHuecos}]"; exit 1; fi
@@ -400,8 +419,8 @@ gawk -F"|" '{if ($5=="-") print}' "${DIR_TMP}/partidos" | # solo partidos que no
 mv "${DIR_TMP}/partidos" "${DIR_TMP}/partidos.orig"
 prt_info "---- Generados los ficheros origen"
 
-# -- Se recolocan los partidos para que esten repartidos
-moverPartido 1
+# -- Se comprueba que ninguna pareja repite la misma semana
+moverPartido 1 "check"
 
 
 # 4/6 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen
@@ -489,9 +508,9 @@ do
     # Antes de arrancar las permutaciones se asegura de que las anteriores ya han acabado
     if [ -f "${DIR_TMP}/PARA.PERMUTACIONES" ]
     then
-        rm "${DIR_TMP}/PERMUTACIONES.REGISTRO"*
-        rm "${DIR_TMP}/combinaciones_ordenadas."*
-        rm "${DIR_TMP}/PARA.PERMUTACIONES"
+        rm -f "${DIR_TMP}/PERMUTACIONES.REGISTRO"*
+        rm -f "${DIR_TMP}/combinaciones_ordenadas."*
+        rm -f "${DIR_TMP}/PARA.PERMUTACIONES"
     fi
     
     # 7/10 - Se calculan todas las permutaciones posibles
@@ -506,8 +525,10 @@ do
     then
         prt_warn "------ No hay partidos esta semana"
     else
-        FGRL_getPermutacion_conPesos "${DIR_TMP}/combinaciones_ordenadas" 1 &   # genera los ficheros DIR_TMP/combinaciones_ordenadas.functionX donde X=numero de la permutacion
+        # genera los ficheros DIR_TMP/combinaciones_ordenadas.functionX donde X=numero de la permutacion
+        FGRL_getPermutacion_conPesos "${DIR_TMP}/combinaciones_ordenadas" 1 "$( seq ${nLineas} -1 1 | xargs printf "%d " | sed -r "s/^ +//g; s/ +$//g;" )" "${nLineas}" "${nLineas}" &
         prt_info "------ Se ha iniciado el calculo de permutaciones"
+        sleep 3s
     fi
 
     ######### EL PROCESO DE GENERACION DE PERMUTACIONES SE VA A EJECUTAR EN BACKGROUND
@@ -639,6 +660,8 @@ do
                 grep -e "-${pLocal}-${pVisitante}-${hueco}" "${DIR_TMP}/comb_todas" >> "${DIR_TMP}/calendario.semana${semana}.txt"  # Se anade ese partido en ese huecos al calendario
                 sed -i "/-${pLocal}-${pVisitante}-/d" "${DIR_TMP}/comb_todas"  # Dada la pareja, se eliminan todos los huecos de esa pareja
                 sed -i "/-${hueco}/d" "${DIR_TMP}/comb_todas"                  # Dado el hueco, se eliminan todas las parejas que tenian posibilidad de jugar en ese hueco
+                dia=$( echo -e "${hueco}" | gawk -F"-" '{print $2}' )  # Pista3-20190603-18:00-19:00
+                sed -i "/-${pLocal}-${pVisitante}-.*-${dia}/d" "${DIR_TMP}/comb_todas"  # La pareja, como ya juega ese dia, no puede jugar mas partidos ese dia, sea la pista o la hora que sea
 
                 # Se recalculan las combinaciones ordenadas
                 gawk -F"-" '{print $2"-"$3 " vs " $4"-"$5}' "${DIR_TMP}/comb_todas" | sort | uniq -c | sort -k1,1 -g > "${DIR_TMP}/comb_ordenadas"

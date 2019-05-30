@@ -138,6 +138,137 @@ export -f FGRL_getPermutacion
 #                     Va registrando las permutaciones que están ya hechas, para porder ir usandolas.
 #                     Cuando detecta la existencia del fichero "${DIR_TMP}/PERMUTACIONES.REGISTRO", para.
 #     Entrada   --->  $1 = fichero
+#                     $2 = iteracion
+#                     $3 = combinacion (la inicial siempre es: 1 2 3 4...)
+#                     $4 = total, que es longitud(combinacion), pero se pasa para no calcular todo el rato
+#     Salida    --->  0 = ok
+#                     1 = error
+#                   $1.perm1
+#                   $1.perm2
+#                   $1.perm(...)
+#                   PERMUTACIONES.REGISTRO
+#
+function FGRL_getPermutacion_conPesos {
+
+    # Argumentos
+    local _file=$1
+    local _iteracion=$2
+    local _comb=${3}
+    local _totalGeneral=$4
+
+    # Variables internas
+    local _indice
+    local _posPivote
+    local _valorPivoteActual
+    local _valorPivoteNuevo
+    local _fijos
+    local _variables
+    local _val
+    local _valSig
+    local _detrasIndice
+    local _yaOrdenado
+    local _preComb
+    local _total
+    local _maxValue
+
+    if [ -f "${DIR_TMP}/PARA.PERMUTACIONES" ]; then return 0; fi
+
+    # -- control de errores
+    if [ "$( echo -e "${_comb}" | gawk '{print NF}' )" != "${_totalGeneral}" ]; then echo "<FGRL_getPermutacion_conPesos> Error porque [${_comb}] no tiene ${_totalGeneral} elementos"; return 1; fi
+
+    # Para ejecutar en background
+    if [ "${_iteracion}" == "1" ]; then rm -f "${DIR_TMP}/PERMUTACIONES.REGISTRO"; touch "${DIR_TMP}/PERMUTACIONES.REGISTRO"; fi
+    
+    # Se escribe la original
+    while read -r _indice; do head -"${_indice}" "${_file}" | tail -1 >> "${_file}.function${_iteracion}"; done < <( echo -e "${_comb}" | sed 's/ /\n/g' )
+    echo "${_file}.function${_iteracion}" >> "${DIR_TMP}/PERMUTACIONES.REGISTRO"  # registra la permutacion que acaba de generar
+    _iteracion=$(( _iteracion + 1 ))
+
+    # CONDICION DE PARADA (1): cuando se llegue a la numeracion al reves (si tenemos 1 2 3 4 --> para con 4 3 2 1)
+    _parada=$( seq ${_totalGeneral} -1 1 | xargs printf "%d " | sed -r "s/^ +//g; s/ +$//g;" )
+    if [ "${_comb}" == "${_parada}" ]; then return 0; fi
+
+    # Cuando ya tenemos el maximo a la derecha del todo, lo quitamos para calcular la posicion del pivote
+    _yaOrdenado=0
+    _total=${_totalGeneral}
+    for _indice in $( seq 1 "${_total}" )
+    do
+        if [ "$( echo -e "${_parada}" | gawk '{print $POS}' POS="${_indice}" )" != "$( echo -e "${_comb}" | gawk '{print $POS}' POS="${_indice}" )" ]; then break; fi
+        _yaOrdenado=${_indice}
+        _total=$(( _total - 1 ))
+    done
+    _preComb=$( echo -e "${_comb}" | gawk '{for(i=1;    i<=POS;i++) printf("%d ",$i)}' POS=${_yaOrdenado} | sed -r "s/^ +//g; s/ +$//g;" )
+    _comb=$(    echo -e "${_comb}" | gawk '{for(i=POS+1;i<=NF; i++) printf("%d ",$i)}' POS=${_yaOrdenado} | sed -r "s/^ +//g; s/ +$//g;" )
+    if [ "${_comb}" == "" ]; then return 0; fi
+    
+    
+    # Genera la siguiente comb
+    # -- localiza cual es el termino que hace de pivote
+    # -------- si tenemos 1 2 3 4, queremos que el pivote en la posicion 1 sea el 4, que es el numero mas alto)
+    # -------- pero tenemos que ir de 1 en 1. Primero el 1 despues el 2...
+    # -------- para poder elegir el 1, en la siguiente posicion tiene que haber un 4
+    # -------- si no es asi, tendremos que mirar: 2 3 4 (ignorando el 1)
+    _posPivote=""
+    _maxValue=${_total}
+    for _indice in $( seq 1 $(( _total-1 )) )
+    do
+        _val=$(    echo -e "${_comb}" | gawk '{print $(POS)}'   POS="${_indice}" )
+        _valSig=$( echo -e "${_comb}" | gawk '{print $(POS+1)}' POS="${_indice}" )
+        _detrasIndice=$( echo -e "${_comb}" | gawk '{for(i=POS+1;i<=NF;i++) printf("%d ",$i)}' POS="${_indice}" | sed -r "s/^ +//g; s/ +$//g;" )
+        _detrasIndiceSorted=$( echo -e "${_detrasIndice}" | sed 's/ /\n/g' | sort -r | xargs printf "%d " | sed -r "s/^ +//g; s/ +$//g;" )
+        if [ "${_val}" != "${_maxValue}" ] && ( [ "${_valSig}" == "${_maxValue}" ] || [ "${_maxValue}" != "${_total}" ] ) && [ "${_detrasIndice}" == "${_detrasIndiceSorted}" ]
+        then
+            _posPivote=${_indice}; break
+        fi
+        if [ "${_val}" == "${_maxValue}" ]; then _maxValue=$(( _maxValue - 1 )); fi
+    done
+
+    # -- mira los que estan fijos, que son los que hay antes del pivote
+    _fijos=$( echo -e "${_comb}" | gawk '{for(i=1;i<POS;i++) printf("%d ",$i)}' POS="${_posPivote}" )
+    
+    # -- los variables son el resto
+    _variables=$( echo -e "${_comb}" | gawk '{for(i=POS;i<=NF;i++) printf("%d ",$i)}' POS="${_posPivote}" )
+
+    # -- el nuevo valor del pivote debe ser mayor que el valor actual, pero sin estar en los fijos
+    _valorPivoteActual=$( echo -e "${_comb}" | gawk '{print $POS}' POS="${_posPivote}" )
+    _valorPivoteNuevo=$(( _valorPivoteActual + 1 ))
+    for _indice in $( seq "${_valorPivoteNuevo}" "${_totalGeneral}" )
+    do
+        if [ "$( echo -e "${_fijos}" | sed 's/ /\n/g' | grep "${_indice}" )" == "" ]; then break; fi
+    done
+    _valorPivoteNuevo=${_indice}
+    
+    # *** a los variables hay que quitar el nuevo valor del pivote
+    _variables=$( echo -e "${_variables}" | sed 's/ /\n/g' | grep -v "${_valorPivoteNuevo}" | xargs printf "%d " )
+    
+    # *** a los fijos hay que anadir el nuevo pivote
+    _fijos=$( echo -e "${_fijos} ${_valorPivoteNuevo}" )
+    
+    # -- ordena los variables
+    _variables=$( echo -e "${_variables}" | sed 's/ /\n/g' | sort | xargs printf "%d " )
+    
+    # -- une los fijos con los variables ordenados (eliminando blancos por delantes y por detras)
+    _comb=$( echo -e "${_preComb} ${_fijos} ${_variables}" | sed -r "s/  / /g; s/^ +//g; s/ +$//g;" )
+
+    # Vuelve a hacer lo mismo
+    if [ -f "${DIR_TMP}/PARA.PERMUTACIONES" ]; then return 0; fi
+    FGRL_getPermutacion_conPesos "${_file}" "${_iteracion}" "${_comb}" "${_totalGeneral}"
+
+    # Fin
+    if [ "${_iteracion}" == "1" ]; then echo "DONE" >> "${DIR_TMP}/PERMUTACIONES.REGISTRO"; fi
+    return 0
+}
+export -f FGRL_getPermutacion_conPesos
+
+
+##########
+# - FGRL_getPermutacion_conPesos
+#     Funcion   --->  Igual que FGRL_getPermutacion_conPesos, pero asume que las lineas de los ficheros
+#                     son de la forma: "peso texto". Esta funcion tambien genera permutaciones, pero lo hace
+#                     de manera ordenada para ir usando esas permutaciones.
+#                     Va registrando las permutaciones que están ya hechas, para porder ir usandolas.
+#                     Cuando detecta la existencia del fichero "${DIR_TMP}/PERMUTACIONES.REGISTRO", para.
+#     Entrada   --->  $1 = fichero
 #                     $2 = iteracion: numero de la iteracion
 #                     $3 = depth (parametro interno para saber cual es la profundidad)
 #     Salida    --->  0 = ok
@@ -147,7 +278,7 @@ export -f FGRL_getPermutacion
 #                   $1.perm(...)
 #                   PERMUTACIONES.REGISTRO
 #
-function FGRL_getPermutacion_conPesos {
+function FGRL_getPermutacion_conPesos_BCK {
 
     # Argumentos
     local _file=$1
@@ -223,7 +354,7 @@ function FGRL_getPermutacion_conPesos {
     if [ "${_depth}" == "" ]; then echo "DONE" >> "${DIR_TMP}/PERMUTACIONES.REGISTRO"; fi
     return 0
 }
-export -f FGRL_getPermutacion_conPesos
+export -f FGRL_getPermutacion_conPesos_BCK
 
 
 ##########

@@ -73,7 +73,7 @@ bash Script/checkRanking.sh
 # -- Se divide el ranking en divisiones. Dentro de cada division es un todos contra todos
 
 # -- ejecuta script
-NUMERO_PAREJAS_POR_DIVISION=3
+NUMERO_PAREJAS_POR_DIVISION=4
 bash Script/getPartidos.sh -m 1 -n "${NUMERO_PAREJAS_POR_DIVISION}"
 # -- ficheros de salida
 # partidos.txt
