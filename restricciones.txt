@@ -36,7 +36,6 @@
  Alberto|  Parramon|20190605
  Alberto|  Parramon|20190606
  Alberto|  Parramon|20190610
- Alberto|  Parramon|20190612
  Alberto|  Parramon|20190617
  Alberto|  Parramon|20190619
  Alberto|  Parramon|20190624
@@ -54,7 +53,7 @@ Ambrosio|   Iniesta|20190628
   Andres|     Munoz|20190613
   Andres|     Munoz|20190614
   Andres|     Munoz|20190627
-  Andres|     Munoz|20190628  
+  Andres|     Munoz|20190628
   Angela|      Ruiz|20190606
   Angela|      Ruiz|20190611
   Angela|      Ruiz|20190612
@@ -96,13 +95,15 @@ Cristina|   Pruenza|20190627
   Daniel|   Morillo|20190627
   Daniel|    Villar|20190619
    Diego|   Chicote|20190604
-   Diego|   Chicote|20190606
    Diego|   Chicote|20190611
    Diego|   Chicote|20190613
+   Diego|   Chicote|20190614
    Diego|   Chicote|20190618
-   Diego|   Chicote|20190620
+   Diego|   Chicote|20190621
    Diego|   Chicote|20190625
+   Diego|   Chicote|20190626
    Diego|   Chicote|20190627
+   Diego|   Chicote|20190628
   Israel|    Alonso|20190613
   Israel|    Alonso|20190614
     Jose|   Cordoba|20190605

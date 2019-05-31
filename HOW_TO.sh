@@ -73,7 +73,7 @@ bash Script/checkRanking.sh
 # -- Se divide el ranking en divisiones. Dentro de cada division es un todos contra todos
 
 # -- ejecuta script
-NUMERO_PAREJAS_POR_DIVISION=4
+NUMERO_PAREJAS_POR_DIVISION=3 # numero de partidos que se quieran jugar + 1
 bash Script/getPartidos.sh -m 1 -n "${NUMERO_PAREJAS_POR_DIVISION}"
 # -- ficheros de salida
 # partidos.txt
@@ -97,7 +97,7 @@ bash Script/updatePartidos.sh -w
 # -- Genera los ficheros de calendario, pero tambien actualiza el fichero de partidos anterior
 
 # -- inicializa variables
-FECHA_INI_MES=20190603
+FECHA_INI_MES=20190610
 FECHA_FIN_MES=20190628
 
 # -- ejecuta el script
@@ -214,7 +214,7 @@ bash Script/creaPaquete.sh
 MES=2
 FECHA_INI_JORNADA=20190701
 FECHA_FIN_JORNADA=20190726
-NUMERO_PAREJAS_POR_DIVISION=5
+NUMERO_PAREJAS_POR_DIVISION=5   # numero de partidos que se quieran jugar + 1
 
 # Se supone ya actualizado el ranking con los resultados de la ultima jornada/mes
 

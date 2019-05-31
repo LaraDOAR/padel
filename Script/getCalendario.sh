@@ -169,6 +169,7 @@ function factorial {
 #                     1 = error
 #                Modifica los ficheros partidos.semana*
 #
+N_MAX_REPETICIONES=1
 function moverPartido {
 
     # Argumentos
@@ -187,24 +188,28 @@ function moverPartido {
     local _indS
     local _rv
     local _aux
+    local _nRepLoc
+    local _nRepVis
 
     _nLineas=$( wc -l "${DIR_TMP}/partidos.semana${_s}" | gawk '{print $1}' )
     _sSig=$(( (_s % nSemanas) + 1 ))
     
-    # Se elige un partido que este repetido
+    # Se elige un partido que este repetido mas de N_MAX_REPETICIONES
     _seMueve=false
     for _num in $( seq 1 "${_nLineas}" )
     do
         _LOC=$( head -"${_num}" "${DIR_TMP}/partidos.semana${_s}" | tail -1 | gawk -F"|" '{print $3}' )
         _VIS=$( head -"${_num}" "${DIR_TMP}/partidos.semana${_s}" | tail -1 | gawk -F"|" '{print $4}' )
         _aux=$(( _num + 1 ))
-        if [ "$( tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_LOC}" )" != "" ] || [ "$( tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_VIS}" )" != "" ]
+        _nRepLoc=$( tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep -c "${_LOC}" )
+        _nRepVis=$( tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep -c "${_VIS}" )
+        if [ "${_nRepLoc}" -ge "${N_MAX_REPETICIONES}" ] || [ "${_nRepVis}" -ge "${N_MAX_REPETICIONES}" ]
         then
             prt_info "------- <moverPartido ${_s}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}"
-            #prt_info "----------- partidos pareja local:"
-            #tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_LOC}"
-            #prt_info "----------- partidos pareja visitante:"
-            #tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_VIS}"
+            prt_debug "${ARG_VERBOSO}" "----------- partidos pareja local:"
+            if [ "${ARG_VERBOSO}" == "true" ]; then tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_LOC}"; fi
+            prt_debug "${ARG_VERBOSO}" "----------- partidos pareja visitante:"
+            if [ "${ARG_VERBOSO}" == "true" ]; then tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_VIS}"; fi
             _seMueve=true
             break
         fi
@@ -244,6 +249,54 @@ function moverPartido {
         done       
     done
 
+    return 0
+}
+
+
+##########
+# - checkCompatible
+#     Funcion   --->  Comprueba que todos los partidos se pueden jugar
+#     Entrada   --->  $1 = semana actual
+#                     $2 = (opcional) "check" si no se quiere mover, solo comprobar
+#     Salida    --->  0 = compatible
+#                     1 = no-compatible
+#
+function checkCompatible {
+
+    # Argumentos
+    # -- no hay
+
+    # Variables internas
+    local _imposible
+    local _parejaCompatible
+    local _local
+    local _visitante
+    local _fecha
+    local _n
+    local _nPartidos
+
+    _nPartidos=$( wc -l "${DIR_TMP}/partidos.orig" | gawk '{print $1}' )
+    
+    _imposible=false
+    while IFS="|" read -r _ _ _local _visitante _ _ _ _ _ _ _ _
+    do
+        grep -e "-${_local}-${_visitante}-" "${DIR_TMP}/combinaciones_todas" | gawk -F"-" '{print $7}' | sort -u > "${DIR_TMP}/fechas_del_partido"
+        _parejaCompatible=true
+        while read -r _fecha
+        do
+            _n=$( grep -v -e "-${_local}-${_visitante}-" "${DIR_TMP}/combinaciones_todas" | grep -v -e "-${_fecha}-" | gawk 'BEGIN{OFS=FS="-"}{NF=5; print}' | sort -u | wc -l )
+            if [ "${_n}" -lt "$(( _npartidos - 1 ))" ]
+            then
+                prt_error "--- Por problemas de restricciones el partido [${_local} vs ${_visitante}] no se puede jugar"
+                _parejaCompatible=false
+            fi
+        done < "${DIR_TMP}/fechas_del_partido"
+        if [ "${_parejaCompatible}" == "false" ]
+        then
+            _imposible=true
+        fi
+    done < "${DIR_TMP}/partidos"
+    if [ "${_imposible}" == "true" ]; then return 1; fi
     return 0
 }
 
@@ -360,8 +413,8 @@ FGRL_backupFile calendario html
 
 prt_info "Ejecucion..."
 
-# 1/6 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana
-prt_info "-- 1/6 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana"
+# 1/7 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana
+prt_info "-- 1/7 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana"
 dIni=$( date -d "${ARG_FECHA_INI}" +%s )
 dFin=$( date -d "${ARG_FECHA_FIN}" +%s )
 nSemanas=$( echo "" | gawk '{printf("%d",((FIN-INI)/(86400*7))+0.5)}' INI="${dIni}" FIN="${dFin}" )
@@ -372,8 +425,8 @@ do
 done
 
 
-# 2/6 - Comprueba que todos los partidos se pueden jugar al menos un dia
-prt_info "-- 2/6 - Comprueba que todos los partidos se pueden jugar al menos un dia"
+# 2/7 - Comprueba que todos los partidos se pueden jugar al menos un dia
+prt_info "-- 2/7 - Comprueba que todos los partidos se pueden jugar al menos un dia"
 # -- se generan los huecos disponibles, poniendo al principio la pista 7
 #sed 's/|/-/g' "${DIR_TMP}/pistas" | sort -t"-" -k1,1r -k3,3 -k2,2  > "${DIR_TMP}/huecos" #-----------------------------------------PRIORIZANDO POR PISTA, DESPUES HORA, Y DESPUES DIA
 sed 's/|/-/g' "${DIR_TMP}/pistas"  > "${DIR_TMP}/huecos"
@@ -400,8 +453,16 @@ done < "${DIR_TMP}/partidos"
 if [ "${IMPOSIBLE}" == "true" ]; then exit 1; fi
 
 
-# 3/6 - Se coloca un partido en cada semana, que sera la configuracion por defecto
-prt_info "-- 3/6 - Se coloca un partido en cada semana, que sera la configuracion por defecto"
+# 3/7 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar
+prt_info "-- 3/7 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar"
+cp "${DIR_TMP}/partidos" "${DIR_TMP}/partidos.orig"
+checkCompatible; rv=$?
+if [ "${rv}" != "0" ]; then exit 1; fi
+exit 1
+
+
+# 4/7 - Se coloca un partido en cada semana, que sera la configuracion por defecto
+prt_info "-- 4/7 - Se coloca un partido en cada semana, que sera la configuracion por defecto"
 gawk -F"|" '{if ($5=="-") print}' "${DIR_TMP}/partidos" | # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
     while read line
     do
@@ -423,8 +484,8 @@ prt_info "---- Generados los ficheros origen"
 moverPartido 1 "check"
 
 
-# 4/6 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen
-prt_info "-- 4/6 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen"
+# 5/7 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen
+prt_info "-- 5/7 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen"
 semana=0; FINALIZADO=false
 while [ "${FINALIZADO}" == "false" ]
 do
@@ -453,6 +514,8 @@ do
         prt_warn "------ Se mueven ${nMover} partidos de la semana ${semana} a la siguiente, la semana ${semanaSig}"
         tail -n+${nMover} "${DIR_TMP}/partidos.semana${semana}" >> "${DIR_TMP}/partidos.semana${semanaSig}" # se mueven a la siguiente
         head -${nHuecos}  "${DIR_TMP}/partidos.semana${semana}" >  "${DIR_TMP}/partidos"; mv "${DIR_TMP}/partidos" "${DIR_TMP}/partidos.semana${semana}" # se quitan de la actual
+        # -- se comprueba que ninguna pareja repite la misma semana
+        moverPartido 1 "check"
         # -- vuelve a empezar con la semana actual
         VUELVE_A_EMPEZAR=true
     fi
@@ -493,6 +556,8 @@ do
             prt_warn "------ Se mueve ese partido de la semana ${semana} a la siguiente, la semana ${semanaSig}"
             grep -e "|${LOCAL}|${VISITANTE}|" "${DIR_TMP}/partidos" >> "${DIR_TMP}/partidos.semana${semanaSig}" # se mueve a la siguiente
             sed -i "/|${LOCAL}|${VISITANTE}|/d" "${DIR_TMP}/partidos.semana${semana}" # se quita de la semana actual
+            # -- se comprueba que ninguna pareja repite la misma semana
+            moverPartido 1 "check"
             # -- vuelve a empezar con la semana 1
             VUELVE_A_EMPEZAR=true; break
         fi
@@ -737,8 +802,8 @@ do
 done
 
 
-# 5/6 - Se unen los partidos de todas las semanas
-prt_info "-- 5/6 - Se unen los partidos de todas las semanas"
+# 6/7 - Se unen los partidos de todas las semanas
+prt_info "-- 6/7 - Se unen los partidos de todas las semanas"
 #  -- cabecera
 echo "MES|LOCAL|VISITANTE|PISTA|FECHA|HORA_INI|HORA_FIN" > calendario.txt.new
 # -- se escriben los nuevos partidos
@@ -755,8 +820,8 @@ prt_info "---- Generado ${G}calendario.txt${NC}"
 out=$( FGRL_limpiaTabla "calendario.txt" "${DIR_TMP}/calendario" false ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 
 
-# 6/6 - Se genera el html
-prt_info "-- 6/6 - Se genera el html del calendario"
+# 7/7 - Se genera el html
+prt_info "-- 7/7 - Se genera el html del calendario"
 cat <<EOM >calendario.html
 <!DOCTYPE html>
 <html>
