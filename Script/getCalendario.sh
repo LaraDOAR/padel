@@ -293,7 +293,7 @@ function checkCompatible {
     # Se mira uno a uno cada partido
     while IFS="|" read -r _ _div _loc _vis _ _ _ _ _ _ _ _
     do
-        rm -f "${DIR_TMP}/parejaIncompatible"
+        rm -f "${DIR_TMP}/parejaCompatible"
         
         # -- posibles fechas del partido en esa semana
         grep -e "-${_loc}-${_vis}-" "${DIR_TMP}/combinaciones_todas.CHECK" | gawk -F"-" '{print $7}' | sort -u > "${DIR_TMP}/fechas_del_partido"
@@ -316,13 +316,16 @@ function checkCompatible {
                 sort -u > "${DIR_TMP}/check.output"
             
             # -- si falta algun partido, es un error
-            if [ "$( diff "${DIR_TMP}/listaParejas.division${_div}" "${DIR_TMP}/check.output" )" != "" ]
-            then
-                touch "${DIR_TMP}/parejaIncompatible"
-                echo "${_div}" >> "${DIR_TMP}/tabla"
-            fi
+            if [ "$( diff "${DIR_TMP}/listaParejas.division${_div}" "${DIR_TMP}/check.output" )" == "" ]; then touch "${DIR_TMP}/parejaCompatible"; fi
+            
         done < "${DIR_TMP}/fechas_del_partido"
-        if [ -f "${DIR_TMP}/parejaIncompatible" ]; then touch "${DIR_TMP}/imposible"; fi
+
+        # -- si no se ha creado es porque esta pareja es problematica
+        if [ ! -f "${DIR_TMP}/parejaCompatible" ]
+        then
+            touch "${DIR_TMP}/imposible"
+            echo "${_div}" >> "${DIR_TMP}/tabla"
+        fi
     done < "${DIR_TMP}/partidos.CHECK"
 
     # Si ha habido problemas, para hacer mas facil entender el problema, se imprime una tabla
