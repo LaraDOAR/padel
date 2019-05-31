@@ -255,9 +255,8 @@ function moverPartido {
 
 ##########
 # - checkCompatible
-#     Funcion   --->  Comprueba que todos los partidos se pueden jugar
-#     Entrada   --->  $1 = semana actual
-#                     $2 = (opcional) "check" si no se quiere mover, solo comprobar
+#     Funcion   --->  Comprueba que todos los partidos se pueden jugar, y sin repetir en la misma semana la misma pareja
+#     Entrada   --->  --
 #     Salida    --->  0 = compatible
 #                     1 = no-compatible
 #
@@ -267,38 +266,75 @@ function checkCompatible {
     # -- no hay
 
     # Variables internas
-    local _imposible
-    local _parejaCompatible
-    local _local
-    local _visitante
-    local _fecha
+    local _s
     local _n
-    local _nPartidos
+    local _fIni
+    local _fFin
+    local _loc
+    local _vis
+    local _div
+    local _nDivisiones
 
-    _nPartidos=$( wc -l "${DIR_TMP}/partidos.orig" | gawk '{print $1}' )
-    
-    _imposible=false
-    while IFS="|" read -r _ _ _local _visitante _ _ _ _ _ _ _ _
+    # Inicializacion de variables auxiliares
+    rm -f "${DIR_TMP}/imposible"
+    _nDivisiones=$( gawk -F"|" '{print $2}' "${DIR_TMP}/partidos.CHECK" | sort -u | wc -l )
+
+    # Se saca la lista de parejas por division (despues compararemos que estan todas)
+    for _div in $( seq 1 "${_nDivisiones}" )
     do
-        grep -e "-${_local}-${_visitante}-" "${DIR_TMP}/combinaciones_todas" | gawk -F"-" '{print $7}' | sort -u > "${DIR_TMP}/fechas_del_partido"
-        _parejaCompatible=true
+        gawk -F"|" '{ if ($2==DIV) {print $3; print $4;}}' DIV="${_div}" "${DIR_TMP}/partidos.CHECK" | sort -u > "${DIR_TMP}/listaParejas.division${_div}"
+    done
+
+    # Se mira uno a uno cada partido
+    while IFS="|" read -r _ _div _loc _vis _ _ _ _ _ _ _ _
+    do
+        rm -f "${DIR_TMP}/output"; touch "${DIR_TMP}/output"
+        rm -f "${DIR_TMP}/parejaIncompatible"
+        
+        # -- posibles fechas del partido en esa semana
+        grep -e "-${_loc}-${_vis}-" "${DIR_TMP}/combinaciones_todas.CHECK" | gawk -F"-" '{print $7}' | sort -u > "${DIR_TMP}/fechas_del_partido"
+        
         while read -r _fecha
-        do
-            _n=$( grep -v -e "-${_local}-${_visitante}-" "${DIR_TMP}/combinaciones_todas" | grep -v -e "-${_fecha}-" | gawk 'BEGIN{OFS=FS="-"}{NF=5; print}' | sort -u | wc -l )
-            if [ "${_n}" -lt "$(( _npartidos - 1 ))" ]
+        do  
+            # -- se averigua en que semana esta ese partido: se sabe _s, _fIni y _fFin
+            for _s in $( seq 1 "${nSemanas}" )
+            do
+                _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+                _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+                if [ "${_fecha}" -ge "${_fIni}" ] && [ "${_fecha}" -le "${_fFin}" ]; then break; fi
+            done
+
+            # -- al quitar esa fecha de las disponibles, se averigua que partidos quedan
+            grep -v -e "-${_fecha}-" "${DIR_TMP}/combinaciones_todas.CHECK" |                 # -- se quitan todos los partidos de la fecha dada
+                gawk -F"-" '{if ($7>=MIN && $7<=MAX) print}' MIN="${_fIni}" MAX="${_fFin}" |  # -- nos quedamos solo con los partidos de la semana
+                gawk -v LOC="${_loc}" -v VIS="${_vis}" 'BEGIN{OFS=FS="-"; print LOC; print VIS;}{print $2,$3; print $4,$5}' | # nos quedamos solo con las parejas y anyadimos la actual
+                grep -f "${DIR_TMP}/listaParejas.division${_div}" |                           # -- solo nos interesan las parejas de la division
+                sort -u > "${DIR_TMP}/check.output"
+            
+            # -- si falta algun partido, es un error
+            if [ "$( diff "${DIR_TMP}/listaParejas.division${_div}" "${DIR_TMP}/check.output" )" != "" ]
             then
-                prt_error "--- Por problemas de restricciones el partido [${_local} vs ${_visitante}] no se puede jugar"
-                _parejaCompatible=false
+                echo "Si se juega el dia ${_fecha}, no se pueden jugar en la misma semana:" >> "${DIR_TMP}/output"
+                diff "${DIR_TMP}/listaParejas.division${_div}" "${DIR_TMP}/check.output" | grep "^< " >> "${DIR_TMP}/output"
+                touch "${DIR_TMP}/parejaIncompatible"
             fi
         done < "${DIR_TMP}/fechas_del_partido"
-        if [ "${_parejaCompatible}" == "false" ]
+        if [ -f "${DIR_TMP}/parejaIncompatible" ]
         then
-            _imposible=true
+            touch "${DIR_TMP}/imposible"
+            prt_error "--- Problemas de restricciones: el partido [${_loc} vs ${_vis}] hace que no sea posible jugar otros partidos"
+            prt_error "----- Hay que hacer posible alguna de las siguientes combinaciones"
+            cat "${DIR_TMP}/output"
         fi
-    done < "${DIR_TMP}/partidos"
-    if [ "${_imposible}" == "true" ]; then return 1; fi
+    done < "${DIR_TMP}/partidos.CHECK"
+    
+    # Final
+    rm -f "${DIR_TMP}/fechas_del_partido" "${DIR_TMP}/output"
+    if [ -f "${DIR_TMP}/imposible" ]; then return 1; fi
     return 0
 }
+
+
 
 
 
@@ -453,16 +489,8 @@ done < "${DIR_TMP}/partidos"
 if [ "${IMPOSIBLE}" == "true" ]; then exit 1; fi
 
 
-# 3/7 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar
-prt_info "-- 3/7 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar"
-cp "${DIR_TMP}/partidos" "${DIR_TMP}/partidos.orig"
-checkCompatible; rv=$?
-if [ "${rv}" != "0" ]; then exit 1; fi
-exit 1
-
-
-# 4/7 - Se coloca un partido en cada semana, que sera la configuracion por defecto
-prt_info "-- 4/7 - Se coloca un partido en cada semana, que sera la configuracion por defecto"
+# 3/7 - Se coloca un partido en cada semana, que sera la configuracion por defecto
+prt_info "-- 3/7 - Se coloca un partido en cada semana, que sera la configuracion por defecto"
 gawk -F"|" '{if ($5=="-") print}' "${DIR_TMP}/partidos" | # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
     while read line
     do
@@ -482,6 +510,13 @@ prt_info "---- Generados los ficheros origen"
 
 # -- Se comprueba que ninguna pareja repite la misma semana
 moverPartido 1 "check"
+
+
+# 4/7 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar
+prt_info "-- 4/7 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar"
+cp "${DIR_TMP}/partidos.orig" "${DIR_TMP}/partidos.CHECK"
+cp "${DIR_TMP}/combinaciones_todas" "${DIR_TMP}/combinaciones_todas.CHECK"
+checkCompatible; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
 
 
 # 5/7 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen
