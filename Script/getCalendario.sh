@@ -274,9 +274,14 @@ function checkCompatible {
     local _vis
     local _div
     local _nDivisiones
+    local _pa
+    local _pb
+    local _cabecera
+    local _len
 
     # Inicializacion de variables auxiliares
     rm -f "${DIR_TMP}/imposible"
+    rm -f "${DIR_TMP}/tabla"
     _nDivisiones=$( gawk -F"|" '{print $2}' "${DIR_TMP}/partidos.CHECK" | sort -u | wc -l )
 
     # Se saca la lista de parejas por division (despues compararemos que estan todas)
@@ -288,7 +293,6 @@ function checkCompatible {
     # Se mira uno a uno cada partido
     while IFS="|" read -r _ _div _loc _vis _ _ _ _ _ _ _ _
     do
-        rm -f "${DIR_TMP}/output"; touch "${DIR_TMP}/output"
         rm -f "${DIR_TMP}/parejaIncompatible"
         
         # -- posibles fechas del partido en esa semana
@@ -314,19 +318,61 @@ function checkCompatible {
             # -- si falta algun partido, es un error
             if [ "$( diff "${DIR_TMP}/listaParejas.division${_div}" "${DIR_TMP}/check.output" )" != "" ]
             then
-                echo "Si se juega el dia ${_fecha}, no se pueden jugar en la misma semana:" >> "${DIR_TMP}/output"
-                diff "${DIR_TMP}/listaParejas.division${_div}" "${DIR_TMP}/check.output" | grep "^< " >> "${DIR_TMP}/output"
                 touch "${DIR_TMP}/parejaIncompatible"
+                echo "${_div}" >> "${DIR_TMP}/tabla"
             fi
         done < "${DIR_TMP}/fechas_del_partido"
-        if [ -f "${DIR_TMP}/parejaIncompatible" ]
-        then
-            touch "${DIR_TMP}/imposible"
-            prt_error "--- Problemas de restricciones: el partido [${_loc} vs ${_vis}] hace que no sea posible jugar otros partidos"
-            prt_error "----- Hay que hacer posible alguna de las siguientes combinaciones"
-            cat "${DIR_TMP}/output"
-        fi
+        if [ -f "${DIR_TMP}/parejaIncompatible" ]; then touch "${DIR_TMP}/imposible"; fi
     done < "${DIR_TMP}/partidos.CHECK"
+
+    # Si ha habido problemas, para hacer mas facil entender el problema, se imprime una tabla
+    if [ -f "${DIR_TMP}/tabla" ]
+    then
+        prt_error "--- Problemas de restricciones para que una pareja no repita partido en la misma semana"
+        prt_error "----- Se imprime tabla con restricciones para poder visualizar el problema (X es restriccion)"
+        echo ""
+        
+        gawk 'BEGIN{OFS=FS="|"}{print $1$2,$3}' "${DIR_TMP}/restricciones" > "${DIR_TMP}/restricciones.CHECK"
+        
+        # -- cabecera
+        _cabecera=$( printf "%70s |" "DIVISION" )
+        for _s in $( seq 1 "${nSemanas}" )
+        do
+            _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+            _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+            gawk -F"|" '{if ($2>=MIN && $2<=MAX) print $2}' MIN="${_fIni}" MAX="${_fFin}" "${DIR_TMP}/pistas" | sort -u > "${DIR_TMP}/listaDias.semana${_s}"
+            _cabecera="${_cabecera} $( gawk '{printf("%02d | ",substr($1,7))}' "${DIR_TMP}/listaDias.semana${_s}" )"
+            _cabecera="${_cabecera}### |"
+        done
+        _len=$( echo -e "${_cabecera}" | gawk '{print length()}' )
+        printf "${_cabecera}\n"; printf "%*s\n" "${_len}" " " | sed 's/ /-/g'
+        
+        # -- cuerpo
+        while read -r _div
+        do
+            printf "Division %s\n" "${_div}"; printf "%*s\n" "${_len}" " " | sed 's/ /-/g'
+            while IFS="|" read -r _loc _vis
+            do
+                printf "%70s | " "${_loc} vs ${_vis}"
+                for _s in $( seq 1 "${nSemanas}" )
+                do
+                    while read -r _fecha
+                    do
+                        _pa=$( echo -e "${_loc}" | gawk -F"-" '{print $1}' )
+                        _pb=$( echo -e "${_vis}" | gawk -F"-" '{print $1}' )
+                        if [ "$( grep "${_pa}" "${DIR_TMP}/restricciones.CHECK" | grep "${_fecha}" )" != "" ] || [ "$( grep "${_pb}" "${DIR_TMP}/restricciones.CHECK" | grep "${_fecha}" )" != "" ]
+                        then
+                            printf " X | "
+                        else
+                            printf "   | "
+                        fi
+                    done < "${DIR_TMP}/listaDias.semana${_s}"
+                    printf "### | "
+                done
+                printf "\n"; printf "%*s\n" "${_len}" " " | sed 's/ /-/g'
+            done < <( gawk 'BEGIN{OFS=FS="|";}{if ($2==DIV) print $3,$4}' DIV="${_div}" "${DIR_TMP}/partidos.orig" )
+        done < <( sort -u "${DIR_TMP}/tabla" )
+    fi
     
     # Final
     rm -f "${DIR_TMP}/fechas_del_partido" "${DIR_TMP}/output"
@@ -464,8 +510,8 @@ done
 # 2/7 - Comprueba que todos los partidos se pueden jugar al menos un dia
 prt_info "-- 2/7 - Comprueba que todos los partidos se pueden jugar al menos un dia"
 # -- se generan los huecos disponibles, poniendo al principio la pista 7
-#sed 's/|/-/g' "${DIR_TMP}/pistas" | sort -t"-" -k1,1r -k3,3 -k2,2  > "${DIR_TMP}/huecos" #-----------------------------------------PRIORIZANDO POR PISTA, DESPUES HORA, Y DESPUES DIA
-sed 's/|/-/g' "${DIR_TMP}/pistas"  > "${DIR_TMP}/huecos"
+sed 's/|/-/g' "${DIR_TMP}/pistas" | sort -t"-" -k1,1r -k3,3 -k2,2  > "${DIR_TMP}/huecos" #-----------------------------------------PRIORIZANDO POR PISTA, DESPUES HORA, Y DESPUES DIA
+#sed 's/|/-/g' "${DIR_TMP}/pistas"  > "${DIR_TMP}/huecos"
 nHuecos=$(   wc -l "${DIR_TMP}/huecos"   | gawk '{print $1}' )
 nPartidos=$( wc -l "${DIR_TMP}/partidos" | gawk '{print $1}' )
 if [ "${nPartidos}" -gt "${nHuecos}" ]; then prt_error "------ Hay mas partidos [${nPartidos}] que huecos disponibles [${nHuecos}]"; exit 1; fi
