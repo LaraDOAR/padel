@@ -308,11 +308,11 @@ function checkCompatible {
                 if [ "${_fecha}" -ge "${_fIni}" ] && [ "${_fecha}" -le "${_fFin}" ]; then break; fi
             done
 
-            # -- al quitar esa fecha de las disponibles, se averigua que partidos quedan
-            grep -v -e "-${_fecha}-" "${DIR_TMP}/combinaciones_todas.CHECK" |                 # -- se quitan todos los partidos de la fecha dada
-                gawk -F"-" '{if ($7>=MIN && $7<=MAX) print}' MIN="${_fIni}" MAX="${_fFin}" |  # -- nos quedamos solo con los partidos de la semana
+            # -- se averigua que partidos quedan
+            grep -f "${DIR_TMP}/listaParejas.division${_div}" "${DIR_TMP}/combinaciones_todas.CHECK" | # -- solo nos interesan las parejas de la division
+                grep -v -e "-${_loc}-${_vis}-"  |                                                      # -- se quitan los partidos ya que se supone que ya tenemos fecha para este
+                gawk -F"-" '{if ($7<MIN || $7>MAX) print}' MIN="${_fIni}" MAX="${_fFin}" |             # -- nos quedamos con los partidos que no son de esa semana
                 gawk -v LOC="${_loc}" -v VIS="${_vis}" 'BEGIN{OFS=FS="-"; print LOC; print VIS;}{print $2,$3; print $4,$5}' | # nos quedamos solo con las parejas y anyadimos la actual
-                grep -f "${DIR_TMP}/listaParejas.division${_div}" |                           # -- solo nos interesan las parejas de la division
                 sort -u > "${DIR_TMP}/check.output"
             
             # -- si falta algun partido, es un error
@@ -675,35 +675,36 @@ do
         prt_warn "------ No hay partidos esta semana"
     else
         # genera los ficheros DIR_TMP/combinaciones_ordenadas.functionX donde X=numero de la permutacion
-        FGRL_getPermutacion_conPesos "${DIR_TMP}/combinaciones_ordenadas" 1 "$( seq ${nLineas} -1 1 | xargs printf "%d " | sed -r "s/^ +//g; s/ +$//g;" )" "${nLineas}" "${nLineas}" &
+        prt_debug "${ARG_VERBOSO}" "-------- Llamada a <FGRL_getPermutacion_conPesos ${DIR_TMP}/combinaciones_ordenadas 1 \"$( seq 1 ${nLineas} | xargs printf "%d " | sed -r "s/^ +//g; s/ +$//g;" )\" ${nLineas} ${nLineas} &"
+        FGRL_getPermutacion_conPesos "${DIR_TMP}/combinaciones_ordenadas" 1 "$( seq 1 ${nLineas} | xargs printf "%d " | sed -r "s/^ +//g; s/ +$//g;" )" "${nLineas}" "${nLineas}" &
         prt_info "------ Se ha iniciado el calculo de permutaciones"
-        sleep 3s
+        sleep 2s
     fi
+    
 
     ######### EL PROCESO DE GENERACION DE PERMUTACIONES SE VA A EJECUTAR EN BACKGROUND
     ######### MIENTRAS TANTO, SE PUEDEN IR COGIENDO LAS ITERACIONES QUE HAYA, ORDENARLAS Y PROBAR
 
     while [ "$( tail -1 "${DIR_TMP}/PERMUTACIONES.REGISTRO" )" != "DONE" ] && [ ! -f "${DIR_TMP}/PARA.PERMUTACIONES" ]
     do
-        sleep 1s # para dar tiempo a generar el fichero de registro
 
         # Se copia el registro
         cp "${DIR_TMP}/PERMUTACIONES.REGISTRO" "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp"
         
         # Se eliminan las que ya se han procesado (no existen)
-        cp "${DIR_TMP}/PERMUTACIONES.REGISTRO" "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp"
         while read -r FILE
         do
-            identificador=$( basename "${FILE}" | gawk -F"done.perm" '{print $2}' )
-            file=$( find "${DIR_TMP}" -type f -name "combinaciones_ordenadas*.${identificador}" | grep "${identificador}$" )
-            if [ ${file} != "" ]
+            identificador=$( basename "${FILE}" | gawk -F"DONE.perm" '{print $2}' )
+            file=$( find "${DIR_TMP}" -type f -name "combinaciones_ordenadas*${identificador}" | grep "${identificador}$" )
+            if [ "${file}" != "" ]
             then
+                identificador=$(( identificador + 0 ))
                 sed -i "/.${identificador}$/d" "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp"
             fi
-        done < <(find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.done.perm*")
+        done < <( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.DONE.perm*" | sort )
         sed -i "/DONE/d" "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp" # por si acaso ya ha terminado
         
-        # Espera hasta que ella alguna permutacion
+        # Espera hasta que haya alguna permutacion
         if [ "$( head -1 "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp" )" == "" ]; then continue; fi
 
         # Se cogen todas las permutaciones disponibles y se les cambia de nombre, para que el programa las coja
@@ -743,7 +744,7 @@ do
             mv "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS.tmp" "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS"
 
             # -- se cambia la numeracion de las permutaciones segun este orden
-            contador=0
+            contador=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.DONE.perm*" | sort | tail -1 | gawk -F"DONE.perm" '{print $2}' )
             while IFS="|" read -r FILE _
             do
                 contador=$( echo "" | gawk '{printf("%015d",N+1)}' N="${contador}" )
@@ -754,17 +755,20 @@ do
 
 
         # 9/10 - Se prueban cada una de las permutaciones
-        prt_info "---- 9/10 - Se prueban cada una de las permutaciones"
+        n=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.done.perm*" | wc -l )
+        prt_info "---- 9/10 - Se prueban cada una de las permutaciones generadas hasta ahora (${n})"
         for f in "${DIR_TMP}/combinaciones_ordenadas.done.perm"*
         do
             
-            prt_info "***** Probando iteracion ${f} (de ${nPermutaciones} posibles)"
+            prt_info "***** Probando iteracion ${f} (de ${n} posibles)"
             if [ "${ARG_VERBOSO}" == "true" ]; then cat "${f}"; fi
-
+            
             # Inicializacion = reset
             rm -f "${DIR_TMP}/calendario.semana${semana}.txt"; touch "${DIR_TMP}/calendario.semana${semana}.txt"
             cp "${DIR_TMP}/combinaciones_todas" "${DIR_TMP}/comb_todas"
             cp "${f}"                           "${DIR_TMP}/comb_ordenadas"
+            # -- se cambia el nombre a la permutacion, para que se registre como 'procesada'
+            newName=$( echo -e "${f}" | sed 's/.done./.DONE./g' ); mv "${f}" "${newName}"
 
             # Se ejecuta hasta conseguir encajar todos los partidos
             vuelveAEmpezar=false
@@ -806,11 +810,38 @@ do
                 prt_debug "${ARG_VERBOSO}" "------ El partido [${pLocal} vs ${pVisitante}] SI se puede jugar en [${hueco}]. Se registra"
                 primerPartido=false  # el primer partido ya ha sido colocado
                 
-                grep -e "-${pLocal}-${pVisitante}-${hueco}" "${DIR_TMP}/comb_todas" >> "${DIR_TMP}/calendario.semana${semana}.txt"  # Se anade ese partido en ese huecos al calendario
-                sed -i "/-${pLocal}-${pVisitante}-/d" "${DIR_TMP}/comb_todas"  # Dada la pareja, se eliminan todos los huecos de esa pareja
-                sed -i "/-${hueco}/d" "${DIR_TMP}/comb_todas"                  # Dado el hueco, se eliminan todas las parejas que tenian posibilidad de jugar en ese hueco
-                dia=$( echo -e "${hueco}" | gawk -F"-" '{print $2}' )  # Pista3-20190603-18:00-19:00
-                sed -i "/-${pLocal}-${pVisitante}-.*-${dia}/d" "${DIR_TMP}/comb_todas"  # La pareja, como ya juega ese dia, no puede jugar mas partidos ese dia, sea la pista o la hora que sea
+                grep -e "-${pLocal}-${pVisitante}-${hueco}" "${DIR_TMP}/comb_todas" >> "${DIR_TMP}/calendario.semana${semana}.txt"  # Se anade al calendario a ese partido en ese hueco
+                sed -i "/-${pLocal}-${pVisitante}-/d" "${DIR_TMP}/comb_todas"  # Como ese partido ya esta acoplado, se eliminan el resto de huecos para ese partido
+                sed -i "/-${hueco}/d" "${DIR_TMP}/comb_todas"                  # Como ese hueco ya esta usado, se eliminan todas las parejas que tenian posibilidad de jugar en ese hueco
+
+                # Como ya hay una pareja de la division, ninguna pareja de la division puede jugar esa semana
+                # -- se extrae la division de la pareja
+                div=$( grep -e "|${pLocal}|${pVisitante}|" "${DIR_TMP}/partidos.orig" | gawk -F"|" '{print $2}' )
+                # -- se busca la semana a la que pertenece ese hueco: _s + _fIni + _fFin
+                _fecha=$( echo -e "${hueco}" | gawk -F"-" '{print $2}' )  # Pista3-20190603-18:00-19:00
+                for _s in $( seq 1 "${nSemanas}" )
+                do
+                    _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+                    _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+                    if [ "${_fecha}" -ge "${_fIni}" ] && [ "${_fecha}" -le "${_fFin}" ]; then break; fi
+                done
+                # -- se eliminan los partidos de la misma division en esas fechas
+                cp "${DIR_TMP}/comb_todas" "${DIR_TMP}/comb_todas.tmp"
+                while read -r line
+                do
+                    pLoc=$( echo -e "${line}" | gawk -F"-" '{print $2"-"$3}' )
+                    pVis=$( echo -e "${line}" | gawk -F"-" '{print $4"-"$5}' )
+                    _div=$( grep -e "|${pLoc}|${pVis}|" "${DIR_TMP}/partidos.orig" | gawk -F"|" '{print $2}' )
+                    if [ "${_div}" != "${div}" ]; then continue; fi
+
+                    _fecha=${_fIni}
+                    while [ "${_fecha}" -le "${_fFin}" ]
+                    do
+                        sed -i "/-${pLoc}-${pVis}-.*-${_fecha}/d" "${DIR_TMP}/comb_todas"  # -- se quitan los partidos de la misma division de esa semana
+                        _fecha=$( date +"%Y%m%d" -d "${_fecha} +1 days" )
+                    done
+                done < "${DIR_TMP}/comb_todas.tmp"
+                rm "${DIR_TMP}/comb_todas.tmp"
 
                 # Se recalculan las combinaciones ordenadas
                 gawk -F"-" '{print $2"-"$3 " vs " $4"-"$5}' "${DIR_TMP}/comb_todas" | sort | uniq -c | sort -k1,1 -g > "${DIR_TMP}/comb_ordenadas"
@@ -822,7 +853,7 @@ do
             then
                 prt_debug "${ARG_VERBOSO}" "------ Al colocar los partidos dados, ha habido otros que se quedan sin hueco y no se pueden jugar. Asi que se tira la iteracion"
                 vuelveAEmpezar=true
-                continue
+                continue  # pasa a la siguiente iteracion
             fi
 
             # Se comprueba si esa permutacion es valida y estan todos los partidos colocados
@@ -836,53 +867,56 @@ do
             
         done
 
-        # Se elimina la permutacion actual
-        rm "${f}"
-        
-        # Se comprueba si se han colocado todos los partidos
-        if  [ "$( wc -l "${DIR_TMP}/calendario.semana${semana}.txt" | gawk '{print $1}' )" != "${nLineas}" ]
+        # Se comprueba si se han colocado todos los partidos de la semana
+        if  [ "$( wc -l "${DIR_TMP}/calendario.semana${semana}.txt" | gawk '{print $1}' )" == "${nLineas}" ]
         then
-            prt_warn "------ Ninguna permutacion es valida, por lo que esta semana no es valida, no se puede configurar"
-            prt_info "-------- hay que cambiar la semana por lo que se elige el partido mas complicado y se mueve a otra semana"
-            moverPartido "${semana}"
-            semana=$(( semana - 1 )) # para que vuelva a empezar con la semana actual
-            continue
+            prt_debug "${ARG_VERBOSO}" "------ Ya se ha encontrado una iteracion buena, se comprobara si ya se ha terminado o hay que seguir con otra semana"
+            break
+        fi
+        prt_warn "------ Ninguna permutacion (de las que se han generado hasta ahora es valida) asi que se siguen probando nuevas permutaciones"
+
+    done
+
+    # Se comprueba si se han colocado todos los partidos de la semana
+    if  [ "$( wc -l "${DIR_TMP}/calendario.semana${semana}.txt" | gawk '{print $1}' )" != "${nLineas}" ]
+    then
+        prt_warn "------ Ninguna permutacion es valida, por lo que esta semana no es valida, no se puede configurar"
+        prt_info "-------- hay que cambiar la semana por lo que se elige el partido mas complicado y se mueve a otra semana"
+        moverPartido "${semana}"
+        semana=$(( semana - 1 )) # para que vuelva a empezar con la semana actual
+        continue
+    fi
+
+    # 10/10 - Comprueba si debe terminar: ya hay un calendario para todas las semanas
+    prt_info "---- 10/10 - Comprueba si debe terminar: ya hay un calendario para todas las semanas"
+    FINALIZADO=true
+    for s in $( seq 1 "${nSemanas}" )
+    do
+        # -- debe existir el fichero del calendario de la semana = se ha procesado al menos una vez
+        if [ ! -f "${DIR_TMP}/calendario.semana${s}.txt" ]; then prt_debug "${ARG_VERBOSO}" "------ Aun no existe ${DIR_TMP}/calendario.semana${s}.txt"; FINALIZADO=false; break; fi
+
+        # -- deben tener el mismo numero de lineas = todos los partidos estan en el calendario, y todos los del calendario estan en el partido
+        nCalendario=$( wc -l "${DIR_TMP}/calendario.semana${s}.txt" | gawk '{print $1}' )
+        nPartidos=$(   wc -l "${DIR_TMP}/partidos.semana${s}"       | gawk '{print $1}' )
+        if [ "${nCalendario}" != "${nPartidos}" ]
+        then
+            prt_debug "${ARG_VERBOSO}" "------ No tienen el mismo numero de lineas ${DIR_TMP}/calendario.semana${s}.txt (${nCalendario}) y ${DIR_TMP}/partidos.semana${s} (${nPartidos})"
+            if [ "${ARG_VERBOSO}" == "true" ]; then echo "---- ${DIR_TMP}/partidos.semana${s}"; cat "${DIR_TMP}/partidos.semana${s}"; echo "---- ${DIR_TMP}/calendario.semana${s}.txt"; cat "${DIR_TMP}/calendario.semana${s}.txt"; fi
+            FINALIZADO=false; break
         fi
 
-        # 10/10 - Comprueba si debe terminar: ya hay un calendario para todas las semanas
-        prt_info "---- 10/10 - Comprueba si debe terminar: ya hay un calendario para todas las semanas"
-        FINALIZADO=true
-        for s in $( seq 1 "${nSemanas}" )
+        # -- se comprueba la condicion anterior linea por linea
+        while IFS='|' read -r _ _ LOCAL VISITANTE _ _ _ _ _ _ _
         do
-            # -- debe existir el fichero del calendario de la semana = se ha procesado al menos una vez
-            if [ ! -f "${DIR_TMP}/calendario.semana${s}.txt" ]; then prt_debug "${ARG_VERBOSO}" "------ Aun no existe ${DIR_TMP}/calendario.semana${s}.txt"; FINALIZADO=false; break; fi
-
-            # -- deben tener el mismo numero de lineas = todos los partidos estan en el calendario, y todos los del calendario estan en el partido
-            nCalendario=$( wc -l "${DIR_TMP}/calendario.semana${s}.txt" | gawk '{print $1}' )
-            nPartidos=$(   wc -l "${DIR_TMP}/partidos.semana${s}"       | gawk '{print $1}' )
-            if [ "${nCalendario}" != "${nPartidos}" ]
+            if [ "$( grep -e "-${LOCAL}-${VISITANTE}-" "${DIR_TMP}/calendario.semana${s}.txt" )" == "" ]
             then
-                prt_debug "${ARG_VERBOSO}" "------ No tienen el mismo numero de lineas ${DIR_TMP}/calendario.semana${s}.txt (${nCalendario}) y ${DIR_TMP}/partidos.semana${s} (${nPartidos})"
+                prt_debug "${ARG_VERBOSO}" "------ La pareja -${LOCAL}-${VISITANTE}- de ${DIR_TMP}/partidos.semana${s}, no esta en ${DIR_TMP}/calendario.semana${s}.txt"
                 if [ "${ARG_VERBOSO}" == "true" ]; then echo "---- ${DIR_TMP}/partidos.semana${s}"; cat "${DIR_TMP}/partidos.semana${s}"; echo "---- ${DIR_TMP}/calendario.semana${s}.txt"; cat "${DIR_TMP}/calendario.semana${s}.txt"; fi
                 FINALIZADO=false; break
             fi
-
-            # -- se comprueba la condicion anterior linea por linea
-            while IFS='|' read -r _ _ LOCAL VISITANTE _ _ _ _ _ _ _
-            do
-                if [ "$( grep -e "-${LOCAL}-${VISITANTE}-" "${DIR_TMP}/calendario.semana${s}.txt" )" == "" ]
-                then
-                    prt_debug "${ARG_VERBOSO}" "------ La pareja -${LOCAL}-${VISITANTE}- de ${DIR_TMP}/partidos.semana${s}, no esta en ${DIR_TMP}/calendario.semana${s}.txt"
-                    if [ "${ARG_VERBOSO}" == "true" ]; then echo "---- ${DIR_TMP}/partidos.semana${s}"; cat "${DIR_TMP}/partidos.semana${s}"; echo "---- ${DIR_TMP}/calendario.semana${s}.txt"; cat "${DIR_TMP}/calendario.semana${s}.txt"; fi
-                    FINALIZADO=false; break
-                fi
-            done < "${DIR_TMP}/partidos.semana${s}"
-        done
-        if [ "${FINALZIADO}" == "true" ]; then prt_info "------ Termina porque ya esta el calendario de todos los partidos"; fi
-
+        done < "${DIR_TMP}/partidos.semana${s}"
     done
-    prt_info "---- Ya esta la configuracion definitiva"
-    
+    if [ "${FINALZADO}" == "true" ]; then prt_info "------ Termina porque ya esta el calendario de todos los partidos"; fi   
 done
 
 

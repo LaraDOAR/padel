@@ -7,9 +7,9 @@
   NOMBRE|  APELLIDO|   FECHA
   Ainhoa|      Goni|20190603
   Ainhoa|      Goni|20190605
-  Ainhoa|      Goni|20190626
   Ainhoa|      Goni|20190614
   Ainhoa|      Goni|20190621
+  Ainhoa|      Goni|20190626
   Ainhoa|      Goni|20190628
  Alberto|    Angulo|20190605
  Alberto|    Angulo|20190607
@@ -30,7 +30,6 @@
  Alberto|    Mateos|20190618
  Alberto|    Mateos|20190620
  Alberto|    Mateos|20190621
- Alberto|    Mateos|20190624
  Alberto|    Mateos|20190625
  Alberto|    Mateos|20190627
  Alberto|    Mateos|20190628
@@ -139,9 +138,6 @@ Cristina|   Pruenza|20190628
     Jose|   Cordoba|20190621
     Jose|   Cordoba|20190626
     Jose|   Cordoba|20190628
-    Lara| Dominguez|20190614
-    Lara| Dominguez|20190621
-    Lara| Dominguez|20190628
     Lara| Dominguez|20190626
     Lara| Dominguez|20190627
     Lara| Dominguez|20190628

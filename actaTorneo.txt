@@ -19,4 +19,5 @@ Division 3
   AlbertoParramon-IgnacioHernandez vs DiegoChicote-CarlosAlbertoMartin |  X |  X |    |  X |  X | ### |  X |  X |  X |    |  X | ### |  X |  X |  X |  X |  X | ### | 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-- Los cambios que se deciden hacer son:
+- Los cambios que se deciden hacer son: AlbertoMateos puede el 20190624
+
