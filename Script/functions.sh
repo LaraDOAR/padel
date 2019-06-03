@@ -254,8 +254,8 @@ function FGRL_getPermutacion_conPesos {
     if [ -f "${DIR_TMP}/PARA.PERMUTACIONES" ]; then return 0; fi
     FGRL_getPermutacion_conPesos "${_file}" "${_iteracion}" "${_comb}" "${_totalGeneral}"
 
-    # Fin
-    if [ "${_iteracion}" == "1" ]; then echo "DONE" >> "${DIR_TMP}/PERMUTACIONES.REGISTRO"; fi
+    # Fin (==2, porque la 1 ya se ha escrito y se ha aumentado el contador)
+    if [ "${_iteracion}" == "2" ]; then echo "DONE" >> "${DIR_TMP}/PERMUTACIONES.REGISTRO"; fi
     return 0
 }
 export -f FGRL_getPermutacion_conPesos

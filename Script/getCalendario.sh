@@ -694,20 +694,15 @@ do
         # Se eliminan las que ya se han procesado (no existen)
         while read -r FILE
         do
-            identificador=$( basename "${FILE}" | gawk -F"DONE.perm" '{print $2}' )
-            file=$( find "${DIR_TMP}" -type f -name "combinaciones_ordenadas*${identificador}" | grep "${identificador}$" )
-            if [ "${file}" != "" ]
-            then
-                identificador=$(( identificador + 0 ))
-                sed -i "/.${identificador}$/d" "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp"
-            fi
+            identificador=$( basename "${FILE}" | gawk -F"DONE.perm" '{print $2+0}' )
+            sed -i "/function${identificador}$/d" "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp"
         done < <( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.DONE.perm*" | sort )
         sed -i "/DONE/d" "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp" # por si acaso ya ha terminado
         
         # Espera hasta que haya alguna permutacion
         if [ "$( head -1 "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp" )" == "" ]; then continue; fi
 
-        # Se cogen todas las permutaciones disponibles y se les cambia de nombre, para que el programa las coja
+        # Se cogen todas las permutaciones disponibles y se les cambia de nombre, para que el programa las coja: de '.function' a '.perm'
         while read -r FILE
         do
             newName=$( echo -e "${FILE}" | sed 's/combinaciones_ordenadas.function/combinaciones_ordenadas.perm/g' )
@@ -717,57 +712,50 @@ do
 
         # 8/10 - Se ordenan las permutaciones para probar primero los partidos que tienen menos opciones
         prt_info "---- 8/10 - Se ordenan las permutaciones para probar primero los partidos que tienen menos opciones"
-        # -- se calculan peso minimo y peso maximo para frenar la busqueda
-        pesoMin=$( gawk '{print $1}' "${DIR_TMP}/combinaciones_ordenadas" | sort -g | head -1 )
-        pesoMax=$( gawk '{print $1}' "${DIR_TMP}/combinaciones_ordenadas" | sort -g | tail -1 )
-        if [ "${pesoMin}" == "${pesoMax}" ]
-        then
-            prt_debug "${ARG_VERBOSO}" "---- No se inicia la ordenacion porque no hay diferencias de peso pesoMin=${pesoMin} == pesoMax=${pesoMax}"
-        else
+        
+        # -- se crea un fichero de ordenacion: FICHERO | PESOS FILA1 | SUMA PESOS FILA1 + FILA2 | SUMA PESOS FILA1 + FILA2 + FILA3...
+        rm -f "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS"; touch "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS"
+        # -- por cada fichero, escribe en TOTAL_PESOS, con todas las columnas que se han dicho
+        while read -r FILE
+        do
+            {
+                printf "%s|" "$FILE"
+                gawk '{sum+=$1; printf("%s|",sum)}' "${FILE}"
+                echo ""
+            } >> "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS"
+        done < <(find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.perm*")
 
-            # -- se crea un fichero de ordenacion: FICHERO | PESOS FILA1 | SUMA PESOS FILA1 + FILA2 | SUMA PESOS FILA1 + FILA2 + FILA3...
-            rm -f "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS"; touch "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS"
+        # -- se ordenan los ficheros
+        cmd=""; for indexCmd in $( seq 1 "${nLineas}" ); do aux=$(( indexCmd+1 )); cmd="${cmd} -k${aux},${aux} "; done
+        sort -t"|" -g ${cmd} "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS" > "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS.tmp"
+        mv "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS.tmp" "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS"
 
-            # -- por cada fichero, escribe en TOTAL_PESOS, con todas las columnas que se han dicho
-            while read -r FILE
-            do
-                {
-                    printf "%s|" "$FILE"
-                    gawk '{sum+=$1; printf("%s|",sum)}' "${FILE}"
-                    echo ""
-                } >> "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS"
-            done < <(find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.perm*")
-
-            # -- se ordenan los ficheros
-            cmd=""; for indexCmd in $( seq 1 "${nLineas}" ); do aux=$(( indexCmd+1 )); cmd="${cmd} -k${aux},${aux} "; done
-            sort -t"|" -g ${cmd} "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS" > "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS.tmp"
-            mv "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS.tmp" "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS"
-
-            # -- se cambia la numeracion de las permutaciones segun este orden
-            contador=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.DONE.perm*" | sort | tail -1 | gawk -F"DONE.perm" '{print $2}' )
-            while IFS="|" read -r FILE _
-            do
-                contador=$( echo "" | gawk '{printf("%015d",N+1)}' N="${contador}" )
-                mv "${FILE}" "${DIR_TMP}/combinaciones_ordenadas.done.perm${contador}"
-            done < "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS"
-            rm "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS"
-        fi
+        # -- se cambia la numeracion de las permutaciones segun este orden: de '.perm' a 'done.perm'
+        contador=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.DONE.perm*" | sort | tail -1 | gawk -F"DONE.perm" '{print $2+0}' )
+        while IFS="|" read -r FILE _
+        do
+            contador=$( echo "" | gawk '{printf("%015d",N+1)}' N="${contador}" )
+            mv "${FILE}" "${DIR_TMP}/combinaciones_ordenadas.done.perm${contador}"
+        done < "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS"
+        rm "${DIR_TMP}/combinaciones_ordenadas.TOTAL_PESOS"
 
 
         # 9/10 - Se prueban cada una de las permutaciones
-        n=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.done.perm*" | wc -l )
-        prt_info "---- 9/10 - Se prueban cada una de las permutaciones generadas hasta ahora (${n})"
+        old=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.DONE.perm*" | wc -l )
+        new=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.done.perm*" | wc -l )
+        total=$(( old + new ))
+        prt_info "---- 9/10 - Se prueban cada una de las permutaciones generadas hasta ahora (old=${old} + new=${new} = ${total})"
         for f in "${DIR_TMP}/combinaciones_ordenadas.done.perm"*
         do
             
-            prt_info "***** Probando iteracion ${f} (de ${n} posibles)"
+            prt_info "***** Probando iteracion ${f} (de ${total} posibles)"
             if [ "${ARG_VERBOSO}" == "true" ]; then cat "${f}"; fi
             
             # Inicializacion = reset
             rm -f "${DIR_TMP}/calendario.semana${semana}.txt"; touch "${DIR_TMP}/calendario.semana${semana}.txt"
             cp "${DIR_TMP}/combinaciones_todas" "${DIR_TMP}/comb_todas"
             cp "${f}"                           "${DIR_TMP}/comb_ordenadas"
-            # -- se cambia el nombre a la permutacion, para que se registre como 'procesada'
+            # -- se cambia el nombre a la permutacion, para que se registre como 'procesada': de 'done.perm' a 'DONE.perm'
             newName=$( echo -e "${f}" | sed 's/.done./.DONE./g' ); mv "${f}" "${newName}"
 
             # Se ejecuta hasta conseguir encajar todos los partidos
@@ -809,7 +797,7 @@ do
                 # Si esta disponible
                 prt_debug "${ARG_VERBOSO}" "------ El partido [${pLocal} vs ${pVisitante}] SI se puede jugar en [${hueco}]. Se registra"
                 primerPartido=false  # el primer partido ya ha sido colocado
-                
+
                 grep -e "-${pLocal}-${pVisitante}-${hueco}" "${DIR_TMP}/comb_todas" >> "${DIR_TMP}/calendario.semana${semana}.txt"  # Se anade al calendario a ese partido en ese hueco
                 sed -i "/-${pLocal}-${pVisitante}-/d" "${DIR_TMP}/comb_todas"  # Como ese partido ya esta acoplado, se eliminan el resto de huecos para ese partido
                 sed -i "/-${hueco}/d" "${DIR_TMP}/comb_todas"                  # Como ese hueco ya esta usado, se eliminan todas las parejas que tenian posibilidad de jugar en ese hueco
@@ -826,22 +814,15 @@ do
                     if [ "${_fecha}" -ge "${_fIni}" ] && [ "${_fecha}" -le "${_fFin}" ]; then break; fi
                 done
                 # -- se eliminan los partidos de la misma division en esas fechas
-                cp "${DIR_TMP}/comb_todas" "${DIR_TMP}/comb_todas.tmp"
-                while read -r line
+                while read -r pLoc pVis 
                 do
-                    pLoc=$( echo -e "${line}" | gawk -F"-" '{print $2"-"$3}' )
-                    pVis=$( echo -e "${line}" | gawk -F"-" '{print $4"-"$5}' )
-                    _div=$( grep -e "|${pLoc}|${pVis}|" "${DIR_TMP}/partidos.orig" | gawk -F"|" '{print $2}' )
-                    if [ "${_div}" != "${div}" ]; then continue; fi
-
                     _fecha=${_fIni}
                     while [ "${_fecha}" -le "${_fFin}" ]
                     do
                         sed -i "/-${pLoc}-${pVis}-.*-${_fecha}/d" "${DIR_TMP}/comb_todas"  # -- se quitan los partidos de la misma division de esa semana
                         _fecha=$( date +"%Y%m%d" -d "${_fecha} +1 days" )
                     done
-                done < "${DIR_TMP}/comb_todas.tmp"
-                rm "${DIR_TMP}/comb_todas.tmp"
+                done < <( grep -f "${DIR_TMP}/listaParejas.division${div}" "${DIR_TMP}/comb_todas" | gawk -F"-" '{print $2"-"$3, $4"-"$5}' | sort -u )
 
                 # Se recalculan las combinaciones ordenadas
                 gawk -F"-" '{print $2"-"$3 " vs " $4"-"$5}' "${DIR_TMP}/comb_todas" | sort | uniq -c | sort -k1,1 -g > "${DIR_TMP}/comb_ordenadas"
