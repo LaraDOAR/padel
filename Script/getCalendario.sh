@@ -7,6 +7,7 @@
 #  - Genera el fichero calendario.html para poder visualizar la tabla anterior
 #
 # Entrada
+#  -d            --> Para ver el calendario de restricciones / disponibilidad
 #  -m [n]        --> Numero del mes (1,2,3...)
 #  -i [YYYYMMDD] --> Fecha de inicio del mes
 #  -f [YYYYMMDD] --> Fecha fin del mes (fecha en la que se dan por jugados todos los partidos)
@@ -84,6 +85,7 @@ AYUDA="
   - Genera el fichero calendario.html para poder visualizar la tabla anterior
 
  Entrada
+  -d            --> Para ver el calendario de restricciones / disponibilidad
   -m [n]        --> Numero del mes (1,2,3...)
   -i [YYYYMMDD] --> Fecha de inicio del mes
   -f [YYYYMMDD] --> Fecha fin del mes (fecha en la que se dan por jugados todos los partidos)
@@ -94,15 +96,17 @@ AYUDA="
   1 --> ejecucion con errores
 "
 
-ARG_MES=""         # parametro obligatorio
-ARG_FECHA_INI=""   # parametro obligatorio
-ARG_FECHA_FIN=""   # parametro obligatorio
-ARG_VERBOSO=false  # por defecto, no es verboso
+ARG_DISPONIBILIDAD=false # por defecto, no se quiere ver la disponibilidad
+ARG_MES=""               # parametro obligatorio
+ARG_FECHA_INI=""         # parametro obligatorio
+ARG_FECHA_FIN=""         # parametro obligatorio
+ARG_VERBOSO=false        # por defecto, no es verboso
 
 # Procesamos los argumentos de entrada
-while getopts m:i:f:vh opt
+while getopts dm:i:f:vh opt
 do
     case "${opt}" in
+        d) ARG_DISPONIBILIDAD=true;;
         m) ARG_MES=$OPTARG;;
         i) ARG_FECHA_INI=$OPTARG;;
         f) ARG_FECHA_FIN=$OPTARG;;
@@ -190,12 +194,26 @@ function moverPartido {
     local _aux
     local _nRepLoc
     local _nRepVis
-
-    _nLineas=$( wc -l "${DIR_TMP}/partidos.semana${_s}" | gawk '{print $1}' )
+    
     _sSig=$(( (_s % nSemanas) + 1 ))
+
+    # Si no es check, ademas de mover alguno que este repetido, se mueve otro al azar
+    if [ "${_check}" != "check" ]
+    then
+        _nLineas=$( wc -l "${DIR_TMP}/partidos.semana${_s}" | gawk '{print $1}' )
+        _num=$( shuf -i 1-${_nLineas} -n 1 )
+        _partido=$( head -${_num} "${DIR_TMP}/partidos.semana${_s}" | tail -1 )
+        _LOC=$( echo -e "${_partido}" | gawk -F"|" '{print $3}' )
+        _VIS=$( echo -e "${_partido}" | gawk -F"|" '{print $4}' )
+        prt_info "------- <moverPartido ${_s}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}, elegido aleatoriamente"
+
+        grep -e "|${_LOC}|${_VIS}|"   "${DIR_TMP}/partidos.semana${_s}" >> "${DIR_TMP}/partidos.semana${_sSig}"  # se mueve a la semana siguiente
+        sed -i "/|${_LOC}|${_VIS}|/d" "${DIR_TMP}/partidos.semana${_s}"                                          # se quita de la semana actual
+    fi
     
     # Se elige un partido que este repetido mas de N_MAX_REPETICIONES
     _seMueve=false
+    _nLineas=$( wc -l "${DIR_TMP}/partidos.semana${_s}" | gawk '{print $1}' )
     for _num in $( seq 1 "${_nLineas}" )
     do
         _LOC=$( head -"${_num}" "${DIR_TMP}/partidos.semana${_s}" | tail -1 | gawk -F"|" '{print $3}' )
@@ -210,31 +228,17 @@ function moverPartido {
             if [ "${ARG_VERBOSO}" == "true" ]; then tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_LOC}"; fi
             prt_debug "${ARG_VERBOSO}" "----------- partidos pareja visitante:"
             if [ "${ARG_VERBOSO}" == "true" ]; then tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_VIS}"; fi
+
+            grep -e "|${_LOC}|${_VIS}|"   "${DIR_TMP}/partidos.semana${_s}" >> "${DIR_TMP}/partidos.semana${_sSig}"  # se mueve a la semana siguiente
+            sed -i "/|${_LOC}|${_VIS}|/d" "${DIR_TMP}/partidos.semana${_s}"                                          # se quita de la semana actual
+            
             _seMueve=true
             break
         fi
     done
 
     # Si solo es check y no hay ninguno repetido termina
-    if [ "${_check}" == "check" ] && [ "${_seMueve}" == "false" ]; then return 0; fi
-    
-    # Si no se ha movido, se elige uno al azar
-    if [ "${_seMueve}" == "false" ]
-    then
-        _num=$( shuf -i 1-${_nLineas} -n 1 )
-        _partido=$( head -${_num} "${DIR_TMP}/partidos.semana${_s}" | tail -1 )
-        _LOC=$( echo -e "${_partido}" | gawk -F"|" '{print $1}' )
-        _VIS=$( echo -e "${_partido}" | gawk -F"|" '{print $2}' )
-        prt_info "------- <moverPartido ${_s}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}, elegido aleatoriamente"
-        _seMueve=true
-    fi
-
-    # Se mueve
-    if [ "${_seMueve}" == "true" ]
-    then
-        grep -e "|${_LOC}|${_VIS}|"   "${DIR_TMP}/partidos.semana${_s}" >> "${DIR_TMP}/partidos.semana${_sSig}"  # se mueve a la semana siguiente
-        sed -i "/|${_LOC}|${_VIS}|/d" "${DIR_TMP}/partidos.semana${_s}"                                          # se quita de la semana actual
-    fi
+    if [ "${_check}" == "check" ] && [ "${_seMueve}" == "false" ]; then return 0; fi  
 
     # Comprueba que el resto de semanas estan bien configuradas
     _finalizado=false
@@ -278,6 +282,8 @@ function checkCompatible {
     local _pb
     local _cabecera
     local _len
+    local _semanaPartido
+    local _line
 
     # Inicializacion de variables auxiliares
     rm -f "${DIR_TMP}/imposible"
@@ -290,16 +296,35 @@ function checkCompatible {
         gawk -F"|" '{ if ($2==DIV) {print $3; print $4;}}' DIV="${_div}" "${DIR_TMP}/partidos.CHECK" | sort -u > "${DIR_TMP}/listaParejas.division${_div}"
     done
 
+
     # Se mira uno a uno cada partido
     while IFS="|" read -r _ _div _loc _vis _ _ _ _ _ _ _ _
     do
+        prt_debug "${ARG_VERBOSO}" "Div=${_div} ---> ${_loc} vs ${_vis}"
         rm -f "${DIR_TMP}/parejaCompatible"
+
+        # -- si la division ya sabemos que tiene problemas, no miramos mas partidos de esa division
+        if [ -f "${DIR_TMP}/tabla" ] && [ "$( grep -e "${_div}" "${DIR_TMP}/tabla" )" != "" ]; then continue; fi
         
         # -- posibles fechas del partido en esa semana
-        grep -e "-${_loc}-${_vis}-" "${DIR_TMP}/combinaciones_todas.CHECK" | gawk -F"-" '{print $7}' | sort -u > "${DIR_TMP}/fechas_del_partido"
-        
+        grep -e "-${_loc}-${_vis}-" "${DIR_TMP}/combinaciones_todas.CHECK" | gawk -F"-" '{print $7}' | sort -u  > "${DIR_TMP}/fechas_del_partido"
+
+        # grep -e "-${_loc}-${_vis}-" "${DIR_TMP}/combinaciones_todas.CHECK" | gawk -F"-" '{print $7}' | sort -u | # posible fechas para ese partido
+        #     while read -r _fecha 
+        #     do
+        #         for _s in $( seq 1 "${nSemanas}" )
+        #         do
+        #             _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+        #             _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+        #             if [ "${_fecha}" -ge "${_fIni}" ] && [ "${_fecha}" -le "${_fFin}" ]; then break; fi
+        #         done
+        #         echo -e "${_fecha} ${_s}" 
+        #     done |
+        #     sort -u -k2,2 | gawk '{print $1}' > "${DIR_TMP}/fechas_del_partido"
+
         while read -r _fecha
-        do  
+        do
+            prt_debug "${ARG_VERBOSO}" "-- ${_fecha}"
             # -- se averigua en que semana esta ese partido: se sabe _s, _fIni y _fFin
             for _s in $( seq 1 "${nSemanas}" )
             do
@@ -307,16 +332,45 @@ function checkCompatible {
                 _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
                 if [ "${_fecha}" -ge "${_fIni}" ] && [ "${_fecha}" -le "${_fFin}" ]; then break; fi
             done
+            _semanaPartido=${_s}
 
             # -- se averigua que partidos quedan
-            grep -f "${DIR_TMP}/listaParejas.division${_div}" "${DIR_TMP}/combinaciones_todas.CHECK" | # -- solo nos interesan las parejas de la division
-                grep -v -e "-${_loc}-${_vis}-"  |                                                      # -- se quitan los partidos ya que se supone que ya tenemos fecha para este
-                gawk -F"-" '{if ($7<MIN || $7>MAX) print}' MIN="${_fIni}" MAX="${_fFin}" |             # -- nos quedamos con los partidos que no son de esa semana
-                gawk -v LOC="${_loc}" -v VIS="${_vis}" 'BEGIN{OFS=FS="-"; print LOC; print VIS;}{print $2,$3; print $4,$5}' | # nos quedamos solo con las parejas y anyadimos la actual
-                sort -u > "${DIR_TMP}/check.output"
-            
-            # -- si falta algun partido, es un error
-            if [ "$( diff "${DIR_TMP}/listaParejas.division${_div}" "${DIR_TMP}/check.output" )" == "" ]; then touch "${DIR_TMP}/parejaCompatible"; fi
+            # ---- solo nos interesan las parejas de la division
+            grep -f "${DIR_TMP}/listaParejas.division${_div}" "${DIR_TMP}/combinaciones_todas.CHECK" |
+                # ---- se quita el partido original
+                grep -v -e "-${_loc}-${_vis}-" |
+                # ---- se imprime solo partido + fecha |
+                gawk 'BEGIN{OFS=FS="-";}{print "",$2,$3,$4,$5,$7}' |
+                # ---- registros unicos
+                sort -u |
+                # ---- nos quedamos con partido + semana que se juega
+                while read -r _line 
+                do
+                    _fecha=$( echo -e "${_line}" | gawk -F"-" '{print $6}' )
+                    for _s in $( seq 1 "${nSemanas}" )
+                    do
+                        _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+                        _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+                        if [ "${_fecha}" -ge "${_fIni}" ] && [ "${_fecha}" -le "${_fFin}" ]; then break; fi
+                    done
+                    echo -e "${_line}" | gawk -F"-" '{print $2"-"$3,$4"-"$5,SEMANA}' SEMANA="${_s}"
+                done |
+                # ---- registros unicos
+                sort -u |
+                # ---- se quita la semana original
+                grep -v -e "^${loc} ${vis} " | grep -v -e " ${_semanaPartido}$" |
+                gawk '{print $3}' | sort -u > "${DIR_TMP}/check.output"
+
+            # -- si falta alguna semana, es un error (debe haber 1 partido por semana)
+            _pa=$( wc -l "${DIR_TMP}/check.output" | gawk '{print $1+1}' )
+            _pb=$( wc -l "${DIR_TMP}/listaParejas.division${_div}" | gawk '{print $1}' )
+            _pb=$(( $(factorial "${_pb}") / (2*( $(factorial $((_pb-2))) )) ))
+            if [ "${_pa}" == "${_pb}" ]
+            then
+                prt_debug "${ARG_VERBOSO}" "---- Es compatible"
+                touch "${DIR_TMP}/parejaCompatible"
+                break
+            fi
             
         done < "${DIR_TMP}/fechas_del_partido"
 
@@ -510,6 +564,58 @@ do
 done
 
 
+# ************* Ver la disponibilidad
+if [ "${ARG_DISPONIBILIDAD}" == "true" ]
+then
+    prt_info "***** Parametros (-d) activo, por lo que se muestra la disponibilidad por divisiones"
+    gawk 'BEGIN{OFS=FS="|"}{print $1$2,$3}' "${DIR_TMP}/restricciones" > "${DIR_TMP}/restricciones.DISPO"
+    _nDivisiones=$( gawk -F"|" '{print $2}' "${DIR_TMP}/partidos" | sort -u | wc -l )
+    
+    # -- cabecera
+    _cabecera=$( printf "%70s |" "DIVISION" )
+    for _s in $( seq 1 "${nSemanas}" )
+    do
+        _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+        _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+        gawk -F"|" '{if ($2>=MIN && $2<=MAX) print $2}' MIN="${_fIni}" MAX="${_fFin}" "${DIR_TMP}/pistas" | sort -u > "${DIR_TMP}/listaDias.semana${_s}"
+        _cabecera="${_cabecera} $( gawk '{printf("%02d | ",substr($1,7))}' "${DIR_TMP}/listaDias.semana${_s}" )"
+        _cabecera="${_cabecera}### |"
+    done
+    _len=$( echo -e "${_cabecera}" | gawk '{print length()}' )
+    printf "${_cabecera}\n"; printf "%*s\n" "${_len}" " " | sed 's/ /-/g'
+
+    # -- cuerpo
+    for _div in $( seq 1 "${_nDivisiones}" )
+    do
+        printf "Division %s\n" "${_div}"; printf "%*s\n" "${_len}" " " | sed 's/ /-/g'
+        while IFS="|" read -r _loc _vis
+        do
+            printf "%70s | " "${_loc} vs ${_vis}"
+            for _s in $( seq 1 "${nSemanas}" )
+            do
+                while read -r _fecha
+                do
+                    _pa=$( echo -e "${_loc}" | gawk -F"-" '{print $1}' )
+                    _pb=$( echo -e "${_vis}" | gawk -F"-" '{print $1}' )
+                    if [ "$( grep "${_pa}" "${DIR_TMP}/restricciones.DISPO" | grep "${_fecha}" )" != "" ] || [ "$( grep "${_pb}" "${DIR_TMP}/restricciones.DISPO" | grep "${_fecha}" )" != "" ]
+                    then
+                        printf " X | "
+                    else
+                        printf "   | "
+                    fi
+                done < "${DIR_TMP}/listaDias.semana${_s}"
+                printf "### | "
+            done
+            printf "\n"; printf "%*s\n" "${_len}" " " | sed 's/ /-/g'
+        done < <( gawk 'BEGIN{OFS=FS="|";}{if ($2==DIV) print $3,$4}' DIV="${_div}" "${DIR_TMP}/partidos" )
+    done
+
+    exit 0
+fi
+
+        
+
+
 # 2/7 - Comprueba que todos los partidos se pueden jugar al menos un dia
 prt_info "-- 2/7 - Comprueba que todos los partidos se pueden jugar al menos un dia"
 # -- se generan los huecos disponibles, poniendo al principio la pista 7
@@ -655,12 +761,9 @@ do
     fi
 
     # Antes de arrancar las permutaciones se asegura de que las anteriores ya han acabado
-    if [ -f "${DIR_TMP}/PARA.PERMUTACIONES" ]
-    then
-        rm -f "${DIR_TMP}/PERMUTACIONES.REGISTRO"*
-        rm -f "${DIR_TMP}/combinaciones_ordenadas."*
-        rm -f "${DIR_TMP}/PARA.PERMUTACIONES"
-    fi
+    rm -f "${DIR_TMP}/PARA.PERMUTACIONES"
+    rm -f "${DIR_TMP}/PERMUTACIONES.REGISTRO"*
+    rm -f "${DIR_TMP}/combinaciones_ordenadas."*
     
     # 7/10 - Se calculan todas las permutaciones posibles
     # line 1 --> line 1 --> line 2 --> line 2 --> line 3 --> line 3
@@ -688,15 +791,12 @@ do
     while [ "$( tail -1 "${DIR_TMP}/PERMUTACIONES.REGISTRO" )" != "DONE" ] && [ ! -f "${DIR_TMP}/PARA.PERMUTACIONES" ]
     do
 
-        # Se copia el registro
-        cp "${DIR_TMP}/PERMUTACIONES.REGISTRO" "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp"
-        
         # Se eliminan las que ya se han procesado (no existen)
-        while read -r FILE
-        do
-            identificador=$( basename "${FILE}" | gawk -F"DONE.perm" '{print $2+0}' )
-            sed -i "/function${identificador}$/d" "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp"
-        done < <( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.DONE.perm*" | sort )
+        identificador=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.DONE.perm*" | sort | tail -1 | gawk -F"DONE.perm" '{print $2+1}' )
+        if [ "${identificador}" == "" ]; then identificador=1; fi
+
+        # Nos quedamos con las que aun no se han revisado
+        tail -n+"${identificador}" "${DIR_TMP}/PERMUTACIONES.REGISTRO" > "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp"
         sed -i "/DONE/d" "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp" # por si acaso ya ha terminado
         
         # Espera hasta que haya alguna permutacion
@@ -744,7 +844,7 @@ do
         old=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.DONE.perm*" | wc -l )
         new=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.done.perm*" | wc -l )
         total=$(( old + new ))
-        prt_info "---- 9/10 - Se prueban cada una de las permutaciones generadas hasta ahora (old=${old} + new=${new} = ${total})"
+        prt_info "---- 9/10 - Se prueban cada una de las permutaciones generadas hasta ahora (old=${old} + new=${new} = ${total} -- nPermutaciones=${nPermutaciones})"
         for f in "${DIR_TMP}/combinaciones_ordenadas.done.perm"*
         do
             
