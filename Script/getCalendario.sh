@@ -552,8 +552,8 @@ FGRL_backupFile calendario html
 
 prt_info "Ejecucion..."
 
-# 1/7 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana
-prt_info "-- 1/7 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana"
+# 1/6 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana
+prt_info "-- 1/6 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana"
 dIni=$( date -d "${ARG_FECHA_INI}" +%s )
 dFin=$( date -d "${ARG_FECHA_FIN}" +%s )
 nSemanas=$( echo "" | gawk '{printf("%d",((FIN-INI)/(86400*7))+0.5)}' INI="${dIni}" FIN="${dFin}" )
@@ -616,8 +616,8 @@ fi
         
 
 
-# 2/7 - Comprueba que todos los partidos se pueden jugar al menos un dia
-prt_info "-- 2/7 - Comprueba que todos los partidos se pueden jugar al menos un dia"
+# 2/6 - Comprueba que todos los partidos se pueden jugar al menos un dia
+prt_info "-- 2/6 - Comprueba que todos los partidos se pueden jugar al menos un dia"
 # -- se generan los huecos disponibles, poniendo al principio la pista 7
 sed 's/|/-/g' "${DIR_TMP}/pistas" | sort -t"-" -k1,1r -k3,3 -k2,2  > "${DIR_TMP}/huecos" #-----------------------------------------PRIORIZANDO POR PISTA, DESPUES HORA, Y DESPUES DIA
 #sed 's/|/-/g' "${DIR_TMP}/pistas"  > "${DIR_TMP}/huecos"
@@ -644,8 +644,8 @@ done < "${DIR_TMP}/partidos"
 if [ "${IMPOSIBLE}" == "true" ]; then exit 1; fi
 
 
-# 3/7 - Se coloca un partido en cada semana, que sera la configuracion por defecto
-prt_info "-- 3/7 - Se coloca un partido en cada semana, que sera la configuracion por defecto"
+# 3/6 - Se coloca un partido en cada semana, que sera la configuracion por defecto
+prt_info "-- 3/6 - Se coloca un partido en cada semana, que sera la configuracion por defecto"
 gawk -F"|" '{if ($5=="-") print}' "${DIR_TMP}/partidos" | # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
     while read line
     do
@@ -667,15 +667,15 @@ prt_info "---- Generados los ficheros origen"
 moverPartido 1 "check"
 
 
-# 4/7 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar
-prt_info "-- 4/7 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar"
+# 4/6 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar
+prt_info "-- 4/6 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar"
 cp "${DIR_TMP}/partidos.orig" "${DIR_TMP}/partidos.CHECK"
 cp "${DIR_TMP}/combinaciones_todas" "${DIR_TMP}/combinaciones_todas.CHECK"
 checkCompatible; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
 
 
-# 5/7 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen
-prt_info "-- 5/7 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen"
+# 5/6 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen
+prt_info "-- 5/6 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen"
 semana=0; FINALIZADO=false
 while [ "${FINALIZADO}" == "false" ]
 do
@@ -1001,8 +1001,8 @@ do
 done
 
 
-# 6/7 - Se unen los partidos de todas las semanas
-prt_info "-- 6/7 - Se unen los partidos de todas las semanas"
+# 6/6 - Se unen los partidos de todas las semanas
+prt_info "-- 6/6 - Se unen los partidos de todas las semanas"
 #  -- cabecera
 echo "MES|LOCAL|VISITANTE|PISTA|FECHA|HORA_INI|HORA_FIN" > calendario.txt.new
 # -- se escriben los nuevos partidos
@@ -1014,223 +1014,6 @@ mv calendario.txt.new calendario.txt
 # -- se le da formato
 out=$( bash Script/formateaTabla.sh -f "calendario.txt" ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 prt_info "---- Generado ${G}calendario.txt${NC}"
-
-# -- limpia la tabla
-out=$( FGRL_limpiaTabla "calendario.txt" "${DIR_TMP}/calendario" false ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
-
-
-# 7/7 - Se genera el html
-prt_info "-- 7/7 - Se genera el html del calendario"
-cat <<EOM >calendario.html
-<!DOCTYPE html>
-<html>
-  <head>
-    <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
-    <link href='Calendario/packages/core/main.css' rel='stylesheet' />
-    <link href='Calendario/packages/bootstrap/main.css' rel='stylesheet' />
-    <link href='Calendario/packages/timegrid/main.css' rel='stylesheet' />
-    <link href='Calendario/packages/daygrid/main.css' rel='stylesheet' />
-    <link href='Calendario/packages/list/main.css' rel='stylesheet' />
-    <link href='Calendario/packages/bootstrap/main.css' rel='stylesheet' />
-    <script src='Calendario/packages/core/main.js'></script>
-    <script src='Calendario/packages/interaction/main.js'></script>
-    <script src='Calendario/packages/bootstrap/main.js'></script>
-    <script src='Calendario/packages/daygrid/main.js'></script>
-    <script src='Calendario/packages/timegrid/main.js'></script>
-    <script src='Calendario/packages/list/main.js'></script>
-    <script src='Calendario/packages/bootstrap/main.js'></script>
-    <script src='Calendario/packages/resource-common/main.js'></script>
-    <script src='Calendario/packages/resource-daygrid/main.js'></script>
-    <script src='Calendario/packages/resource-timegrid/main.js'></script>
-    <script src='Calendario/other/jquery.min.js'></script>
-    <script src='Calendario/other/popper.min.js'></script>
-    <script src='Calendario/other/tooltip.min.js'></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list', 'resourceDayGrid', 'resourceTimeGrid' ],
-          themeSystem: 'bootstrap4',
-          header: {
-            left: 'prevYear,prev,next,nextYear today',
-            center: 'title',
-            right: 'dayGridMonth,listMonth,resourceTimeGridDay'
-          },
-          aspectRatio: 2.5,
-          firstDay: 1,
-          navLinks: true,
-          businessHours: true,
-          minTime: "13:00",
-          maxTime: "23:00",
-          navLinks: true, 
-          selectable: true,
-          selectMirror: true,
-          editable: true,
-          resources: [
-EOM
-gawk -F"|" '{print $1}' "${DIR_TMP}/pistas" | sort -u |
-    gawk '
-{
-    print "            {";
-    print "              id: \x27" $1 "\x27,";
-    print "              title: \x27" $1 "\x27";
-    print "            },";
-}' >> calendario.html
-sed -i '$ s/.$//' calendario.html
-cat <<EOM >>calendario.html
-          ],
-          eventRender: function(info) {
-            var tooltip = new Tooltip(info.el, {
-              title: info.event.extendedProps.description,
-              html: true,
-              placement: 'top',
-              trigger: 'hover',
-              container: 'body'
-            });
-          },
-          events: [
-EOM
-gawk -F"|" '
-{
-    print "            {";
-    print "              id: " NR",";
-    print "              title: \x27"$2" vs "$3"\x27,";
-    print "              description: \x27Mes "$1"<br>"$2"<br>vs<br>"$3"\x27,";
-    print "              start: \x27" substr($5,1,4)"-"substr($5,5,2)"-"substr($5,7,2)"T"$6":00\x27,";
-    print "              end:   \x27" substr($5,1,4)"-"substr($5,5,2)"-"substr($5,7,2)"T"$7":00\x27,";
-    print "              resourceId: \x27" $4 "\x27";
-    print "            },";
-}' "${DIR_TMP}/calendario" >> calendario.html
-sed -i '$ s/.$//' calendario.html
-cat <<EOM >>calendario.html
-          ]
-        });
-        calendar.render();
-      });
-    </script>
-    <style>
-      h1 {
-        color: #343434;
-        font-weight: normal;
-        font-family: 'Ultra', sans-serif;   
-        font-size: 36px;
-        line-height: 42px;
-        text-transform: uppercase;
-        text-shadow: 0 2px white, 0 3px #777;
-        text-align: center;
-      }
-      #calendar {
-        width: 90%;
-        margin: 0 auto;
-      }
-      .popper,
-      .tooltip {
-        position: absolute;
-        z-index: 9999;
-        background: #668a99;
-        color: white;
-        border-radius: 3px;
-        box-shadow: 0 0 2px rgba(0,0,0,0.5);
-        padding: 10px;
-          text-align: center;
-          font-size: 10pt;
-      }
-      .style5 .tooltip {
-        background: #1E252B;
-        color: #FFFFFF;
-        max-width: 200px;
-        width: auto;
-        font-size: .8rem;
-        padding: .5em 1em;
-      }
-      .popper .popper__arrow,
-      .tooltip .tooltip-arrow {
-        width: 0;
-        height: 0;
-        border-style: solid;
-        position: absolute;
-        margin: 5px;
-      }
-    
-      .tooltip .tooltip-arrow,
-      .popper .popper__arrow {
-        border-color: #668a99;
-      }
-      .style5 .tooltip .tooltip-arrow {
-        border-color: #1E252B;
-      }
-      .popper[x-placement^="top"],
-      .tooltip[x-placement^="top"] {
-        margin-bottom: 5px;
-      }
-      .popper[x-placement^="top"] .popper__arrow,
-      .tooltip[x-placement^="top"] .tooltip-arrow {
-        border-width: 5px 5px 0 5px;
-        border-left-color: transparent;
-        border-right-color: transparent;
-        border-bottom-color: transparent;
-        bottom: -5px;
-        left: calc(50% - 5px);
-        margin-top: 0;
-        margin-bottom: 0;
-      }
-      .popper[x-placement^="bottom"],
-      .tooltip[x-placement^="bottom"] {
-        margin-top: 5px;
-      }
-      .tooltip[x-placement^="bottom"] .tooltip-arrow,
-      .popper[x-placement^="bottom"] .popper__arrow {
-        border-width: 0 5px 5px 5px;
-        border-left-color: transparent;
-        border-right-color: transparent;
-        border-top-color: transparent;
-        top: -5px;
-        left: calc(50% - 5px);
-        margin-top: 0;
-        margin-bottom: 0;
-      }
-      .tooltip[x-placement^="right"],
-      .popper[x-placement^="right"] {
-        margin-left: 5px;
-      }
-      .popper[x-placement^="right"] .popper__arrow,
-      .tooltip[x-placement^="right"] .tooltip-arrow {
-        border-width: 5px 5px 5px 0;
-        border-left-color: transparent;
-        border-top-color: transparent;
-        border-bottom-color: transparent;
-        left: -5px;
-        top: calc(50% - 5px);
-        margin-left: 0;
-        margin-right: 0;
-      }
-      .popper[x-placement^="left"],
-      .tooltip[x-placement^="left"] {
-        margin-right: 5px;
-      }
-      .popper[x-placement^="left"] .popper__arrow,
-      .tooltip[x-placement^="left"] .tooltip-arrow {
-        border-width: 5px 0 5px 5px;
-        border-top-color: transparent;
-        border-right-color: transparent;
-        border-bottom-color: transparent;
-        right: -5px;
-        top: calc(50% - 5px);
-        margin-left: 0;
-        margin-right: 0;
-      }
-    </style>
-  </head>
-  <body>
-EOM
-echo "    <h1>TORNEO DE PADEL - ${CFG_NOMBRE}</h1>" >> calendario.html
-cat <<EOM >>calendario.html
-    <div id='calendar'></div>
-  </body>
-</html>
-EOM
-
-prt_info "---- Generado ${G}calendario.html${NC}"
 
 
 ############# FIN

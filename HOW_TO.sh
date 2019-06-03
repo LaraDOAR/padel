@@ -104,12 +104,16 @@ FECHA_FIN_MES=20190628
 bash Script/getCalendario.sh -m 1 -i "${FECHA_INI_MES}" -f "${FECHA_FIN_MES}"
 # -- ficheros de salida
 # calendario.txt
-# calendario.html
 
 # -- comprueba que los ficheros de salida son validos y coherentes
 bash Script/checkCalendario.sh
 # -- ficheros de salida
 # no tiene, solo hace un check
+
+# -- genera el html del calendario
+bash Script/updateCalendario.sh
+# -- ficheros de salida
+# calendario.html
 
 # -- actualiza partidos con fechas del calendario + genera el html de los partidos
 bash Script/updatePartidos.sh -f -w
