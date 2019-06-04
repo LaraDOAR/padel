@@ -5,12 +5,12 @@ MES|                           LOCAL|                       VISITANTE| PISTA|   
 001|  DanielVillar-MariaLuisaBagaces|          SaraGarcia-AnaAlastuey|Pista3|20190611|   19:00|   20:00
 001| AinhoaGoni-JuanAntonioMontesino|          IsraelAlonso-EricPerez|Pista7|20190610|   19:00|   20:00
 001|      AlbertoAngulo-RamiroLuengo|      JoseCordoba-ManueldelValle|Pista7|20190610|   18:00|   19:00
-001| AmbrosioIniesta-CarlosFernandez|    MonicaGarcia-EnriqueClemente|Pista3|20190610|   18:00|   19:00
+001| AmbrosioIniesta-CarlosFernandez|    MonicaGarcia-EnriqueClemente|Pista3|20190610|   19:00|   20:00
 001|AlbertoParramon-IgnacioHernandez|DiegoChicote-CarlosAlbertoMartin|Pista3|20190620|   19:00|   20:00
 001|      CristinaPruenza-SofiaCerda|       DanielMorillo-AdrianGalan|Pista3|20190620|   18:00|   19:00
 001|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|Pista7|20190617|   18:00|   19:00
-001| AmbrosioIniesta-CarlosFernandez|  RamonCostafreda-AntonioSanchez|Pista3|20190617|   18:00|   19:00
-001|      CristinaLeon-ManuelHidalgo|      LaraDominguez-TeresaSolano|Pista3|20190617|   19:00|   20:00
+001| AmbrosioIniesta-CarlosFernandez|  RamonCostafreda-AntonioSanchez|Pista3|20190617|   19:00|   20:00
+001|      CristinaLeon-ManuelHidalgo|      LaraDominguez-TeresaSolano|Pista3|20190617|   18:00|   19:00
 001|        DanielRamos-AlvaroRomero|          IsraelAlonso-EricPerez|Pista7|20190617|   19:00|   20:00
 001|       DanielMichaud-JavierMunoz|      LaraDominguez-TeresaSolano|Pista3|20190625|   18:00|   19:00
 001|       AlbertoMateos-JavierVidal|DiegoChicote-CarlosAlbertoMartin|Pista3|20190624|   18:00|   19:00
