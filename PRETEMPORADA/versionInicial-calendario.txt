@@ -1,10 +1,10 @@
 MES|                           LOCAL|                       VISITANTE| PISTA|   FECHA|HORA_INI|HORA_FIN
 001|       AlbertoMateos-JavierVidal|AlbertoParramon-IgnacioHernandez|Pista3|20190612|   18:00|   19:00
-001|        AngelaRuiz-AlvaroBarbero|       DanielMorillo-AdrianGalan|Pista3|20190614|   15:00|   16:00
+001|        AngelaRuiz-AlvaroBarbero|       DanielMorillo-AdrianGalan|Pista3|20190626|   18:00|   19:00
 001|      CristinaLeon-ManuelHidalgo|       DanielMichaud-JavierMunoz|Pista3|20190611|   18:00|   19:00
 001|  DanielVillar-MariaLuisaBagaces|          SaraGarcia-AnaAlastuey|Pista3|20190611|   19:00|   20:00
-001| AinhoaGoni-JuanAntonioMontesino|          IsraelAlonso-EricPerez|Pista7|20190610|   19:00|   20:00
-001|      AlbertoAngulo-RamiroLuengo|      JoseCordoba-ManueldelValle|Pista7|20190610|   18:00|   19:00
+001| AinhoaGoni-JuanAntonioMontesino|          IsraelAlonso-EricPerez|Pista7|20190610|   18:00|   19:00
+001|      AlbertoAngulo-RamiroLuengo|      JoseCordoba-ManueldelValle|Pista7|20190610|   19:00|   20:00
 001| AmbrosioIniesta-CarlosFernandez|    MonicaGarcia-EnriqueClemente|Pista3|20190610|   19:00|   20:00
 001|AlbertoParramon-IgnacioHernandez|DiegoChicote-CarlosAlbertoMartin|Pista3|20190620|   19:00|   20:00
 001|      CristinaPruenza-SofiaCerda|       DanielMorillo-AdrianGalan|Pista3|20190620|   18:00|   19:00

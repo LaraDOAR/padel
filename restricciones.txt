@@ -98,6 +98,7 @@ Cristina|   Pruenza|20190628
   Daniel|   Morillo|20190606
   Daniel|   Morillo|20190611
   Daniel|   Morillo|20190613
+  Daniel|   Morillo|20190614
   Daniel|   Morillo|20190615
   Daniel|   Morillo|20190616
   Daniel|   Morillo|20190617
