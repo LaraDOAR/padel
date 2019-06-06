@@ -52,11 +52,11 @@ function prt_debug { if [ "${1}" == "true" ]; then shift; local _s; _s=$(aTS "${
 if [ "$( basename ${PWD} )" != "Padel" ]; then prt_error "ERROR: se debe ejecutar desde el directorio Padel"; exit 1; fi
 
 # Deben existir los siguientes ficheros
-if [ ! -f index.html ];      then prt_error "ERROR: no existe el fichero [index.html] en el directorio actual";      exit 1; fi
-if [ ! -f ranking.html ];    then prt_error "ERROR: no existe el fichero [ranking.html] en el directorio actual";    exit 1; fi
-if [ ! -f partidos.html ];   then prt_error "ERROR: no existe el fichero [partidos.html] en el directorio actual";   exit 1; fi
-if [ ! -f calendario.html ]; then prt_error "ERROR: no existe el fichero [calendario.html] en el directorio actual"; exit 1; fi
-if [ ! -d Calendario ];      then prt_error "ERROR: no existe el directorio [Calendario] en el directorio actual";   exit 1; fi
+if [ ! -f Script/index.html ]; then prt_error "ERROR: no existe el fichero [Script/index.html] en el directorio actual"; exit 1; fi
+if [ ! -f ranking.html ];      then prt_error "ERROR: no existe el fichero [ranking.html] en el directorio actual";      exit 1; fi
+if [ ! -f partidos.html ];     then prt_error "ERROR: no existe el fichero [partidos.html] en el directorio actual";     exit 1; fi
+if [ ! -f calendario.html ];   then prt_error "ERROR: no existe el fichero [calendario.html] en el directorio actual";   exit 1; fi
+if [ ! -d Librerias ];         then prt_error "ERROR: no existe el directorio [Librerias] en el directorio actual";      exit 1; fi
 
 # Carga la informacion del torneo, por si se necesita
 if [ ! -f infoTorneo.cfg ];                     then prt_error "ERROR: no existe el fichero [infoTorneo.cfg] en el directorio actual"; exit 1; fi
@@ -163,8 +163,21 @@ mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${
 
 prt_info "Ejecucion..."
 
-rm -f  padelToWeb.zip
-zip -r padelToWeb.zip index.html ranking.html partidos.html calendario.html Calendario/*
+# -- se copian al directorio temporal
+cp Script/index.html "${DIR_TMP}"
+cp ranking.html partidos.html calendario.html "${DIR_TMP}"
+cp -r Librerias "${DIR_TMP}"
+cp doc/Normativa-Federacion.pdf "${DIR_TMP}"
+cp doc/2019-propuestaTorneo.pdf "${DIR_TMP}"
+
+# -- se comprime
+cd "${DIR_TMP}"
+zip -r padelToWeb.zip index.html ranking.html partidos.html calendario.html Librerias/* Normativa-Federacion.pdf 2019-propuestaTorneo.pdf
+
+# -- se mueve al directorio actual
+cd - > /dev/null
+mv "${DIR_TMP}/padelToWeb.zip" .
+
 prt_info "-- Generado ${G}padelToWeb.zip${NC}"
 
 

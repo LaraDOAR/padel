@@ -174,25 +174,25 @@ cat <<EOM >calendario.html
 <html>
   <head>
     <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
-    <link href='Calendario/packages/core/main.css' rel='stylesheet' />
-    <link href='Calendario/packages/bootstrap/main.css' rel='stylesheet' />
-    <link href='Calendario/packages/timegrid/main.css' rel='stylesheet' />
-    <link href='Calendario/packages/daygrid/main.css' rel='stylesheet' />
-    <link href='Calendario/packages/list/main.css' rel='stylesheet' />
-    <link href='Calendario/packages/bootstrap/main.css' rel='stylesheet' />
-    <script src='Calendario/packages/core/main.js'></script>
-    <script src='Calendario/packages/interaction/main.js'></script>
-    <script src='Calendario/packages/bootstrap/main.js'></script>
-    <script src='Calendario/packages/daygrid/main.js'></script>
-    <script src='Calendario/packages/timegrid/main.js'></script>
-    <script src='Calendario/packages/list/main.js'></script>
-    <script src='Calendario/packages/bootstrap/main.js'></script>
-    <script src='Calendario/packages/resource-common/main.js'></script>
-    <script src='Calendario/packages/resource-daygrid/main.js'></script>
-    <script src='Calendario/packages/resource-timegrid/main.js'></script>
-    <script src='Calendario/other/jquery.min.js'></script>
-    <script src='Calendario/other/popper.min.js'></script>
-    <script src='Calendario/other/tooltip.min.js'></script>
+    <link href='Librerias/fullcalendar/core/main.css' rel='stylesheet' />
+    <link href='Librerias/fullcalendar/bootstrap/main.css' rel='stylesheet' />
+    <link href='Librerias/fullcalendar/timegrid/main.css' rel='stylesheet' />
+    <link href='Librerias/fullcalendar/daygrid/main.css' rel='stylesheet' />
+    <link href='Librerias/fullcalendar/list/main.css' rel='stylesheet' />
+    <link href='Librerias/fullcalendar/bootstrap/main.css' rel='stylesheet' />
+    <script src='Librerias/fullcalendar/core/main.js'></script>
+    <script src='Librerias/fullcalendar/interaction/main.js'></script>
+    <script src='Librerias/fullcalendar/bootstrap/main.js'></script>
+    <script src='Librerias/fullcalendar/daygrid/main.js'></script>
+    <script src='Librerias/fullcalendar/timegrid/main.js'></script>
+    <script src='Librerias/fullcalendar/list/main.js'></script>
+    <script src='Librerias/fullcalendar/bootstrap/main.js'></script>
+    <script src='Librerias/fullcalendar/resource-common/main.js'></script>
+    <script src='Librerias/fullcalendar/resource-daygrid/main.js'></script>
+    <script src='Librerias/fullcalendar/resource-timegrid/main.js'></script>
+    <script src='Librerias/other/jquery.min.js'></script>
+    <script src='Librerias/other/popper.min.js'></script>
+    <script src='Librerias/other/tooltip.min.js'></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -213,7 +213,7 @@ cat <<EOM >calendario.html
           navLinks: true, 
           selectable: true,
           selectMirror: true,
-          editable: true,
+          editable: false,
           resources: [
 EOM
 gawk -F"|" '{print $1}' "${DIR_TMP}/pistas" | sort -u |
