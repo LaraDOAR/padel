@@ -179,7 +179,7 @@ FGRL_backupFile ranking html
 
 # Puntos por partidos ganados / perdidos
 PUNTOS_GANA_ARRIBA=1     # puntos que gana la pareja ganadora, si la pareja ganadora estaba situada en el ranking mas arriba que la otra pareja
-PUNTOS_GANA_ABAJO=3      # puntos que gana la pareja ganadora, si la pareja ganadora estaba situada en el ranking mas abajo que la otra pareja
+PUNTOS_GANA_ABAJO=1      # puntos que gana la pareja ganadora, si la pareja ganadora estaba situada en el ranking mas abajo que la otra pareja
 PUNTOS_PIERDE_ARRIBA=0   # puntos que gana la pareja perdedora, si la pareja ganadora estaba situada en el ranking mas arriba que la otra pareja
 PUNTOR_PIERDE_ABAJO=0    # puntos que gana la pareja perdedora, si la pareja ganadora estaba situada en el ranking mas abajo que la otra pareja
 
@@ -209,6 +209,7 @@ else
     # Se recorre la lista de partidos
     while IFS="|" read -r MES DIVISION LOCAL VISITANTE FECHA HINI HFIN LUGAR SET1 SET2 SET3 RANKING
     do
+
         # Se ignora si es un resultado que ya se ha metido en el ranking
         if [ "${RANKING}" == "true" ]; then continue; fi
 
@@ -232,10 +233,10 @@ else
         if [ "${jueL1}" -lt "${jueV1}" ] && [ "${jueL2}" -gt "${jueV2}" ] && [ "${jueL3}" -gt "${jueV3}" ]; then ganador="local"; fi
 
         # *** PUNTOS (puntosLoc / puntosVis)
-        if [ "${ganador}" == "local" ]     && [ "${posRankLoc}" -gt "${posRankVis}" ]; then puntosLoc=${PUNTOS_GANA_ARRIBA}; puntosVis=${PUNTOS_PIEDE_ABAJO};  fi
-        if [ "${ganador}" == "local" ]     && [ "${posRankLoc}" -lt "${posRankVis}" ]; then puntosLoc=${PUNTOS_GANA_ABAJO};  puntosVis=${PUNTOS_PIEDE_ARRIBA}; fi
-        if [ "${ganador}" == "visitante" ] && [ "${posRankVis}" -gt "${posRankLoc}" ]; then puntosVis=${PUNTOS_GANA_ARRIBA}; puntosLoc=${PUNTOS_PIEDE_ABAJO};  fi
-        if [ "${ganador}" == "visitante" ] && [ "${posRankVis}" -lt "${posRankLoc}" ]; then puntosVis=${PUNTOS_GANA_ABAJO};  puntosLoc=${PUNTOS_PIEDE_ARRIBA}; fi
+        if [ "${ganador}" == "local" ]     && [ "${posRankLoc}" -gt "${posRankVis}" ]; then puntosLoc=$(( PUNTOS_GANA_ABAJO + difPos ));  puntosVis=${PUNTOS_PIERDE_ARRIBA}; fi
+        if [ "${ganador}" == "local" ]     && [ "${posRankLoc}" -lt "${posRankVis}" ]; then puntosLoc=${PUNTOS_GANA_ARRIBA}; puntosVis=${PUNTOS_PIERDE_ABAJO};  fi
+        if [ "${ganador}" == "visitante" ] && [ "${posRankVis}" -gt "${posRankLoc}" ]; then puntosVis=$(( PUNTOS_GANA_ABAJO + difPos ));  puntosLoc=${PUNTOS_PIERDE_ARRIBA}; fi
+        if [ "${ganador}" == "visitante" ] && [ "${posRankVis}" -lt "${posRankLoc}" ]; then puntosVis=${PUNTOS_GANA_ARRIBA}; puntosLoc=${PUNTOS_PIERDE_ABAJO};  fi
 
         # *** PARTIDOS_JUGADOS
         # no se hacen cuentas: a lo que habia se le suma 1, tanto en local como en visitante)

@@ -1,16 +1,16 @@
 POSICION|                          PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA
-       1|      JoseCordoba-ManueldelValle|    20|               0|               0|           0|            0
-       2|      AlbertoAngulo-RamiroLuengo|    19|               0|               0|           0|            0
+       1|      JoseCordoba-ManueldelValle|    21|               1|               1|          12|            6
+       2|      AlbertoAngulo-RamiroLuengo|    19|               1|               0|           6|           12
        3|          AndresMunoz-JorgeLopez|    18|               0|               0|           0|            0
-       4|        DanielRamos-AlvaroRomero|    17|               0|               0|           0|            0
-       5| AinhoaGoni-JuanAntonioMontesino|    16|               0|               0|           0|            0
-       6|          IsraelAlonso-EricPerez|    15|               0|               0|           0|            0
+       4|          IsraelAlonso-EricPerez|    17|               1|               1|          12|            5
+       5|        DanielRamos-AlvaroRomero|    17|               0|               0|           0|            0
+       6| AinhoaGoni-JuanAntonioMontesino|    16|               1|               0|           5|           12
        7|       AlbertoMateos-JavierVidal|    14|               0|               0|           0|            0
        8|DiegoChicote-CarlosAlbertoMartin|    13|               0|               0|           0|            0
        9|AlbertoParramon-IgnacioHernandez|    12|               0|               0|           0|            0
-      10|  RamonCostafreda-AntonioSanchez|    11|               0|               0|           0|            0
-      11| AmbrosioIniesta-CarlosFernandez|    10|               0|               0|           0|            0
-      12|    MonicaGarcia-EnriqueClemente|     9|               0|               0|           0|            0
+      10| AmbrosioIniesta-CarlosFernandez|    11|               1|               1|          12|            4
+      11|  RamonCostafreda-AntonioSanchez|    11|               0|               0|           0|            0
+      12|    MonicaGarcia-EnriqueClemente|     9|               1|               0|           4|           12
       13|       DanielMichaud-JavierMunoz|     8|               0|               0|           0|            0
       14|      CristinaLeon-ManuelHidalgo|     7|               0|               0|           0|            0
       15|      LaraDominguez-TeresaSolano|     6|               0|               0|           0|            0

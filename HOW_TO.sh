@@ -199,8 +199,14 @@ bash Script/checkRanking.sh
 # -- ficheros de salida
 # no tiene, solo hace un check
 
+# -- genera el html de los partidos (o esperar a tener los partidos)
+bash Script/updatePartidos.sh -w
+# -- ficheros de salida
+# partidos.html
+
 # -- se mueven al Historico los ficheros que no son necesarios
 mv ranking-*.txt ranking-*.html Historico/
+mv partidos-*.txt partidos-*.html Historico/
 
 
 ##### 3/3 - Subir el nuevo ranking a la web y la lista de partidos con los resultados actualizados

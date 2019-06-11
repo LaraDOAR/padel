@@ -14,7 +14,7 @@ MES|                           LOCAL|                       VISITANTE| PISTA|   
 001|        DanielRamos-AlvaroRomero|          IsraelAlonso-EricPerez|Pista7|20190617|   19:00|   20:00
 001|       DanielMichaud-JavierMunoz|      LaraDominguez-TeresaSolano|Pista3|20190625|   18:00|   19:00
 001|       AlbertoMateos-JavierVidal|DiegoChicote-CarlosAlbertoMartin|Pista3|20190624|   18:00|   19:00
-001|      AlbertoAngulo-RamiroLuengo|          AndresMunoz-JorgeLopez|Pista7|20190624|   18:00|   19:00
-001| AinhoaGoni-JuanAntonioMontesino|        DanielRamos-AlvaroRomero|Pista3|20190624|   19:00|   20:00
+001|      AlbertoAngulo-RamiroLuengo|          AndresMunoz-JorgeLopez|Pista7|20190624|   19:00|   20:00
+001| AinhoaGoni-JuanAntonioMontesino|        DanielRamos-AlvaroRomero|Pista7|20190624|   18:00|   19:00
 001|        AngelaRuiz-AlvaroBarbero|      CristinaPruenza-SofiaCerda|Pista7|20190624|   20:00|   21:00
-001|    MonicaGarcia-EnriqueClemente|  RamonCostafreda-AntonioSanchez|Pista7|20190624|   19:00|   20:00
+001|    MonicaGarcia-EnriqueClemente|  RamonCostafreda-AntonioSanchez|Pista3|20190624|   19:00|   20:00
