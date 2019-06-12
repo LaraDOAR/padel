@@ -1,0 +1,37 @@
+Received: from imsvain1.ti.uam.es (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1F36F4C182E
+	for <esther.madrigal@iic.uam.es>; Thu,  6 Jun 2019 14:24:50 +0200 (CEST)
+Received: from imsvain1.ti.uam.es (pip9.ti.uam.es [192.168.12.216])
+	by eintn5.ti.uam.es (Postfix) with ESMTP id 382D0100BF4F
+	for <esther.madrigal@iic.uam.es>; Thu,  6 Jun 2019 14:24:50 +0200 (CEST)
+Received: from SERVIDOR (servdep.sefd.uam.es [150.244.92.8])
+	(Authenticated sender: servicio.deportes.informacion@uam.es)
+	by eintn6.ti.uam.es (Postfix) with ESMTPA id F1D5A30035F0
+	for <esther.madrigal@iic.uam.es>; Thu,  6 Jun 2019 14:24:49 +0200 (CEST)
+Received: from eintn6.ti.uam.es (unknown [192.168.12.216])
+	by imsvain1.ti.uam.es (Postfix) with ESMTP id 0ADFC4C1728
+	for <esther.madrigal@iic.uam.es>; Thu,  6 Jun 2019 14:24:50 +0200 (CEST)
+Received: from eintn5.ti.uam.es (eintn5.ti.uam.es [150.244.8.131])
+	by mx02.puc.rediris.es  with ESMTP id x56COoH9016325-x56COoHA016325
+	for <esther.madrigal@iic.uam.es>; Thu, 6 Jun 2019 14:24:51 +0200
+Received: from mx02.puc.rediris.es (outbound2sev.lav.puc.rediris.es [130.206.19.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by atica.iic.uam.es (Postfix) with ESMTPS id B28EB1BDA2C4
+	for <esther.madrigal@iic.uam.es>; Thu,  6 Jun 2019 14:24:50 +0200 (CEST)
+From: =?iso-8859-1?Q?Universidad_Aut=F3noma_de_Madrid?= <servicio.deportes.informacion@uam.es>
+To: "ESTHER MADRIGAL HERNANDEZ" <esther.madrigal@iic.uam.es>
+Subject: HECHA RESERVA DEPORTIVA
+Date: Thu, 6 Jun 2019 14:24:49 +0200
+Message-ID: <C3100658AF604D7DEA2A53819C84E85754E55799@SERVIDOR>
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQNABrNx0qHAbk3ro7nbpVjjPf9S5g==
+
+EL USUARIO MADRIGAL HERNANDEZ ESTHER HA REALIZADO UNA RESERVA EL DIA
+06/06/2019 PARA LA INSTALACI=D3N 'PADEL-9 LUZ' PARA EL D=CDA 10/06/2019 =
+A LAS
+18:00:00
