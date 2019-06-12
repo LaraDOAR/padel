@@ -10,9 +10,9 @@ POSICION|                          PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANAD
        9|AlbertoParramon-IgnacioHernandez|    12|               0|               0|           0|            0
       10| AmbrosioIniesta-CarlosFernandez|    11|               1|               1|          12|            4
       11|  RamonCostafreda-AntonioSanchez|    11|               0|               0|           0|            0
-      12|    MonicaGarcia-EnriqueClemente|     9|               1|               0|           4|           12
-      13|       DanielMichaud-JavierMunoz|     8|               0|               0|           0|            0
-      14|      CristinaLeon-ManuelHidalgo|     7|               0|               0|           0|            0
+      12|       DanielMichaud-JavierMunoz|     9|               1|               1|          13|           10
+      13|    MonicaGarcia-EnriqueClemente|     9|               1|               0|           4|           12
+      14|      CristinaLeon-ManuelHidalgo|     7|               1|               0|          10|           13
       15|      LaraDominguez-TeresaSolano|     6|               0|               0|           0|            0
       16|       DanielMorillo-AdrianGalan|     5|               0|               0|           0|            0
       17|        AngelaRuiz-AlvaroBarbero|     4|               0|               0|           0|            0

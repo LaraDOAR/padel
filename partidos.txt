@@ -11,7 +11,7 @@ MES|DIVISION|                           LOCAL|                       VISITANTE| 
 001|       4| AmbrosioIniesta-CarlosFernandez|    MonicaGarcia-EnriqueClemente|20190610|   19:00|   20:00|Pista3| 6/1| 6/3|   -|   true
 001|       4| AmbrosioIniesta-CarlosFernandez|  RamonCostafreda-AntonioSanchez|20190617|   19:00|   20:00|Pista3|   -|   -|   -|  false
 001|       4|    MonicaGarcia-EnriqueClemente|  RamonCostafreda-AntonioSanchez|20190624|   19:00|   20:00|Pista3|   -|   -|   -|  false
-001|       5|      CristinaLeon-ManuelHidalgo|       DanielMichaud-JavierMunoz|20190611|   18:00|   19:00|Pista9|   -|   -|   -|  false
+001|       5|      CristinaLeon-ManuelHidalgo|       DanielMichaud-JavierMunoz|20190611|   18:00|   19:00|Pista9| 4/6| 6/7|   -|   true
 001|       5|      CristinaLeon-ManuelHidalgo|      LaraDominguez-TeresaSolano|20190617|   18:00|   19:00|Pista3|   -|   -|   -|  false
 001|       5|       DanielMichaud-JavierMunoz|      LaraDominguez-TeresaSolano|20190625|   18:00|   19:00|Pista3|   -|   -|   -|  false
 001|       6|        AngelaRuiz-AlvaroBarbero|      CristinaPruenza-SofiaCerda|20190624|   20:00|   21:00|Pista9|   -|   -|   -|  false

@@ -165,14 +165,14 @@ prt_info "Ejecucion..."
 
 # -- se copian al directorio temporal
 cp Script/index.html "${DIR_TMP}"
-cp ranking.html partidos.html calendario.html "${DIR_TMP}"
+cp ranking.html rankingReferencia.html partidos.html calendario.html "${DIR_TMP}"
 cp -r Librerias "${DIR_TMP}"
 cp Doc/Normativa-Federacion.pdf "${DIR_TMP}"
 cp Doc/Reglamento-Torneo.pdf "${DIR_TMP}"
 
 # -- se comprime
 cd "${DIR_TMP}"
-zip -r padelToWeb.zip index.html ranking.html partidos.html calendario.html Librerias/* Normativa-Federacion.pdf Reglamento-Torneo.pdf
+zip -r padelToWeb.zip index.html ranking.html rankingReferencia.html partidos.html calendario.html Librerias/* Normativa-Federacion.pdf Reglamento-Torneo.pdf
 
 # -- se mueve al directorio actual
 cd - > /dev/null

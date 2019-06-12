@@ -165,9 +165,11 @@ mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${
 if [ "${ARG_INICIAL}" == "false" ]
 then
     if [ ! -f rankingReferencia.txt ]; then prt_error "ERROR: no existe el fichero [rankingReferencia.txt] en el directorio actual"; exit 1; fi
+    if [ ! -f ranking.txt ];           then prt_error "ERROR: no existe el fichero [ranking.txt] en el directorio actual";           exit 1; fi
     if [ ! -f partidos.txt ];          then prt_error "ERROR: no existe el fichero [partidos.txt] en el directorio actual";          exit 1; fi
-    out=$( FGRL_limpiaTabla rankingReferencia.txt "${DIR_TMP}/ranking"  false )
-    out=$( FGRL_limpiaTabla partidos.txt          "${DIR_TMP}/partidos" false )
+    out=$( FGRL_limpiaTabla rankingReferencia.txt "${DIR_TMP}/rankingRef"  false )
+    out=$( FGRL_limpiaTabla ranking.txt           "${DIR_TMP}/ranking"     false )
+    out=$( FGRL_limpiaTabla partidos.txt          "${DIR_TMP}/partidos"    false )
 fi
 
 # Limpia los diferentes ficheros
@@ -222,8 +224,8 @@ else
         jueL1=$( echo -e "${SET1}" | gawk -F"/" '{print $1}' ); jueV1=$( echo -e "${SET1}" | gawk -F"/" '{print $2}' )
         jueL2=$( echo -e "${SET2}" | gawk -F"/" '{print $1}' ); jueV2=$( echo -e "${SET2}" | gawk -F"/" '{print $2}' )
         jueL3=$( echo -e "${SET3}" | gawk -F"/" '{print $1}' ); jueV3=$( echo -e "${SET3}" | gawk -F"/" '{print $2}' )
-        posRankLoc=$( gawk -F"|" '{if ($2==PAREJA) print $1+0}' PAREJA="${LOCAL}"     "${DIR_TMP}/ranking" )
-        posRankVis=$( gawk -F"|" '{if ($2==PAREJA) print $1+0}' PAREJA="${VISITANTE}" "${DIR_TMP}/ranking" )
+        posRankLoc=$( gawk -F"|" '{if ($2==PAREJA) print $1+0}' PAREJA="${LOCAL}"     "${DIR_TMP}/rankingRef" )
+        posRankVis=$( gawk -F"|" '{if ($2==PAREJA) print $1+0}' PAREJA="${VISITANTE}" "${DIR_TMP}/rankingRef" )
         difPos=$(( posRankLoc - posRankVis )); if [ "${difPos}" -lt "1" ]; then difPos=$(( difPos * (-1) )); fi
 
         # Se averigua el ganador
