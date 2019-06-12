@@ -64,6 +64,9 @@ bash Script/checkRanking.sh
 # -- ficheros de salida
 # no tiene, solo hace un check
 
+# -- guardar como los ficheros de referencia
+cp ranking.txt  rankingReferencia.txt
+cp ranking.html rankingReferencia.html
 
 
 
@@ -227,6 +230,11 @@ FECHA_FIN_JORNADA=20190726
 NUMERO_PAREJAS_POR_DIVISION=5   # numero de partidos que se quieran jugar + 1
 
 # Se supone ya actualizado el ranking con los resultados de la ultima jornada/mes
+
+
+# -- guardar como los ficheros de referencia
+cp ranking.txt  rankingReferencia.txt
+cp ranking.html rankingReferencia.html
 
 
 ##### 1/3 - Averiguar que partidos hay que jugar segun el ranking actual

@@ -164,10 +164,10 @@ mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${
 # Existencia de ficheros
 if [ "${ARG_INICIAL}" == "false" ]
 then
-    if [ ! -f ranking.txt ];  then prt_error "ERROR: no existe el fichero [ranking.txt] en el directorio actual";  exit 1; fi
-    if [ ! -f partidos.txt ]; then prt_error "ERROR: no existe el fichero [partidos.txt] en el directorio actual"; exit 1; fi
-    out=$( FGRL_limpiaTabla ranking.txt  "${DIR_TMP}/ranking"  false )
-    out=$( FGRL_limpiaTabla partidos.txt "${DIR_TMP}/partidos" false )
+    if [ ! -f rankingReferencia.txt ]; then prt_error "ERROR: no existe el fichero [rankingReferencia.txt] en el directorio actual"; exit 1; fi
+    if [ ! -f partidos.txt ];          then prt_error "ERROR: no existe el fichero [partidos.txt] en el directorio actual";          exit 1; fi
+    out=$( FGRL_limpiaTabla rankingReferencia.txt "${DIR_TMP}/ranking"  false )
+    out=$( FGRL_limpiaTabla partidos.txt          "${DIR_TMP}/partidos" false )
 fi
 
 # Limpia los diferentes ficheros
