@@ -285,6 +285,111 @@ fi
 sort -t"|" -s -r -g -k3,3 -k6,6 -k7,7 "${DIR_TMP}/new_ranking" > "${DIR_TMP}/new_ranking.tmp"
 mv "${DIR_TMP}/new_ranking.tmp" "${DIR_TMP}/new_ranking"
 
+# Si hay empate a puntos, se analiza el 'goal average' entre las 2: estara por encima la pareja que mas veces haya ganado las veces que se hayan enfrentado
+prt_info "-- Se analiza el 'goal average particular'"
+cp "${DIR_TMP}/new_ranking" "${DIR_TMP}/ranking"
+PUNTOS_EMPATE_ANTERIORES=""
+while read -r line
+do   
+    # Se averiguan los puntos de esa pareja
+    puntos=$( echo -e "${line}" | gawk -F"|" '{print $3}' )
+    if [ "${puntos}" == "${PUNTOS_EMPATE_ANTERIORES}" ]; then continue; fi  # Si este empate ya se ha resuelto, se pasa a la siguiente linea
+
+    # Se averigua cuantas parejas tienen esos puntos
+    empates=$( gawk -F"|" '{if ($3==PTS) print NR}' PTS="${puntos}" "${DIR_TMP}/new_ranking" )
+    nEmpates=$( echo -e "${empates}" | wc -l )
+
+    # Si es la unica pareja con esos puntos, no se hace nada
+    if [ "${nEmpates}" == "1" ]; then continue; fi
+
+    # Hay empate, asi que se analiza. Ya se marca como que el empate con esta cantidad de puntos ya esta analizado
+    PUNTOS_EMPATE_ANTERIORES=${puntos}
+
+    # Si son 3 parejas empatadas:
+    # -- p1_2.partidos = partidos en los que han jugado 1 y 2, da igual si de local o de visitante
+    # -- p1_3.partidos = partidos en los que han jugado 1 y 3, da igual si de local o de visitante
+    # -- p2_3.partidos = partidos en los que han jugado 2 y 3, da igual si de local o de visitante
+    for i in ${empates}
+    do
+        pA=$( head -"${i}" "${DIR_TMP}/new_ranking" | tail -1 | gawk -F"|" '{print $2}' )
+        for j in ${empates}
+        do
+            if [ "${j}" -le "${i}" ]; then continue; fi
+            pB=$( head -"${j}" "${DIR_TMP}/new_ranking" | tail -1 | gawk -F"|" '{print $2}' )
+            grep -e "|${pA}|" "${DIR_TMP}/partidos" | grep -e "|${pB}|" | gawk -F"|" '{if ($NF==true) print}' > "${DIR_TMP}/p${i}_${j}.partidos"
+        done
+    done
+
+    # El 'Goal Average Particular' es contar cuantos sets ha ganado uno y cuantos ha ganado otro
+    # En el caso de las 3 parejas, tendriamos 6 valores:
+    # -- p1_2.sets = numero de sets que 1 ha ganado a 2 - numero de sets que 1 ha perdido contra 2
+    # -- p2_1.sets = -p1_2.sets
+    # -- p1_3.sets = numero de sets que 1 ha ganado a 3 - numero de sets que 1 ha perdido contra 3
+    # -- p3_1.sets = -p1_3.sets
+    # -- p2_3.sets = numero de sets que 2 ha ganado a 3 - numero de sets que 2 ha perdido contra 3
+    # -- p3_2.sets = -p2_3.sets
+
+    # Se inicializan todos con 0
+    for f in "${DIR_TMP}/p"*"_"*".partidos"; do i=$( basename "${f}" | gawk -F"[p_.]" '{print $2}' ); j=$( basename "${f}" | gawk -F"[p_.]" '{print $3}' ); echo "0" > "${DIR_TMP}/p${i}_${j}.sets"; echo "0" > "${DIR_TMP}/p${j}_${i}.sets"; done   
+
+    # Se va partido a partido actualizando la lista
+    for f in "${DIR_TMP}/p"*"_"*".partidos"
+    do
+        #echo $f; cat $f
+        i=$( basename "${f}" | gawk -F"[p_.]" '{print $2}' ); pA=$( head -"${i}" "${DIR_TMP}/new_ranking" | tail -1 | gawk -F"|" '{print $2}' )
+        j=$( basename "${f}" | gawk -F"[p_.]" '{print $3}' ); pB=$( head -"${j}" "${DIR_TMP}/new_ranking" | tail -1 | gawk -F"|" '{print $2}' )
+
+        # Por cada linea = cada partido, se cuentan los sets
+        while IFS="|" read -r MES DIVISION LOCAL VISITANTE FECHA HINI HFIN LUGAR SET1 SET2 SET3 RANKING
+        do
+            # Se averiguan los juegos de cada set
+            jueL1=$( echo -e "${SET1}" | gawk -F"/" '{print $1}' ); jueV1=$( echo -e "${SET1}" | gawk -F"/" '{print $2}' )
+            jueL2=$( echo -e "${SET2}" | gawk -F"/" '{print $1}' ); jueV2=$( echo -e "${SET2}" | gawk -F"/" '{print $2}' )
+            jueL3=$( echo -e "${SET3}" | gawk -F"/" '{print $1}' ); jueV3=$( echo -e "${SET3}" | gawk -F"/" '{print $2}' )
+
+            # Se averigua:
+            # -- el ganador
+            # -- los sets a favor y los sets en contra (del ganador)
+            ganador="visitante"
+            if [ "${jueL1}" -gt "${jueV1}" ] && [ "${jueL2}" -gt "${jueV2}" ];                                  then ganador="local"; setFavor=2; setContra=0; fi
+            if [ "${jueL1}" -gt "${jueV1}" ] && [ "${jueL2}" -lt "${jueV2}" ] && [ "${jueL3}" -gt "${jueV3}" ]; then ganador="local"; setFavor=2; setContra=1; fi
+            if [ "${jueL1}" -lt "${jueV1}" ] && [ "${jueL2}" -gt "${jueV2}" ] && [ "${jueL3}" -gt "${jueV3}" ]; then ganador="local"; setFavor=2; setContra=1; fi
+
+            if   ( [ "${pA}" == "${LOCAL}" ] && [ "${ganador}" == "local"     ] ) || ( [ "${pA}" == "${VISITANTE}" ] && [ "${ganador}" == "visitante" ] ); then new=$((   setFavor - setContra ))
+            elif ( [ "${pA}" == "${LOCAL}" ] && [ "${ganador}" == "visitante" ] ) || ( [ "${pA}" == "${VISITANTE}" ] && [ "${ganador}" == "local"     ] ); then new=$(( - setFavor + setContra ))
+            fi
+
+            old=$( cat "${DIR_TMP}/p${i}_${j}.sets" ); echo "$(( old + new ))" > "${DIR_TMP}/p${i}_${j}.sets"
+            old=$( cat "${DIR_TMP}/p${j}_${i}.sets" ); echo "$(( old - new ))" > "${DIR_TMP}/p${j}_${i}.sets"
+        done < "${f}"
+
+        rm "${f}"
+    done
+
+    # Se crea un fichero con las columnas:          GoalAverage | Posicion Actual | Orden Nuevo | Posicion Nueva
+    for f in "${DIR_TMP}/p"*"_"*".sets"; do printf "%d|%d\n" "$( cat "${f}" )" "$( basename "${f}" | gawk -F"[p_.]" '{print $2}' )"; rm "${f}"; done |
+        gawk '{print $0"|"NR}' |                      # se pone la posicion actual
+        sort -s -t"|" -k1,1 -g > "${DIR_TMP}/sorted" # se ordena
+    # -- se calcula la nueva posicion
+    while read -r line
+    do
+        pos=$( echo -e "${line}" | gawk -F"|" '{print $3}' )
+        newPos=$( head -"${pos}" "${DIR_TMP}/sorted" | tail -1 | gawk -F"|" '{print $2}' )
+        echo -e "${line}" | gawk '{ print $0"|"NEW}' NEW="${newPos}"
+    done < "${DIR_TMP}/sorted" > "${DIR_TMP}/sorted.tmp"; mv "${DIR_TMP}/sorted.tmp" "${DIR_TMP}/sorted"
+
+    # Se modifica el ranking segun se hayan ordenado las parejas
+    while IFS="|" read -r _ ACTUAL _ NUEVA
+    do
+        actual=$( head -"${ACTUAL}" "${DIR_TMP}/ranking" | tail -1 )
+        nueva=$(  head -"${NUEVA}"  "${DIR_TMP}/ranking" | tail -1 )
+        gawk '{if (NR==POS) {print LINEA;} else {print;} }' POS="${ACTUAL}" LINEA="${nueva}"  "${DIR_TMP}/ranking" > "${DIR_TMP}/ranking.tmp"; mv "${DIR_TMP}/ranking.tmp" "${DIR_TMP}/ranking"
+        gawk '{if (NR==POS) {print LINEA;} else {print;} }' POS="${NUEVA}"  LINEA="${actual}" "${DIR_TMP}/ranking" > "${DIR_TMP}/ranking.tmp"; mv "${DIR_TMP}/ranking.tmp" "${DIR_TMP}/ranking"
+    done < "${DIR_TMP}/sorted"
+    
+done < "${DIR_TMP}/new_ranking"
+mv "${DIR_TMP}/ranking" "${DIR_TMP}/new_ranking"
+
 # Se actualizan las posiciones
 gawk 'BEGIN{OFS=FS="|";}{$1=NR; print}' "${DIR_TMP}/new_ranking" > "${DIR_TMP}/new_ranking.tmp"
 mv "${DIR_TMP}/new_ranking.tmp" "${DIR_TMP}/new_ranking"
