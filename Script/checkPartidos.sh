@@ -261,18 +261,22 @@ do
     if [ "${maxJuego}" -lt "6" ]; then echo "-- En la linea ${line}, no puede ser que ninguno de los juegos del set1 llegue a 6. Si se ha cancelado, se pondra '6/n 6/0 -' para la pareja ganadora";       exit 1; fi
     if [ "${maxJuego}" == "6" ] && [ "${minJuego}" -gt "4" ];                                then echo "-- En la linea ${line}, no puede ser que en el set1, juego ganador = 6 y juego perdedor > 4";      exit 1; fi
     if [ "${maxJuego}" == "7" ] && ( [ "${minJuego}" != "5" ] && [ "${minJuego}" != "6" ] ); then echo "-- En la linea ${line}, no puede ser que en el set1, juego ganador = 7 y juego perdedor != 5 o 6"; exit 1; fi
+    if [ "${maxJuego}" -gt "7" ];                                                            then echo "-- En la linea ${line}, no puede ser que los juegos del set1 sea mas de 7";                        exit 1; fi
     
     # Si el set 1 tiene unos valores validos (en este punto los tiene), entonces es necesario que set 2 este inicializado y tambien tenga valores validos
     if [ "${set2}" == "-" ]; then echo "-- En la linea ${line}, el set1 tiene valores validos, pero el partido no esta terminado. Es necesario que el set2!='-'"; exit 1; fi
 
     # - set 2
-    # --- si es <6 --> error (si se ha interrumpido, se pondra set1 6/n -)
+    # # --- si es <6 --> error (si se ha interrumpido, se pondra set1 6/n -) --> al final si lo permitimos por si no da tiempo a que termine
     # --- si es 6 --> al otro lado <=4
     # --- si es 7 --> al otro lado 5 o 6
+    # --- no puede ser > 7
+    # (se permite todo porque por limitaciones de hora es posible que no de tiempo a terminar algun partido)
     if [ "${jueL2}" -gt "${jueV2}" ]; then maxJuego=${jueL2}; minJuego=${jueV2}; else maxJuego=${jueV2}; minJuego=${jueL2}; fi
-    if [ "${maxJuego}" -lt "6" ]; then echo "-- En la linea ${line}, no puede ser que ninguno de los juegos del set2 llegue a 6. Si se ha cancelado, se pondra '6/n 6/0 -' para la pareja ganadora";       exit 1; fi
+    #if [ "${maxJuego}" -lt "6" ]; then echo "-- En la linea ${line}, no puede ser que ninguno de los juegos del set2 llegue a 6. Si se ha cancelado, se pondra '6/n 6/0 -' para la pareja ganadora";       exit 1; fi
     if [ "${maxJuego}" == "6" ] && [ "${minJuego}" -gt "4" ];                                then echo "-- En la linea ${line}, no puede ser que en el set2, juego ganador = 6 y juego perdedor > 4";      exit 1; fi
     if [ "${maxJuego}" == "7" ] && ( [ "${minJuego}" != "5" ] && [ "${minJuego}" != "6" ] ); then echo "-- En la linea ${line}, no puede ser que en el set2, juego ganador = 7 y juego perdedor != 5 o 6"; exit 1; fi
+    if [ "${maxJuego}" -gt "7" ];                                                            then echo "-- En la linea ${line}, no puede ser que los juegos del set2 sea mas de 7";                        exit 1; fi
     
     # Si el set 1 y el set 2 tienen valores validos (en este punto los tiene), entonces set3=='-' si ya hay ganador o set!='-' si hay empate
     hayGanador=false
@@ -282,10 +286,14 @@ do
     if [ "${hayGanador}" == "true" ] && [ "${set3}" != "-" ]; then echo "-- En la linea ${line}, no puede ser que haya un ganador mirando set1 y set2, y que el set3!='-'"; exit 1; fi
 
     # - set 3
+    # --- si es 6 --> al otro lado <=4
+    # --- si es 7 --> al otro lado 5 o 6
     # --- no puede ser > 7
     # (se permite todo porque por limitaciones de hora es posible que no de tiempo a terminar algun partido)
     if [ "${jueL3}" -gt "${jueV3}" ]; then maxJuego=${jueL3}; minJuego=${jueV3}; else maxJuego=${jueV3}; minJuego=${jueL3}; fi
-    if [ "${maxJuego}" -gt "7" ]; then echo "-- En la linea ${line}, no puede ser que los juegos del set3 sea mas de 7"; exit 1; fi
+    if [ "${maxJuego}" == "6" ] && [ "${minJuego}" -gt "4" ];                                then echo "-- En la linea ${line}, no puede ser que en el set2, juego ganador = 6 y juego perdedor > 4";      exit 1; fi
+    if [ "${maxJuego}" == "7" ] && ( [ "${minJuego}" != "5" ] && [ "${minJuego}" != "6" ] ); then echo "-- En la linea ${line}, no puede ser que en el set2, juego ganador = 7 y juego perdedor != 5 o 6"; exit 1; fi
+    if [ "${maxJuego}" -gt "7" ];                                                            then echo "-- En la linea ${line}, no puede ser que los juegos del set3 sea mas de 7";                        exit 1; fi
     
 done < "${DIR_TMP}/partidos"
 
