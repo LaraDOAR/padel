@@ -8,7 +8,7 @@ MES|                           LOCAL|                       VISITANTE| PISTA|   
 001| AmbrosioIniesta-CarlosFernandez|    MonicaGarcia-EnriqueClemente|Pista3|20190610|   19:00|   20:00
 001|AlbertoParramon-IgnacioHernandez|DiegoChicote-CarlosAlbertoMartin|Pista3|20190620|   19:00|   20:00
 001|      CristinaPruenza-SofiaCerda|       DanielMorillo-AdrianGalan|Pista3|20190620|   18:00|   19:00
-001|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|Pista9|20190618|   18:00|   19:00
+001|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|Pista3|20190618|   18:00|   19:00
 001| AmbrosioIniesta-CarlosFernandez|  RamonCostafreda-AntonioSanchez|Pista3|20190617|   19:00|   20:00
 001|      CristinaLeon-ManuelHidalgo|      LaraDominguez-TeresaSolano|Pista9|20190617|   18:00|   19:00
 001|        DanielRamos-AlvaroRomero|          IsraelAlonso-EricPerez|Pista9|20190617|   19:00|   20:00

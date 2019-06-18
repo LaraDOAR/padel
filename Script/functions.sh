@@ -359,7 +359,7 @@ export -f FGRL_getPermutacion_conPesos_BCK
 
 ##########
 # - FGRL_backupFile
-#     Funcion   --->  hace backup del fichero actual
+#     Funcion   --->  hace backup del fichero actual (teniendo en cuenta el actual y los que hay en Historico)
 #     Entrada   --->  $1 = fichero (ranking, partidos...)
 #                     $2 = terminacion del fichero (txt, html)
 #     Salida    --->  0 = ok
@@ -378,15 +378,20 @@ function FGRL_backupFile {
 
     if [ ! -f "${_file}.${_term}" ]; then prt_warn "<FGRL_backupFile> No existe el fichero ${_file}.${_term}"; return 0; fi
 
-    _nFiles=$( find . -maxdepth 1 -type f -name "${_file}-*.${_term}" | wc -l )
+    if [ ! -d Historico ]; then prt_error "<FGRL_backupFile> No existe el directorio Historico"; return 1; fi
+       
+    _nFiles=$( find Historico/ -maxdepth 1 -type f -name "${_file}-*.${_term}" | wc -l )
     if [ "${_nFiles}" == "0" ]
     then
         _newID=1
     else
-        _newID=$( find . -maxdepth 1 -type f -name "${_file}-*.${_term}" -printf "%f\n" | gawk -F"${file}-" '{print $2}' | gawk -F".${_term}" '{print $1+1}' )
+        _newID=$(
+            find Historico/ -maxdepth 1 -type f -name "${_file}-*.${_term}" -printf "%f\n" |
+                gawk -F"${file}-" '{print $2+0}' | sort -u -g | tail -1 | gawk -F".${_term}" '{print $1+1}'
+              )
     fi
-    prt_warn "-- El fichero ${_file}.${_term} pasa a ser ${G}${_file}-${_newID}.${_term}${NC}"
-    cp "${_file}.${_term}" "${_file}-${_newID}.${_term}"
+    prt_warn "-- El fichero ${_file}.${_term} pasa a ser ${G}Historico/${_file}-${_newID}.${_term}${NC}"
+    cp "${_file}.${_term}" "Historico/${_file}-${_newID}.${_term}"
     
     return 0
 }

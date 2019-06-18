@@ -543,8 +543,8 @@ out=$( FGRL_limpiaTabla partidos.txt      "${DIR_TMP}/partidos"      false )
 if [ -f calendario.txt ]; then out=$( FGRL_limpiaTabla calendario.txt "${DIR_TMP}/calendario" false ); fi
 
 # Se hace backup de los ficheros de salida, para no sobreescribir
-FGRL_backupFile calendario txt
-FGRL_backupFile calendario html
+FGRL_backupFile calendario txt;  rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
+FGRL_backupFile calendario html; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
 
 
 
@@ -1014,6 +1014,52 @@ mv calendario.txt.new calendario.txt
 # -- se le da formato
 out=$( bash Script/formateaTabla.sh -f "calendario.txt" ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 prt_info "---- Generado ${G}calendario.txt${NC}"
+
+
+# Se comprueba el formato de calendario
+bash Script/checkCalendario.sh; rv=$?
+if [ "${rv}" != "0" ]
+then
+    prt_error "Error ejecutando <bash Script/checkCalendario.sh>"
+    prt_error "---- Soluciona el problema y ejecutalo a mano"
+    prt_warn "*** Despues quedaria ejecutar lo siguiente:"
+    prt_warn "-----  bash Script/updateCalendario.sh      # para actualizar el fichero de calendario html"
+    prt_warn "-----  bash Script/updatePartidos.sh -f -w  # para actualizar el fichero de partidos html"
+    prt_warn "-----  bash Script/checkPartidos            # para comprobar formado de partidos"
+    exit 1
+fi
+
+# Se crea el fichero web de calendario
+bash Script/updateCalendario.sh; rv=$?
+if [ "${rv}" != "0" ]
+then
+    prt_error "Error ejecutando <bash Script/updateCalendario.sh>"
+    prt_error "---- Soluciona el problema y ejecutalo a mano"
+    prt_warn "*** Despues quedaria ejecutar lo siguiente:"
+    prt_warn "-----  bash Script/updatePartidos.sh -f -w  # para actualizar el fichero de partidos html"
+    prt_warn "-----  bash Script/checkPartidos            # para comprobar formado de partidos"
+    exit 1
+fi
+
+# Se crea el fichero web de partidos
+bash Script/updatePartidos.sh -f -w; rv=$?
+if [ "${rv}" != "0" ]
+then
+    prt_error "Error ejecutando <bash Script/updatePartidos.sh -f -w>"
+    prt_error "---- Soluciona el problema y ejecutalo a mano"
+    prt_warn "*** Despues quedaria ejecutar lo siguiente:"
+    prt_warn "-----  bash Script/checkPartidos            # para comprobar formado de partidos"
+    exit 1
+fi
+
+# Se comprueba el formato de partidos
+bash Script/checkPartidos.sh; rv=$?
+if [ "${rv}" != "0" ]
+then
+    prt_error "Error ejecutando <bash Script/checkPartidos.sh>"
+    prt_error "---- Soluciona el problema y ejecutalo a mano"
+    exit 1
+fi
 
 
 ############# FIN

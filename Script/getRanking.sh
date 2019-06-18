@@ -178,14 +178,16 @@ then
     out=$( FGRL_limpiaTabla rankingReferencia.txt "${DIR_TMP}/rankingRef"  false )
     out=$( FGRL_limpiaTabla ranking.txt           "${DIR_TMP}/ranking"     false )
     out=$( FGRL_limpiaTabla partidos.txt          "${DIR_TMP}/partidos"    false )
+    FGRL_backupFile partidos txt;  rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
+    FGRL_backupFile partidos html; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
 fi
 
 # Limpia los diferentes ficheros
 out=$( FGRL_limpiaTabla parejas.txt "${DIR_TMP}/parejas" false )
 
 # Se hace backup de los ficheros de salida, para no sobreescribir
-FGRL_backupFile ranking txt
-FGRL_backupFile ranking html
+FGRL_backupFile ranking txt;  rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
+FGRL_backupFile ranking html; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
 
 # Puntos por partidos ganados / perdidos
 PUNTOS_GANA_ARRIBA=1     # puntos que gana la pareja ganadora, si la pareja ganadora estaba situada en el ranking mas arriba que la otra pareja
@@ -287,6 +289,9 @@ else
     prt_info "---- Actualizado ${G}partidos.txt${NC}"
 
     out=$( bash Script/formateaTabla.sh -f partidos.txt ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+
+    # Actualiza el html de partidos
+    out=$( bash Script/updatePartidos.sh -w ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 fi
 
 # Se ordena por puntos + juegos_favor + juego_contra
@@ -417,6 +422,7 @@ prt_info "---- Generado ${G}ranking.txt${NC}"
 # Da forma y comprueba que esta bien generado
 prt_info "-- Se formatea ranking.txt y se valida su contenido"
 out=$( bash Script/formateaTabla.sh -f ranking.txt ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+out=$( bash Script/checkRanking.sh );                 rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 
 # Se genera el html
 prt_info "-- Se genera el html a partir de ese fichero"

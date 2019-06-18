@@ -188,7 +188,7 @@ mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${
 out=$( FGRL_limpiaTabla ranking.txt "${DIR_TMP}/ranking" false )
 
 # Se hace backup de los ficheros de salida, para no sobreescribir
-FGRL_backupFile partidos txt
+FGRL_backupFile partidos txt; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
 
 
 ############# EJECUCION
@@ -219,7 +219,7 @@ then
     #     prt_warn "-- Hay parejas impares"
         
     #     # -- se hace backup de los ficheros de salida, para no sobreescribir
-    #     FGRL_backupFile parejasSinJugar txt
+    #     FGRL_backupFile parejasSinJugar txt; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
 
     #     # -- comprueba si existe el fichero
     #     if [ ! -f parejasSinJugar.txt ]
@@ -333,6 +333,25 @@ mv partidos.sorted.txt partidos.txt
 # Se da formato
 out=$( bash Script/formateaTabla.sh -f partidos.txt ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 prt_info "---- Generado ${G}partidos.txt${NC}"
+
+# Se comprueba el formato
+bash Script/checkPartidos.sh; rv=$?
+if [ "${rv}" != "0" ]
+then
+    prt_error "Error ejecutando <bash Script/checkPartidos.sh>"
+    prt_error "---- Soluciona el problema y ejecutalo a mano"
+    prt_warn "*** Despues quedaria ejecutar <bash Script/updatePartidos.sh -w> para actualizar el fichero html"
+    exit 1
+fi
+
+# Se crea el fichero web
+bash Script/updatePartidos.sh -w; rv=$?
+if [ "${rv}" != "0" ]
+then
+    prt_error "Error ejecutando <bash Script/updatePartidos.sh -w>"
+    prt_error "---- Soluciona el problema y ejecutalo a mano"
+    exit 1
+fi
 
 
 ############# FIN

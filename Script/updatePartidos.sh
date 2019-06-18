@@ -165,11 +165,23 @@ prt_info "Inicializacion..."
 # Resetea un directorio temporal solo para este script, dentro de tmp/
 mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${DIR_TMP}"
 
+# Se hace backup de los ficheros de salida, para no sobreescribir
+FGRL_backupFile partidos txt;  rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
+FGRL_backupFile partidos html; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
 
 
 ############# EJECUCION
 
 prt_info "Ejecucion..."
+
+# Lo primero es formatear la tabla
+out=$( bash Script/formateaTabla.sh -f partidos.txt ); rv=$?
+if [ "${rv}" != "0" ]; then prt_error "Error ejeuctando <bash Script/formateaTabla.sh -f partidos.txt>"; echo -e "${out}"; exit 1; fi
+
+# Y comprobar que el formato esta bien
+out=$( bash Script/checkPartidos.sh ); rv=$?
+if [ "${rv}" != "0" ]; then prt_error "Error ejeuctando <bash Script/checkPartidos.sh>"; echo -e "${out}"; exit 1; fi
+
 
 if [ "${ARG_CALENDARIO}" == "false" ]; then prt_warn "-- Se indica no actualizar con los datos de calendario.txt"
 else
@@ -181,9 +193,6 @@ else
     # Limpiar tabla
     out=$( FGRL_limpiaTabla partidos.txt "${DIR_TMP}/partidos" true )
     out=$( FGRL_limpiaTabla "calendario.txt" "${DIR_TMP}/calendario" false ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
-
-    # Se hace backup de los ficheros de salida, para no sobreescribir
-    FGRL_backupFile partidos txt
     
     while IFS="|" read -r MES LO VI LU FE HI HF
     do
@@ -203,10 +212,7 @@ else
     prt_info "-- Se indica SI generar el fichero partidos.html"
 
     # Limpia los diferentes ficheros
-    out=$( FGRL_limpiaTabla partidos.txt "${DIR_TMP}/partidos" true )
-    
-    # Se hace backup de los ficheros de salida, para no sobreescribir
-    FGRL_backupFile partidos html
+    out=$( FGRL_limpiaTabla partidos.txt "${DIR_TMP}/partidos" true )   
 
     # Se transforman las fechas a un formato mas legible
     head -1 "${DIR_TMP}/partidos" > "${DIR_TMP}/partidos.tmp"

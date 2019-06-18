@@ -161,7 +161,9 @@ out=$( FGRL_limpiaTabla pistas.txt     "${DIR_TMP}/pistas"     false )
 out=$( FGRL_limpiaTabla calendario.txt "${DIR_TMP}/calendario" false )
 
 # Se hace backup de los ficheros de salida, para no sobreescribir
-FGRL_backupFile calendario html
+FGRL_backupFile calendario html; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
+FGRL_backupFile partidos   txt;  rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
+FGRL_backupFile partidos   html; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
 
 
 
@@ -169,6 +171,10 @@ FGRL_backupFile calendario html
 
 prt_info "Ejecucion..."
 
+# Actualiza los ficheros de partidos
+bash Script/updatePartidos.sh -w -f; rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+
+# Genera el html de calendario
 cat <<EOM >calendario.html
 <!DOCTYPE html>
 <html>
