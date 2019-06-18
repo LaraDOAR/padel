@@ -375,23 +375,35 @@ function FGRL_backupFile {
     # Variables internas
     local _nFiles
     local _newID
+    local _lastFile
 
     if [ ! -f "${_file}.${_term}" ]; then prt_warn "<FGRL_backupFile> No existe el fichero ${_file}.${_term}"; return 0; fi
 
     if [ ! -d Historico ]; then prt_error "<FGRL_backupFile> No existe el directorio Historico"; return 1; fi
        
     _nFiles=$( find Historico/ -maxdepth 1 -type f -name "${_file}-*.${_term}" | wc -l )
+
+    # Si no hay ficheros en el Historico, se hace el backup y ya
     if [ "${_nFiles}" == "0" ]
     then
         _newID=1
-    else
-        _newID=$(
-            find Historico/ -maxdepth 1 -type f -name "${_file}-*.${_term}" -printf "%f\n" |
-                gawk -F"${file}-" '{print $2+0}' | sort -u -g | tail -1 | gawk -F".${_term}" '{print $1+1}'
-              )
+        prt_warn "-- El fichero ${_file}.${_term} pasa a ser ${G}Historico/${_file}-${_newID}.${_term}${NC}"
+        cp "${_file}.${_term}" "Historico/${_file}-${_newID}.${_term}"
+        return 0
     fi
-    prt_warn "-- El fichero ${_file}.${_term} pasa a ser ${G}Historico/${_file}-${_newID}.${_term}${NC}"
-    cp "${_file}.${_term}" "Historico/${_file}-${_newID}.${_term}"
+
+    # Si ya hay ficheros, solo se hara backup si el nuevo es diferente al ultimo, sino no se hara nada
+    _lastFile=$( find Historico/ -maxdepth 1 -type f -name "${_file}-*.${_term}" -printf "%f\n" | gawk -F"${file}-" '{print $2+0"|"$0}' | sort -u -g -t"|" -k1,1 | tail -1 | gawk -F"|" '{print $2}' )
+    if [ "$( diff "Historico/${_lastFile}" "${_file}.${_term}" )" != "" ]
+    then
+        _newID=$( echo -e "${_lastFile}" | gawk -F"${file}-" '{print $2+0}' | gawk -F".${_term}" '{print $1+1}' )
+        prt_warn "-- El fichero ${_file}.${_term} pasa a ser ${G}Historico/${_file}-${_newID}.${_term}${NC}"
+        cp "${_file}.${_term}" "Historico/${_file}-${_newID}.${_term}"
+        return 0
+    fi
+
+    # Si no son diferentes, se avisa y no se hace nada
+    prt_warn "<FGRL_backupFile> El fichero ${_file}.${_term} y Historico/${_lastFile} son iguales, asi que no se hace backup"; return 0; fi
     
     return 0
 }
