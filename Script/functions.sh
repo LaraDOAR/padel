@@ -403,7 +403,7 @@ function FGRL_backupFile {
     fi
 
     # Si no son diferentes, se avisa y no se hace nada
-    prt_warn "<FGRL_backupFile> El fichero ${_file}.${_term} y Historico/${_lastFile} son iguales, asi que no se hace backup"; return 0; fi
+    prt_warn "<FGRL_backupFile> El fichero ${_file}.${_term} y Historico/${_lastFile} son iguales, asi que no se hace backup"
     
     return 0
 }
