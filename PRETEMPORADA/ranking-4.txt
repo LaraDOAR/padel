@@ -13,9 +13,9 @@ POSICION|                          PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANAD
       12|       DanielMichaud-JavierMunoz|     9|               1|               1|          13|           10
       13|    MonicaGarcia-EnriqueClemente|     9|               1|               0|           4|           12
       14|      CristinaLeon-ManuelHidalgo|     8|               2|               1|          22|           16
-      15|       DanielMorillo-AdrianGalan|     6|               1|               1|          12|            7
-      16|      LaraDominguez-TeresaSolano|     6|               1|               0|           3|           12
+      15|      LaraDominguez-TeresaSolano|     6|               1|               0|           3|           12
+      16|       DanielMorillo-AdrianGalan|     5|               0|               0|           0|            0
       17|        AngelaRuiz-AlvaroBarbero|     4|               0|               0|           0|            0
-      18|      CristinaPruenza-SofiaCerda|     3|               1|               0|           7|           12
+      18|      CristinaPruenza-SofiaCerda|     3|               0|               0|           0|            0
       19|          SaraGarcia-AnaAlastuey|     2|               0|               0|           0|            0
       20|  DanielVillar-MariaLuisaBagaces|     1|               0|               0|           0|            0

@@ -1,5 +1,5 @@
 MES|DIVISION|                           LOCAL|                       VISITANTE|   FECHA|HORA_INI|HORA_FIN| LUGAR|SET1|SET2|SET3|RANKING
-001|       1|      AlbertoAngulo-RamiroLuengo|          AndresMunoz-JorgeLopez|20190602|   17:00|   18:00|Pista9|   -|   -|   -|  false
+001|       1|      AlbertoAngulo-RamiroLuengo|          AndresMunoz-JorgeLopez|20190624|   19:00|   20:00|Pista9|   -|   -|   -|  false
 001|       1|      AlbertoAngulo-RamiroLuengo|      JoseCordoba-ManueldelValle|20190610|   19:00|   20:00|Pista9| 3/6| 3/6|   -|   true
 001|       1|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|20190620|   19:00|   20:00|Pista9| 0/6| 5/7|   -|   true
 001|       2| AinhoaGoni-JuanAntonioMontesino|        DanielRamos-AlvaroRomero|20190624|   18:00|   19:00|Pista9|   -|   -|   -|  false
@@ -10,7 +10,7 @@ MES|DIVISION|                           LOCAL|                       VISITANTE| 
 001|       3|AlbertoParramon-IgnacioHernandez|DiegoChicote-CarlosAlbertoMartin|20190601|   17:00|   18:00|Pista9|   -|   -|   -|  false
 001|       4| AmbrosioIniesta-CarlosFernandez|    MonicaGarcia-EnriqueClemente|20190610|   19:00|   20:00|Pista3| 6/1| 6/3|   -|   true
 001|       4| AmbrosioIniesta-CarlosFernandez|  RamonCostafreda-AntonioSanchez|20190626|   19:00|   20:00|Pista3|   -|   -|   -|  false
-001|       4|    MonicaGarcia-EnriqueClemente|  RamonCostafreda-AntonioSanchez|20190624|   19:00|   20:00|Pista9|   -|   -|   -|  false
+001|       4|    MonicaGarcia-EnriqueClemente|  RamonCostafreda-AntonioSanchez|20190624|   19:00|   20:00|Pista3|   -|   -|   -|  false
 001|       5|      CristinaLeon-ManuelHidalgo|       DanielMichaud-JavierMunoz|20190611|   18:00|   19:00|Pista9| 4/6| 6/7|   -|   true
 001|       5|      CristinaLeon-ManuelHidalgo|      LaraDominguez-TeresaSolano|20190617|   18:00|   19:00|Pista9| 6/2| 6/1|   -|   true
 001|       5|       DanielMichaud-JavierMunoz|      LaraDominguez-TeresaSolano|20190625|   18:00|   19:00|Pista3|   -|   -|   -|  false
