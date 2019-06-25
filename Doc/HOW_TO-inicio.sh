@@ -113,7 +113,7 @@ bash Script/getCalendario.sh -m 1 -i "${FECHA_INI_MES}" -f "${FECHA_FIN_MES}"
 
 for f in infoTorneo.cfg pistas.txt parejas.txt restricciones.txt ranking.txt ranking.html partidos.txt partidos.html calendario.txt calendario.html
 do
-    cp ${f} Historico/versionInicial-${f}
+    cp ${f} Historico/jornada01-versionInicial-${f}
 done
 
 
@@ -123,105 +123,3 @@ done
 ##### 6/6 - Subir los html para que sean visibles para todo el mundo
 bash Script/creaPaquete.sh
 # -- hablar con Daniel Duran para que lo suba a la web
-
-
-
-
-
-################################################################################################################################
-################## CAMBIOS DE PISTAS O DE HORARIO EN EL CALENDARIO
-
-# Una vez que se tenga claro el cambio, basta con hacer lo siguiente
-
-# 1/3 - Editar el fichero de calendario con la configuracion definitiva
-vim calendario.txt
-
-# 2/3 - Actualizar el html del calendario
-bash Script/updateCalendario.sh
-# calendario.html
-# partidos.txt
-# partidos.html
-
-# 3/3 - Subir el nuevo ranking a la web y la lista de partidos con los resultados actualizados
-bash Script/creaPaquete.sh
-# -- hablar con Daniel Duran para que lo suba a la web
-
-
-
-
-
-################################################################################################################################
-################## GRABAR RESULTADOS Y ACTUALIZAR RANKING
-
-# Se puede ejecutar en cualquier momento, no hace falta haber jugado todos los partidos, ya que
-# internamente se lleva el control de que partidos se han tenido ya en cuenta para actualizar el ranking
-
-# 1/2 - Editar el fichero partidos.txt y actualizar las columnas de los sets
-# ---- set jugado: 6/4, por ejemplo, donde 6 es local y 4 visitante
-# ---- set no jugado: -
-# ---- partido no jugado: 6/0, 6/0, -   ---> para la pareja ganadora
-# ---- partido no jugado: 0/0, 0/0, 0/0 ---> si se ha cancelado y se ha dado por perdido, y ninguna de las partes gana
-vim partidos.txt
-
-# 2/3 - Ejecuta script
-bash Script/getRanking.sh
-# -- ficheros de salida
-# ranking.txt
-# ranking.html
-# partidos.txt
-# partidos.html
-
-# 3/3 - Subir el nuevo ranking a la web y la lista de partidos con los resultados actualizados
-bash Script/creaPaquete.sh
-# -- hablar con Daniel Duran para que lo suba a la web
-
-
-
-
-
-################################################################################################################################
-################## GENERAR PARTIDOS PARA EL RESTO DE JORNADAS
-
-MES=2
-FECHA_INI_JORNADA=20190701
-FECHA_FIN_JORNADA=20190726
-NUMERO_PAREJAS_POR_DIVISION=5   # numero de partidos que se quieran jugar + 1
-
-# Se supone ya actualizado el ranking con los resultados de la ultima jornada/mes
-
-# -- guardar como los ficheros de referencia
-cp ranking.txt  rankingReferencia.txt
-cp ranking.html rankingReferencia.html
-
-
-# 1/3 - Averiguar que partidos hay que jugar segun el ranking actual
-
-# NOTA: si hay partidos del mes pasado que no se han jugado y se han pospuesto a esta jornada
-#  - Editar el fichero partidos.txt, dejando el MES que esta y borrando datos de FECHA, HORA y LUGAR
-#  - La nueva ejecucion de getPartidos.sh, anyadira partidos nuevos
-
-# -- ejecuta script
-bash Script/getPartidos.sh -m "${MES}" -n "${NUMERO_PAREJAS_POR_DIVISION}"
-# -- ficheros de salida
-# partidos.txt
-# partidos.html
-
-
-# 2/3 - Generar calendario de cuando se juega cada partido
-
-# -- ejecuta el script
-bash Script/getCalendario.sh -m "${MES}" -i "${FECHA_INI_JORNADA}" -f "${FECHA_FIN_JORNADA}"
-# -- ficheros de salida
-# calendario.txt
-# calendario.html
-# partidos.txt
-# partidos.html
-
-
-# 3/3 - Subir el nuevo calendario a la web
-bash Script/creaPaquete.sh
-# -- hablar con Daniel Duran para que lo suba a la web
-
-
-
-
