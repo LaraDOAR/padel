@@ -1,21 +1,21 @@
 POSICION|                          PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA
-       1|      JoseCordoba-ManueldelValle|    21|               1|               1|          12|            6
-       2|      AlbertoAngulo-RamiroLuengo|    19|               1|               0|           6|           12
-       3|          AndresMunoz-JorgeLopez|    18|               0|               0|           0|            0
-       4|          IsraelAlonso-EricPerez|    17|               1|               1|          12|            5
-       5|        DanielRamos-AlvaroRomero|    17|               0|               0|           0|            0
-       6| AinhoaGoni-JuanAntonioMontesino|    16|               1|               0|           5|           12
-       7|       AlbertoMateos-JavierVidal|    14|               0|               0|           0|            0
-       8|DiegoChicote-CarlosAlbertoMartin|    13|               0|               0|           0|            0
-       9|AlbertoParramon-IgnacioHernandez|    12|               0|               0|           0|            0
-      10| AmbrosioIniesta-CarlosFernandez|    11|               1|               1|          12|            4
-      11|  RamonCostafreda-AntonioSanchez|    11|               0|               0|           0|            0
+       1|      JoseCordoba-ManueldelValle|    22|               2|               2|          25|           11
+       2|        DanielRamos-AlvaroRomero|    19|               2|               2|          24|            7
+       3|      AlbertoAngulo-RamiroLuengo|    19|               1|               0|           6|           12
+       4|          AndresMunoz-JorgeLopez|    18|               1|               0|           5|           13
+       5|AlbertoParramon-IgnacioHernandez|    17|               2|               2|          22|            6
+       6|          IsraelAlonso-EricPerez|    17|               2|               1|          17|           17
+       7| AinhoaGoni-JuanAntonioMontesino|    16|               2|               0|           7|           24
+       8|       AlbertoMateos-JavierVidal|    15|               2|               1|          18|           13
+       9|DiegoChicote-CarlosAlbertoMartin|    13|               2|               0|           3|           24
+      10|  RamonCostafreda-AntonioSanchez|    12|               1|               1|          12|            2
+      11| AmbrosioIniesta-CarlosFernandez|    11|               1|               1|          12|            4
       12|       DanielMichaud-JavierMunoz|     9|               1|               1|          13|           10
-      13|    MonicaGarcia-EnriqueClemente|     9|               1|               0|           4|           12
-      14|      CristinaLeon-ManuelHidalgo|     7|               1|               0|          10|           13
-      15|      LaraDominguez-TeresaSolano|     6|               0|               0|           0|            0
-      16|       DanielMorillo-AdrianGalan|     5|               0|               0|           0|            0
-      17|        AngelaRuiz-AlvaroBarbero|     4|               0|               0|           0|            0
-      18|      CristinaPruenza-SofiaCerda|     3|               0|               0|           0|            0
+      13|    MonicaGarcia-EnriqueClemente|     9|               2|               0|           6|           24
+      14|      CristinaLeon-ManuelHidalgo|     8|               2|               1|          22|           16
+      15|       DanielMorillo-AdrianGalan|     6|               1|               1|          12|            7
+      16|      LaraDominguez-TeresaSolano|     6|               1|               0|           3|           12
+      17|        AngelaRuiz-AlvaroBarbero|     5|               1|               1|          12|            3
+      18|      CristinaPruenza-SofiaCerda|     3|               2|               0|          10|           24
       19|          SaraGarcia-AnaAlastuey|     2|               0|               0|           0|            0
       20|  DanielVillar-MariaLuisaBagaces|     1|               0|               0|           0|            0
