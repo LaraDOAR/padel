@@ -179,7 +179,7 @@ cat <<EOM >calendario.html
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CALENDARIO - Torneo de pádel IIC</title>
+    <title>CALENDARIO - Torneo de padel IIC</title>
     <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
     <link href='Librerias/fullcalendar/core/main.css' rel='stylesheet' />
     <link href='Librerias/fullcalendar/bootstrap/main.css' rel='stylesheet' />

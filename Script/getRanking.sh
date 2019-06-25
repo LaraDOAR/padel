@@ -435,7 +435,7 @@ cat <<EOM >ranking.html
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RANKING - Torneo de pádel IIC</title>
+    <title>RANKING - Torneo de padel IIC</title>
     <style>
       #myInput {
         margin-left: 5%;
