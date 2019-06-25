@@ -170,15 +170,20 @@ cp -r Librerias "${DIR_TMP}"
 cp Doc/Normativa-Federacion.pdf "${DIR_TMP}"
 cp Doc/Reglamento-Torneo.pdf "${DIR_TMP}"
 
+# -- se eliminan otros
+rm padelToWeb*.zip
+
+zipName=padelToWeb-$( date +"%Y%m%d_%H%M" ).zip
+
 # -- se comprime
 cd "${DIR_TMP}"
-zip -r padelToWeb.zip index.html ranking.html rankingReferencia.html partidos.html calendario.html Librerias/* Normativa-Federacion.pdf Reglamento-Torneo.pdf
+zip -r "${zipName}" index.html ranking.html rankingReferencia.html partidos.html calendario.html Librerias/* Normativa-Federacion.pdf Reglamento-Torneo.pdf
 
 # -- se mueve al directorio actual
 cd - > /dev/null
-mv "${DIR_TMP}/padelToWeb.zip" .
+mv "${DIR_TMP}/${zipName}" .
 
-prt_info "-- Generado ${G}padelToWeb.zip${NC}"
+prt_info "-- Generado ${G}${zipName}${NC}"
 
 
 ############# FIN
