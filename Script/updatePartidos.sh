@@ -223,6 +223,7 @@ else
 <!DOCTYPE html>
 <html>
   <head>
+   <title>PARTIDOS - Torneo de pádel IIC</title>
    <style>
       #myInput {
         margin-left: 5%;
