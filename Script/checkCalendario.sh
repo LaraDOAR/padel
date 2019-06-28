@@ -176,7 +176,7 @@ if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 
 # 3/4 - Formato de las columnas
 prt_info "-- 3/4 - Formato de las columnas"
-while IFS="|" read -r MES LOCAL VISITANTE LUGAR FECHA HINI HFIN
+while IFS="|" read -r MES LOCAL VISITANTE LUGAR FECHA HINI HFIN CONFIRMADA
 do
     if ! [[ ${MES}       =~ ^[0-9]+$                                 ]]; then echo "El campo MES=${MES} no es un numero entero";                       exit 1; fi
     if ! [[ ${LOCAL}     =~ ^[a-zA-Z]+[a-zA-Z]+\-[a-zA-Z]+[a-zA-Z]+$ ]]; then echo "El campo LOCAL=${LOCAL} no tiene el formato de la pareja";         exit 1; fi
@@ -188,11 +188,12 @@ do
     date +"%Y%m%d"     -d "${FECHA}         +5 days"  > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La fecha ${FECHA} no es una fecha valida";                   exit 1; fi
     date +"%Y%m%d%H%M" -d "${FECHA} ${HINI} +2 hours" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La hora ${HINI} no es una hora valida para el dia ${FECHA}"; exit 1; fi
     date +"%Y%m%d%H%M" -d "${FECHA} ${HFIN} +2 hours" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La hora ${HFIN} no es una hora valida para el dia ${FECHA}"; exit 1; fi
+    if [ "${CONFIRMADA}" != "true" ] && [ "${CONFIRMADA}" != "false" ];  then echo "El campo PISTA_CONFIRMADA=${CONFIRMADA} no es ni true ni false";   exit 1; fi
 done < "${DIR_TMP}/calendario"
 
 # 4/4 - La clave nombre+apellido esta en la lista de parejas
 prt_info "-- 4/4 - La clave nombre+apellido esta en la lista de parejas"
-while IFS="|" read -r _ LOCAL VISITANTE _ _ _ _
+while IFS="|" read -r _ LOCAL VISITANTE _ _ _ _ _
 do
     persona=$( echo "${LOCAL}" | gawk -F"-" '{print $1}' )
     if [ "$( gawk -F"|" '{print FS $2$3 FS}' "${DIR_TMP}/parejas" | grep "|${persona}|" )" == "" ]; then echo "La persona [${persona}] no aparece en el fichero parejas.txt"; exit 1; fi

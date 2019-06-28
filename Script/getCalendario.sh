@@ -1004,9 +1004,9 @@ done
 # 6/6 - Se unen los partidos de todas las semanas
 prt_info "-- 6/6 - Se unen los partidos de todas las semanas"
 #  -- cabecera
-echo "MES|LOCAL|VISITANTE|PISTA|FECHA|HORA_INI|HORA_FIN" > calendario.txt.new
+echo "MES|LOCAL|VISITANTE|PISTA|FECHA|HORA_INI|HORA_FIN|PISTA_CONFIRMADA" > calendario.txt.new
 # -- se escriben los nuevos partidos
-cat "${DIR_TMP}/calendario.semana"*".txt" | gawk -F"-" 'BEGIN{OFS="|"}{MES=sprintf("%03d",MES); print MES,$2"-"$3,$4"-"$5,$6,$7,$8,$9}' MES="${ARG_MES}" >> calendario.txt.new
+cat "${DIR_TMP}/calendario.semana"*".txt" | gawk -F"-" 'BEGIN{OFS="|"}{MES=sprintf("%03d",MES); print MES,$2"-"$3,$4"-"$5,$6,$7,$8,$9,"false"}' MES="${ARG_MES}" >> calendario.txt.new
 # -- se escribe lo que ya teniamos
 if [ -f "${DIR_TMP}/calendario" ]; then tail -n+2 "${DIR_TMP}/calendario" >> calendario.txt.new; fi
 # -- se cambia el nombre
