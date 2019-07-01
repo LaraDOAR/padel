@@ -288,8 +288,8 @@ then
     prt_info "1/2 - Se calculan las divisiones que va a haber"
     nParejas=$( wc -l "${DIR_TMP}/ranking" | gawk '{print $1}' )
     nDivisiones=$( echo "" | gawk '{printf("%d",A/B+0.5)}' A="${nParejas}" B="${ARG_NUM_PAREJAS}" )
-    nPartidos=$(( nParejas -1 ))
-    prt_info "---- Habra ${nDivisiones} divisiones con ${ARG_NUM_PAREJAS} parejas en cada una, que jugaran ${nPartidos} partidos"
+    nPartidos=$(( nDivisiones -1 ))
+    prt_info "---- Habra ${nDivisiones} divisiones con ${ARG_NUM_PAREJAS} parejas en cada una, que jugaran ${nPartidos} partidos cada una"
 
     # 2/2 - Se generan los emparejamientos
     prt_info "2/2 - Se generan los emparejamientos"
