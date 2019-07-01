@@ -184,6 +184,11 @@ function FGRL_getPermutacion_conPesos {
     echo "${_file}.function${_iteracion}" >> "${DIR_TMP}/PERMUTACIONES.REGISTRO"  # registra la permutacion que acaba de generar
     _iteracion=$(( _iteracion + 1 ))
 
+    # **** INDICA QUE YA HA CREADO AL MENOS UNA INTERACION
+    touch "${DIR_TMP}/INICIO.PERMUTACIONES"
+    # --- SI SOLO QUEREMOS PROBAR UNA VEZ ---> PARA IR MAS RAPIDO
+    touch "${DIR_TMP}/PARA.PERMUTACIONES"
+
     # CONDICION DE PARADA (1): cuando se llegue a la numeracion al reves (si tenemos 1 2 3 4 --> para con 4 3 2 1)
     _parada=$( seq ${_totalGeneral} -1 1 | xargs printf "%d " | sed -r "s/^ +//g; s/ +$//g;" )
     if [ "${_comb}" == "${_parada}" ]; then return 0; fi

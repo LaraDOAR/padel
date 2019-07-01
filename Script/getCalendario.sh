@@ -639,34 +639,34 @@ if [ "${IMPOSIBLE}" == "true" ]; then exit 1; fi
 # 3/6 - Se coloca un partido en cada semana, que sera la configuracion por defecto
 prt_info "-- 3/6 - Se coloca un partido en cada semana, que sera la configuracion por defecto"
 # -- VERSION RAPIDA Y LOCA
-# gawk -F"|" '
-#     BEGIN{semana=1;}
-#     {
-#         # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
-#         if ($5!="-") { next; }
+gawk -F"|" '
+    BEGIN{semana=1;}
+    {
+        # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
+        if ($5!="-") { next; }
 
-#         # imprime cada partido en una semana
-#         print $0 >> RUTA semana
+        # imprime cada partido en una semana
+        print $0 >> RUTA semana
 
-#         # actualiza el numero de semana
-#         semana++;
-#         if (semana > N_SEMANAS) { semana=1; }
-#     }' RUTA="${DIR_TMP}/partidos.semana" N_SEMANAS="${nSemanas}" "${DIR_TMP}/partidos"
+        # actualiza el numero de semana
+        semana++;
+        if (semana > N_SEMANAS) { semana=1; }
+    }' RUTA="${DIR_TMP}/partidos.semana" N_SEMANAS="${nSemanas}" "${DIR_TMP}/partidos"
 # -- VERSION LENTA Y CON LOGICA
-gawk -F"|" '{if ($5=="-") print}' "${DIR_TMP}/partidos" | # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
-    while read line
-    do
-        pLocal=$(     echo -e "${line}" | gawk -F"|" '{print $3}' )
-        pVisitante=$( echo -e "${line}" | gawk -F"|" '{print $4}' )
+# gawk -F"|" '{if ($5=="-") print}' "${DIR_TMP}/partidos" | # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
+#     while read line
+#     do
+#         pLocal=$(     echo -e "${line}" | gawk -F"|" '{print $3}' )
+#         pVisitante=$( echo -e "${line}" | gawk -F"|" '{print $4}' )
         
-        fDest=-1
-        for semana in $( seq 1 "${nSemanas}" )
-        do
-            if [ "$( grep "|${pLocal}|" "${DIR_TMP}/partidos.semana${semana}" )" == "" ] && [ "$( grep "|${pVisitante}|" "${DIR_TMP}/partidos.semana${semana}" )" == "" ]; then fDest=${semana}; break; fi
-        done
-        if [ "${fDest}" == "-1" ]; then fDest=$( wc -l "${DIR_TMP}/partidos.semana"* | sort -g | head -1 | gawk -F".semana" '{print $NF}' ); fi
-        echo -e "${line}" >> "${DIR_TMP}/partidos.semana${fDest}"
-    done
+#         fDest=-1
+#         for semana in $( seq 1 "${nSemanas}" )
+#         do
+#             if [ "$( grep "|${pLocal}|" "${DIR_TMP}/partidos.semana${semana}" )" == "" ] && [ "$( grep "|${pVisitante}|" "${DIR_TMP}/partidos.semana${semana}" )" == "" ]; then fDest=${semana}; break; fi
+#         done
+#         if [ "${fDest}" == "-1" ]; then fDest=$( wc -l "${DIR_TMP}/partidos.semana"* | sort -g | head -1 | gawk -F".semana" '{print $NF}' ); fi
+#         echo -e "${line}" >> "${DIR_TMP}/partidos.semana${fDest}"
+#     done
 
 
 mv "${DIR_TMP}/partidos" "${DIR_TMP}/partidos.orig"
@@ -703,7 +703,7 @@ do
     # Se comprueba si hay partidos a colocar esa semana
     if [ ! -s "${DIR_TMP}/partidos.semana${semana}" ]
     then
-        prt_info 0 "------ No hay partidos a colocar en la semana ${semana}. Pasa a al siguiente"
+        prt_info "------ No hay partidos a colocar en la semana ${semana}. Pasa a al siguiente"
         continue
     fi
 
@@ -727,7 +727,7 @@ do
     fi
     if [ "${todoBien}" == "true" ]
     then
-        prt_info 0 "------ La semana ${semana} no ha sido modificada. Pasa a al siguiente"
+        prt_info "------ La semana ${semana} no ha sido modificada. Pasa a al siguiente"
         continue
     fi
 
@@ -821,8 +821,13 @@ do
         prt_debug "${ARG_VERBOSO}" "-------- Llamada a <FGRL_getPermutacion_conPesos ${DIR_TMP}/combinaciones_ordenadas 1 \"$( seq 1 ${nLineas} | xargs printf "%d " | sed -r "s/^ +//g; s/ +$//g;" )\" ${nLineas} ${nLineas} &"
         FGRL_getPermutacion_conPesos "${DIR_TMP}/combinaciones_ordenadas" 1 "$( seq 1 ${nLineas} | xargs printf "%d " | sed -r "s/^ +//g; s/ +$//g;" )" "${nLineas}" "${nLineas}" &
         prt_info "------ Se ha iniciado el calculo de permutaciones"
-        sleep 4s
     fi
+
+    # Espera hasta que se haya creado al menos 1 iteracion = permutacion
+    while [ ! -f "${DIR_TMP}/INICIO.PERMUTACIONES" ]
+    do
+        sleep 1s
+    done
 
 
     ######### EL PROCESO DE GENERACION DE PERMUTACIONES SE VA A EJECUTAR EN BACKGROUND
@@ -830,9 +835,6 @@ do
 
     while [ "$( tail -1 "${DIR_TMP}/PERMUTACIONES.REGISTRO" )" != "DONE" ] && [ ! -f "${DIR_TMP}/PARA.PERMUTACIONES" ]
     do
-        # --- SI SOLO QUEREMOS PROBAR UNA VEZ ---> PARA IR MAS RAPIDO
-        touch "${DIR_TMP}/PARA.PERMUTACIONES"
-
         # Se eliminan las que ya se han procesado (no existen)
         identificador=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.DONE.perm*" | sort | tail -1 | gawk -F"DONE.perm" '{print $2+1}' )
         if [ "${identificador}" == "" ]; then identificador=1; fi
