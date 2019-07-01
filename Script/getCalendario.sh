@@ -225,15 +225,11 @@ function moverPartido {
     # Si no es check y no se ha movido ninguo, se mueve uno al azar
     if [ "${_check}" != "check" ] && [ "${_seMueve}" == "false" ]
     then
-        # Se extrae en un fichero las parejas con el numero mas grande (mas de 1 si hay empate)
+        # Se extrae en un fichero las parejas con el numero mas grande
         while IFS="|" read -r _ _ _LOC _VIS _
         do
-            #cat "${DIR_TMP}/huecosLibres.${_LOC}-${_VIS}"
-            gawk '{print LOC"_"VIS, $0}' LOC="${_LOC}" VIS="${_VIS}" "${DIR_TMP}/huecosLibres.${_LOC}|${_VIS}"
-        done < "${DIR_TMP}/partidos.semana${_s}" > "${DIR_TMP}/moverPartido.contador"
-        _aux=$( gawk '{print $2}' "${DIR_TMP}/moverPartido.contador" | sort -g -u | tail -1 )
-        gawk '{if ($2==MAXVAL) print}' MAXVAL="${_aux}" "${DIR_TMP}/moverPartido.contador"> "${DIR_TMP}/moverPartido.contador.tmp"
-        mv "${DIR_TMP}/moverPartido.contador.tmp" "${DIR_TMP}/moverPartido.contador"
+            gawk '{print LOC"_"VIS, $0}' LOC="${_LOC}" VIS="${_VIS}" "${DIR_TMP}/huecosLibres.${_LOC}-${_VIS}"
+        done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -3 > "${DIR_TMP}/moverPartido.contador"
         
         # Se elige al azar
         _nLineas=$( wc -l "${DIR_TMP}/moverPartido.contador" | gawk '{print $1}' )
@@ -242,6 +238,7 @@ function moverPartido {
         _LOC=$( echo -e "${_partido}" | gawk -F"_" '{print $1}' )
         _VIS=$( echo -e "${_partido}" | gawk -F"_" '{print $2}' )
         prt_info "------- <moverPartido ${_s}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}, elegido aleatoriamente"
+        rm "${DIR_TMP}/moverPartido.contador"
 
         grep -e "|${_LOC}|${_VIS}|"   "${DIR_TMP}/partidos.semana${_s}" >> "${DIR_TMP}/partidos.semana${_sSig}"  # se mueve a la semana siguiente
         sed -i "/|${_LOC}|${_VIS}|/d" "${DIR_TMP}/partidos.semana${_s}"                                          # se quita de la semana actual
@@ -603,11 +600,10 @@ do
             done < "${DIR_TMP}/listaDias.semana${_s}"
             printf "### | "
         done
-        printf "\n"; printf "%*s\n" "${_len}" " " | sed 's/ /-/g'
+        printf " (${contador})\n"; printf "%*s\n" "${_len}" " " | sed 's/ /-/g'
         echo "${contador}" > "${DIR_TMP}/huecosLibres.${_loc}-${_vis}"
     done < <( gawk 'BEGIN{OFS=FS="|";}{if ($2==DIV) print $3,$4}' DIV="${_div}" "${DIR_TMP}/partidos" )
 done
-exit 1
 
 
 
@@ -642,19 +638,37 @@ if [ "${IMPOSIBLE}" == "true" ]; then exit 1; fi
 
 # 3/6 - Se coloca un partido en cada semana, que sera la configuracion por defecto
 prt_info "-- 3/6 - Se coloca un partido en cada semana, que sera la configuracion por defecto"
-gawk -F"|" '
-    BEGIN{semana=1;}
-    {
-        # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
-        if ($5!="-") { next; }
+# -- VERSION RAPIDA Y LOCA
+# gawk -F"|" '
+#     BEGIN{semana=1;}
+#     {
+#         # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
+#         if ($5!="-") { next; }
 
-        # imprime cada partido en una semana
-        print $0 >> RUTA semana
+#         # imprime cada partido en una semana
+#         print $0 >> RUTA semana
 
-        # actualiza el numero de semana
-        semana++;
-        if (semana > N_SEMANAS) { semana=1; }
-    }' RUTA="${DIR_TMP}/partidos.semana" N_SEMANAS="${nSemanas}" "${DIR_TMP}/partidos"
+#         # actualiza el numero de semana
+#         semana++;
+#         if (semana > N_SEMANAS) { semana=1; }
+#     }' RUTA="${DIR_TMP}/partidos.semana" N_SEMANAS="${nSemanas}" "${DIR_TMP}/partidos"
+# -- VERSION LENTA Y CON LOGICA
+gawk -F"|" '{if ($5=="-") print}' "${DIR_TMP}/partidos" | # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
+    while read line
+    do
+        pLocal=$(     echo -e "${line}" | gawk -F"|" '{print $3}' )
+        pVisitante=$( echo -e "${line}" | gawk -F"|" '{print $4}' )
+        
+        fDest=-1
+        for semana in $( seq 1 "${nSemanas}" )
+        do
+            if [ "$( grep "|${pLocal}|" "${DIR_TMP}/partidos.semana${semana}" )" == "" ] && [ "$( grep "|${pVisitante}|" "${DIR_TMP}/partidos.semana${semana}" )" == "" ]; then fDest=${semana}; break; fi
+        done
+        if [ "${fDest}" == "-1" ]; then fDest=$( wc -l "${DIR_TMP}/partidos.semana"* | sort -g | head -1 | gawk -F".semana" '{print $NF}' ); fi
+        echo -e "${line}" >> "${DIR_TMP}/partidos.semana${fDest}"
+    done
+
+
 mv "${DIR_TMP}/partidos" "${DIR_TMP}/partidos.orig"
 prt_info "---- Generados los ficheros origen"
 
