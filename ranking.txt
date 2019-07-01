@@ -1,21 +1,17 @@
 POSICION|                          PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA
        1|      JoseCordoba-ManueldelValle|    22|               2|               2|          25|           11
-       2|        DanielRamos-AlvaroRomero|    19|               2|               2|          24|            7
-       3|      AlbertoAngulo-RamiroLuengo|    19|               1|               0|           6|           12
-       4|          AndresMunoz-JorgeLopez|    18|               1|               0|           5|           13
-       5|AlbertoParramon-IgnacioHernandez|    17|               2|               2|          22|            6
-       6|          IsraelAlonso-EricPerez|    17|               2|               1|          17|           17
-       7| AinhoaGoni-JuanAntonioMontesino|    16|               2|               0|           7|           24
-       8|       AlbertoMateos-JavierVidal|    15|               2|               1|          18|           13
-       9|  RamonCostafreda-AntonioSanchez|    13|               2|               2|          26|           13
-      10|DiegoChicote-CarlosAlbertoMartin|    13|               2|               0|           3|           24
-      11| AmbrosioIniesta-CarlosFernandez|    11|               2|               1|          23|           18
-      12|       DanielMichaud-JavierMunoz|    10|               2|               2|          25|           12
-      13|    MonicaGarcia-EnriqueClemente|     9|               2|               0|           6|           24
-      14|      CristinaLeon-ManuelHidalgo|     8|               2|               1|          22|           16
-      15|        AngelaRuiz-AlvaroBarbero|     7|               2|               2|          24|            7
-      16|       DanielMorillo-AdrianGalan|     6|               2|               1|          16|           19
-      17|      LaraDominguez-TeresaSolano|     6|               2|               0|           5|           24
-      18|  DanielVillar-MariaLuisaBagaces|     3|               1|               1|          13|            6
-      19|      CristinaPruenza-SofiaCerda|     3|               2|               0|          10|           24
-      20|          SaraGarcia-AnaAlastuey|     2|               1|               0|           6|           13
+       2|      AlbertoAngulo-RamiroLuengo|    19|               1|               0|           6|           12
+       3|          AndresMunoz-JorgeLopez|    18|               1|               0|           5|           13
+       4|AlbertoParramon-IgnacioHernandez|    17|               2|               2|          22|            6
+       5| AinhoaGoni-JuanAntonioMontesino|    16|               2|               0|           7|           24
+       6|       AlbertoMateos-JavierVidal|    15|               2|               1|          18|           13
+       7|  RamonCostafreda-AntonioSanchez|    13|               2|               2|          26|           13
+       8|DiegoChicote-CarlosAlbertoMartin|    13|               2|               0|           3|           24
+       9| AmbrosioIniesta-CarlosFernandez|    11|               2|               1|          23|           18
+      10|       DanielMichaud-JavierMunoz|    10|               2|               2|          25|           12
+      11|    MonicaGarcia-EnriqueClemente|     9|               2|               0|           6|           24
+      12|       DanielMorillo-AdrianGalan|     6|               2|               1|          16|           19
+      13|      LaraDominguez-TeresaSolano|     6|               2|               0|           5|           24
+      14|  DanielVillar-MariaLuisaBagaces|     3|               1|               1|          13|            6
+      15|      CristinaPruenza-SofiaCerda|     3|               2|               0|          10|           24
+      16|          SaraGarcia-AnaAlastuey|     2|               1|               0|           6|           13

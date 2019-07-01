@@ -1,21 +1,19 @@
 POSICION|                          PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA
-       1|      JoseCordoba-ManueldelValle|    20|               0|               0|           0|            0
-       2|      AlbertoAngulo-RamiroLuengo|    19|               0|               0|           0|            0
-       3|          AndresMunoz-JorgeLopez|    18|               0|               0|           0|            0
-       4|        DanielRamos-AlvaroRomero|    17|               0|               0|           0|            0
-       5| AinhoaGoni-JuanAntonioMontesino|    16|               0|               0|           0|            0
-       6|          IsraelAlonso-EricPerez|    15|               0|               0|           0|            0
-       7|       AlbertoMateos-JavierVidal|    14|               0|               0|           0|            0
-       8|DiegoChicote-CarlosAlbertoMartin|    13|               0|               0|           0|            0
-       9|AlbertoParramon-IgnacioHernandez|    12|               0|               0|           0|            0
-      10|  RamonCostafreda-AntonioSanchez|    11|               0|               0|           0|            0
-      11| AmbrosioIniesta-CarlosFernandez|    10|               0|               0|           0|            0
-      12|    MonicaGarcia-EnriqueClemente|     9|               0|               0|           0|            0
-      13|       DanielMichaud-JavierMunoz|     8|               0|               0|           0|            0
-      14|      CristinaLeon-ManuelHidalgo|     7|               0|               0|           0|            0
-      15|      LaraDominguez-TeresaSolano|     6|               0|               0|           0|            0
-      16|       DanielMorillo-AdrianGalan|     5|               0|               0|           0|            0
-      17|        AngelaRuiz-AlvaroBarbero|     4|               0|               0|           0|            0
-      18|      CristinaPruenza-SofiaCerda|     3|               0|               0|           0|            0
-      19|          SaraGarcia-AnaAlastuey|     2|               0|               0|           0|            0
-      20|  DanielVillar-MariaLuisaBagaces|     1|               0|               0|           0|            0
+       1|      JoseCordoba-ManueldelValle|    22|               2|               2|          25|           11
+       2|        DanielRamos-AlvaroRomero|    19|               2|               2|          24|            7
+       3|      AlbertoAngulo-RamiroLuengo|    19|               1|               0|           6|           12
+       4|          AndresMunoz-JorgeLopez|    18|               1|               0|           5|           13
+       5|AlbertoParramon-IgnacioHernandez|    17|               2|               2|          22|            6
+       6|          IsraelAlonso-EricPerez|    17|               2|               1|          17|           17
+       7| AinhoaGoni-JuanAntonioMontesino|    16|               2|               0|           7|           24
+       8|       AlbertoMateos-JavierVidal|    15|               2|               1|          18|           13
+       9|  RamonCostafreda-AntonioSanchez|    13|               2|               2|          26|           13
+      10|DiegoChicote-CarlosAlbertoMartin|    13|               2|               0|           3|           24
+      11| AmbrosioIniesta-CarlosFernandez|    11|               2|               1|          23|           18
+      12|       DanielMichaud-JavierMunoz|    10|               2|               2|          25|           12
+      13|    MonicaGarcia-EnriqueClemente|     9|               2|               0|           6|           24
+      14|       DanielMorillo-AdrianGalan|     6|               2|               1|          16|           19
+      15|      LaraDominguez-TeresaSolano|     6|               2|               0|           5|           24
+      16|  DanielVillar-MariaLuisaBagaces|     3|               1|               1|          13|            6
+      17|      CristinaPruenza-SofiaCerda|     3|               2|               0|          10|           24
+      18|          SaraGarcia-AnaAlastuey|     2|               1|               0|           6|           13
