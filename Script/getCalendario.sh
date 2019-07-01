@@ -838,6 +838,9 @@ do
 
     while [ "$( tail -1 "${DIR_TMP}/PERMUTACIONES.REGISTRO" )" != "DONE" ] && [ ! -f "${DIR_TMP}/PARA.PERMUTACIONES" ]
     do
+        # **** SI SOLO QUEREMOS PROBAR UNA VEZ (con la primera permutacion) ---> PARA IR MAS RAPIDO
+        touch "${DIR_TMP}/PARA.PERMUTACIONES"
+        
         # Se eliminan las que ya se han procesado (no existen)
         identificador=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.DONE.perm*" | sort | tail -1 | gawk -F"DONE.perm" '{print $2+1}' )
         if [ "${identificador}" == "" ]; then identificador=1; fi
