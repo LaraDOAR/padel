@@ -229,6 +229,17 @@ Cristina|   Pruenza|20190824
    Diego|   Chicote|20190821
    Diego|   Chicote|20190822
    Diego|   Chicote|20190823
+  Monica|    Garcia|20190710
+  Monica|    Garcia|20190711
+  Monica|    Garcia|20190712
+  Monica|    Garcia|20190713
+  Monica|    Garcia|20190714
+  Monica|    Garcia|20190715
+  Monica|    Garcia|20190722
+  Monica|    Garcia|20190723
+  Monica|    Garcia|20190724
+  Monica|    Garcia|20190725
+  Monica|    Garcia|20190726
    Ramon|Costafreda|20190701
    Ramon|Costafreda|20190702
    Ramon|Costafreda|20190703
