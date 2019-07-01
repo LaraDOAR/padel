@@ -17,4 +17,4 @@ MES|DIVISION|                           LOCAL|                       VISITANTE| 
 001|       6|        AngelaRuiz-AlvaroBarbero|      CristinaPruenza-SofiaCerda|20190624|   19:00|   20:00|Pista3| 6/1| 6/2|   -|   true
 001|       6|        AngelaRuiz-AlvaroBarbero|       DanielMorillo-AdrianGalan|20190625|   18:00|   19:00|Pista3| 6/1| 6/3|   -|   true
 001|       6|      CristinaPruenza-SofiaCerda|       DanielMorillo-AdrianGalan|20190620|   18:00|   19:00|Pista9| 4/6| 3/6|   -|   true
-001|       7|  DanielVillar-MariaLuisaBagaces|          SaraGarcia-AnaAlastuey|20190625|   19:00|   20:00|Pista3|   -|   -|   -|  false
+001|       7|  DanielVillar-MariaLuisaBagaces|          SaraGarcia-AnaAlastuey|20190625|   19:00|   20:00|Pista3| 7/5| 6/1|   -|   true
