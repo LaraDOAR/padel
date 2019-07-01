@@ -933,7 +933,8 @@ do
                 fi
 
                 # Se coge el primer hueco en el que puede ir
-                hueco=$( grep -e "-${pLocal}-${pVisitante}" "${DIR_TMP}/comb_todas" | head -1 | cut -d"-" -f 6- )
+                # *** Dando prioridad a pista buena + hora temprana
+                hueco=$( grep -e "-${pLocal}-${pVisitante}" "${DIR_TMP}/comb_todas" | sort -t"-" -k6,6r -k8,8 -k7,7 | head -1 | cut -d"-" -f 6- )  #Damos por hecho que las pistas con mas numeracion son mejores
                 prt_debug "${ARG_VERBOSO}" "------ en el hueco [${hueco}]"
 
                 # Se comprueba si ese hueco esta disponible
