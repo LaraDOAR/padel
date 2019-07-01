@@ -638,37 +638,37 @@ if [ "${IMPOSIBLE}" == "true" ]; then exit 1; fi
 
 # 3/6 - Se coloca un partido en cada semana, que sera la configuracion por defecto
 prt_info "-- 3/6 - Se coloca un partido en cada semana, que sera la configuracion por defecto"
-# -- VERSION RAPIDA Y LOCA
-gawk -F"|" '
-    BEGIN{semana=1;}
-    {
-        # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
-        if ($5!="-") { next; }
+# ------------------------ VERSION RAPIDA Y LOCA
+# gawk -F"|" '
+#     BEGIN{semana=1;}
+#     {
+#         # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
+#         if ($5!="-") { next; }
 
-        # imprime cada partido en una semana
-        print $0 >> RUTA semana
+#         # imprime cada partido en una semana
+#         print $0 >> RUTA semana
 
-        # actualiza el numero de semana
-        semana++;
-        if (semana > N_SEMANAS) { semana=1; }
-    }' RUTA="${DIR_TMP}/partidos.semana" N_SEMANAS="${nSemanas}" "${DIR_TMP}/partidos"
-# -- VERSION LENTA Y CON LOGICA
-# gawk -F"|" '{if ($5=="-") print}' "${DIR_TMP}/partidos" | # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
-#     while read line
-#     do
-#         pLocal=$(     echo -e "${line}" | gawk -F"|" '{print $3}' )
-#         pVisitante=$( echo -e "${line}" | gawk -F"|" '{print $4}' )
+#         # actualiza el numero de semana
+#         semana++;
+#         if (semana > N_SEMANAS) { semana=1; }
+#     }' RUTA="${DIR_TMP}/partidos.semana" N_SEMANAS="${nSemanas}" "${DIR_TMP}/partidos"
+# --------------------------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------ VERSION LENTA Y CON LOGICA (funciona bastante mejor)
+gawk -F"|" '{if ($5=="-") print}' "${DIR_TMP}/partidos" | # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
+    while read line
+    do
+        pLocal=$(     echo -e "${line}" | gawk -F"|" '{print $3}' )
+        pVisitante=$( echo -e "${line}" | gawk -F"|" '{print $4}' )
         
-#         fDest=-1
-#         for semana in $( seq 1 "${nSemanas}" )
-#         do
-#             if [ "$( grep "|${pLocal}|" "${DIR_TMP}/partidos.semana${semana}" )" == "" ] && [ "$( grep "|${pVisitante}|" "${DIR_TMP}/partidos.semana${semana}" )" == "" ]; then fDest=${semana}; break; fi
-#         done
-#         if [ "${fDest}" == "-1" ]; then fDest=$( wc -l "${DIR_TMP}/partidos.semana"* | sort -g | head -1 | gawk -F".semana" '{print $NF}' ); fi
-#         echo -e "${line}" >> "${DIR_TMP}/partidos.semana${fDest}"
-#     done
-
-
+        fDest=-1
+        for semana in $( seq 1 "${nSemanas}" )
+        do
+            if [ "$( grep "|${pLocal}|" "${DIR_TMP}/partidos.semana${semana}" )" == "" ] && [ "$( grep "|${pVisitante}|" "${DIR_TMP}/partidos.semana${semana}" )" == "" ]; then fDest=${semana}; break; fi
+        done
+        if [ "${fDest}" == "-1" ]; then fDest=$( wc -l "${DIR_TMP}/partidos.semana"* | sort -g | head -1 | gawk -F".semana" '{print $NF}' ); fi
+        echo -e "${line}" >> "${DIR_TMP}/partidos.semana${fDest}"
+    done
+# --------------------------------------------------------------------------------------------------------------------------------------------------------
 mv "${DIR_TMP}/partidos" "${DIR_TMP}/partidos.orig"
 prt_info "---- Generados los ficheros origen"
 
@@ -704,32 +704,33 @@ do
     if [ ! -s "${DIR_TMP}/partidos.semana${semana}" ]
     then
         prt_info "------ No hay partidos a colocar en la semana ${semana}. Pasa a al siguiente"
+        rm -f "${DIR_TMP}/calendario.semana${semana}.txt"; touch "${DIR_TMP}/calendario.semana${semana}.txt"
         continue
     fi
 
     # Si no se ha tocado el fichero, es decir, partidos = calendario, se pasa al siguiente
-    todoBien=true
-    if [ ! -f "${DIR_TMP}/calendario.semana${semana}.txt" ]; then todoBien=false; fi
-    if [ "${todoBien}" == "true" ]
-    then
-        # -- deben tener el mismo numero de lineas = todos los partidos estan en el calendario, y todos los del calendario estan en el partido
-        nCalendario=$( wc -l "${DIR_TMP}/calendario.semana${semana}.txt" | gawk '{print $1}' )
-        nPartidos=$(   wc -l "${DIR_TMP}/partidos.semana${semana}"       | gawk '{print $1}' )
-        if [ "${nCalendario}" != "${nPartidos}" ]; then todoBien=false; fi
-    fi
-    if [ "${todoBien}" == "true" ]
-    then
-        # -- se comprueba la condicion anterior linea por linea
-        while IFS='|' read -r _ _ LOCAL VISITANTE _ _ _ _ _ _ _
-        do
-            if [ "$( grep -e "-${LOCAL}-${VISITANTE}-" "${DIR_TMP}/calendario.semana${semana}.txt" )" == "" ]; then todoBien=false; break; fi
-        done < "${DIR_TMP}/partidos.semana${semana}"
-    fi
-    if [ "${todoBien}" == "true" ]
-    then
-        prt_info "------ La semana ${semana} no ha sido modificada. Pasa a al siguiente"
-        continue
-    fi
+    # todoBien=true
+    # if [ ! -f "${DIR_TMP}/calendario.semana${semana}.txt" ]; then todoBien=false; fi
+    # if [ "${todoBien}" == "true" ]
+    # then
+    #     # -- deben tener el mismo numero de lineas = todos los partidos estan en el calendario, y todos los del calendario estan en el partido
+    #     nCalendario=$( wc -l "${DIR_TMP}/calendario.semana${semana}.txt" | gawk '{print $1}' )
+    #     nPartidos=$(   wc -l "${DIR_TMP}/partidos.semana${semana}"       | gawk '{print $1}' )
+    #     if [ "${nCalendario}" != "${nPartidos}" ]; then todoBien=false; fi
+    # fi
+    # if [ "${todoBien}" == "true" ]
+    # then
+    #     # -- se comprueba la condicion anterior linea por linea
+    #     while IFS='|' read -r _ _ LOCAL VISITANTE _ _ _ _ _ _ _
+    #     do
+    #         if [ "$( grep -e "-${LOCAL}-${VISITANTE}-" "${DIR_TMP}/calendario.semana${semana}.txt" )" == "" ]; then todoBien=false; break; fi
+    #     done < "${DIR_TMP}/partidos.semana${semana}"
+    # fi
+    # if [ "${todoBien}" == "true" ]
+    # then
+    #     prt_info "------ La semana ${semana} no ha sido modificada. Pasa a al siguiente"
+    #     continue
+    # fi
 
     # 2/10 - Se comprueba que hay suficientes huecos para poder colocar todos los partidos
     cp "${DIR_TMP}/partidos.semana${semana}" "${DIR_TMP}/partidos"
@@ -740,7 +741,7 @@ do
     if [ "${nPartidos}" -gt "${nHuecos}" ]
     then
         prt_error "------ Hay mas partidos [${nPartidos}] que huecos disponibles [${nHuecos}]"
-        nMover=$(( nHuecos - nPartidos ))
+        nMover=$(( nPartidos - nHuecos ))
         prt_warn "------ Se mueven ${nMover} partidos de la semana ${semana} a la siguiente, la semana ${semanaSig}"
         tail -n+${nMover} "${DIR_TMP}/partidos.semana${semana}" >> "${DIR_TMP}/partidos.semana${semanaSig}" # se mueven a la siguiente
         head -${nHuecos}  "${DIR_TMP}/partidos.semana${semana}" >  "${DIR_TMP}/partidos"; mv "${DIR_TMP}/partidos" "${DIR_TMP}/partidos.semana${semana}" # se quitan de la actual
