@@ -186,7 +186,7 @@ function FGRL_getPermutacion_conPesos {
 
     # **** INDICA QUE YA HA CREADO AL MENOS UNA INTERACION
     touch "${DIR_TMP}/INICIO.PERMUTACIONES"
-    # --- SI SOLO QUEREMOS PROBAR UNA VEZ ---> PARA IR MAS RAPIDO
+    # **** SI SOLO QUEREMOS PROBAR UNA VEZ (con la primera permutacion) ---> PARA IR MAS RAPIDO
     touch "${DIR_TMP}/PARA.PERMUTACIONES"
 
     # CONDICION DE PARADA (1): cuando se llegue a la numeracion al reves (si tenemos 1 2 3 4 --> para con 4 3 2 1)

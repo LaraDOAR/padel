@@ -801,6 +801,7 @@ do
     fi
 
     # Antes de arrancar las permutaciones se asegura de que las anteriores ya han acabado
+    rm -f "${DIR_TMP}/INICIO.PERMUTACIONES"
     rm -f "${DIR_TMP}/PARA.PERMUTACIONES"
     rm -f "${DIR_TMP}/PERMUTACIONES.REGISTRO"*
     rm -f "${DIR_TMP}/combinaciones_ordenadas."*
@@ -828,6 +829,8 @@ do
     do
         sleep 1s
     done
+    prt_info "------ (ya hay al menos una permutacion)"
+    rm "${DIR_TMP}/INICIO.PERMUTACIONES"
 
 
     ######### EL PROCESO DE GENERACION DE PERMUTACIONES SE VA A EJECUTAR EN BACKGROUND
