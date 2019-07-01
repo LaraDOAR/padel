@@ -229,7 +229,7 @@ function moverPartido {
         while IFS="|" read -r _ _ _LOC _VIS _
         do
             gawk '{print LOC"_"VIS, $0}' LOC="${_LOC}" VIS="${_VIS}" "${DIR_TMP}/huecosLibres.${_LOC}-${_VIS}"
-        done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -3 > "${DIR_TMP}/moverPartido.contador"
+        done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -2 > "${DIR_TMP}/moverPartido.contador"
         
         # Se elige al azar
         _nLineas=$( wc -l "${DIR_TMP}/moverPartido.contador" | gawk '{print $1}' )
@@ -707,6 +707,30 @@ do
         continue
     fi
 
+    # Si no se ha tocado el fichero, es decir, partidos = calendario, se pasa al siguiente
+    todoBien=true
+    if [ ! -f "${DIR_TMP}/calendario.semana${semana}.txt" ]; then todoBien=false; fi
+    if [ "${todoBien}" == "true" ]
+    then
+        # -- deben tener el mismo numero de lineas = todos los partidos estan en el calendario, y todos los del calendario estan en el partido
+        nCalendario=$( wc -l "${DIR_TMP}/calendario.semana${semana}.txt" | gawk '{print $1}' )
+        nPartidos=$(   wc -l "${DIR_TMP}/partidos.semana${semana}"       | gawk '{print $1}' )
+        if [ "${nCalendario}" != "${nPartidos}" ]; then todoBien=false; fi
+    fi
+    if [ "${todoBien}" == "true" ]
+    then
+        # -- se comprueba la condicion anterior linea por linea
+        while IFS='|' read -r _ _ LOCAL VISITANTE _ _ _ _ _ _ _
+        do
+            if [ "$( grep -e "-${LOCAL}-${VISITANTE}-" "${DIR_TMP}/calendario.semana${semana}.txt" )" == "" ]; then todoBien=false; break; fi
+        done < "${DIR_TMP}/partidos.semana${semana}"
+    fi
+    if [ "${todoBien}" == "true" ]
+    then
+        prt_info 0 "------ La semana ${semana} no ha sido modificada. Pasa a al siguiente"
+        continue
+    fi
+
     # 2/10 - Se comprueba que hay suficientes huecos para poder colocar todos los partidos
     cp "${DIR_TMP}/partidos.semana${semana}" "${DIR_TMP}/partidos"
     prt_info "---- 2/10 - Se comprueba que hay suficientes huecos para poder colocar todos los partidos"
@@ -806,6 +830,8 @@ do
 
     while [ "$( tail -1 "${DIR_TMP}/PERMUTACIONES.REGISTRO" )" != "DONE" ] && [ ! -f "${DIR_TMP}/PARA.PERMUTACIONES" ]
     do
+        # --- SI SOLO QUEREMOS PROBAR UNA VEZ ---> PARA IR MAS RAPIDO
+        touch "${DIR_TMP}/PARA.PERMUTACIONES"
 
         # Se eliminan las que ya se han procesado (no existen)
         identificador=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.DONE.perm*" | sort | tail -1 | gawk -F"DONE.perm" '{print $2+1}' )
