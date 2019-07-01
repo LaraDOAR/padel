@@ -1,0 +1,19 @@
+POSICION|                          PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA
+       1|      JoseCordoba-ManueldelValle|    22|               2|               2|          25|           11
+       2|        DanielRamos-AlvaroRomero|    19|               2|               2|          24|            7
+       3|      AlbertoAngulo-RamiroLuengo|    19|               1|               0|           6|           12
+       4|          AndresMunoz-JorgeLopez|    18|               1|               0|           5|           13
+       5|AlbertoParramon-IgnacioHernandez|    17|               2|               2|          22|            6
+       6|          IsraelAlonso-EricPerez|    17|               2|               1|          17|           17
+       7| AinhoaGoni-JuanAntonioMontesino|    16|               2|               0|           7|           24
+       8|       AlbertoMateos-JavierVidal|    15|               2|               1|          18|           13
+       9|  RamonCostafreda-AntonioSanchez|    13|               2|               2|          26|           13
+      10|DiegoChicote-CarlosAlbertoMartin|    13|               2|               0|           3|           24
+      11| AmbrosioIniesta-CarlosFernandez|    11|               2|               1|          23|           18
+      12|       DanielMichaud-JavierMunoz|    10|               2|               2|          25|           12
+      13|    MonicaGarcia-EnriqueClemente|     9|               2|               0|           6|           24
+      14|       DanielMorillo-AdrianGalan|     6|               2|               1|          16|           19
+      15|      LaraDominguez-TeresaSolano|     6|               2|               0|           5|           24
+      16|  DanielVillar-MariaLuisaBagaces|     3|               1|               1|          13|            6
+      17|      CristinaPruenza-SofiaCerda|     3|               2|               0|          10|           24
+      18|          SaraGarcia-AnaAlastuey|     2|               1|               0|           6|           13

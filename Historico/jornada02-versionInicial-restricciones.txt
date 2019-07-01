@@ -1,0 +1,278 @@
+####################################################
+#
+# INFORMACION SOBRE LAS RESTRICCIONES QUE TIENE CADA PERSONA
+#
+####################################################
+
+  NOMBRE|  APELLIDO|   FECHA
+  Ainhoa|      Goni|20190703
+  Ainhoa|      Goni|20190704
+  Ainhoa|      Goni|20190705
+  Ainhoa|      Goni|20190706
+  Ainhoa|      Goni|20190707
+  Ainhoa|      Goni|20190708
+  Ainhoa|      Goni|20190709
+  Ainhoa|      Goni|20190710
+  Ainhoa|      Goni|20190712
+  Ainhoa|      Goni|20190713
+  Ainhoa|      Goni|20190714
+  Ainhoa|      Goni|20190715
+  Ainhoa|      Goni|20190716
+  Ainhoa|      Goni|20190717
+  Ainhoa|      Goni|20190718
+  Ainhoa|      Goni|20190719
+  Ainhoa|      Goni|20190720
+  Ainhoa|      Goni|20190721
+  Ainhoa|      Goni|20190722
+  Ainhoa|      Goni|20190723
+  Ainhoa|      Goni|20190724
+  Ainhoa|      Goni|20190725
+  Ainhoa|      Goni|20190726
+  Ainhoa|      Goni|20190727
+  Ainhoa|      Goni|20190728
+  Ainhoa|      Goni|20190731
+  Ainhoa|      Goni|20190801
+  Ainhoa|      Goni|20190802
+  Ainhoa|      Goni|20190803
+  Ainhoa|      Goni|20190804
+  Ainhoa|      Goni|20190805
+  Ainhoa|      Goni|20190806
+  Ainhoa|      Goni|20190807
+  Ainhoa|      Goni|20190808
+  Ainhoa|      Goni|20190809
+  Ainhoa|      Goni|20190810
+  Ainhoa|      Goni|20190811
+  Ainhoa|      Goni|20190812
+  Ainhoa|      Goni|20190813
+  Ainhoa|      Goni|20190814
+  Ainhoa|      Goni|20190815
+  Ainhoa|      Goni|20190816
+  Ainhoa|      Goni|20190817
+  Ainhoa|      Goni|20190818
+  Ainhoa|      Goni|20190828
+  Ainhoa|      Goni|20190829
+  Ainhoa|      Goni|20190830
+  Ainhoa|      Goni|20190831
+ Alberto|    Mateos|20190701
+ Alberto|    Mateos|20190702
+ Alberto|    Mateos|20190703
+ Alberto|    Mateos|20190704
+ Alberto|    Mateos|20190705
+ Alberto|    Mateos|20190706
+ Alberto|    Mateos|20190707
+ Alberto|    Mateos|20190708
+ Alberto|    Mateos|20190709
+ Alberto|    Mateos|20190710
+ Alberto|    Mateos|20190711
+ Alberto|    Mateos|20190712
+ Alberto|    Mateos|20190713
+ Alberto|    Mateos|20190714
+ Alberto|    Mateos|20190716
+ Alberto|    Mateos|20190717
+ Alberto|    Mateos|20190718
+ Alberto|    Mateos|20190719
+ Alberto|    Mateos|20190720
+ Alberto|    Mateos|20190721
+ Alberto|    Mateos|20190723
+ Alberto|    Mateos|20190725
+ Alberto|    Mateos|20190730
+ Alberto|    Mateos|20190801
+ Alberto|    Mateos|20190806
+ Alberto|    Mateos|20190808
+ Alberto|    Mateos|20190813
+ Alberto|    Mateos|20190815
+ Alberto|    Mateos|20190816
+ Alberto|    Mateos|20190817
+ Alberto|    Mateos|20190818
+ Alberto|    Mateos|20190820
+ Alberto|    Mateos|20190822
+ Alberto|    Mateos|20190827
+ Alberto|    Mateos|20190829
+ Alberto|  Parramon|20190701
+ Alberto|  Parramon|20190702
+ Alberto|  Parramon|20190703
+ Alberto|  Parramon|20190704
+ Alberto|  Parramon|20190705
+ Alberto|  Parramon|20190706
+ Alberto|  Parramon|20190707
+ Alberto|  Parramon|20190708
+ Alberto|  Parramon|20190710
+ Alberto|  Parramon|20190715
+ Alberto|  Parramon|20190717
+ Alberto|  Parramon|20190722
+ Alberto|  Parramon|20190724
+ Alberto|  Parramon|20190729
+ Alberto|  Parramon|20190731
+ Alberto|  Parramon|20190805
+ Alberto|  Parramon|20190807
+ Alberto|  Parramon|20190812
+ Alberto|  Parramon|20190814
+ Alberto|  Parramon|20190819
+ Alberto|  Parramon|20190821
+ Alberto|  Parramon|20190826
+ Alberto|  Parramon|20190828
+Ambrosio|   Iniesta|20190708
+Ambrosio|   Iniesta|20190709
+Ambrosio|   Iniesta|20190710
+Ambrosio|   Iniesta|20190711
+Ambrosio|   Iniesta|20190712
+Ambrosio|   Iniesta|20190722
+Ambrosio|   Iniesta|20190723
+Ambrosio|   Iniesta|20190724
+Ambrosio|   Iniesta|20190725
+Ambrosio|   Iniesta|20190726
+  Andres|     Munoz|20190722
+  Andres|     Munoz|20190723
+  Andres|     Munoz|20190724
+  Andres|     Munoz|20190725
+  Andres|     Munoz|20190726
+Cristina|   Pruenza|20190701
+Cristina|   Pruenza|20190702
+Cristina|   Pruenza|20190703
+Cristina|   Pruenza|20190704
+Cristina|   Pruenza|20190705
+Cristina|   Pruenza|20190706
+Cristina|   Pruenza|20190707
+Cristina|   Pruenza|20190708
+Cristina|   Pruenza|20190709
+Cristina|   Pruenza|20190710
+Cristina|   Pruenza|20190711
+Cristina|   Pruenza|20190712
+Cristina|   Pruenza|20190713
+Cristina|   Pruenza|20190714
+Cristina|   Pruenza|20190715
+Cristina|   Pruenza|20190716
+Cristina|   Pruenza|20190717
+Cristina|   Pruenza|20190812
+Cristina|   Pruenza|20190813
+Cristina|   Pruenza|20190814
+Cristina|   Pruenza|20190815
+Cristina|   Pruenza|20190816
+Cristina|   Pruenza|20190817
+Cristina|   Pruenza|20190818
+Cristina|   Pruenza|20190819
+Cristina|   Pruenza|20190820
+Cristina|   Pruenza|20190821
+Cristina|   Pruenza|20190822
+Cristina|   Pruenza|20190823
+Cristina|   Pruenza|20190824
+  Daniel|   Morillo|20190714
+  Daniel|   Morillo|20190715
+  Daniel|   Morillo|20190716
+  Daniel|   Morillo|20190717
+  Daniel|   Morillo|20190718
+  Daniel|   Morillo|20190719
+  Daniel|   Morillo|20190720
+  Daniel|   Morillo|20190721
+  Daniel|   Morillo|20190813
+  Daniel|   Morillo|20190814
+  Daniel|   Morillo|20190815
+  Daniel|   Morillo|20190816
+  Daniel|   Morillo|20190817
+  Daniel|   Morillo|20190818
+  Daniel|   Morillo|20190819
+  Daniel|   Morillo|20190820
+  Daniel|   Morillo|20190821
+  Daniel|   Morillo|20190822
+  Daniel|   Morillo|20190823
+  Daniel|   Morillo|20190824
+  Daniel|   Morillo|20190825
+  Daniel|   Morillo|20190826
+  Daniel|   Morillo|20190827
+  Daniel|   Morillo|20190828
+  Daniel|   Morillo|20190829
+  Daniel|   Morillo|20190830
+  Daniel|   Morillo|20190831
+  Daniel|    Villar|20190702
+  Daniel|    Villar|20190726
+  Daniel|    Villar|20190727
+  Daniel|    Villar|20190728
+  Daniel|    Villar|20190729
+  Daniel|    Villar|20190730
+  Daniel|    Villar|20190731
+  Daniel|    Villar|20190801
+  Daniel|    Villar|20190802
+  Daniel|    Villar|20190803
+  Daniel|    Villar|20190804
+  Daniel|    Villar|20190805
+  Daniel|    Villar|20190806
+  Daniel|    Villar|20190807
+  Daniel|    Villar|20190808
+  Daniel|    Villar|20190809
+  Daniel|    Villar|20190810
+  Daniel|    Villar|20190811
+  Daniel|    Villar|20190812
+  Daniel|    Villar|20190813
+  Daniel|    Villar|20190814
+  Daniel|    Villar|20190815
+  Daniel|    Villar|20190816
+  Daniel|    Villar|20190817
+  Daniel|    Villar|20190818
+   Diego|   Chicote|20190719
+   Diego|   Chicote|20190720
+   Diego|   Chicote|20190721
+   Diego|   Chicote|20190722
+   Diego|   Chicote|20190723
+   Diego|   Chicote|20190724
+   Diego|   Chicote|20190725
+   Diego|   Chicote|20190726
+   Diego|   Chicote|20190727
+   Diego|   Chicote|20190728
+   Diego|   Chicote|20190729
+   Diego|   Chicote|20190730
+   Diego|   Chicote|20190731
+   Diego|   Chicote|20190816
+   Diego|   Chicote|20190817
+   Diego|   Chicote|20190818
+   Diego|   Chicote|20190819
+   Diego|   Chicote|20190820
+   Diego|   Chicote|20190821
+   Diego|   Chicote|20190822
+   Diego|   Chicote|20190823
+   Ramon|Costafreda|20190701
+   Ramon|Costafreda|20190702
+   Ramon|Costafreda|20190703
+   Ramon|Costafreda|20190704
+   Ramon|Costafreda|20190705
+   Ramon|Costafreda|20190706
+   Ramon|Costafreda|20190707
+   Ramon|Costafreda|20190708
+   Ramon|Costafreda|20190709
+   Ramon|Costafreda|20190710
+   Ramon|Costafreda|20190711
+   Ramon|Costafreda|20190712
+   Ramon|Costafreda|20190713
+   Ramon|Costafreda|20190714
+    Sara|    Garcia|20190722
+    Sara|    Garcia|20190723
+    Sara|    Garcia|20190724
+    Sara|    Garcia|20190725
+    Sara|    Garcia|20190726
+    Sara|    Garcia|20190727
+    Sara|    Garcia|20190728
+    Sara|    Garcia|20190729
+    Sara|    Garcia|20190730
+    Sara|    Garcia|20190731
+    Sara|    Garcia|20190801
+    Sara|    Garcia|20190802
+    Sara|    Garcia|20190803
+    Sara|    Garcia|20190804
+    Sara|    Garcia|20190805
+    Sara|    Garcia|20190806
+    Sara|    Garcia|20190807
+    Sara|    Garcia|20190808
+    Sara|    Garcia|20190809
+    Sara|    Garcia|20190810
+    Sara|    Garcia|20190811
+    Sara|    Garcia|20190812
+    Sara|    Garcia|20190813
+    Sara|    Garcia|20190814
+    Sara|    Garcia|20190815
+    Sara|    Garcia|20190816
+    Sara|    Garcia|20190817
+    Sara|    Garcia|20190818
+    Sara|    Garcia|20190819
+    Sara|    Garcia|20190820
+    Sara|    Garcia|20190821
+    Sara|    Garcia|20190822
+    Sara|    Garcia|20190823
