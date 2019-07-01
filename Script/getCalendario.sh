@@ -203,9 +203,9 @@ function moverPartido {
         _aux=$(( _num + 1 ))
         _nRepLoc=$( tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep -c "${_LOC}" )
         _nRepVis=$( tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep -c "${_VIS}" )
-        if [ "${_nRepLoc}" -ge "${N_MAX_REPETICIONES}" ] || [ "${_nRepVis}" -ge "${N_MAX_REPETICIONES}" ]
+        if [ "${_nRepLoc}" -gt "${N_MAX_REPETICIONES}" ] || [ "${_nRepVis}" -gt "${N_MAX_REPETICIONES}" ]
         then
-            prt_info "------- <moverPartido ${_s}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}"
+            prt_info "------- <moverPartido ${_s} ${_check}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}"
             prt_debug "${ARG_VERBOSO}" "----------- partidos pareja local:"
             if [ "${ARG_VERBOSO}" == "true" ]; then tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_LOC}"; fi
             prt_debug "${ARG_VERBOSO}" "----------- partidos pareja visitante:"
@@ -237,7 +237,7 @@ function moverPartido {
         _partido=$( head -${_num} "${DIR_TMP}/moverPartido.contador" | tail -1 | gawk '{print $1}' )
         _LOC=$( echo -e "${_partido}" | gawk -F"_" '{print $1}' )
         _VIS=$( echo -e "${_partido}" | gawk -F"_" '{print $2}' )
-        prt_info "------- <moverPartido ${_s}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}, elegido aleatoriamente"
+        prt_info "------- <moverPartido ${_s} ${_check}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}, elegido aleatoriamente"
         rm "${DIR_TMP}/moverPartido.contador"
 
         grep -e "|${_LOC}|${_VIS}|"   "${DIR_TMP}/partidos.semana${_s}" >> "${DIR_TMP}/partidos.semana${_sSig}"  # se mueve a la semana siguiente
@@ -838,10 +838,7 @@ do
     ######### MIENTRAS TANTO, SE PUEDEN IR COGIENDO LAS ITERACIONES QUE HAYA, ORDENARLAS Y PROBAR
 
     while [ "$( tail -1 "${DIR_TMP}/PERMUTACIONES.REGISTRO" )" != "DONE" ] && [ ! -f "${DIR_TMP}/PARA.PERMUTACIONES" ]
-    do
-        # **** SI SOLO QUEREMOS PROBAR UNA VEZ (con la primera permutacion) ---> PARA IR MAS RAPIDO
-        touch "${DIR_TMP}/PARA.PERMUTACIONES"
-        
+    do       
         # Se eliminan las que ya se han procesado (no existen)
         identificador=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.DONE.perm*" | sort | tail -1 | gawk -F"DONE.perm" '{print $2+1}' )
         if [ "${identificador}" == "" ]; then identificador=1; fi
@@ -851,7 +848,7 @@ do
         sed -i "/DONE/d" "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp" # por si acaso ya ha terminado
 
         # Espera hasta que haya alguna permutacion
-        if [ "$( head -1 "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp" )" == "" ]; then continue; fi
+        if [ ! -s "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp" ]; then continue; fi
 
         # Se cogen todas las permutaciones disponibles y se les cambia de nombre, para que el programa las coja: de '.function' a '.perm'
         while read -r FILE
@@ -859,7 +856,6 @@ do
             newName=$( echo -e "${FILE}" | sed 's/combinaciones_ordenadas.function/combinaciones_ordenadas.perm/g' )
             mv "${FILE}" "${newName}"
         done < "${DIR_TMP}/PERMUTACIONES.REGISTRO.tmp"
-
 
         # 8/10 - Se ordenan las permutaciones para probar primero los partidos que tienen menos opciones
         prt_info "---- 8/10 - Se ordenan las permutaciones para probar primero los partidos que tienen menos opciones"
@@ -1008,6 +1004,10 @@ do
         fi
         prt_warn "------ Ninguna permutacion (de las que se han generado hasta ahora es valida) asi que se siguen probando nuevas permutaciones"
 
+        
+        # **** SI SOLO QUEREMOS PROBAR UNA VEZ (con la primera permutacion) ---> PARA IR MAS RAPIDO
+        touch "${DIR_TMP}/PARA.PERMUTACIONES"
+
     done
 
     # Se comprueba si se han colocado todos los partidos de la semana
@@ -1026,28 +1026,30 @@ do
     for s in $( seq 1 "${nSemanas}" )
     do
         # -- debe existir el fichero del calendario de la semana = se ha procesado al menos una vez
-        if [ ! -f "${DIR_TMP}/calendario.semana${s}.txt" ]; then prt_debug "${ARG_VERBOSO}" "------ Aun no existe ${DIR_TMP}/calendario.semana${s}.txt"; FINALIZADO=false; break; fi
+        if [ ! -f "${DIR_TMP}/calendario.semana${s}.txt" ]; then prt_info "------ Aun no existe ${DIR_TMP}/calendario.semana${s}.txt"; FINALIZADO=false; break; fi
 
         # -- deben tener el mismo numero de lineas = todos los partidos estan en el calendario, y todos los del calendario estan en el partido
         nCalendario=$( wc -l "${DIR_TMP}/calendario.semana${s}.txt" | gawk '{print $1}' )
         nPartidos=$(   wc -l "${DIR_TMP}/partidos.semana${s}"       | gawk '{print $1}' )
         if [ "${nCalendario}" != "${nPartidos}" ]
         then
-            prt_debug "${ARG_VERBOSO}" "------ No tienen el mismo numero de lineas ${DIR_TMP}/calendario.semana${s}.txt (${nCalendario}) y ${DIR_TMP}/partidos.semana${s} (${nPartidos})"
+            prt_info "------ No tienen el mismo numero de lineas ${DIR_TMP}/calendario.semana${s}.txt (${nCalendario}) y ${DIR_TMP}/partidos.semana${s} (${nPartidos})"
             if [ "${ARG_VERBOSO}" == "true" ]; then echo "---- ${DIR_TMP}/partidos.semana${s}"; cat "${DIR_TMP}/partidos.semana${s}"; echo "---- ${DIR_TMP}/calendario.semana${s}.txt"; cat "${DIR_TMP}/calendario.semana${s}.txt"; fi
             FINALIZADO=false; break
         fi
 
         # -- se comprueba la condicion anterior linea por linea
-        while IFS='|' read -r _ _ LOCAL VISITANTE _ _ _ _ _ _ _
+        rm -f "${DIR_TMP}/FINALIZADO.FALSE"
+        while IFS='|' read -r _ _ LOCAL VISITANTE _
         do
-            if [ "$( grep -e "-${LOCAL}-${VISITANTE}-" "${DIR_TMP}/calendario.semana${s}.txt" )" == "" ]
+            if [ "$( grep -c -e "-${LOCAL}-${VISITANTE}-" "${DIR_TMP}/calendario.semana${s}.txt" )" == "0" ]
             then
-                prt_debug "${ARG_VERBOSO}" "------ La pareja -${LOCAL}-${VISITANTE}- de ${DIR_TMP}/partidos.semana${s}, no esta en ${DIR_TMP}/calendario.semana${s}.txt"
+                prt_info "------ La pareja -${LOCAL}-${VISITANTE}- de ${DIR_TMP}/partidos.semana${s}, no esta en ${DIR_TMP}/calendario.semana${s}.txt"
                 if [ "${ARG_VERBOSO}" == "true" ]; then echo "---- ${DIR_TMP}/partidos.semana${s}"; cat "${DIR_TMP}/partidos.semana${s}"; echo "---- ${DIR_TMP}/calendario.semana${s}.txt"; cat "${DIR_TMP}/calendario.semana${s}.txt"; fi
-                FINALIZADO=false; break
+                touch "${DIR_TMP}/FINALIZADO.FALSE"; break
             fi
         done < "${DIR_TMP}/partidos.semana${s}"
+        if [ -f "${DIR_TMP}/FINALIZADO.FALSE" ]; then rm "${DIR_TMP}/FINALIZADO.FALSE"; FINALIZADO=false; break; fi
     done
     if [ "${FINALZADO}" == "true" ]; then prt_info "------ Termina porque ya esta el calendario de todos los partidos"; fi
 done
