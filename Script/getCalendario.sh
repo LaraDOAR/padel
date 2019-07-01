@@ -308,20 +308,7 @@ function checkCompatible {
         
         # -- posibles fechas del partido en esa semana
         grep -e "-${_loc}-${_vis}-" "${DIR_TMP}/combinaciones_todas.CHECK" | gawk -F"-" '{print $7}' | sort -u  > "${DIR_TMP}/fechas_del_partido"
-
-        # grep -e "-${_loc}-${_vis}-" "${DIR_TMP}/combinaciones_todas.CHECK" | gawk -F"-" '{print $7}' | sort -u | # posible fechas para ese partido
-        #     while read -r _fecha 
-        #     do
-        #         for _s in $( seq 1 "${nSemanas}" )
-        #         do
-        #             _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
-        #             _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
-        #             if [ "${_fecha}" -ge "${_fIni}" ] && [ "${_fecha}" -le "${_fFin}" ]; then break; fi
-        #         done
-        #         echo -e "${_fecha} ${_s}" 
-        #     done |
-        #     sort -u -k2,2 | gawk '{print $1}' > "${DIR_TMP}/fechas_del_partido"
-
+        
         while read -r _fecha
         do
             prt_debug "${ARG_VERBOSO}" "-- ${_fecha}"
@@ -365,7 +352,7 @@ function checkCompatible {
             _pa=$( wc -l "${DIR_TMP}/check.output" | gawk '{print $1+1}' )
             _pb=$( wc -l "${DIR_TMP}/listaParejas.division${_div}" | gawk '{print $1}' )
             _pb=$(( $(factorial "${_pb}") / (2*( $(factorial $((_pb-2))) )) ))
-            if [ "${_pa}" == "${_pb}" ]
+            if [ "${_pa}" -ge "${_pb}" ]
             then
                 prt_debug "${ARG_VERBOSO}" "---- Es compatible"
                 touch "${DIR_TMP}/parejaCompatible"
@@ -552,6 +539,10 @@ FGRL_backupFile calendario html; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
 
 prt_info "Ejecucion..."
 
+# Solo nos quedamos con los partidos de la jornada que corresponde
+gawk -F"|" '{if ($1+0==MES) print}' MES="${ARG_MES}" "${DIR_TMP}/partidos" > "${DIR_TMP}/partidos.tmp"
+mv "${DIR_TMP}/partidos.tmp" "${DIR_TMP}/partidos"
+
 # 1/6 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana
 prt_info "-- 1/6 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana"
 dIni=$( date -d "${ARG_FECHA_INI}" +%s )
@@ -667,8 +658,8 @@ prt_info "---- Generados los ficheros origen"
 moverPartido 1 "check"
 
 
-# 4/6 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar
-prt_info "-- 4/6 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar"
+# 4/6 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar sin repetir en la misma semana
+prt_info "-- 4/6 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar sin repetir en la misma semana"
 cp "${DIR_TMP}/partidos.orig" "${DIR_TMP}/partidos.CHECK"
 cp "${DIR_TMP}/combinaciones_todas" "${DIR_TMP}/combinaciones_todas.CHECK"
 checkCompatible; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
