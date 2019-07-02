@@ -258,7 +258,10 @@ function FGRL_getPermutacion_conPesos {
     FGRL_getPermutacion_conPesos "${_file}" "${_iteracion}" "${_comb}" "${_totalGeneral}"
 
     # Fin (==2, porque la 1 ya se ha escrito y se ha aumentado el contador)
-    if [ "${_iteracion}" == "2" ]; then echo "DONE" >> "${DIR_TMP}/PERMUTACIONES.REGISTRO"; fi
+    if [ "${_iteracion}" == "2" ]
+    then
+        echo "DONE" >> "${DIR_TMP}/PERMUTACIONES.REGISTRO"
+    fi
     return 0
 }
 export -f FGRL_getPermutacion_conPesos

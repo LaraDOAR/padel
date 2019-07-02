@@ -159,38 +159,79 @@ function factorial {
 
 
 ##########
-# - moverPartido
-#     Funcion   --->  Se elige un partido aleatorio y se pone en la semana siguiente. Se evita que una pareja juegue la misma semana.
-#                     Para no acumular partidos en una semana, si una semana se llena, se moverá a otra que tenga menos,
-#                     de manera rotativa hasta que todos esten mas o menos igualados.
-#     Entrada   --->  $1 = semana actual
-#                     $2 = (opcional) "check" si no se quiere mover, solo comprobar
+# - checkSemana
+#     Funcion   --->  comprueba que los partidos de la semana estan ya bien configurados
+#     Entrada   --->  $1 = ruta al fichero de partidos de la semana
+#                     $2 = ruta al fichero del calendario de la semana
 #     Salida    --->  0 = ok
 #                     1 = error
+#
+function checkSemana {
+
+    # Argumentos
+    local _p=${1}
+    local _c=${2}
+
+    # Variables internas
+    local _nP
+    local _nC
+    local _loc
+    local _vis
+
+    # Existen los ficheros
+    if [ ! -f "${_p}" ]; then prt_info "------ Aun no existe ${_p}"; return 1; fi
+    if [ ! -f "${_c}" ]; then prt_info "------ Aun no existe ${_c}"; return 1; fi
+
+    # Tienen el mismo numero de lineas
+    _nP=$( wc -l "${_p}" | gawk '{print $1}' )
+    _nC=$( wc -l "${_c}" | gawk '{print $1}' )
+    if [ "${_nP}" != "${_nC}" ]
+    then
+        prt_info "------ No tienen el mismo numero de lineas ${_c} (${_nC}) y ${_p} (${_nP})"
+        if [ "${ARG_VERBOSO}" == "true" ]; then echo "---- ${_p}"; cat "${_p}"; echo "---- ${_c}"; cat "${_c}"; fi
+        return 1
+    fi
+
+    while IFS='|' read -r _ _ _loc _vis _
+    do
+        if [ "$( grep -e "-${_loc}-${_vis}-" "${_c}" )" == "" ]
+        then
+            prt_info "------ La pareja -${_loc}-${_vis}- de ${_p}, no esta en ${_c}"
+            if [ "${ARG_VERBOSO}" == "true" ]; then echo "---- ${_p}"; cat "${_p}"; echo "---- ${_c}"; cat "${_c}"; fi
+            return 1
+        fi
+    done < "${_p}"
+    
+    # Todo correcto
+    return 0
+}
+
+
+##########
+# - checkMoverPartido
+#     Funcion   --->  Averigua si hay que mover un partido debido a que hay demasiadas repeticiones: es decir, local
+#                     o visitante ya tienen un partido esa semana. Si es asi, mueve los partidos que corresponda.n.
+#     Entrada   --->  $1 = semana actual
+#     Salida    --->  0 = ok = se ha movido
+#                     1 = error = no se ha movido
 #                Modifica los ficheros partidos.semana*
 #
 N_MAX_REPETICIONES=1
-function moverPartido {
+function checkMoverPartido {
 
     # Argumentos
     local _s=$1
-    local _check=$2
 
     # Variables internas
+    local _sSig
+    local _seMueve
     local _nLineas
     local _num
-    local _sSig
-    local _partido
     local _LOC
     local _VIS
-    local _seMueve
-    local _finalizado
-    local _indS
-    local _rv
-    local _aux
     local _nRepLoc
     local _nRepVis
-
+    
     _sSig=$(( (_s % nSemanas) + 1 ))
 
     # Se elige un partido que este repetido mas de N_MAX_REPETICIONES
@@ -200,12 +241,11 @@ function moverPartido {
     do
         _LOC=$( head -"${_num}" "${DIR_TMP}/partidos.semana${_s}" | tail -1 | gawk -F"|" '{print $3}' )
         _VIS=$( head -"${_num}" "${DIR_TMP}/partidos.semana${_s}" | tail -1 | gawk -F"|" '{print $4}' )
-        _aux=$(( _num + 1 ))
-        _nRepLoc=$( tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep -c "${_LOC}" )
-        _nRepVis=$( tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep -c "${_VIS}" )
+        _nRepLoc=$( grep -c "${_LOC}" "${DIR_TMP}/partidos.semana${_s}" )
+        _nRepVis=$( grep -c "${_VIS}" "${DIR_TMP}/partidos.semana${_s}" )
         if [ "${_nRepLoc}" -gt "${N_MAX_REPETICIONES}" ] || [ "${_nRepVis}" -gt "${N_MAX_REPETICIONES}" ]
         then
-            prt_info "------- <moverPartido ${_s} ${_check}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}"
+            prt_info "------- <checkMoverPartido ${_s}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}"
             prt_debug "${ARG_VERBOSO}" "----------- partidos pareja local:"
             if [ "${ARG_VERBOSO}" == "true" ]; then tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_LOC}"; fi
             prt_debug "${ARG_VERBOSO}" "----------- partidos pareja visitante:"
@@ -219,17 +259,54 @@ function moverPartido {
         fi
     done
 
-    # Si solo es check y no hay ninguno repetido termina
-    if [ "${_check}" == "check" ] && [ "${_seMueve}" == "false" ]; then return 0; fi
+    if [ "${_seMueve}" == "true" ]; then return 0; fi
+
+    return 1
+}
+
+
+##########
+# - moverPartido
+#     Funcion   --->  Se elige un partido aleatorio y se pone en la semana siguiente. Se evita que una pareja juegue la misma semana.
+#                     Para no acumular partidos en una semana, si una semana se llena, se moverá a otra que tenga menos,
+#                     de manera rotativa hasta que todos esten mas o menos igualados.
+#     Entrada   --->  $1 = semana actual
+#                     $2 = (opcional) "check" si no se quiere mover, solo comprobar
+#     Salida    --->  0 = ok
+#                     1 = error
+#                Modifica los ficheros partidos.semana*
+#
+function moverPartido {
+
+    # Argumentos
+    local _s=$1
+    local _check=$2
+
+    # Variables internas
+    local _sSig
+    local _rv
+    local _LOC
+    local _VIS
+    local _nLineas
+    local _num
+    local _partido
+    local _finalizado
+    local _indS
+
+    _sSig=$(( (_s % nSemanas) + 1 ))
+
+    checkMoverPartido "${_s}"; _rv=$?
 
     # Si no es check y no se ha movido ninguo, se mueve uno al azar
-    if [ "${_check}" != "check" ] && [ "${_seMueve}" == "false" ]
+    if [ "${_check}" != "check" ] && [ "${_rv}" == "1" ]
     then
+        _num=$( shuf -i 1-5 -n 1 )
         # Se extrae en un fichero las parejas con el numero mas grande
         while IFS="|" read -r _ _ _LOC _VIS _
         do
             gawk '{print LOC"_"VIS, $0}' LOC="${_LOC}" VIS="${_VIS}" "${DIR_TMP}/huecosLibres.${_LOC}-${_VIS}"
-        done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -2 > "${DIR_TMP}/moverPartido.contador"
+            #done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -${_num} > "${DIR_TMP}/moverPartido.contador"
+            done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -1 > "${DIR_TMP}/moverPartido.contador"
         
         # Se elige al azar
         _nLineas=$( wc -l "${DIR_TMP}/moverPartido.contador" | gawk '{print $1}' )
@@ -252,8 +329,8 @@ function moverPartido {
         _finalizado=true
         for _indS in $( seq 1 "${nSemanas}" )
         do
-            moverPartido "${_indS}" "check"; _rv=$?
-            if [ "${_rv}" != "0" ]; then _finalizado=false; break; fi
+            checkMoverPartido "${_indS}"; _rv=$?
+            if [ "${_rv}" == "0" ]; then _finalizado=false; break; fi  # si rv=0 es que se ha movido, y hay que volver a empezar
         done
     done
 
@@ -299,7 +376,7 @@ function checkCompatible {
     do
         gawk -F"|" '{ if ($2==DIV) {print $3; print $4;}}' DIV="${_div}" "${DIR_TMP}/partidos.CHECK" | sort -u > "${DIR_TMP}/listaParejas.division${_div}"
     done
-
+    return 0
 
     # Se mira uno a uno cada partido
     while IFS="|" read -r _ _div _loc _vis _ _ _ _ _ _ _ _
@@ -587,6 +664,7 @@ do
         printf "%70s | " "${_loc} vs ${_vis}"
         for _s in $( seq 1 "${nSemanas}" )
         do
+            semanaLibre=false
             while read -r _fecha
             do
                 _pa=$( echo -e "${_loc}" | gawk -F"-" '{print $1}' )
@@ -595,10 +673,11 @@ do
                 then
                     printf " X | "
                 else
-                    printf "   | "; contador=$(( contador + 1 ))
+                    printf "   | "; semanaLibre=true
                 fi
             done < "${DIR_TMP}/listaDias.semana${_s}"
             printf "### | "
+            if [ "${semanaLibre}" == "true" ]; then contador=$(( contador + 1 )); fi
         done
         printf " (${contador})\n"; printf "%*s\n" "${_len}" " " | sed 's/ /-/g'
         echo "${contador}" > "${DIR_TMP}/huecosLibres.${_loc}-${_vis}"
@@ -709,28 +788,12 @@ do
     fi
 
     # Si no se ha tocado el fichero, es decir, partidos = calendario, se pasa al siguiente
-    # todoBien=true
-    # if [ ! -f "${DIR_TMP}/calendario.semana${semana}.txt" ]; then todoBien=false; fi
-    # if [ "${todoBien}" == "true" ]
-    # then
-    #     # -- deben tener el mismo numero de lineas = todos los partidos estan en el calendario, y todos los del calendario estan en el partido
-    #     nCalendario=$( wc -l "${DIR_TMP}/calendario.semana${semana}.txt" | gawk '{print $1}' )
-    #     nPartidos=$(   wc -l "${DIR_TMP}/partidos.semana${semana}"       | gawk '{print $1}' )
-    #     if [ "${nCalendario}" != "${nPartidos}" ]; then todoBien=false; fi
-    # fi
-    # if [ "${todoBien}" == "true" ]
-    # then
-    #     # -- se comprueba la condicion anterior linea por linea
-    #     while IFS='|' read -r _ _ LOCAL VISITANTE _ _ _ _ _ _ _
-    #     do
-    #         if [ "$( grep -e "-${LOCAL}-${VISITANTE}-" "${DIR_TMP}/calendario.semana${semana}.txt" )" == "" ]; then todoBien=false; break; fi
-    #     done < "${DIR_TMP}/partidos.semana${semana}"
-    # fi
-    # if [ "${todoBien}" == "true" ]
-    # then
-    #     prt_info "------ La semana ${semana} no ha sido modificada. Pasa a al siguiente"
-    #     continue
-    # fi
+    checkSemana "${DIR_TMP}/partidos.semana${semana}" "${DIR_TMP}/calendario.semana${semana}.txt" > /dev/null; rv=$?
+    if [ "${rv}" == "0" ]
+    then
+        prt_info "------ La semana ${semana} no ha sido modificada. Pasa a al siguiente"
+        continue
+    fi  
 
     # 2/10 - Se comprueba que hay suficientes huecos para poder colocar todos los partidos
     cp "${DIR_TMP}/partidos.semana${semana}" "${DIR_TMP}/partidos"
@@ -741,10 +804,8 @@ do
     if [ "${nPartidos}" -gt "${nHuecos}" ]
     then
         prt_error "------ Hay mas partidos [${nPartidos}] que huecos disponibles [${nHuecos}]"
-        nMover=$(( nPartidos - nHuecos ))
-        prt_warn "------ Se mueven ${nMover} partidos de la semana ${semana} a la siguiente, la semana ${semanaSig}"
-        tail -n+${nMover} "${DIR_TMP}/partidos.semana${semana}" >> "${DIR_TMP}/partidos.semana${semanaSig}" # se mueven a la siguiente
-        head -${nHuecos}  "${DIR_TMP}/partidos.semana${semana}" >  "${DIR_TMP}/partidos"; mv "${DIR_TMP}/partidos" "${DIR_TMP}/partidos.semana${semana}" # se quitan de la actual
+        prt_warn "------ Se mueve al menos un partido de la semana ${semana} a la siguiente, la semana ${semanaSig}"
+        moverPartido "${semana}"      
         # -- se comprueba que ninguna pareja repite la misma semana
         moverPartido 1 "check"
         # -- vuelve a empezar con la semana actual
@@ -832,12 +893,12 @@ do
     done
     prt_info "------ (ya hay al menos una permutacion)"
     rm "${DIR_TMP}/INICIO.PERMUTACIONES"
-
+    
 
     ######### EL PROCESO DE GENERACION DE PERMUTACIONES SE VA A EJECUTAR EN BACKGROUND
     ######### MIENTRAS TANTO, SE PUEDEN IR COGIENDO LAS ITERACIONES QUE HAYA, ORDENARLAS Y PROBAR
 
-    while [ "$( tail -1 "${DIR_TMP}/PERMUTACIONES.REGISTRO" )" != "DONE" ] && [ ! -f "${DIR_TMP}/PARA.PERMUTACIONES" ]
+    while [ ! -f "${DIR_TMP}/PARA.PERMUTACIONES" ]
     do       
         # Se eliminan las que ya se han procesado (no existen)
         identificador=$( find "${DIR_TMP}/" -type f -name "combinaciones_ordenadas.DONE.perm*" | sort | tail -1 | gawk -F"DONE.perm" '{print $2+1}' )
@@ -997,13 +1058,13 @@ do
         done
 
         # Se comprueba si se han colocado todos los partidos de la semana
-        if  [ "$( wc -l "${DIR_TMP}/calendario.semana${semana}.txt" | gawk '{print $1}' )" == "${nLineas}" ]
+        checkSemana "${DIR_TMP}/partidos.semana${semana}" "${DIR_TMP}/calendario.semana${semana}.txt" > /dev/null; rv=$?
+        if [ "${rv}" == "0" ]
         then
             prt_debug "${ARG_VERBOSO}" "------ Ya se ha encontrado una iteracion buena, se comprobara si ya se ha terminado o hay que seguir con otra semana"
             break
         fi
         prt_warn "------ Ninguna permutacion (de las que se han generado hasta ahora es valida) asi que se siguen probando nuevas permutaciones"
-
         
         # **** SI SOLO QUEREMOS PROBAR UNA VEZ (con la primera permutacion) ---> PARA IR MAS RAPIDO
         touch "${DIR_TMP}/PARA.PERMUTACIONES"
@@ -1011,10 +1072,11 @@ do
     done
 
     # Se comprueba si se han colocado todos los partidos de la semana
-    if [ ! -f "${DIR_TMP}/calendario.semana${semana}.txt" ] ||  [ "$( wc -l "${DIR_TMP}/calendario.semana${semana}.txt" | gawk '{print $1}' )" != "${nLineas}" ]
+    checkSemana "${DIR_TMP}/partidos.semana${semana}" "${DIR_TMP}/calendario.semana${semana}.txt" > /dev/null; rv=$?
+    if [ "${rv}" == "1" ]
     then
-        prt_warn "------ Ninguna permutacion es valida, por lo que esta semana no es valida, no se puede configurar"
-        prt_info "-------- hay que cambiar la semana por lo que se elige el partido mas complicado y se mueve a otra semana"
+        prt_warn "------ Se han acabado las permutaciones a probar, y ninguna de ellas es valida"
+        prt_info "-------- Esta semana no se puede configurar, hay que cambiar la semana por lo que se elige un partido al azar y se mueve a otra semana"
         moverPartido "${semana}"
         semana=$(( semana - 1 )) # para que vuelva a empezar con la semana actual
         continue
@@ -1025,31 +1087,8 @@ do
     FINALIZADO=true
     for s in $( seq 1 "${nSemanas}" )
     do
-        # -- debe existir el fichero del calendario de la semana = se ha procesado al menos una vez
-        if [ ! -f "${DIR_TMP}/calendario.semana${s}.txt" ]; then prt_info "------ Aun no existe ${DIR_TMP}/calendario.semana${s}.txt"; FINALIZADO=false; break; fi
-
-        # -- deben tener el mismo numero de lineas = todos los partidos estan en el calendario, y todos los del calendario estan en el partido
-        nCalendario=$( wc -l "${DIR_TMP}/calendario.semana${s}.txt" | gawk '{print $1}' )
-        nPartidos=$(   wc -l "${DIR_TMP}/partidos.semana${s}"       | gawk '{print $1}' )
-        if [ "${nCalendario}" != "${nPartidos}" ]
-        then
-            prt_info "------ No tienen el mismo numero de lineas ${DIR_TMP}/calendario.semana${s}.txt (${nCalendario}) y ${DIR_TMP}/partidos.semana${s} (${nPartidos})"
-            if [ "${ARG_VERBOSO}" == "true" ]; then echo "---- ${DIR_TMP}/partidos.semana${s}"; cat "${DIR_TMP}/partidos.semana${s}"; echo "---- ${DIR_TMP}/calendario.semana${s}.txt"; cat "${DIR_TMP}/calendario.semana${s}.txt"; fi
-            FINALIZADO=false; break
-        fi
-
-        # -- se comprueba la condicion anterior linea por linea
-        rm -f "${DIR_TMP}/FINALIZADO.FALSE"
-        while IFS='|' read -r _ _ LOCAL VISITANTE _
-        do
-            if [ "$( grep -c -e "-${LOCAL}-${VISITANTE}-" "${DIR_TMP}/calendario.semana${s}.txt" )" == "0" ]
-            then
-                prt_info "------ La pareja -${LOCAL}-${VISITANTE}- de ${DIR_TMP}/partidos.semana${s}, no esta en ${DIR_TMP}/calendario.semana${s}.txt"
-                if [ "${ARG_VERBOSO}" == "true" ]; then echo "---- ${DIR_TMP}/partidos.semana${s}"; cat "${DIR_TMP}/partidos.semana${s}"; echo "---- ${DIR_TMP}/calendario.semana${s}.txt"; cat "${DIR_TMP}/calendario.semana${s}.txt"; fi
-                touch "${DIR_TMP}/FINALIZADO.FALSE"; break
-            fi
-        done < "${DIR_TMP}/partidos.semana${s}"
-        if [ -f "${DIR_TMP}/FINALIZADO.FALSE" ]; then rm "${DIR_TMP}/FINALIZADO.FALSE"; FINALIZADO=false; break; fi
+        checkSemana "${DIR_TMP}/partidos.semana${s}" "${DIR_TMP}/calendario.semana${s}.txt"; rv=$?
+        if [ "${rv}" == "1" ]; then FINALIZADO=false; break; fi
     done
     if [ "${FINALZADO}" == "true" ]; then prt_info "------ Termina porque ya esta el calendario de todos los partidos"; fi
 done
