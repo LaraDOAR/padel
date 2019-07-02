@@ -1,29 +1,29 @@
 MES|DIVISION|                           LOCAL|                       VISITANTE|   FECHA|HORA_INI|HORA_FIN| LUGAR|SET1|SET2|SET3|RANKING
-002|       1|      AlbertoAngulo-RamiroLuengo|AlbertoParramon-IgnacioHernandez|20190709|   18:00|   19:00|Pista9|   -|   -|   -|  false
-002|       1|      AlbertoAngulo-RamiroLuengo|          AndresMunoz-JorgeLopez|20190813|   18:00|   19:00|Pista9|   -|   -|   -|  false
+002|       1|      AlbertoAngulo-RamiroLuengo|AlbertoParramon-IgnacioHernandez|20190827|   18:00|   19:00|Pista9|   -|   -|   -|  false
+002|       1|      AlbertoAngulo-RamiroLuengo|          AndresMunoz-JorgeLopez|20190820|   18:00|   19:00|Pista9|   -|   -|   -|  false
 002|       1|      AlbertoAngulo-RamiroLuengo|      JoseCordoba-ManueldelValle|20190806|   18:00|   19:00|Pista9|   -|   -|   -|  false
-002|       1|AlbertoParramon-IgnacioHernandez|          AndresMunoz-JorgeLopez|20190730|   18:00|   19:00|Pista9|   -|   -|   -|  false
-002|       1|AlbertoParramon-IgnacioHernandez|      JoseCordoba-ManueldelValle|20190723|   18:00|   19:00|Pista9|   -|   -|   -|  false
-002|       1|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|20190716|   18:00|   19:00|Pista9|   -|   -|   -|  false
-002|       2| AinhoaGoni-JuanAntonioMontesino|       AlbertoMateos-JavierVidal|20190826|   18:00|   19:00|Pista3|   -|   -|   -|  false
-002|       2| AinhoaGoni-JuanAntonioMontesino|DiegoChicote-CarlosAlbertoMartin|20190711|   18:00|   19:00|Pista3|   -|   -|   -|  false
-002|       2| AinhoaGoni-JuanAntonioMontesino|  RamonCostafreda-AntonioSanchez|20190820|   18:00|   19:00|Pista9|   -|   -|   -|  false
-002|       2|       AlbertoMateos-JavierVidal|DiegoChicote-CarlosAlbertoMartin|20190805|   18:00|   19:00|Pista3|   -|   -|   -|  false
-002|       2|       AlbertoMateos-JavierVidal|  RamonCostafreda-AntonioSanchez|20190715|   18:00|   19:00|Pista3|   -|   -|   -|  false
-002|       2|DiegoChicote-CarlosAlbertoMartin|  RamonCostafreda-AntonioSanchez|20190801|   18:00|   19:00|Pista3|   -|   -|   -|  false
-002|       3| AmbrosioIniesta-CarlosFernandez|       DanielMichaud-JavierMunoz|20190716|   19:00|   20:00|Pista9|   -|   -|   -|  false
-002|       3| AmbrosioIniesta-CarlosFernandez|       DanielMorillo-AdrianGalan|20190730|   19:00|   20:00|Pista9|   -|   -|   -|  false
-002|       3| AmbrosioIniesta-CarlosFernandez|    MonicaGarcia-EnriqueClemente|20190820|   19:00|   20:00|Pista9|   -|   -|   -|  false
-002|       3|       DanielMichaud-JavierMunoz|       DanielMorillo-AdrianGalan|20190812|   18:00|   19:00|Pista3|   -|   -|   -|  false
-002|       3|       DanielMichaud-JavierMunoz|    MonicaGarcia-EnriqueClemente|20190827|   18:00|   19:00|Pista9|   -|   -|   -|  false
-002|       3|       DanielMorillo-AdrianGalan|    MonicaGarcia-EnriqueClemente|20190806|   18:00|   19:00|Pista3|   -|   -|   -|  false
+002|       1|AlbertoParramon-IgnacioHernandez|          AndresMunoz-JorgeLopez|20190709|   18:00|   19:00|Pista9|   -|   -|   -|  false
+002|       1|AlbertoParramon-IgnacioHernandez|      JoseCordoba-ManueldelValle|20190716|   18:00|   19:00|Pista9|   -|   -|   -|  false
+002|       1|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|20190813|   18:00|   19:00|Pista9|   -|   -|   -|  false
+002|       2| AinhoaGoni-JuanAntonioMontesino|       AlbertoMateos-JavierVidal|20190819|   18:00|   19:00|Pista3|   -|   -|   -|  false
+002|       2| AinhoaGoni-JuanAntonioMontesino|DiegoChicote-CarlosAlbertoMartin|20190827|   18:00|   19:00|Pista3|   -|   -|   -|  false
+002|       2| AinhoaGoni-JuanAntonioMontesino|  RamonCostafreda-AntonioSanchez|20190730|   18:00|   19:00|Pista9|   -|   -|   -|  false
+002|       2|       AlbertoMateos-JavierVidal|DiegoChicote-CarlosAlbertoMartin|20190715|   18:00|   19:00|Pista3|   -|   -|   -|  false
+002|       2|       AlbertoMateos-JavierVidal|  RamonCostafreda-AntonioSanchez|20190812|   18:00|   19:00|Pista3|   -|   -|   -|  false
+002|       2|DiegoChicote-CarlosAlbertoMartin|  RamonCostafreda-AntonioSanchez|20190806|   18:00|   19:00|Pista3|   -|   -|   -|  false
+002|       3| AmbrosioIniesta-CarlosFernandez|       DanielMichaud-JavierMunoz|20190820|   19:00|   20:00|Pista9|   -|   -|   -|  false
+002|       3| AmbrosioIniesta-CarlosFernandez|       DanielMorillo-AdrianGalan|20190806|   19:00|   20:00|Pista9|   -|   -|   -|  false
+002|       3| AmbrosioIniesta-CarlosFernandez|    MonicaGarcia-EnriqueClemente|20190813|   19:00|   20:00|Pista9|   -|   -|   -|  false
+002|       3|       DanielMichaud-JavierMunoz|       DanielMorillo-AdrianGalan|20190723|   18:00|   19:00|Pista9|   -|   -|   -|  false
+002|       3|       DanielMichaud-JavierMunoz|    MonicaGarcia-EnriqueClemente|20190730|   18:00|   19:00|Pista3|   -|   -|   -|  false
+002|       3|       DanielMorillo-AdrianGalan|    MonicaGarcia-EnriqueClemente|20190709|   18:00|   19:00|Pista3|   -|   -|   -|  false
 002|       4|      CristinaPruenza-SofiaCerda|  DanielVillar-MariaLuisaBagaces|20190723|   18:00|   19:00|Pista3|   -|   -|   -|  false
-002|       4|      CristinaPruenza-SofiaCerda|      LaraDominguez-TeresaSolano|20190730|   18:00|   19:00|Pista3|   -|   -|   -|  false
-002|       4|      CristinaPruenza-SofiaCerda|          SaraGarcia-AnaAlastuey|20190827|   18:00|   19:00|Pista3|   -|   -|   -|  false
+002|       4|      CristinaPruenza-SofiaCerda|      LaraDominguez-TeresaSolano|20190730|   19:00|   20:00|Pista9|   -|   -|   -|  false
+002|       4|      CristinaPruenza-SofiaCerda|          SaraGarcia-AnaAlastuey|20190718|   18:00|   19:00|Pista3|   -|   -|   -|  false
 002|       4|  DanielVillar-MariaLuisaBagaces|      LaraDominguez-TeresaSolano|20190820|   18:00|   19:00|Pista3|   -|   -|   -|  false
-002|       4|  DanielVillar-MariaLuisaBagaces|          SaraGarcia-AnaAlastuey|20190709|   18:00|   19:00|Pista3|   -|   -|   -|  false
-002|       4|      LaraDominguez-TeresaSolano|          SaraGarcia-AnaAlastuey|20190716|   18:00|   19:00|Pista3|   -|   -|   -|  false
-001|       1|      AlbertoAngulo-RamiroLuengo|          AndresMunoz-JorgeLopez|20190706|   17:00|   18:00|Pista9|   -|   -|   -|  false
+002|       4|  DanielVillar-MariaLuisaBagaces|          SaraGarcia-AnaAlastuey|20190827|   19:00|   20:00|Pista9|   -|   -|   -|  false
+002|       4|      LaraDominguez-TeresaSolano|          SaraGarcia-AnaAlastuey|20190709|   19:00|   20:00|Pista9|   -|   -|   -|  false
+001|       1|      AlbertoAngulo-RamiroLuengo|          AndresMunoz-JorgeLopez|20190702|   17:00|   18:00|Pista9|   -|   -|   -|  false
 001|       1|      AlbertoAngulo-RamiroLuengo|      JoseCordoba-ManueldelValle|20190610|   19:00|   20:00|Pista9| 3/6| 3/6|   -|   true
 001|       1|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|20190620|   19:00|   20:00|Pista9| 0/6| 5/7|   -|   true
 001|       3|       AlbertoMateos-JavierVidal|AlbertoParramon-IgnacioHernandez|20190612|   18:00|   19:00|Pista9| 5/7| 1/3|   -|   true

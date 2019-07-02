@@ -1143,7 +1143,7 @@ then
     prt_warn "*** Despues quedaria ejecutar lo siguiente:"
     prt_warn "-----  bash Script/updateCalendario.sh      # para actualizar el fichero de calendario html"
     prt_warn "-----  bash Script/updatePartidos.sh -f -w  # para actualizar el fichero de partidos html"
-    prt_warn "-----  bash Script/checkPartidos            # para comprobar formado de partidos"
+    prt_warn "-----  bash Script/checkPartidos.sh         # para comprobar formado de partidos"
     exit 1
 fi
 
@@ -1155,7 +1155,7 @@ then
     prt_error "---- Soluciona el problema y ejecutalo a mano"
     prt_warn "*** Despues quedaria ejecutar lo siguiente:"
     prt_warn "-----  bash Script/updatePartidos.sh -f -w  # para actualizar el fichero de partidos html"
-    prt_warn "-----  bash Script/checkPartidos            # para comprobar formado de partidos"
+    prt_warn "-----  bash Script/checkPartidos.sh         # para comprobar formado de partidos"
     exit 1
 fi
 
@@ -1166,7 +1166,7 @@ then
     prt_error "Error ejecutando <bash Script/updatePartidos.sh -f -w>"
     prt_error "---- Soluciona el problema y ejecutalo a mano"
     prt_warn "*** Despues quedaria ejecutar lo siguiente:"
-    prt_warn "-----  bash Script/checkPartidos            # para comprobar formado de partidos"
+    prt_warn "-----  bash Script/checkPartidos.sh         # para comprobar formado de partidos"
     exit 1
 fi
 
