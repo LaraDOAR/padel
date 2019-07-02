@@ -23,6 +23,7 @@ MES|                           LOCAL|                       VISITANTE| PISTA|   
 002| AinhoaGoni-JuanAntonioMontesino|       AlbertoMateos-JavierVidal|Pista3|20190826|   18:00|   19:00|           false
 002|      CristinaPruenza-SofiaCerda|          SaraGarcia-AnaAlastuey|Pista3|20190827|   18:00|   19:00|           false
 002|       DanielMichaud-JavierMunoz|    MonicaGarcia-EnriqueClemente|Pista9|20190827|   18:00|   19:00|           false
+001|      AlbertoAngulo-RamiroLuengo|          AndresMunoz-JorgeLopez|Pista9|20190706|   17:00|   18:00|           false
 001|      AlbertoAngulo-RamiroLuengo|      JoseCordoba-ManueldelValle|Pista9|20190610|   19:00|   20:00|            true
 001|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|Pista9|20190620|   19:00|   20:00|            true
 001|       AlbertoMateos-JavierVidal|AlbertoParramon-IgnacioHernandez|Pista9|20190612|   18:00|   19:00|            true
