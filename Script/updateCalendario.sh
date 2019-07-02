@@ -211,6 +211,11 @@ cat <<EOM >calendario.html
             center: 'title',
             right: 'dayGridMonth,listMonth,resourceTimeGridDay'
           },
+          views: {
+            resourceTimeGridDay: {
+              titleFormat: { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' }
+            }
+          },
           aspectRatio: 2.5,
           firstDay: 1,
           navLinks: true,

@@ -231,32 +231,58 @@ function checkMoverPartido {
     local _VIS
     local _nRepLoc
     local _nRepVis
-    
-    _sSig=$(( (_s % nSemanas) + 1 ))
+    local _nRepLocSig
+    local _nRepVisSig
+    local _fin
 
-    # Se elige un partido que este repetido mas de N_MAX_REPETICIONES
+    # Se mueven todos los partidos que esten repetidos mas de N_MAX_REPETICIONES
     _seMueve=false
-    _nLineas=$( wc -l "${DIR_TMP}/partidos.semana${_s}" | gawk '{print $1}' )
-    for _num in $( seq 1 "${_nLineas}" )
+    _fin=false
+    while [ "${_fin}" == "false" ]
     do
-        _LOC=$( head -"${_num}" "${DIR_TMP}/partidos.semana${_s}" | tail -1 | gawk -F"|" '{print $3}' )
-        _VIS=$( head -"${_num}" "${DIR_TMP}/partidos.semana${_s}" | tail -1 | gawk -F"|" '{print $4}' )
-        _nRepLoc=$( grep -c "${_LOC}" "${DIR_TMP}/partidos.semana${_s}" )
-        _nRepVis=$( grep -c "${_VIS}" "${DIR_TMP}/partidos.semana${_s}" )
-        if [ "${_nRepLoc}" -gt "${N_MAX_REPETICIONES}" ] || [ "${_nRepVis}" -gt "${N_MAX_REPETICIONES}" ]
-        then
-            prt_info "------- <checkMoverPartido ${_s}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}"
-            prt_debug "${ARG_VERBOSO}" "----------- partidos pareja local:"
-            if [ "${ARG_VERBOSO}" == "true" ]; then tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_LOC}"; fi
-            prt_debug "${ARG_VERBOSO}" "----------- partidos pareja visitante:"
-            if [ "${ARG_VERBOSO}" == "true" ]; then tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_VIS}"; fi
+        _fin=true
+        _nLineas=$( wc -l "${DIR_TMP}/partidos.semana${_s}" | gawk '{print $1}' )
+        for _num in $( seq 1 "${_nLineas}" )
+        do
+            _LOC=$( head -"${_num}" "${DIR_TMP}/partidos.semana${_s}" | tail -1 | gawk -F"|" '{print $3}' )
+            _VIS=$( head -"${_num}" "${DIR_TMP}/partidos.semana${_s}" | tail -1 | gawk -F"|" '{print $4}' )
+            _nRepLoc=$( grep -c "${_LOC}" "${DIR_TMP}/partidos.semana${_s}" )
+            _nRepVis=$( grep -c "${_VIS}" "${DIR_TMP}/partidos.semana${_s}" )
 
-            grep -e "|${_LOC}|${_VIS}|"   "${DIR_TMP}/partidos.semana${_s}" >> "${DIR_TMP}/partidos.semana${_sSig}"  # se mueve a la semana siguiente
-            sed -i "/|${_LOC}|${_VIS}|/d" "${DIR_TMP}/partidos.semana${_s}"                                          # se quita de la semana actual
+            # -- si hay que moverlo, se averigua a que semana se puede mover
+            if [ "${_nRepLoc}" -gt "${N_MAX_REPETICIONES}" ] || [ "${_nRepVis}" -gt "${N_MAX_REPETICIONES}" ]
+            then
+                _sSig=${_s}
+                for _num in $( seq 1 "${nSemanas}" )
+                do
+                    _sSig=$(( (_sSig % nSemanas) + 1 ))                    
+                    _nRepLocSig=$( grep -c "${_LOC}" "${DIR_TMP}/partidos.semana${_sSig}" )
+                    _nRepVisSig=$( grep -c "${_VIS}" "${DIR_TMP}/partidos.semana${_sSig}" )
+                    if [ "${_nRepLocSig}" -gt "${N_MAX_REPETICIONES}" ] || [ "${_nRepVisSig}" -gt "${N_MAX_REPETICIONES}" ] || [ "$( grep "^${_sSig}$" "${DIR_TMP}/huecosLibres.${_LOC}-${_VIS}" )" == "" ]
+                    then
+                        continue
+                    fi
+                    break
+                done
+                if [ "${_sSig}" == "${_s}" ]
+                then
+                    prt_error "------- <checkMoverPartido ${_s}> El partido [${_LOC} vs ${_VIS}] no se puede mover a ninguna semana"
+                else
+                    prt_info "------- <checkMoverPartido ${_s}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}"
+                    prt_debug "${ARG_VERBOSO}" "----------- partidos pareja local:"
+                    if [ "${ARG_VERBOSO}" == "true" ]; then tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_LOC}"; fi
+                    prt_debug "${ARG_VERBOSO}" "----------- partidos pareja visitante:"
+                    if [ "${ARG_VERBOSO}" == "true" ]; then tail -n+${_aux} "${DIR_TMP}/partidos.semana${_s}" | grep "${_VIS}"; fi
 
-            _seMueve=true
-            break
-        fi
+                    grep -e "|${_LOC}|${_VIS}|"   "${DIR_TMP}/partidos.semana${_s}" >> "${DIR_TMP}/partidos.semana${_sSig}"  # se mueve a la semana siguiente
+                    sed -i "/|${_LOC}|${_VIS}|/d" "${DIR_TMP}/partidos.semana${_s}"                                          # se quita de la semana actual
+
+                    _seMueve=true
+                    _fin=false
+                    break
+                fi
+            fi
+        done
     done
 
     if [ "${_seMueve}" == "true" ]; then return 0; fi
@@ -304,7 +330,7 @@ function moverPartido {
         # Se extrae en un fichero las parejas con el numero mas grande
         while IFS="|" read -r _ _ _LOC _VIS _
         do
-            gawk '{print LOC"_"VIS, $0}' LOC="${_LOC}" VIS="${_VIS}" "${DIR_TMP}/huecosLibres.${_LOC}-${_VIS}"
+            gawk '{print LOC"_"VIS, $0}' LOC="${_LOC}" VIS="${_VIS}" "${DIR_TMP}/huecosLibresContador.${_LOC}-${_VIS}"
             #done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -${_num} > "${DIR_TMP}/moverPartido.contador"
             done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -100 > "${DIR_TMP}/moverPartido.contador"
         
@@ -376,6 +402,7 @@ function checkCompatible {
     do
         gawk -F"|" '{ if ($2==DIV) {print $3; print $4;}}' DIV="${_div}" "${DIR_TMP}/partidos.CHECK" | sort -u > "${DIR_TMP}/listaParejas.division${_div}"
     done
+    return 0
 
     # Se mira uno a uno cada partido
     while IFS="|" read -r _ _div _loc _vis _ _ _ _ _ _ _ _
@@ -676,10 +703,10 @@ do
                 fi
             done < "${DIR_TMP}/listaDias.semana${_s}"
             printf "### | "
-            if [ "${semanaLibre}" == "true" ]; then contador=$(( contador + 1 )); fi
+            if [ "${semanaLibre}" == "true" ]; then contador=$(( contador + 1 )); echo "${_s}" >> "${DIR_TMP}/huecosLibres.${_loc}-${_vis}"; fi
         done
         printf " (${contador})\n"; printf "%*s\n" "${_len}" " " | sed 's/ /-/g'
-        echo "${contador}" > "${DIR_TMP}/huecosLibres.${_loc}-${_vis}"
+        echo "${contador}" > "${DIR_TMP}/huecosLibresContador.${_loc}-${_vis}"
     done < <( gawk 'BEGIN{OFS=FS="|";}{if ($2==DIV) print $3,$4}' DIV="${_div}" "${DIR_TMP}/partidos" )
 done
 

@@ -229,6 +229,41 @@ Cristina|   Pruenza|20190824
    Diego|   Chicote|20190821
    Diego|   Chicote|20190822
    Diego|   Chicote|20190823
+    Lara| Dominguez|20190801
+    Lara| Dominguez|20190802
+    Lara| Dominguez|20190803
+    Lara| Dominguez|20190804
+    Lara| Dominguez|20190805
+    Lara| Dominguez|20190806
+    Lara| Dominguez|20190807
+    Lara| Dominguez|20190808
+    Lara| Dominguez|20190809
+    Lara| Dominguez|20190810
+    Lara| Dominguez|20190811
+    Lara| Dominguez|20190812
+    Lara| Dominguez|20190813
+    Lara| Dominguez|20190814
+    Lara| Dominguez|20190815
+    Lara| Dominguez|20190816
+    Lara| Dominguez|20190817
+    Lara| Dominguez|20190818
+    Lara| Dominguez|20190826
+    Lara| Dominguez|20190827
+    Lara| Dominguez|20190828
+    Lara| Dominguez|20190829
+    Lara| Dominguez|20190830
+    Lara| Dominguez|20190831
+  Monica|    Garcia|20190710
+  Monica|    Garcia|20190711
+  Monica|    Garcia|20190712
+  Monica|    Garcia|20190713
+  Monica|    Garcia|20190714
+  Monica|    Garcia|20190715
+  Monica|    Garcia|20190722
+  Monica|    Garcia|20190723
+  Monica|    Garcia|20190724
+  Monica|    Garcia|20190725
+  Monica|    Garcia|20190726
    Ramon|Costafreda|20190701
    Ramon|Costafreda|20190702
    Ramon|Costafreda|20190703
