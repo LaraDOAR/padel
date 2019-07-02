@@ -294,8 +294,8 @@ else
     out=$( bash Script/updatePartidos.sh -w ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 fi
 
-# Se ordena por puntos + juegos_favor + juego_contra
-sort -t"|" -s -r -g -k3,3 -k6,6 -k7,7 "${DIR_TMP}/new_ranking" > "${DIR_TMP}/new_ranking.tmp"
+# Se ordena por puntos + partidos ganados + juegos_favor + juego_contra
+sort -t"|" -s -r -g -k3,3 -k5,5 -k6,6 -k7,7 "${DIR_TMP}/new_ranking" > "${DIR_TMP}/new_ranking.tmp"
 mv "${DIR_TMP}/new_ranking.tmp" "${DIR_TMP}/new_ranking"
 
 # Si hay empate a puntos, se analiza el 'goal average' entre las 2: estara por encima la pareja que mas veces haya ganado las veces que se hayan enfrentado

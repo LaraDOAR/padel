@@ -402,7 +402,6 @@ function checkCompatible {
     do
         gawk -F"|" '{ if ($2==DIV) {print $3; print $4;}}' DIV="${_div}" "${DIR_TMP}/partidos.CHECK" | sort -u > "${DIR_TMP}/listaParejas.division${_div}"
     done
-    return 0
 
     # Se mira uno a uno cada partido
     while IFS="|" read -r _ _div _loc _vis _ _ _ _ _ _ _ _
