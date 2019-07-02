@@ -306,7 +306,7 @@ function moverPartido {
         do
             gawk '{print LOC"_"VIS, $0}' LOC="${_LOC}" VIS="${_VIS}" "${DIR_TMP}/huecosLibres.${_LOC}-${_VIS}"
             #done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -${_num} > "${DIR_TMP}/moverPartido.contador"
-            done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -1 > "${DIR_TMP}/moverPartido.contador"
+            done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -100 > "${DIR_TMP}/moverPartido.contador"
         
         # Se elige al azar
         _nLineas=$( wc -l "${DIR_TMP}/moverPartido.contador" | gawk '{print $1}' )
@@ -376,7 +376,6 @@ function checkCompatible {
     do
         gawk -F"|" '{ if ($2==DIV) {print $3; print $4;}}' DIV="${_div}" "${DIR_TMP}/partidos.CHECK" | sort -u > "${DIR_TMP}/listaParejas.division${_div}"
     done
-    return 0
 
     # Se mira uno a uno cada partido
     while IFS="|" read -r _ _div _loc _vis _ _ _ _ _ _ _ _
