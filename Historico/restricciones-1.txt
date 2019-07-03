@@ -53,6 +53,38 @@
   Ainhoa|      Goni|20190829
   Ainhoa|      Goni|20190830
   Ainhoa|      Goni|20190831
+ Alberto|    Angulo|20190705
+ Alberto|    Angulo|20190706
+ Alberto|    Angulo|20190707
+ Alberto|    Angulo|20190708
+ Alberto|    Angulo|20190709
+ Alberto|    Angulo|20190710
+ Alberto|    Angulo|20190711
+ Alberto|    Angulo|20190712
+ Alberto|    Angulo|20190713
+ Alberto|    Angulo|20190714
+ Alberto|    Angulo|20190715
+ Alberto|    Angulo|20190716
+ Alberto|    Angulo|20190717
+ Alberto|    Angulo|20190718
+ Alberto|    Angulo|20190719
+ Alberto|    Angulo|20190720
+ Alberto|    Angulo|20190721
+ Alberto|    Angulo|20190722
+ Alberto|    Angulo|20190723
+ Alberto|    Angulo|20190724
+ Alberto|    Angulo|20190725
+ Alberto|    Angulo|20190726
+ Alberto|    Angulo|20190727
+ Alberto|    Angulo|20190728
+ Alberto|    Angulo|20190729
+ Alberto|    Angulo|20190730
+ Alberto|    Angulo|20190731
+ Alberto|    Angulo|20190801
+ Alberto|    Angulo|20190802
+ Alberto|    Angulo|20190803
+ Alberto|    Angulo|20190804
+ Alberto|    Angulo|20190805
  Alberto|    Mateos|20190701
  Alberto|    Mateos|20190702
  Alberto|    Mateos|20190703
@@ -156,6 +188,14 @@ Cristina|   Pruenza|20190821
 Cristina|   Pruenza|20190822
 Cristina|   Pruenza|20190823
 Cristina|   Pruenza|20190824
+  Daniel|   Michaud|20190723
+  Daniel|   Michaud|20190724
+  Daniel|   Michaud|20190725
+  Daniel|   Michaud|20190726
+  Daniel|   Michaud|20190727
+  Daniel|   Michaud|20190728
+  Daniel|   Michaud|20190729
+  Daniel|   Michaud|20190730
   Daniel|   Morillo|20190714
   Daniel|   Morillo|20190715
   Daniel|   Morillo|20190716
@@ -229,6 +269,20 @@ Cristina|   Pruenza|20190824
    Diego|   Chicote|20190821
    Diego|   Chicote|20190822
    Diego|   Chicote|20190823
+    Jose|   Cordoba|20190701
+    Jose|   Cordoba|20190702
+    Jose|   Cordoba|20190703
+    Jose|   Cordoba|20190704
+    Jose|   Cordoba|20190705
+    Jose|   Cordoba|20190706
+    Jose|   Cordoba|20190707
+    Jose|   Cordoba|20190708
+    Jose|   Cordoba|20190709
+    Jose|   Cordoba|20190710
+    Jose|   Cordoba|20190711
+    Jose|   Cordoba|20190712
+    Jose|   Cordoba|20190713
+    Jose|   Cordoba|20190714
     Lara| Dominguez|20190801
     Lara| Dominguez|20190802
     Lara| Dominguez|20190803
@@ -264,6 +318,22 @@ Cristina|   Pruenza|20190824
   Monica|    Garcia|20190724
   Monica|    Garcia|20190725
   Monica|    Garcia|20190726
+  Monica|    Garcia|20190816
+  Monica|    Garcia|20190817
+  Monica|    Garcia|20190818
+  Monica|    Garcia|20190819
+  Monica|    Garcia|20190820
+  Monica|    Garcia|20190821
+  Monica|    Garcia|20190822
+  Monica|    Garcia|20190823
+  Monica|    Garcia|20190824
+  Monica|    Garcia|20190825
+  Monica|    Garcia|20190826
+  Monica|    Garcia|20190827
+  Monica|    Garcia|20190828
+  Monica|    Garcia|20190829
+  Monica|    Garcia|20190830
+  Monica|    Garcia|20190831
    Ramon|Costafreda|20190701
    Ramon|Costafreda|20190702
    Ramon|Costafreda|20190703

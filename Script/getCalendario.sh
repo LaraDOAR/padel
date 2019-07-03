@@ -649,8 +649,8 @@ prt_info "Ejecucion..."
 gawk -F"|" '{if ($1+0==MES) print}' MES="${ARG_MES}" "${DIR_TMP}/partidos" > "${DIR_TMP}/partidos.tmp"
 mv "${DIR_TMP}/partidos.tmp" "${DIR_TMP}/partidos"
 
-# 1/6 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana
-prt_info "-- 1/6 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana"
+# 1/9 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana
+prt_info "-- 1/9 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana"
 dIni=$( date -d "${ARG_FECHA_INI}" +%s )
 dFin=$( date -d "${ARG_FECHA_FIN}" +%s )
 nSemanas=$( echo "" | gawk '{printf("%d",((FIN-INI)/(86400*7))+0.5)}' INI="${dIni}" FIN="${dFin}" )
@@ -661,8 +661,8 @@ do
 done
 
 
-# ************* Ver la disponibilidad + calcular huecos por partidos
-prt_info "Se muestra la disponibilidad por divisiones"
+# 2/9 - Se muestra la disponibilidad por divisiones
+prt_info "-- 2/9 - Se muestra la disponibilidad por divisiones"
 gawk 'BEGIN{OFS=FS="|"}{print $1$2,$3}' "${DIR_TMP}/restricciones" > "${DIR_TMP}/restricciones.DISPO"
 _nDivisiones=$( gawk -F"|" '{print $2}' "${DIR_TMP}/partidos" | sort -u | wc -l )
 
@@ -712,8 +712,8 @@ done
 
 
 
-# 2/6 - Comprueba que todos los partidos se pueden jugar al menos un dia
-prt_info "-- 2/6 - Comprueba que todos los partidos se pueden jugar al menos un dia"
+# 3/9 - Comprueba que todos los partidos se pueden jugar al menos un dia
+prt_info "-- 3/9 - Comprueba que todos los partidos se pueden jugar al menos un dia"
 # -- se generan los huecos disponibles, poniendo al principio la pista 7
 sed 's/|/-/g' "${DIR_TMP}/pistas" | sort -t"-" -k1,1r -k3,3 -k2,2  > "${DIR_TMP}/huecos" #-----------------------------------------PRIORIZANDO POR PISTA, DESPUES HORA, Y DESPUES DIA
 #sed 's/|/-/g' "${DIR_TMP}/pistas"  > "${DIR_TMP}/huecos"
@@ -740,24 +740,8 @@ done < "${DIR_TMP}/partidos"
 if [ "${IMPOSIBLE}" == "true" ]; then exit 1; fi
 
 
-# 3/6 - Se coloca un partido en cada semana, que sera la configuracion por defecto
-prt_info "-- 3/6 - Se coloca un partido en cada semana, que sera la configuracion por defecto"
-# ------------------------ VERSION RAPIDA Y LOCA
-# gawk -F"|" '
-#     BEGIN{semana=1;}
-#     {
-#         # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
-#         if ($5!="-") { next; }
-
-#         # imprime cada partido en una semana
-#         print $0 >> RUTA semana
-
-#         # actualiza el numero de semana
-#         semana++;
-#         if (semana > N_SEMANAS) { semana=1; }
-#     }' RUTA="${DIR_TMP}/partidos.semana" N_SEMANAS="${nSemanas}" "${DIR_TMP}/partidos"
-# --------------------------------------------------------------------------------------------------------------------------------------------------------
-# ------------------------ VERSION LENTA Y CON LOGICA (funciona bastante mejor)
+# 4/9 - Se coloca un partido en cada semana, que sera la configuracion por defecto
+prt_info "-- 4/9 - Se coloca un partido en cada semana, que sera la configuracion por defecto"
 gawk -F"|" '{if ($5=="-") print}' "${DIR_TMP}/partidos" | # solo partidos que no tienen fecha asignada todavia (da igual que sean de meses viejos, si es que aun estan pendientes)
     while read line
     do
@@ -772,23 +756,21 @@ gawk -F"|" '{if ($5=="-") print}' "${DIR_TMP}/partidos" | # solo partidos que no
         if [ "${fDest}" == "-1" ]; then fDest=$( wc -l "${DIR_TMP}/partidos.semana"* | sort -g | head -1 | gawk -F".semana" '{print $NF}' ); fi
         echo -e "${line}" >> "${DIR_TMP}/partidos.semana${fDest}"
     done
-# --------------------------------------------------------------------------------------------------------------------------------------------------------
 mv "${DIR_TMP}/partidos" "${DIR_TMP}/partidos.orig"
 prt_info "---- Generados los ficheros origen"
-
 # -- Se comprueba que ninguna pareja repite la misma semana
 moverPartido 1 "check"
 
 
-# 4/6 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar sin repetir en la misma semana
-prt_info "-- 4/6 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar sin repetir en la misma semana"
+# 5/9 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar sin repetir en la misma semana
+prt_info "-- 5/9 - Comprueba que todos los partidos de una division son compatibles = se pueden jugar sin repetir en la misma semana"
 cp "${DIR_TMP}/partidos.orig" "${DIR_TMP}/partidos.CHECK"
 cp "${DIR_TMP}/combinaciones_todas" "${DIR_TMP}/combinaciones_todas.CHECK"
 checkCompatible; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
 
 
-# 5/6 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen
-prt_info "-- 5/6 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen"
+# 6/9 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen
+prt_info "-- 6/9 - Se repetira el proceso de ir desplazando partidos de una semana a otra hasta que todos los partidos encajen"
 semana=0; FINALIZADO=false
 while [ "${FINALIZADO}" == "false" ]
 do
@@ -1119,8 +1101,8 @@ do
 done
 
 
-# 6/6 - Se unen los partidos de todas las semanas
-prt_info "-- 6/6 - Se unen los partidos de todas las semanas"
+# 7/9 - Se unen los partidos de todas las semanas
+prt_info "-- 7/9 - Se unen los partidos de todas las semanas"
 #  -- cabecera
 echo "MES|LOCAL|VISITANTE|PISTA|FECHA|HORA_INI|HORA_FIN|PISTA_CONFIRMADA" > calendario.txt.new
 # -- se escriben los nuevos partidos
@@ -1129,12 +1111,61 @@ cat "${DIR_TMP}/calendario.semana"*".txt" | gawk -F"-" 'BEGIN{OFS="|"}{MES=sprin
 if [ -f "${DIR_TMP}/calendario" ]; then tail -n+2 "${DIR_TMP}/calendario" >> calendario.txt.new; fi
 # -- se cambia el nombre
 mv calendario.txt.new calendario.txt
+
+
+# 8/9 - Se reordenan los partidos dentro de cada dia
+prt_info "-- 8/9 - Se reordenan los partidos dentro de cada dia"
+out=$( FGRL_limpiaTabla calendario.txt "${DIR_TMP}/calendario" false )
+out=$( FGRL_limpiaTabla ranking.txt    "${DIR_TMP}/ranking"    false )
+fecha=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} -1 days" ) # porque despues va a sumar 1 dia
+while [ "${fecha}" -le "${ARG_FECHA_FIN}" ]
+do
+    fecha=$( date +"%Y%m%d" -d "${fecha} +1 days" )
+
+    # Solo se hace algo si hay mas de 1 partido y mas 1 pista
+    if [ "$( grep -c "|${fecha}|" "${DIR_TMP}/calendario" )" -gt "1" ]; then continue; fi
+    if [ "$( grep -c "|${fecha}|" "${DIR_TMP}/pistas" )"     -gt "1" ]; then continue; fi
+    
+    # Extrae los partidos que hay ese dia y ordena los partidos por ranking (suma el ranking de las 2 parejas)
+    grep "|${fecha}|" "${DIR_TMP}/calendario" |
+        while read -r line
+        do
+            loc=$( echo -e "${line}" | gawk -F"|" '{print $2}' )
+            vis=$( echo -e "${line}" | gawk -F"|" '{print $3}' )
+            posRankLoc=$( gawk -F"|" '{if ($2==PAREJA) print $1+0}' PAREJA="${loc}" "${DIR_TMP}/ranking" )
+            posRankVis=$( gawk -F"|" '{if ($2==PAREJA) print $1+0}' PAREJA="${vis}" "${DIR_TMP}/ranking" )
+            pos=$(( posRankLoc + posRankVis ))
+            echo "${pos} ${line}"
+        done |
+        sort -g -k1,1 | gawk '{print $2}' > "${DIR_TMP}/reordenaPartidos"
+    
+    # Extrae las pistas disponibles ese dia y las ordena
+    grep "|${fecha}|" "${DIR_TMP}/pistas" |
+        gawk -F"|" '{aux=$1; gsub("Pista", "", aux); aux*=-1; if (substr($3,1,2)==20) {aux+=50;} print aux,$0}' |
+        sort -g -k1,1 |
+        gawk '{print $2}' > "${DIR_TMP}/reordenaPistas"
+
+    # Se cambia los partidos
+    while IFS="|" read -r _ LOCAL VISITANTE LUGAR FECHA HINI HFIN _
+    do
+        newLugar=$( head -1 "${DIR_TMP}/reordenaPistas" | gawk -F"|" '{print $1}' )
+        newHIni=$(  head -1 "${DIR_TMP}/reordenaPistas" | gawk -F"|" '{print $3}' )
+        newHFin=$(  head -1 "${DIR_TMP}/reordenaPistas" | gawk -F"|" '{print $4}' )
+        sed -i "s/|${LOCAL}|${VISITANTE}|${LUGAR}|${FECHA}|${HINI}|${HFIN}/|${LOCAL}|${VISITANTE}|${newLugar}|${FECHA}|${newHIni}|${newHFin}/g" "${DIR_TMP}/calendario"
+        tail -n+2 "${DIR_TMP}/reordenaPistas" > "${DIR_TMP}/reordenaPistas.tmp"
+        mv "${DIR_TMP}/reordenaPistas.tmp" "${DIR_TMP}/reordenaPistas"
+    done < "${DIR_TMP}/reordenaPartidos"
+done
+
+
+# 9/9 - Actualizaciones de ficheros
+prt_info "-- 9/9 - Actualizaciones de ficheros"
+
 # -- se le da formato
 out=$( bash Script/formateaTabla.sh -f "calendario.txt" ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 prt_info "---- Generado ${G}calendario.txt${NC}"
 
-
-# Se comprueba el formato de calendario
+# -- se comprueba el formato de calendario
 bash Script/checkCalendario.sh; rv=$?
 if [ "${rv}" != "0" ]
 then
@@ -1147,7 +1178,7 @@ then
     exit 1
 fi
 
-# Se crea el fichero web de calendario
+# -- se crea el fichero web de calendario
 bash Script/updateCalendario.sh; rv=$?
 if [ "${rv}" != "0" ]
 then
@@ -1159,7 +1190,7 @@ then
     exit 1
 fi
 
-# Se crea el fichero web de partidos
+# -- se crea el fichero web de partidos
 bash Script/updatePartidos.sh -f -w; rv=$?
 if [ "${rv}" != "0" ]
 then
@@ -1170,7 +1201,7 @@ then
     exit 1
 fi
 
-# Se comprueba el formato de partidos
+# -- se comprueba el formato de partidos
 bash Script/checkPartidos.sh; rv=$?
 if [ "${rv}" != "0" ]
 then
