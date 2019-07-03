@@ -1,5 +1,5 @@
 MES|                           LOCAL|                       VISITANTE| PISTA|   FECHA|HORA_INI|HORA_FIN|PISTA_CONFIRMADA
-001|      AlbertoAngulo-RamiroLuengo|          AndresMunoz-JorgeLopez|Pista9|20190602|   17:00|   18:00|          false
+001|      AlbertoAngulo-RamiroLuengo|          AndresMunoz-JorgeLopez|Pista9|20190702|   17:00|   18:00|           true
 001|      AlbertoAngulo-RamiroLuengo|      JoseCordoba-ManueldelValle|Pista9|20190610|   19:00|   20:00|           true
 001|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|Pista9|20190620|   19:00|   20:00|           true
 001| AinhoaGoni-JuanAntonioMontesino|        DanielRamos-AlvaroRomero|Pista9|20190624|   18:00|   19:00|           true
