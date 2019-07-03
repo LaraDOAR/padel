@@ -1108,7 +1108,7 @@ echo "MES|LOCAL|VISITANTE|PISTA|FECHA|HORA_INI|HORA_FIN|PISTA_CONFIRMADA" > cale
 # -- se escriben los nuevos partidos
 cat "${DIR_TMP}/calendario.semana"*".txt" | gawk -F"-" 'BEGIN{OFS="|"}{MES=sprintf("%03d",MES); print MES,$2"-"$3,$4"-"$5,$6,$7,$8,$9,"false"}' MES="${ARG_MES}" >> calendario.txt.new
 # -- se escribe lo que ya teniamos
-if [ -f "${DIR_TMP}/calendario" ]; then tail -n+2 "${DIR_TMP}/calendario" >> calendario.txt.new; fi
+if [ -f "${DIR_TMP}/calendario" ]; then cat "${DIR_TMP}/calendario" >> calendario.txt.new; fi
 # -- se cambia el nombre
 mv calendario.txt.new calendario.txt
 
@@ -1117,14 +1117,14 @@ mv calendario.txt.new calendario.txt
 prt_info "-- 8/9 - Se reordenan los partidos dentro de cada dia"
 out=$( FGRL_limpiaTabla calendario.txt "${DIR_TMP}/calendario" false )
 out=$( FGRL_limpiaTabla ranking.txt    "${DIR_TMP}/ranking"    false )
+out=$( FGRL_limpiaTabla pistas.txt     "${DIR_TMP}/pistas"     false )
 fecha=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} -1 days" ) # porque despues va a sumar 1 dia
 while [ "${fecha}" -le "${ARG_FECHA_FIN}" ]
 do
     fecha=$( date +"%Y%m%d" -d "${fecha} +1 days" )
-
     # Solo se hace algo si hay mas de 1 partido y mas 1 pista
-    if [ "$( grep -c "|${fecha}|" "${DIR_TMP}/calendario" )" -gt "1" ]; then continue; fi
-    if [ "$( grep -c "|${fecha}|" "${DIR_TMP}/pistas" )"     -gt "1" ]; then continue; fi
+    if [ "$( grep -c "|${fecha}|" "${DIR_TMP}/calendario" )" -le "1" ]; then continue; fi
+    if [ "$( grep -c "|${fecha}|" "${DIR_TMP}/pistas" )"     -le "1" ]; then continue; fi
     
     # Extrae los partidos que hay ese dia y ordena los partidos por ranking (suma el ranking de las 2 parejas)
     grep "|${fecha}|" "${DIR_TMP}/calendario" |
@@ -1156,13 +1156,14 @@ do
         mv "${DIR_TMP}/reordenaPistas.tmp" "${DIR_TMP}/reordenaPistas"
     done < "${DIR_TMP}/reordenaPartidos"
 done
-
+echo "MES|LOCAL|VISITANTE|PISTA|FECHA|HORA_INI|HORA_FIN|PISTA_CONFIRMADA" > calendario.txt
+cat "${DIR_TMP}/calendario" >> calendario.txt
 
 # 9/9 - Actualizaciones de ficheros
 prt_info "-- 9/9 - Actualizaciones de ficheros"
 
 # -- se le da formato
-out=$( bash Script/formateaTabla.sh -f "calendario.txt" ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+out=$( bash Script/formateaTabla.sh -f calendario.txt ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 prt_info "---- Generado ${G}calendario.txt${NC}"
 
 # -- se comprueba el formato de calendario
