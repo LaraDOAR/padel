@@ -183,7 +183,7 @@ do
     n1=$( head -"${l1}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $2$3}' )
     n2=$( head -"${l2}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $2$3}' )
     e1=$( head -"${l1}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $4}' )
-    e1=$( head -"${l2}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $4}' )
+    e2=$( head -"${l2}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $4}' )
     
     {
         # -- cabecera email
@@ -236,13 +236,13 @@ do
         echo "ha habido modificaciones en el calendario que te pueden afectar."
         echo "</P>"
         echo "<P>"
-        echo "Por favor, comprueba que no tienes restricciones y estas libre en esas fechas."
+        echo "Por favor, comprueba que no tienes restricciones y est&aacute;s libre en esas fechas."
         echo "</P>"
         echo "<P>"
         echo "Para informar de cualquier problema escribe al email <A HREF="padel@iic.uam.es">padel@iic.uam.es</A>"
         echo "</P>"
         echo "<P>"
-        echo "NOTA: es posible que recibas este email antes de que la web se haya actualizado. La informacion de este"
+        echo "NOTA: es posible que recibas este email antes de que la web se haya actualizado. La informaci&oacute;n de este"
         echo "mail siempre estar&aacute; m&aacute;s actualizada que la web. La web se actualizar&aacute; antes o despu&eacute;s."
         echo "</P>"
 
@@ -273,7 +273,7 @@ do
     } > "${DIR_TMP}/mail"
 
     # envia el email
-    sendmail "${e1}, ${e2}" < "${DIR_TMP}/mail"
+    sendmail ${e1}, ${e2} < "${DIR_TMP}/mail"
 
 done
 
