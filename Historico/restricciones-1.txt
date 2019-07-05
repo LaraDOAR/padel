@@ -153,6 +153,13 @@ Ambrosio|   Iniesta|20190723
 Ambrosio|   Iniesta|20190724
 Ambrosio|   Iniesta|20190725
 Ambrosio|   Iniesta|20190726
+Ambrosio|   Iniesta|20190812
+Ambrosio|   Iniesta|20190813
+Ambrosio|   Iniesta|20190814
+Ambrosio|   Iniesta|20190815
+Ambrosio|   Iniesta|20190816
+Ambrosio|   Iniesta|20190817
+Ambrosio|   Iniesta|20190818
   Andres|     Munoz|20190722
   Andres|     Munoz|20190723
   Andres|     Munoz|20190724

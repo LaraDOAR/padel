@@ -241,10 +241,6 @@ do
         echo "<P>"
         echo "Para informar de cualquier problema escribe al email <A HREF="padel@iic.uam.es">padel@iic.uam.es</A>"
         echo "</P>"
-        echo "<P>"
-        echo "NOTA: es posible que recibas este email antes de que la web se haya actualizado. La informaci&oacute;n de este"
-        echo "mail siempre estar&aacute; m&aacute;s actualizada que la web. La web se actualizar&aacute; antes o despu&eacute;s."
-        echo "</P>"
 
         # -- tabla
         echo "<DIV STYLE='margin-left: 100px; margin-top: 10px;'>"
@@ -265,6 +261,13 @@ do
             print "</TR>"; }' PAREJA="${n1}-${n2}"
         echo "</TABLE>"
         echo "</DIV>"
+
+        # -- texto
+        echo "<P>"
+        echo "<B>Ante cualquier incoherencia entre la informaci&oacute;n de este email y la informaci&oacute;n"
+        echo "de la web, deb&eacute;is tener en cuenta que lo dicho en este email siempre estar&aacute;"
+        echo "m&aacute;s actualizado</B>"
+        echo "</P>"
 
         # -- fin html
         echo "</BODY>"

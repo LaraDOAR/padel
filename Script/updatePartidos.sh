@@ -224,6 +224,7 @@ else
 <html>
   <head>
    <title>PARTIDOS - Torneo de padel IIC</title>
+   <script src='Librerias/other/moment.js'></script>
    <style>
       #myInput {
         margin-left: 5%;
@@ -283,7 +284,13 @@ EOM
     <table id="customers">
 EOM
     head -1   "${DIR_TMP}/partidos" | gawk -F"|" '{print "<tr>";for(i=1;i<=NF;i++)print "<th onclick=\"sortTable("i-1")\">" $i"</th>";print "</tr>"}' >> partidos.html
-    tail -n+2 "${DIR_TMP}/partidos" | gawk -F"|" '{print "<tr>";for(i=1;i<=NF;i++)print "<td>"                              $i"</td>";print "</tr>"}' >> partidos.html
+    tail -n+2 "${DIR_TMP}/partidos" | gawk -F"|" '{
+       print "<tr>";
+       for(i=1;i<=4;i++)  { print "<td>"$i"</td>"; } # Hasta antes de la fecha
+       print "<td class=\"fecha\" data-fecha=\""substr($i,7,4)substr($i,4,2)substr($i,1,2)"\">"$i"</td>"; # Fecha
+       for(i=6;i<=NF;i++) { print "<td>"$i"</td>"; } # Despues de la fecha
+       print "</tr>"
+    }' >> partidos.html
     cat <<EOM >>partidos.html
     </table>
 
@@ -316,31 +323,41 @@ EOM
         switching = true;
         //Set the sorting direction to ascending:
         dir = "asc"; 
-        /*Make a loop that will continue until
-        no switching has been done:*/
+        /*Make a loop that will continue until no switching has been done:*/
         while (switching) {
           //start by saying: no switching is done:
           switching = false;
           rows = table.rows;
-          /*Loop through all table rows (except the
-          first, which contains table headers):*/
+          /*Loop through all table rows (except the first, which contains table headers):*/
           for (i = 1; i < (rows.length - 1); i++) {
             //start by saying there should be no switching:
             shouldSwitch = false;
-            /*Get the two elements you want to compare,
-            one from current row and one from the next:*/
+            /*Get the two elements you want to compare, one from current row and one from the next:*/
             x = rows[i].getElementsByTagName("TD")[n];
             y = rows[i + 1].getElementsByTagName("TD")[n];
-            /*check if the two rows should switch place,
-            based on the direction, asc or desc:*/
+            /* Averigua si es una fecha, un numero o un string*/              
+            if      (x.className=="fecha") { tipo="fecha"; }
+            else if (!isNaN(x.innerHTML))  { tipo="numero"; }
+            else                           { tipo="texto"; }      
+            /*check if the two rows should switch place, based on the direction, asc or desc:*/
             if (dir == "asc") {
-              if ((isNaN(x.innerHTML) && x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) || (!isNaN(x.innerHTML) && parseFloat(x.innerHTML) > parseFloat(y.innerHTML))) {
+              switch (tipo) {
+                 case 'fecha':  rv = x.dataset.fecha > y.dataset.fecha; break;
+                 case 'numero': rv = parseFloat(x.innerHTML) > parseFloat(y.innerHTML); break;
+                 case 'string': rv = x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase(); break;
+              }
+              if (rv) {
                 //if so, mark as a switch and break the loop:
                 shouldSwitch= true;
                 break;
               }
             } else if (dir == "desc") {
-              if ((isNaN(x.innerHTML) && x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) || (!isNaN(x.innerHTML) && parseFloat(x.innerHTML) < parseFloat(y.innerHTML))) {
+              switch (tipo) {
+                 case 'fecha':  rv = x.dataset.fecha < y.dataset.fecha; break;
+                 case 'numero': rv = parseFloat(x.innerHTML) < parseFloat(y.innerHTML); break;
+                 case 'string': rv = x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase(); break;
+              }
+              if (rv) {
                 //if so, mark as a switch and break the loop:
                 shouldSwitch = true;
                 break;
@@ -348,15 +365,13 @@ EOM
             }
           }
           if (shouldSwitch) {
-            /*If a switch has been marked, make the switch
-            and mark that a switch has been done:*/
+            /*If a switch has been marked, make the switch and mark that a switch has been done:*/
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
             switching = true;
             //Each time a switch is done, increase this count by 1:
             switchcount ++;      
           } else {
-            /*If no switching has been done AND the direction is "asc",
-            set the direction to "desc" and run the while loop again.*/
+            /*If no switching has been done AND the direction is "asc", set the direction to "desc" and run the while loop again.*/
             if (switchcount == 0 && dir == "asc") {
               dir = "desc";
               switching = true;

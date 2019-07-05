@@ -6,6 +6,10 @@
 #  - Genera el fichero calendario.txt con la fecha de los partidos que hay pendiente por jugar
 #  - Genera el fichero calendario.html para poder visualizar la tabla anterior
 #
+# Nota: es posible que por tema de restricciones 2 partidos se jueguen en la misma semana. En ese caso
+# edita el fichero repitenEnLaSemana.txt, con el formato: PAREJA|N_REPETICIONES
+# Puede llevar cabecera. Para dar formato <bash Script/formateaTabla.sh -f repitenEnLaSemana.txt>
+#
 # Entrada
 #  -m [n]        --> Numero del mes (1,2,3...)
 #  -i [YYYYMMDD] --> Fecha de inicio del mes
@@ -83,6 +87,10 @@ AYUDA="
   - Genera el fichero calendario.txt con la fecha de los partidos que hay pendiente por jugar
   - Genera el fichero calendario.html para poder visualizar la tabla anterior
 
+ Nota: es posible que por tema de restricciones 2 partidos se jueguen en la misma semana. En ese caso
+ edita el fichero repitenEnLaSemana.txt, con el formato: PAREJA|N_REPETICIONES
+ Puede llevar cabecera. Para dar formato <bash Script/formateaTabla.sh -f repitenEnLaSemana.txt>
+
  Entrada
   -m [n]        --> Numero del mes (1,2,3...)
   -i [YYYYMMDD] --> Fecha de inicio del mes
@@ -127,6 +135,8 @@ date +"%Y%m%d" -d "${ARG_FECHA_FIN} +5 days" > /dev/null 2>&1; rv=$?; if [ "${rv
 ### Funciones
 ###
 ###############################################
+
+N_MAX_REPETICIONES=1
 
 ##########
 # - factorial
@@ -216,7 +226,6 @@ function checkSemana {
 #                     1 = error = no se ha movido
 #                Modifica los ficheros partidos.semana*
 #
-N_MAX_REPETICIONES=1
 function checkMoverPartido {
 
     # Argumentos
@@ -234,7 +243,9 @@ function checkMoverPartido {
     local _nRepLocSig
     local _nRepVisSig
     local _fin
-
+    local _maxRepsLoc
+    local _maxRepsVis
+    
     # Se mueven todos los partidos que esten repetidos mas de N_MAX_REPETICIONES
     _seMueve=false
     _fin=false
@@ -249,8 +260,17 @@ function checkMoverPartido {
             _nRepLoc=$( grep -c "${_LOC}" "${DIR_TMP}/partidos.semana${_s}" )
             _nRepVis=$( grep -c "${_VIS}" "${DIR_TMP}/partidos.semana${_s}" )
 
+            # -- si existe el fichero de las repeticiones
+            _maxRepsLoc=${N_MAX_REPETICIONES}
+            _maxRepsVis=${N_MAX_REPETICIONES}
+            if [ -f "${DIR_TMP}/repitenEnLaSemana" ]
+            then
+                if [ "$( grep -c "^${_LOC}|" "${DIR_TMP}/repitenEnLaSemana" )" == "1" ]; then _maxRepsLoc=$( grep "^${_LOC}|" "${DIR_TMP}/repitenEnLaSemana" | gawk -F"|" '{print $2+0}' ); fi
+                if [ "$( grep -c "^${_VIS}|" "${DIR_TMP}/repitenEnLaSemana" )" == "1" ]; then _maxRepsVis=$( grep "^${_VIS}|" "${DIR_TMP}/repitenEnLaSemana" | gawk -F"|" '{print $2+0}' ); fi
+            fi
+
             # -- si hay que moverlo, se averigua a que semana se puede mover
-            if [ "${_nRepLoc}" -gt "${N_MAX_REPETICIONES}" ] || [ "${_nRepVis}" -gt "${N_MAX_REPETICIONES}" ]
+            if [ "${_nRepLoc}" -gt "${_maxRepsLoc}" ] || [ "${_nRepVis}" -gt "${_maxRepsVis}" ]
             then
                 _sSig=${_s}
                 for _num in $( seq 1 "${nSemanas}" )
@@ -258,7 +278,7 @@ function checkMoverPartido {
                     _sSig=$(( (_sSig % nSemanas) + 1 ))                    
                     _nRepLocSig=$( grep -c "${_LOC}" "${DIR_TMP}/partidos.semana${_sSig}" )
                     _nRepVisSig=$( grep -c "${_VIS}" "${DIR_TMP}/partidos.semana${_sSig}" )
-                    if [ "${_nRepLocSig}" -gt "${N_MAX_REPETICIONES}" ] || [ "${_nRepVisSig}" -gt "${N_MAX_REPETICIONES}" ] || [ "$( grep "^${_sSig}$" "${DIR_TMP}/huecosLibres.${_LOC}-${_VIS}" )" == "" ]
+                    if [ "${_nRepLocSig}" -gt "${_maxRepsLoc}" ] || [ "${_nRepVisSig}" -gt "${_maxRepsVis}" ] || [ "$( grep "^${_sSig}$" "${DIR_TMP}/huecosLibres.${_LOC}-${_VIS}" )" == "" ]
                     then
                         continue
                     fi
@@ -391,6 +411,10 @@ function checkCompatible {
     local _len
     local _semanaPartido
     local _line
+    local _maxRepsLoc
+    local _maxRepsVis
+    local _locAux
+    local _visAux
 
     # Inicializacion de variables auxiliares
     rm -f "${DIR_TMP}/imposible"
@@ -402,7 +426,8 @@ function checkCompatible {
     do
         gawk -F"|" '{ if ($2==DIV) {print $3; print $4;}}' DIV="${_div}" "${DIR_TMP}/partidos.CHECK" | sort -u > "${DIR_TMP}/listaParejas.division${_div}"
     done
-
+    return 0
+    
     # Se mira uno a uno cada partido
     while IFS="|" read -r _ _div _loc _vis _ _ _ _ _ _ _ _
     do
@@ -418,6 +443,7 @@ function checkCompatible {
         while read -r _fecha
         do
             prt_debug "${ARG_VERBOSO}" "-- ${_fecha}"
+            
             # -- se averigua en que semana esta ese partido: se sabe _s, _fIni y _fFin
             for _s in $( seq 1 "${nSemanas}" )
             do
@@ -439,6 +465,7 @@ function checkCompatible {
                 # ---- nos quedamos con partido + semana que se juega
                 while read -r _line
                 do
+                    # averigua la semana del partido
                     _fecha=$( echo -e "${_line}" | gawk -F"-" '{print $6}' )
                     for _s in $( seq 1 "${nSemanas}" )
                     do
@@ -446,23 +473,43 @@ function checkCompatible {
                         _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
                         if [ "${_fecha}" -ge "${_fIni}" ] && [ "${_fecha}" -le "${_fFin}" ]; then break; fi
                     done
+
+                    # se ignoran los que son de la semana actual
+                    if [ "${_s}" == "${_semanaPartido}" ]; then continue; fi
+
+                    # averigua si a alguno se le permite tener mas de 1 partido en la misma semana
+                    _locAux=$( echo -e "${_line}" | gawk -F"-" '{print $2"-"$3}' )
+                    _visAux=$( echo -e "${_line}" | gawk -F"-" '{print $4"-"$5}' )
+                    _maxRepsLoc=${N_MAX_REPETICIONES}
+                    _maxRepsVis=${N_MAX_REPETICIONES}
+                    if [ -f "${DIR_TMP}/repitenEnLaSemana" ]
+                    then
+                        if [ "$( grep -c "^${_locAux}|" "${DIR_TMP}/repitenEnLaSemana" )" == "1" ]; then _maxRepsLoc=$( grep "^${_locAux}|" "${DIR_TMP}/repitenEnLaSemana" | gawk -F"|" '{print $2+0}' ); fi
+                        if [ "$( grep -c "^${_visAux}|" "${DIR_TMP}/repitenEnLaSemana" )" == "1" ]; then _maxRepsVis=$( grep "^${_visAux}|" "${DIR_TMP}/repitenEnLaSemana" | gawk -F"|" '{print $2+0}' ); fi
+                    fi
+                    if [ "${_maxRepsLoc}" -gt "1" ] && [ "${_maxRepsVis}" -gt "1" ]; then echo -e "${_line}" | gawk -F"-" '{print $2"-"$3,$4"-"$5,"-1"}'; fi
+                    
                     echo -e "${_line}" | gawk -F"-" '{print $2"-"$3,$4"-"$5,SEMANA}' SEMANA="${_s}"
                 done |
                 # ---- registros unicos
                 sort -u |
-                # ---- se quita la semana original
-                grep -v -e "^${loc} ${vis} " | grep -v -e " ${_semanaPartido}$" |
+                # ---- nos quedamos solo con las semanas (en las que se juega algun partido)
                 gawk '{print $3}' | sort -u > "${DIR_TMP}/check.output"
 
-            # -- si falta alguna semana, es un error (debe haber 1 partido por semana)
-            _pa=$( wc -l "${DIR_TMP}/check.output" | gawk '{print $1+1}' )
+            # -- Si falta alguna semana, es un error
+            # ---- Debe haber 1 partido por semana, a no ser que se haya especificado en el fichero repitenEnLaSemana.txt lo contrario
+            # *** semanas que quedan disponibles si se juega ese partido
+            _pa=$( wc -l "${DIR_TMP}/check.output" | gawk '{print $1+1}' ) # +1 por la pareja actual, que juega esa semana
+            # *** semanas que hay en total
             _pb=$( wc -l "${DIR_TMP}/listaParejas.division${_div}" | gawk '{print $1}' )
-            _pb=$(( $(factorial "${_pb}") / (2*( $(factorial $((_pb-2))) )) ))
+            _pb=$(( $( factorial "${_pb}" ) / (2*( $( factorial $((_pb-2)) ) )) ))
             if [ "${_pa}" -ge "${_pb}" ]
             then
                 prt_debug "${ARG_VERBOSO}" "---- Es compatible"
                 touch "${DIR_TMP}/parejaCompatible"
                 break
+            else
+                prt_debug "${ARG_VERBOSO}" "---- NO compatible porque ${_pa} < ${_pb}"
             fi
 
         done < "${DIR_TMP}/fechas_del_partido"
@@ -471,7 +518,7 @@ function checkCompatible {
         if [ ! -f "${DIR_TMP}/parejaCompatible" ]
         then
             touch "${DIR_TMP}/imposible"
-            echo "${_div}" >> "${DIR_TMP}/tabla"
+            echo "${_div}|${_loc} vs ${_vis}" >> "${DIR_TMP}/tabla"
         fi
     done < "${DIR_TMP}/partidos.CHECK"
 
@@ -479,7 +526,9 @@ function checkCompatible {
     if [ -f "${DIR_TMP}/tabla" ]
     then
         prt_error "--- Problemas de restricciones para que una pareja no repita partido en la misma semana"
-        prt_error "----- Se imprime tabla con restricciones para poder visualizar el problema (X es restriccion)"
+        prt_error "--- Las parejas con problemas son las siguientes:"
+        while read -r line; do prt_error "********** Division $( echo -e ${line} | gawk -F"|" '{print $1}'): $( echo -e ${line} | gawk -F"|" '{print $2}')"; done < "${DIR_TMP}/tabla"
+        prt_error "--- Se imprime tabla con restricciones para poder visualizar el problema (X es restriccion)"
         echo ""
 
         gawk 'BEGIN{OFS=FS="|"}{print $1$2,$3}' "${DIR_TMP}/restricciones" > "${DIR_TMP}/restricciones.CHECK"
@@ -521,7 +570,7 @@ function checkCompatible {
                 done
                 printf "\n"; printf "%*s\n" "${_len}" " " | sed 's/ /-/g'
             done < <( gawk 'BEGIN{OFS=FS="|";}{if ($2==DIV) print $3,$4}' DIV="${_div}" "${DIR_TMP}/partidos.orig" )
-        done < <( sort -u "${DIR_TMP}/tabla" )
+        done < <( gawk -F"|" '{print $1}' "${DIR_TMP}/tabla" | sort -u )
     fi
 
     # Final
@@ -633,7 +682,8 @@ mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${
 out=$( FGRL_limpiaTabla pistas.txt        "${DIR_TMP}/pistas"        false )
 out=$( FGRL_limpiaTabla restricciones.txt "${DIR_TMP}/restricciones" false )
 out=$( FGRL_limpiaTabla partidos.txt      "${DIR_TMP}/partidos"      false )
-if [ -f calendario.txt ]; then out=$( FGRL_limpiaTabla calendario.txt "${DIR_TMP}/calendario" false ); fi
+if [ -f calendario.txt ];        then out=$( FGRL_limpiaTabla calendario.txt        "${DIR_TMP}/calendario"        false ); fi
+if [ -f repitenEnLaSemana.txt ]; then out=$( FGRL_limpiaTabla repitenEnLaSemana.txt "${DIR_TMP}/repitenEnLaSemana" false ); fi
 
 # Se hace backup de los ficheros de salida, para no sobreescribir
 FGRL_backupFile calendario txt;  rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
@@ -1017,8 +1067,10 @@ do
                 grep -e "-${pLocal}-${pVisitante}-${hueco}" "${DIR_TMP}/comb_todas" >> "${DIR_TMP}/calendario.semana${semana}.txt"  # Se anade al calendario a ese partido en ese hueco
                 sed -i "/-${pLocal}-${pVisitante}-/d" "${DIR_TMP}/comb_todas"  # Como ese partido ya esta acoplado, se eliminan el resto de huecos para ese partido
                 sed -i "/-${hueco}/d" "${DIR_TMP}/comb_todas"                  # Como ese hueco ya esta usado, se eliminan todas las parejas que tenian posibilidad de jugar en ese hueco
+               
 
                 # Como ya hay una pareja de la division, ninguna pareja de la division puede jugar esa semana
+                # a no ser que el fichero repitenEnLaSemana.txt diga lo contrario
                 # -- se extrae la division de la pareja
                 div=$( grep -e "|${pLocal}|${pVisitante}|" "${DIR_TMP}/partidos.orig" | gawk -F"|" '{print $2}' )
                 # -- se busca la semana a la que pertenece ese hueco: _s + _fIni + _fFin
@@ -1030,15 +1082,82 @@ do
                     if [ "${_fecha}" -ge "${_fIni}" ] && [ "${_fecha}" -le "${_fFin}" ]; then break; fi
                 done
                 # -- se eliminan los partidos de la misma division en esas fechas
+                grep -f "${DIR_TMP}/listaParejas.division${div}" "${DIR_TMP}/comb_todas" | gawk -F"-" '{print $2"-"$3, $4"-"$5}' | sort -u > "${DIR_TMP}/limpiandoParejasMismaSemana"
                 while read -r pLoc pVis
                 do
-                    _fecha=${_fIni}
-                    while [ "${_fecha}" -le "${_fFin}" ]
+                    # solo se queda con un partido por dia (luego vera si por semana), pero lo que no se permite es que una pareja juegue el mismo dia mas de un partido
+                    terminado=FALSE
+                    while [ "${terminado}" == "FALSE" ]
                     do
-                        sed -i "/-${pLoc}-${pVis}-.*-${_fecha}/d" "${DIR_TMP}/comb_todas"  # -- se quitan los partidos de la misma division de esa semana
-                        _fecha=$( date +"%Y%m%d" -d "${_fecha} +1 days" )
+                        terminado=TRUE
+                        _fecha=$( date +"%Y%m%d" -d "${_fIni} -1 days" )  # porque despues suma 1
+                        while  [ "${_fecha}" -gt "${_fFin}" ] && [ "${terminado}" == "TRUE" ]
+                        do
+                            _fecha=$( date +"%Y%m%d" -d "${_fecha} +1 days" )
+                            n=$( grep -e "-${pLoc}-" "${DIR_TMP}/comb_todas" | grep -c -e "-${_fecha}" )
+                            if [ "${n}" -gt "1" ]
+                            then
+                                sed -i "0,/-${pLoc}-.*-${_fecha}/{//d;}" "${DIR_TMP}/comb_todas"
+                                terminado=FALSE
+                            fi
+                            n=$( grep -e "-${pVis}-" "${DIR_TMP}/comb_todas" | grep -c -e "-${_fecha}" )
+                            if [ "${n}" -gt "1" ]
+                            then
+                                sed -i "0,/-${pVis}-.*-${_fecha}/{//d;}" "${DIR_TMP}/comb_todas"
+                                terminado=FALSE
+                            fi
+                        done
                     done
-                done < <( grep -f "${DIR_TMP}/listaParejas.division${div}" "${DIR_TMP}/comb_todas" | gawk -F"-" '{print $2"-"$3, $4"-"$5}' | sort -u )
+                    
+                    # -- LOCAL
+
+                    # averigua si a alguno se le permite tener mas de 1 partido en la misma semana
+                    maxRepsLoc=${N_MAX_REPETICIONES}
+                    if [ -f "${DIR_TMP}/repitenEnLaSemana" ] && [ "$( grep -c "^${pLoc}|" "${DIR_TMP}/repitenEnLaSemana" )" == "1" ]; then maxRepsLoc=$( grep "^${pLoc}|" "${DIR_TMP}/repitenEnLaSemana" | gawk -F"|" '{print $2+0}' ); fi
+
+                    # averigua cuantos partidos tiene esa pareja esa semana y cuantos se deberian eliminar
+                    nTotalLoc=$( grep -e "-${pLoc}-" "${DIR_TMP}/comb_todas" | gawk -F"-" '{if ($7>=FINI && $7<=FFIN) print }' FINI="${_fIni}" FFIN="${_fFin}"| wc -l )
+                    nToRemoveLoc=$(( nTotalLoc - maxRepsLoc ))
+                    
+                    # elimina los nPrimeros partidos de la pareja local que haya en esa semana
+                    _fecha=$( date +"%Y%m%d" -d "${_fIni} -1 days" )  # porque despues suma 1
+                    contador=1
+                    while [ "${contador}" -le "${nToRemoveLoc}" ]
+                    do
+                        _fecha=$( date +"%Y%m%d" -d "${_fecha} +1 days" )                                  # actualiza la fecha
+                        if [ "${_fecha}" -gt "${_fFin}" ]; then break; fi                                  # ya ha mirado todas la fechas de la semana (no deberia llegar hasta aqui)
+                        n=$( grep -e "-${pLoc}-" "${DIR_TMP}/comb_todas" | grep -c -e "-${_fecha}" )       # averigua si hay algun partido a eliminar en esa fecha
+                        if [ "${n}" == "0" ]; then continue; fi                                            # si no hay partidos pasa a la siguiente fecha
+                        sed -i "0,/-${pLoc}-.*-${_fecha}/{//d;}" "${DIR_TMP}/comb_todas"                   # se quita la primera aparicion
+                        contador=$(( contador + 1 ))                                                       # se actualiza el contador de partidos eliminados
+                        if [ "${n}" -gt "1" ]; then _fecha=$( date +"%Y%m%d" -d "${_fecha} -1 days" ); fi  # si aun hay partidos en esa fecha, se insiste
+                    done
+
+                    # -- VISITANTE
+                    
+                    # averigua si a alguno se le permite tener mas de 1 partido en la misma semana
+                    maxRepsVis=${N_MAX_REPETICIONES}
+                    if [ -f "${DIR_TMP}/repitenEnLaSemana" ] && [ "$( grep -c "^${pVis}|" "${DIR_TMP}/repitenEnLaSemana" )" == "1" ]; then maxRepsVis=$( grep "^${pVis}|" "${DIR_TMP}/repitenEnLaSemana" | gawk -F"|" '{print $2+0}' ); fi
+
+                    # averigua cuantos partidos tiene esa pareja esa semana y cuantos se deberian eliminar
+                    nTotalVis=$( grep -e "-${pVis}-" "${DIR_TMP}/comb_todas" | gawk -F"-" '{if ($7>=FINI && $7<=FFIN) print }' FINI="${_fIni}" FFIN="${_fFin}"| wc -l )
+                    nToRemoveVis=$(( nTotalVis - maxRepsVis ))
+                    
+                    # elimina los nPrimeros partidos de la pareja visitante que haya en esa semana
+                    _fecha=$( date +"%Y%m%d" -d "${_fIni} -1 days" )  # porque despues suma 1
+                    contador=1
+                    while [ "${contador}" -le "${nToRemoveVis}" ]
+                    do
+                        _fecha=$( date +"%Y%m%d" -d "${_fecha} +1 days" )                                  # actualiza la fecha
+                        if [ "${_fecha}" -gt "${_fFin}" ]; then break; fi                                  # ya ha mirado todas la fechas de la semana (no deberia llegar hasta aqui)
+                        n=$( grep -e "-${pVis}-" "${DIR_TMP}/comb_todas" | grep -c -e "-${_fecha}" )       # averigua si hay algun partido a eliminar en esa fecha
+                        if [ "${n}" == "0" ]; then continue; fi                                            # si no hay partidos pasa a la siguiente fecha
+                        sed -i "0,/-${pVis}-.*-${_fecha}/{//d;}" "${DIR_TMP}/comb_todas"                   # se quita la primera aparicion
+                        contador=$(( contador + 1 ))                                                       # se actualiza el contador de partidos eliminados
+                        if [ "${n}" -gt "1" ]; then _fecha=$( date +"%Y%m%d" -d "${_fecha} -1 days" ); fi  # si aun hay partidos en esa fecha, se insiste
+                    done
+                done < "${DIR_TMP}/limpiandoParejasMismaSemana"
+                rm "${DIR_TMP}/limpiandoParejasMismaSemana"
 
                 # Se recalculan las combinaciones ordenadas
                 gawk -F"-" '{print $2"-"$3 " vs " $4"-"$5}' "${DIR_TMP}/comb_todas" | sort | uniq -c | sort -k1,1 -g > "${DIR_TMP}/comb_ordenadas"
