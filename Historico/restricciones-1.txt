@@ -121,12 +121,7 @@
  Alberto|    Mateos|20190827
  Alberto|    Mateos|20190829
  Alberto|  Parramon|20190701
- Alberto|  Parramon|20190702
  Alberto|  Parramon|20190703
- Alberto|  Parramon|20190704
- Alberto|  Parramon|20190705
- Alberto|  Parramon|20190706
- Alberto|  Parramon|20190707
  Alberto|  Parramon|20190708
  Alberto|  Parramon|20190710
  Alberto|  Parramon|20190715
@@ -135,14 +130,25 @@
  Alberto|  Parramon|20190724
  Alberto|  Parramon|20190729
  Alberto|  Parramon|20190731
+ Alberto|  Parramon|20190804
  Alberto|  Parramon|20190805
+ Alberto|  Parramon|20190806
  Alberto|  Parramon|20190807
+ Alberto|  Parramon|20190808
+ Alberto|  Parramon|20190809
+ Alberto|  Parramon|20190810
+ Alberto|  Parramon|20190811
  Alberto|  Parramon|20190812
  Alberto|  Parramon|20190814
  Alberto|  Parramon|20190819
  Alberto|  Parramon|20190821
+ Alberto|  Parramon|20190825
  Alberto|  Parramon|20190826
+ Alberto|  Parramon|20190827
  Alberto|  Parramon|20190828
+ Alberto|  Parramon|20190829
+ Alberto|  Parramon|20190830
+ Alberto|  Parramon|20190831
 Ambrosio|   Iniesta|20190708
 Ambrosio|   Iniesta|20190709
 Ambrosio|   Iniesta|20190710
@@ -239,6 +245,7 @@ Cristina|   Pruenza|20190824
   Daniel|   Morillo|20190719
   Daniel|   Morillo|20190720
   Daniel|   Morillo|20190721
+  Daniel|   Morillo|20190723
   Daniel|   Morillo|20190813
   Daniel|   Morillo|20190814
   Daniel|   Morillo|20190815
@@ -336,6 +343,7 @@ Cristina|   Pruenza|20190824
     Lara| Dominguez|20190816
     Lara| Dominguez|20190817
     Lara| Dominguez|20190818
+    Lara| Dominguez|20190819
     Lara| Dominguez|20190826
     Lara| Dominguez|20190827
     Lara| Dominguez|20190828
