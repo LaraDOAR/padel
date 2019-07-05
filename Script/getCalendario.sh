@@ -426,7 +426,6 @@ function checkCompatible {
     do
         gawk -F"|" '{ if ($2==DIV) {print $3; print $4;}}' DIV="${_div}" "${DIR_TMP}/partidos.CHECK" | sort -u > "${DIR_TMP}/listaParejas.division${_div}"
     done
-    return 0
     
     # Se mira uno a uno cada partido
     while IFS="|" read -r _ _div _loc _vis _ _ _ _ _ _ _ _
@@ -1050,6 +1049,7 @@ do
                 # Se coge el primer hueco en el que puede ir
                 # *** Dando prioridad a pista buena + hora temprana
                 hueco=$( grep -e "-${pLocal}-${pVisitante}" "${DIR_TMP}/comb_todas" | sort -t"-" -k6,6r -k8,8 -k7,7 | head -1 | cut -d"-" -f 6- )  #Damos por hecho que las pistas con mas numeracion son mejores
+                fechaHueco=$( echo -e "${hueco}" | gawk -F"-" '{print $2}'  )
                 prt_debug "${ARG_VERBOSO}" "------ en el hueco [${hueco}]"
 
                 # Se comprueba si ese hueco esta disponible
@@ -1065,9 +1065,10 @@ do
                 primerPartido=false  # el primer partido ya ha sido colocado
 
                 grep -e "-${pLocal}-${pVisitante}-${hueco}" "${DIR_TMP}/comb_todas" >> "${DIR_TMP}/calendario.semana${semana}.txt"  # Se anade al calendario a ese partido en ese hueco
-                sed -i "/-${pLocal}-${pVisitante}-/d" "${DIR_TMP}/comb_todas"  # Como ese partido ya esta acoplado, se eliminan el resto de huecos para ese partido
-                sed -i "/-${hueco}/d" "${DIR_TMP}/comb_todas"                  # Como ese hueco ya esta usado, se eliminan todas las parejas que tenian posibilidad de jugar en ese hueco
-               
+                sed -i "/-${pLocal}-${pVisitante}-/d" "${DIR_TMP}/comb_todas"   # Como ese partido ya esta acoplado, se eliminan el resto de huecos para ese partido
+                sed -i "/-${hueco}/d" "${DIR_TMP}/comb_todas"                   # Como ese hueco ya esta usado, se eliminan todas las parejas que tenian posibilidad de jugar en ese hueco
+                sed -i "/-${pLocal}-.*-${fechaHueco}/d" "${DIR_TMP}/comb_todas" # Ninguna de las parejas puede jugar ya ese dia
+                sed -i "/-${pVisitante}-.*-${fechaHueco}/d" "${DIR_TMP}/comb_todas" # Ninguna de las parejas puede jugar ya ese dia
 
                 # Como ya hay una pareja de la division, ninguna pareja de la division puede jugar esa semana
                 # a no ser que el fichero repitenEnLaSemana.txt diga lo contrario
@@ -1085,29 +1086,29 @@ do
                 grep -f "${DIR_TMP}/listaParejas.division${div}" "${DIR_TMP}/comb_todas" | gawk -F"-" '{print $2"-"$3, $4"-"$5}' | sort -u > "${DIR_TMP}/limpiandoParejasMismaSemana"
                 while read -r pLoc pVis
                 do
-                    # solo se queda con un partido por dia (luego vera si por semana), pero lo que no se permite es que una pareja juegue el mismo dia mas de un partido
-                    terminado=FALSE
-                    while [ "${terminado}" == "FALSE" ]
-                    do
-                        terminado=TRUE
-                        _fecha=$( date +"%Y%m%d" -d "${_fIni} -1 days" )  # porque despues suma 1
-                        while  [ "${_fecha}" -gt "${_fFin}" ] && [ "${terminado}" == "TRUE" ]
-                        do
-                            _fecha=$( date +"%Y%m%d" -d "${_fecha} +1 days" )
-                            n=$( grep -e "-${pLoc}-" "${DIR_TMP}/comb_todas" | grep -c -e "-${_fecha}" )
-                            if [ "${n}" -gt "1" ]
-                            then
-                                sed -i "0,/-${pLoc}-.*-${_fecha}/{//d;}" "${DIR_TMP}/comb_todas"
-                                terminado=FALSE
-                            fi
-                            n=$( grep -e "-${pVis}-" "${DIR_TMP}/comb_todas" | grep -c -e "-${_fecha}" )
-                            if [ "${n}" -gt "1" ]
-                            then
-                                sed -i "0,/-${pVis}-.*-${_fecha}/{//d;}" "${DIR_TMP}/comb_todas"
-                                terminado=FALSE
-                            fi
-                        done
-                    done
+                    # # solo se queda con un partido por dia (luego vera si por semana), pero lo que no se permite es que una pareja juegue el mismo dia mas de un partido
+                    # terminado=FALSE
+                    # while [ "${terminado}" == "FALSE" ]
+                    # do
+                    #     terminado=TRUE
+                    #     _fecha=$( date +"%Y%m%d" -d "${_fIni} -1 days" )  # porque despues suma 1
+                    #     while  [ "${_fecha}" -lt "${_fFin}" ] && [ "${terminado}" == "TRUE" ]
+                    #     do
+                    #         _fecha=$( date +"%Y%m%d" -d "${_fecha} +1 days" )
+                    #         n=$( grep -e "-${pLoc}-" "${DIR_TMP}/comb_todas" | grep -c -e "-${_fecha}" )
+                    #         if [ "${n}" -gt "1" ]
+                    #         then
+                    #             sed -i "0,/-${pLoc}-.*-${_fecha}/{//d;}" "${DIR_TMP}/comb_todas"
+                    #             terminado=FALSE
+                    #         fi
+                    #         n=$( grep -e "-${pVis}-" "${DIR_TMP}/comb_todas" | grep -c -e "-${_fecha}" )
+                    #         if [ "${n}" -gt "1" ]
+                    #         then
+                    #             sed -i "0,/-${pVis}-.*-${_fecha}/{//d;}" "${DIR_TMP}/comb_todas"
+                    #             terminado=FALSE
+                    #         fi
+                    #     done
+                    # done
                     
                     # -- LOCAL
 

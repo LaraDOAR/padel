@@ -2,6 +2,7 @@
 <html>
   <head>
    <title>PARTIDOS - Torneo de padel IIC</title>
+   <script src='Librerias/other/moment.js'></script>
    <style>
       #myInput {
         margin-left: 5%;
@@ -76,7 +77,7 @@
 <td>1</td>
 <td>AlbertoAngulo-RamiroLuengo</td>
 <td>AlbertoParramon-IgnacioHernandez</td>
-<td>13/08/2019</td>
+<td class="fecha" data-fecha="20190806">06/08/2019</td>
 <td>18:00</td>
 <td>19:00</td>
 <td>Pista9</td>
@@ -90,7 +91,7 @@
 <td>1</td>
 <td>AlbertoAngulo-RamiroLuengo</td>
 <td>AndresMunoz-JorgeLopez</td>
-<td>06/08/2019</td>
+<td class="fecha" data-fecha="20190827">27/08/2019</td>
 <td>18:00</td>
 <td>19:00</td>
 <td>Pista9</td>
@@ -104,10 +105,10 @@
 <td>1</td>
 <td>AlbertoAngulo-RamiroLuengo</td>
 <td>JoseCordoba-ManueldelValle</td>
-<td>27/08/2019</td>
-<td>18:00</td>
+<td class="fecha" data-fecha="20190822">22/08/2019</td>
 <td>19:00</td>
-<td>Pista9</td>
+<td>20:00</td>
+<td>Pista3</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -118,7 +119,7 @@
 <td>1</td>
 <td>AlbertoParramon-IgnacioHernandez</td>
 <td>AndresMunoz-JorgeLopez</td>
-<td>09/07/2019</td>
+<td class="fecha" data-fecha="20190820">20/08/2019</td>
 <td>18:00</td>
 <td>19:00</td>
 <td>Pista9</td>
@@ -132,7 +133,7 @@
 <td>1</td>
 <td>AlbertoParramon-IgnacioHernandez</td>
 <td>JoseCordoba-ManueldelValle</td>
-<td>20/08/2019</td>
+<td class="fecha" data-fecha="20190813">13/08/2019</td>
 <td>18:00</td>
 <td>19:00</td>
 <td>Pista9</td>
@@ -146,7 +147,7 @@
 <td>1</td>
 <td>AndresMunoz-JorgeLopez</td>
 <td>JoseCordoba-ManueldelValle</td>
-<td>16/07/2019</td>
+<td class="fecha" data-fecha="20190716">16/07/2019</td>
 <td>18:00</td>
 <td>19:00</td>
 <td>Pista9</td>
@@ -160,7 +161,7 @@
 <td>2</td>
 <td>AinhoaGoni-JuanAntonioMontesino</td>
 <td>AlbertoMateos-JavierVidal</td>
-<td>26/08/2019</td>
+<td class="fecha" data-fecha="20190729">29/07/2019</td>
 <td>18:00</td>
 <td>19:00</td>
 <td>Pista3</td>
@@ -174,10 +175,10 @@
 <td>2</td>
 <td>AinhoaGoni-JuanAntonioMontesino</td>
 <td>DiegoChicote-CarlosAlbertoMartin</td>
-<td>11/07/2019</td>
-<td>18:00</td>
+<td class="fecha" data-fecha="20190827">27/08/2019</td>
 <td>19:00</td>
-<td>Pista3</td>
+<td>20:00</td>
+<td>Pista9</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -188,9 +189,9 @@
 <td>2</td>
 <td>AinhoaGoni-JuanAntonioMontesino</td>
 <td>RamonCostafreda-AntonioSanchez</td>
-<td>30/07/2019</td>
-<td>18:00</td>
+<td class="fecha" data-fecha="20190820">20/08/2019</td>
 <td>19:00</td>
+<td>20:00</td>
 <td>Pista9</td>
 <td>-</td>
 <td>-</td>
@@ -202,7 +203,7 @@
 <td>2</td>
 <td>AlbertoMateos-JavierVidal</td>
 <td>DiegoChicote-CarlosAlbertoMartin</td>
-<td>05/08/2019</td>
+<td class="fecha" data-fecha="20190812">12/08/2019</td>
 <td>18:00</td>
 <td>19:00</td>
 <td>Pista3</td>
@@ -216,7 +217,7 @@
 <td>2</td>
 <td>AlbertoMateos-JavierVidal</td>
 <td>RamonCostafreda-AntonioSanchez</td>
-<td>19/08/2019</td>
+<td class="fecha" data-fecha="20190805">05/08/2019</td>
 <td>18:00</td>
 <td>19:00</td>
 <td>Pista3</td>
@@ -230,10 +231,10 @@
 <td>2</td>
 <td>DiegoChicote-CarlosAlbertoMartin</td>
 <td>RamonCostafreda-AntonioSanchez</td>
-<td>13/08/2019</td>
+<td class="fecha" data-fecha="20190801">01/08/2019</td>
+<td>18:00</td>
 <td>19:00</td>
-<td>20:00</td>
-<td>Pista9</td>
+<td>Pista3</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -244,10 +245,10 @@
 <td>3</td>
 <td>AmbrosioIniesta-CarlosFernandez</td>
 <td>DanielMichaud-JavierMunoz</td>
-<td>16/07/2019</td>
+<td class="fecha" data-fecha="20190717">17/07/2019</td>
 <td>19:00</td>
 <td>20:00</td>
-<td>Pista9</td>
+<td>Pista3</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -258,7 +259,7 @@
 <td>3</td>
 <td>AmbrosioIniesta-CarlosFernandez</td>
 <td>DanielMorillo-AdrianGalan</td>
-<td>30/07/2019</td>
+<td class="fecha" data-fecha="20190730">30/07/2019</td>
 <td>19:00</td>
 <td>20:00</td>
 <td>Pista9</td>
@@ -272,7 +273,7 @@
 <td>3</td>
 <td>AmbrosioIniesta-CarlosFernandez</td>
 <td>MonicaGarcia-EnriqueClemente</td>
-<td>06/08/2019</td>
+<td class="fecha" data-fecha="20190806">06/08/2019</td>
 <td>19:00</td>
 <td>20:00</td>
 <td>Pista9</td>
@@ -286,9 +287,9 @@
 <td>3</td>
 <td>DanielMichaud-JavierMunoz</td>
 <td>DanielMorillo-AdrianGalan</td>
-<td>22/07/2019</td>
-<td>18:00</td>
+<td class="fecha" data-fecha="20190808">08/08/2019</td>
 <td>19:00</td>
+<td>20:00</td>
 <td>Pista3</td>
 <td>-</td>
 <td>-</td>
@@ -300,9 +301,9 @@
 <td>3</td>
 <td>DanielMichaud-JavierMunoz</td>
 <td>MonicaGarcia-EnriqueClemente</td>
-<td>13/08/2019</td>
-<td>18:00</td>
+<td class="fecha" data-fecha="20190801">01/08/2019</td>
 <td>19:00</td>
+<td>20:00</td>
 <td>Pista3</td>
 <td>-</td>
 <td>-</td>
@@ -314,21 +315,7 @@
 <td>3</td>
 <td>DanielMorillo-AdrianGalan</td>
 <td>MonicaGarcia-EnriqueClemente</td>
-<td>09/07/2019</td>
-<td>19:00</td>
-<td>20:00</td>
-<td>Pista9</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>false</td>
-</tr>
-<tr>
-<td>002</td>
-<td>4</td>
-<td>CristinaPruenza-SofiaCerda</td>
-<td>DanielVillar-MariaLuisaBagaces</td>
-<td>23/07/2019</td>
+<td class="fecha" data-fecha="20190709">09/07/2019</td>
 <td>18:00</td>
 <td>19:00</td>
 <td>Pista9</td>
@@ -341,8 +328,8 @@
 <td>002</td>
 <td>4</td>
 <td>CristinaPruenza-SofiaCerda</td>
-<td>LaraDominguez-TeresaSolano</td>
-<td>30/07/2019</td>
+<td>DanielVillar-MariaLuisaBagaces</td>
+<td class="fecha" data-fecha="20190718">18/07/2019</td>
 <td>18:00</td>
 <td>19:00</td>
 <td>Pista3</td>
@@ -355,24 +342,10 @@
 <td>002</td>
 <td>4</td>
 <td>CristinaPruenza-SofiaCerda</td>
-<td>SaraGarcia-AnaAlastuey</td>
-<td>27/08/2019</td>
-<td>19:00</td>
-<td>20:00</td>
-<td>Pista9</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>false</td>
-</tr>
-<tr>
-<td>002</td>
-<td>4</td>
-<td>DanielVillar-MariaLuisaBagaces</td>
 <td>LaraDominguez-TeresaSolano</td>
-<td>20/08/2019</td>
+<td class="fecha" data-fecha="20190723">23/07/2019</td>
+<td>18:00</td>
 <td>19:00</td>
-<td>20:00</td>
 <td>Pista9</td>
 <td>-</td>
 <td>-</td>
@@ -382,9 +355,9 @@
 <tr>
 <td>002</td>
 <td>4</td>
-<td>DanielVillar-MariaLuisaBagaces</td>
+<td>CristinaPruenza-SofiaCerda</td>
 <td>SaraGarcia-AnaAlastuey</td>
-<td>09/07/2019</td>
+<td class="fecha" data-fecha="20190827">27/08/2019</td>
 <td>18:00</td>
 <td>19:00</td>
 <td>Pista3</td>
@@ -396,11 +369,39 @@
 <tr>
 <td>002</td>
 <td>4</td>
+<td>DanielVillar-MariaLuisaBagaces</td>
 <td>LaraDominguez-TeresaSolano</td>
-<td>SaraGarcia-AnaAlastuey</td>
-<td>16/07/2019</td>
+<td class="fecha" data-fecha="20190820">20/08/2019</td>
 <td>18:00</td>
 <td>19:00</td>
+<td>Pista3</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>false</td>
+</tr>
+<tr>
+<td>002</td>
+<td>4</td>
+<td>DanielVillar-MariaLuisaBagaces</td>
+<td>SaraGarcia-AnaAlastuey</td>
+<td class="fecha" data-fecha="20190709">09/07/2019</td>
+<td>19:00</td>
+<td>20:00</td>
+<td>Pista9</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>false</td>
+</tr>
+<tr>
+<td>002</td>
+<td>4</td>
+<td>LaraDominguez-TeresaSolano</td>
+<td>SaraGarcia-AnaAlastuey</td>
+<td class="fecha" data-fecha="20190718">18/07/2019</td>
+<td>19:00</td>
+<td>20:00</td>
 <td>Pista3</td>
 <td>-</td>
 <td>-</td>
@@ -412,7 +413,7 @@
 <td>1</td>
 <td>AlbertoAngulo-RamiroLuengo</td>
 <td>AndresMunoz-JorgeLopez</td>
-<td>02/07/2019</td>
+<td class="fecha" data-fecha="20190702">02/07/2019</td>
 <td>17:00</td>
 <td>18:00</td>
 <td>Pista9</td>
@@ -426,7 +427,7 @@
 <td>1</td>
 <td>AlbertoAngulo-RamiroLuengo</td>
 <td>JoseCordoba-ManueldelValle</td>
-<td>10/06/2019</td>
+<td class="fecha" data-fecha="20190610">10/06/2019</td>
 <td>19:00</td>
 <td>20:00</td>
 <td>Pista9</td>
@@ -440,7 +441,7 @@
 <td>1</td>
 <td>AndresMunoz-JorgeLopez</td>
 <td>JoseCordoba-ManueldelValle</td>
-<td>20/06/2019</td>
+<td class="fecha" data-fecha="20190620">20/06/2019</td>
 <td>19:00</td>
 <td>20:00</td>
 <td>Pista9</td>
@@ -454,7 +455,7 @@
 <td>3</td>
 <td>AlbertoMateos-JavierVidal</td>
 <td>AlbertoParramon-IgnacioHernandez</td>
-<td>12/06/2019</td>
+<td class="fecha" data-fecha="20190612">12/06/2019</td>
 <td>18:00</td>
 <td>19:00</td>
 <td>Pista9</td>
@@ -468,7 +469,7 @@
 <td>3</td>
 <td>AlbertoMateos-JavierVidal</td>
 <td>DiegoChicote-CarlosAlbertoMartin</td>
-<td>24/06/2019</td>
+<td class="fecha" data-fecha="20190624">24/06/2019</td>
 <td>18:00</td>
 <td>19:00</td>
 <td>Pista3</td>
@@ -482,7 +483,7 @@
 <td>3</td>
 <td>AlbertoParramon-IgnacioHernandez</td>
 <td>DiegoChicote-CarlosAlbertoMartin</td>
-<td>01/06/2019</td>
+<td class="fecha" data-fecha="20190601">01/06/2019</td>
 <td>17:00</td>
 <td>18:00</td>
 <td>Pista9</td>
@@ -496,7 +497,7 @@
 <td>4</td>
 <td>AmbrosioIniesta-CarlosFernandez</td>
 <td>MonicaGarcia-EnriqueClemente</td>
-<td>10/06/2019</td>
+<td class="fecha" data-fecha="20190610">10/06/2019</td>
 <td>19:00</td>
 <td>20:00</td>
 <td>Pista3</td>
@@ -510,7 +511,7 @@
 <td>4</td>
 <td>AmbrosioIniesta-CarlosFernandez</td>
 <td>RamonCostafreda-AntonioSanchez</td>
-<td>26/06/2019</td>
+<td class="fecha" data-fecha="20190626">26/06/2019</td>
 <td>19:00</td>
 <td>20:00</td>
 <td>Pista3</td>
@@ -524,7 +525,7 @@
 <td>4</td>
 <td>MonicaGarcia-EnriqueClemente</td>
 <td>RamonCostafreda-AntonioSanchez</td>
-<td>24/06/2019</td>
+<td class="fecha" data-fecha="20190624">24/06/2019</td>
 <td>19:00</td>
 <td>20:00</td>
 <td>Pista9</td>
@@ -538,7 +539,7 @@
 <td>5</td>
 <td>DanielMichaud-JavierMunoz</td>
 <td>LaraDominguez-TeresaSolano</td>
-<td>25/06/2019</td>
+<td class="fecha" data-fecha="20190625">25/06/2019</td>
 <td>18:00</td>
 <td>19:00</td>
 <td>Pista9</td>
@@ -552,7 +553,7 @@
 <td>6</td>
 <td>CristinaPruenza-SofiaCerda</td>
 <td>DanielMorillo-AdrianGalan</td>
-<td>20/06/2019</td>
+<td class="fecha" data-fecha="20190620">20/06/2019</td>
 <td>18:00</td>
 <td>19:00</td>
 <td>Pista9</td>
@@ -566,7 +567,7 @@
 <td>7</td>
 <td>DanielVillar-MariaLuisaBagaces</td>
 <td>SaraGarcia-AnaAlastuey</td>
-<td>25/06/2019</td>
+<td class="fecha" data-fecha="20190625">25/06/2019</td>
 <td>19:00</td>
 <td>20:00</td>
 <td>Pista3</td>
@@ -606,31 +607,41 @@
         switching = true;
         //Set the sorting direction to ascending:
         dir = "asc"; 
-        /*Make a loop that will continue until
-        no switching has been done:*/
+        /*Make a loop that will continue until no switching has been done:*/
         while (switching) {
           //start by saying: no switching is done:
           switching = false;
           rows = table.rows;
-          /*Loop through all table rows (except the
-          first, which contains table headers):*/
+          /*Loop through all table rows (except the first, which contains table headers):*/
           for (i = 1; i < (rows.length - 1); i++) {
             //start by saying there should be no switching:
             shouldSwitch = false;
-            /*Get the two elements you want to compare,
-            one from current row and one from the next:*/
+            /*Get the two elements you want to compare, one from current row and one from the next:*/
             x = rows[i].getElementsByTagName("TD")[n];
             y = rows[i + 1].getElementsByTagName("TD")[n];
-            /*check if the two rows should switch place,
-            based on the direction, asc or desc:*/
+            /* Averigua si es una fecha, un numero o un string*/              
+            if      (x.className=="fecha") { tipo="fecha"; }
+            else if (!isNaN(x.innerHTML))  { tipo="numero"; }
+            else                           { tipo="texto"; }      
+            /*check if the two rows should switch place, based on the direction, asc or desc:*/
             if (dir == "asc") {
-              if ((isNaN(x.innerHTML) && x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) || (!isNaN(x.innerHTML) && parseFloat(x.innerHTML) > parseFloat(y.innerHTML))) {
+              switch (tipo) {
+                 case 'fecha':  rv = x.dataset.fecha > y.dataset.fecha; break;
+                 case 'numero': rv = parseFloat(x.innerHTML) > parseFloat(y.innerHTML); break;
+                 case 'string': rv = x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase(); break;
+              }
+              if (rv) {
                 //if so, mark as a switch and break the loop:
                 shouldSwitch= true;
                 break;
               }
             } else if (dir == "desc") {
-              if ((isNaN(x.innerHTML) && x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) || (!isNaN(x.innerHTML) && parseFloat(x.innerHTML) < parseFloat(y.innerHTML))) {
+              switch (tipo) {
+                 case 'fecha':  rv = x.dataset.fecha < y.dataset.fecha; break;
+                 case 'numero': rv = parseFloat(x.innerHTML) < parseFloat(y.innerHTML); break;
+                 case 'string': rv = x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase(); break;
+              }
+              if (rv) {
                 //if so, mark as a switch and break the loop:
                 shouldSwitch = true;
                 break;
@@ -638,15 +649,13 @@
             }
           }
           if (shouldSwitch) {
-            /*If a switch has been marked, make the switch
-            and mark that a switch has been done:*/
+            /*If a switch has been marked, make the switch and mark that a switch has been done:*/
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
             switching = true;
             //Each time a switch is done, increase this count by 1:
             switchcount ++;      
           } else {
-            /*If no switching has been done AND the direction is "asc",
-            set the direction to "desc" and run the while loop again.*/
+            /*If no switching has been done AND the direction is "asc", set the direction to "desc" and run the while loop again.*/
             if (switchcount == 0 && dir == "asc") {
               dir = "desc";
               switching = true;
