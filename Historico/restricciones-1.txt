@@ -325,6 +325,11 @@ Cristina|   Pruenza|20190824
     Jose|   Cordoba|20190712
     Jose|   Cordoba|20190713
     Jose|   Cordoba|20190714
+    Lara| Dominguez|20190715
+    Lara| Dominguez|20190716
+    Lara| Dominguez|20190717
+    Lara| Dominguez|20190718
+    Lara| Dominguez|20190719
     Lara| Dominguez|20190801
     Lara| Dominguez|20190802
     Lara| Dominguez|20190803
