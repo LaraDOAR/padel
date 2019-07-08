@@ -201,6 +201,7 @@ Cristina|   Pruenza|20190821
 Cristina|   Pruenza|20190822
 Cristina|   Pruenza|20190823
 Cristina|   Pruenza|20190824
+  Daniel|   Michaud|20190716
   Daniel|   Michaud|20190717
   Daniel|   Michaud|20190718
   Daniel|   Michaud|20190719

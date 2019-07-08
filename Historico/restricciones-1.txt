@@ -201,42 +201,33 @@ Cristina|   Pruenza|20190821
 Cristina|   Pruenza|20190822
 Cristina|   Pruenza|20190823
 Cristina|   Pruenza|20190824
-  Daniel|   Michaud|20190701
-  Daniel|   Michaud|20190702
-  Daniel|   Michaud|20190703
-  Daniel|   Michaud|20190704
-  Daniel|   Michaud|20190705
-  Daniel|   Michaud|20190706
-  Daniel|   Michaud|20190707
-  Daniel|   Michaud|20190708
-  Daniel|   Michaud|20190709
-  Daniel|   Michaud|20190710
-  Daniel|   Michaud|20190711
-  Daniel|   Michaud|20190712
-  Daniel|   Michaud|20190713
-  Daniel|   Michaud|20190714
-  Daniel|   Michaud|20190715
-  Daniel|   Michaud|20190716
+  Daniel|   Michaud|20190717
+  Daniel|   Michaud|20190718
+  Daniel|   Michaud|20190719
+  Daniel|   Michaud|20190720
+  Daniel|   Michaud|20190721
+  Daniel|   Michaud|20190722
+  Daniel|   Michaud|20190723
+  Daniel|   Michaud|20190724
+  Daniel|   Michaud|20190725
+  Daniel|   Michaud|20190726
+  Daniel|   Michaud|20190727
+  Daniel|   Michaud|20190728
+  Daniel|   Michaud|20190729
+  Daniel|   Michaud|20190730
+  Daniel|   Michaud|20190731
+  Daniel|   Michaud|20190801
+  Daniel|   Michaud|20190802
+  Daniel|   Michaud|20190803
+  Daniel|   Michaud|20190804
+  Daniel|   Michaud|20190805
+  Daniel|   Michaud|20190806
+  Daniel|   Michaud|20190807
+  Daniel|   Michaud|20190808
+  Daniel|   Michaud|20190809
+  Daniel|   Michaud|20190810
+  Daniel|   Michaud|20190811
   Daniel|   Michaud|20190812
-  Daniel|   Michaud|20190813
-  Daniel|   Michaud|20190814
-  Daniel|   Michaud|20190815
-  Daniel|   Michaud|20190816
-  Daniel|   Michaud|20190817
-  Daniel|   Michaud|20190818
-  Daniel|   Michaud|20190819
-  Daniel|   Michaud|20190820
-  Daniel|   Michaud|20190821
-  Daniel|   Michaud|20190822
-  Daniel|   Michaud|20190823
-  Daniel|   Michaud|20190824
-  Daniel|   Michaud|20190825
-  Daniel|   Michaud|20190826
-  Daniel|   Michaud|20190827
-  Daniel|   Michaud|20190828
-  Daniel|   Michaud|20190829
-  Daniel|   Michaud|20190830
-  Daniel|   Michaud|20190831
   Daniel|   Morillo|20190714
   Daniel|   Morillo|20190715
   Daniel|   Morillo|20190716
