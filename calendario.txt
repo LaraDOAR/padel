@@ -1,7 +1,7 @@
 MES|                           LOCAL|                       VISITANTE| PISTA|   FECHA|HORA_INI|HORA_FIN|PISTA_CONFIRMADA
-002|AlbertoParramon-IgnacioHernandez|          AndresMunoz-JorgeLopez|Pista7|20190709|   18:00|   19:00|           false
-002|       DanielMichaud-JavierMunoz|       DanielMorillo-AdrianGalan|Pista7|20190709|   19:00|   20:00|           false
-002|      LaraDominguez-TeresaSolano|          SaraGarcia-AnaAlastuey|Pista3|20190709|   18:00|   19:00|           false
+002|AlbertoParramon-IgnacioHernandez|          AndresMunoz-JorgeLopez|Pista7|20190706|   17:00|   18:00|           false
+002|       DanielMichaud-JavierMunoz|       DanielMorillo-AdrianGalan|Pista7|20190707|   17:00|   18:00|           false
+002|      LaraDominguez-TeresaSolano|          SaraGarcia-AnaAlastuey|Pista7|20190709|   18:00|   19:00|            true
 002|AlbertoParramon-IgnacioHernandez|      JoseCordoba-ManueldelValle|Pista7|20190716|   18:00|   19:00|           false
 002| AmbrosioIniesta-CarlosFernandez|    MonicaGarcia-EnriqueClemente|Pista7|20190716|   19:00|   20:00|           false
 002|  DanielVillar-MariaLuisaBagaces|          SaraGarcia-AnaAlastuey|Pista3|20190716|   18:00|   19:00|           false
