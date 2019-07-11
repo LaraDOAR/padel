@@ -5,13 +5,13 @@ MES|DIVISION|                           LOCAL|                       VISITANTE| 
 002|       1|AlbertoParramon-IgnacioHernandez|          AndresMunoz-JorgeLopez|20190706|   17:00|   18:00|Pista7|   -|   -|   -|  false
 002|       1|AlbertoParramon-IgnacioHernandez|      JoseCordoba-ManueldelValle|20190716|   18:00|   19:00|Pista7|   -|   -|   -|  false
 002|       1|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|20190730|   18:00|   19:00|Pista7|   -|   -|   -|  false
-002|       2| AinhoaGoni-JuanAntonioMontesino|       AlbertoMateos-JavierVidal|20190729|   18:00|   19:00|Pista3|   -|   -|   -|  false
+002|       2| AinhoaGoni-JuanAntonioMontesino|       AlbertoMateos-JavierVidal|20190729|   18:00|   19:00|Pista7|   -|   -|   -|  false
 002|       2| AinhoaGoni-JuanAntonioMontesino|DiegoChicote-CarlosAlbertoMartin|20190827|   19:00|   20:00|Pista7|   -|   -|   -|  false
 002|       2| AinhoaGoni-JuanAntonioMontesino|  RamonCostafreda-AntonioSanchez|20190820|   19:00|   20:00|Pista7|   -|   -|   -|  false
-002|       2|       AlbertoMateos-JavierVidal|DiegoChicote-CarlosAlbertoMartin|20190812|   18:00|   19:00|Pista3|   -|   -|   -|  false
-002|       2|       AlbertoMateos-JavierVidal|  RamonCostafreda-AntonioSanchez|20190805|   18:00|   19:00|Pista3|   -|   -|   -|  false
-002|       2|DiegoChicote-CarlosAlbertoMartin|  RamonCostafreda-AntonioSanchez|20190715|   18:00|   19:00|Pista3|   -|   -|   -|  false
-002|       3| AmbrosioIniesta-CarlosFernandez|       DanielMichaud-JavierMunoz|20190819|   19:00|   20:00|Pista3|   -|   -|   -|  false
+002|       2|       AlbertoMateos-JavierVidal|DiegoChicote-CarlosAlbertoMartin|20190812|   18:00|   19:00|Pista7|   -|   -|   -|  false
+002|       2|       AlbertoMateos-JavierVidal|  RamonCostafreda-AntonioSanchez|20190805|   18:00|   19:00|Pista7|   -|   -|   -|  false
+002|       2|DiegoChicote-CarlosAlbertoMartin|  RamonCostafreda-AntonioSanchez|20190715|   18:00|   19:00|Pista7|   -|   -|   -|  false
+002|       3| AmbrosioIniesta-CarlosFernandez|       DanielMichaud-JavierMunoz|20190819|   19:00|   20:00|Pista7|   -|   -|   -|  false
 002|       3| AmbrosioIniesta-CarlosFernandez|       DanielMorillo-AdrianGalan|20190806|   19:00|   20:00|Pista7|   -|   -|   -|  false
 002|       3| AmbrosioIniesta-CarlosFernandez|    MonicaGarcia-EnriqueClemente|20190716|   19:00|   20:00|Pista7|   -|   -|   -|  false
 002|       3|       DanielMichaud-JavierMunoz|       DanielMorillo-AdrianGalan|20190707|   17:00|   18:00|Pista7|   -|   -|   -|  false
