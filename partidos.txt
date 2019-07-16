@@ -11,8 +11,8 @@ MES|DIVISION|                           LOCAL|                       VISITANTE| 
 002|       2|       AlbertoMateos-JavierVidal|DiegoChicote-CarlosAlbertoMartin|20190812|   18:00|   19:00|Pista7|   -|   -|   -|  false
 002|       2|       AlbertoMateos-JavierVidal|  RamonCostafreda-AntonioSanchez|20190805|   18:00|   19:00|Pista7|   -|   -|   -|  false
 002|       2|DiegoChicote-CarlosAlbertoMartin|  RamonCostafreda-AntonioSanchez|20190715|   18:00|   19:00|Pista7| 1/6| 2/6|   -|   true
-002|       3| AmbrosioIniesta-CarlosFernandez|       DanielMichaud-JavierMunoz|20190819|   19:00|   20:00|Pista7|   -|   -|   -|  false
-002|       3| AmbrosioIniesta-CarlosFernandez|       DanielMorillo-AdrianGalan|20190806|   19:00|   19:45|Pista7|   -|   -|   -|  false
+002|       3| AmbrosioIniesta-CarlosFernandez|       DanielMichaud-JavierMunoz|20190819|   18:30|   19:30|Pista7|   -|   -|   -|  false
+002|       3| AmbrosioIniesta-CarlosFernandez|       DanielMorillo-AdrianGalan|20190806|   18:30|   19:30|Pista7|   -|   -|   -|  false
 002|       3| AmbrosioIniesta-CarlosFernandez|    MonicaGarcia-EnriqueClemente|20190716|   19:00|   20:00|Pista7|   -|   -|   -|  false
 002|       3|       DanielMichaud-JavierMunoz|       DanielMorillo-AdrianGalan|20190707|   17:00|   18:00|Pista7|   -|   -|   -|  false
 002|       3|       DanielMichaud-JavierMunoz|    MonicaGarcia-EnriqueClemente|20190813|   18:00|   19:00|Pista3|   -|   -|   -|  false
