@@ -5,8 +5,8 @@ POSICION|                          PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANAD
        4|AlbertoParramon-IgnacioHernandez|    17|               2|               2|          22|            6
        5| AinhoaGoni-JuanAntonioMontesino|    16|               2|               0|           7|           24
        6|       AlbertoMateos-JavierVidal|    15|               2|               1|          18|           13
-       7|  RamonCostafreda-AntonioSanchez|    13|               2|               2|          26|           13
-       8|DiegoChicote-CarlosAlbertoMartin|    13|               2|               0|           3|           24
+       7|  RamonCostafreda-AntonioSanchez|    14|               3|               3|          38|           16
+       8|DiegoChicote-CarlosAlbertoMartin|    13|               3|               0|           6|           36
        9| AmbrosioIniesta-CarlosFernandez|    11|               2|               1|          23|           18
       10|       DanielMichaud-JavierMunoz|    10|               2|               2|          25|           12
       11|    MonicaGarcia-EnriqueClemente|     9|               2|               0|           6|           24
