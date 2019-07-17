@@ -3,7 +3,7 @@ MES|DIVISION|                           LOCAL|                       VISITANTE| 
 002|       1|      AlbertoAngulo-RamiroLuengo|          AndresMunoz-JorgeLopez|20190827|   18:30|   19:30|Pista8|   -|   -|   -|  false
 002|       1|      AlbertoAngulo-RamiroLuengo|      JoseCordoba-ManueldelValle|20190820|   18:30|   19:30|Pista8|   -|   -|   -|  false
 002|       1|AlbertoParramon-IgnacioHernandez|          AndresMunoz-JorgeLopez|20190822|   18:00|   19:00|Pista7|   -|   -|   -|  false
-002|       1|AlbertoParramon-IgnacioHernandez|      JoseCordoba-ManueldelValle|20190716|   18:00|   19:00|Pista7| 2/6| 1/6|   -|   true
+002|       1|AlbertoParramon-IgnacioHernandez|      JoseCordoba-ManueldelValle|20190716|   18:00|   19:00|Pista7| 2/6| 1/6|   -|  false
 002|       1|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|20190731|   18:00|   19:00|Pista7|   -|   -|   -|  false
 002|       2| AinhoaGoni-JuanAntonioMontesino|       AlbertoMateos-JavierVidal|20190729|   18:00|   19:00|Pista7|   -|   -|   -|  false
 002|       2| AinhoaGoni-JuanAntonioMontesino|DiegoChicote-CarlosAlbertoMartin|20190827|   18:30|   19:30|Pista7|   -|   -|   -|  false
