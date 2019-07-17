@@ -7,9 +7,9 @@ POSICION|                          PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANAD
        6|       AlbertoMateos-JavierVidal|    15|               2|               1|          18|           13
        7|  RamonCostafreda-AntonioSanchez|    14|               3|               3|          38|           16
        8|DiegoChicote-CarlosAlbertoMartin|    13|               3|               0|           6|           36
-       9| AmbrosioIniesta-CarlosFernandez|    12|               3|               2|          35|           23
+       9| AmbrosioIniesta-CarlosFernandez|    11|               2|               1|          23|           18
       10|       DanielMichaud-JavierMunoz|    10|               2|               2|          25|           12
-      11|    MonicaGarcia-EnriqueClemente|     9|               3|               0|          11|           36
+      11|    MonicaGarcia-EnriqueClemente|     9|               2|               0|           6|           24
       12|      LaraDominguez-TeresaSolano|     7|               3|               1|          17|           25
       13|       DanielMorillo-AdrianGalan|     6|               2|               1|          16|           19
       14|          SaraGarcia-AnaAlastuey|     5|               3|               1|          19|           30
