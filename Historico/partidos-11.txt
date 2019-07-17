@@ -21,7 +21,7 @@ MES|DIVISION|                           LOCAL|                       VISITANTE| 
 002|       4|      CristinaPruenza-SofiaCerda|      LaraDominguez-TeresaSolano|20190731|   18:00|   19:00|Pista3|   -|   -|   -|  false
 002|       4|      CristinaPruenza-SofiaCerda|          SaraGarcia-AnaAlastuey|20190827|   18:00|   19:00|Pista3|   -|   -|   -|  false
 002|       4|  DanielVillar-MariaLuisaBagaces|      LaraDominguez-TeresaSolano|20190820|   18:00|   19:00|Pista3|   -|   -|   -|  false
-002|       4|  DanielVillar-MariaLuisaBagaces|          SaraGarcia-AnaAlastuey|20190716|   18:00|   19:00|Pista3| 2/6| 3/6|   -|   true
+002|       4|  DanielVillar-MariaLuisaBagaces|          SaraGarcia-AnaAlastuey|20190716|   18:00|   19:00|Pista3| 2/6| 3/6|   -|  false
 002|       4|      LaraDominguez-TeresaSolano|          SaraGarcia-AnaAlastuey|20190709|   18:00|   19:00|Pista7| 6/0| 6/1|   -|   true
 001|       1|      AlbertoAngulo-RamiroLuengo|          AndresMunoz-JorgeLopez|20190702|   17:00|   18:00|Pista9| 0/6| 0/6|   -|   true
 001|       1|      AlbertoAngulo-RamiroLuengo|      JoseCordoba-ManueldelValle|20190610|   19:00|   20:00|Pista9| 3/6| 3/6|   -|   true

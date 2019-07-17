@@ -12,6 +12,6 @@ POSICION|                          PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANAD
       11|    MonicaGarcia-EnriqueClemente|     9|               2|               0|           6|           24
       12|      LaraDominguez-TeresaSolano|     7|               3|               1|          17|           25
       13|       DanielMorillo-AdrianGalan|     6|               2|               1|          16|           19
-      14|          SaraGarcia-AnaAlastuey|     5|               3|               1|          19|           30
-      15|  DanielVillar-MariaLuisaBagaces|     3|               2|               1|          18|           18
-      16|      CristinaPruenza-SofiaCerda|     3|               2|               0|          10|           24
+      14|  DanielVillar-MariaLuisaBagaces|     3|               1|               1|          13|            6
+      15|      CristinaPruenza-SofiaCerda|     3|               2|               0|          10|           24
+      16|          SaraGarcia-AnaAlastuey|     2|               2|               0|           7|           25
