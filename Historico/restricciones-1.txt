@@ -171,6 +171,15 @@ Ambrosio|   Iniesta|20190818
   Andres|     Munoz|20190724
   Andres|     Munoz|20190725
   Andres|     Munoz|20190726
+  Andres|     Munoz|20190727
+  Andres|     Munoz|20190728
+  Andres|     Munoz|20190729
+  Andres|     Munoz|20190730
+  Andres|     Munoz|20190731
+  Andres|     Munoz|20190801
+  Andres|     Munoz|20190802
+  Andres|     Munoz|20190803
+  Andres|     Munoz|20190804
 Cristina|   Pruenza|20190701
 Cristina|   Pruenza|20190702
 Cristina|   Pruenza|20190703
