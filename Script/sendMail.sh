@@ -242,9 +242,10 @@ do
         echo "Para informar de cualquier problema escribe al email <A HREF="padel@iic.uam.es">padel@iic.uam.es</A>"
         echo "</P>"
 
-        # -- tabla
+        # -- tabla partidos pendientes con fecha
         echo "<DIV STYLE='margin-left: 100px; margin-top: 10px;'>"
         echo "<TABLE id=\"customers\">"
+        echo "<CAPTION>Partidos pendientes con pista asignada</CAPTION>"
         echo "<TR>"
         echo "<TH>Fecha</TH>"
         echo "<TH>Hora</TH>"
@@ -252,10 +253,31 @@ do
         echo "<TH>Rival</TH>"
         echo "</TR >"
         grep "|${n1}-${n2}|" "${DIR_TMP}/partidos" | gawk -F"|" '{if ($9=="-") print}' | sort -t"|" -k5,5 | gawk -F"|" '{
+            if ($5=="-") { next; }
             print "<TR>";
             print "<TD>" substr($5,7,2) "/" substr($5,5,2) "/" substr($5,1,4) "</TD>";
             print "<TD>" $6 "</TD>";
             print "<TD>" $8 "</TD>";
+            if ($3==PAREJA) { print "<TD>" $4 "</TD>"; }
+            else            { print "<TD>" $3 "</TD>"; }
+            print "</TR>";
+        }' PAREJA="${n1}-${n2}"
+        echo "</TABLE>"
+        echo "</DIV>"
+
+        echo "<br>"
+
+        # -- tabla partidos pendientes sin fecha
+        echo "<DIV STYLE='margin-left: 100px; margin-top: 10px;'>"
+        echo "<TABLE id=\"customers\">"
+        echo "<CAPTION>Partidos pendientes, sin pista asignada</CAPTION>"
+        echo "<TR>"
+        echo "<TH>Rival</TH>"
+        echo "</TR >"
+        grep "|${n1}-${n2}|" "${DIR_TMP}/partidos" | gawk -F"|" '{if ($9=="-") print}' | sort -t"|" -k5,5 | gawk -F"|" '{
+            if ($5!="-") {next;}
+            if ($5=="-" && $NF=="true") {next;}
+            print "<TR>";
             if ($3==PAREJA) { print "<TD>" $4 "</TD>"; }
             else            { print "<TD>" $3 "</TD>"; }
             print "</TR>"; }' PAREJA="${n1}-${n2}"
