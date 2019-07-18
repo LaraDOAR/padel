@@ -252,6 +252,7 @@ cat <<EOM >>calendario.html
 EOM
 gawk -F"|" '
 {
+    if ($4=="-" || $5=="-" || $6=="-" || $7=="-") { next;}
     print "            {";
     print "              id: " NR",";
     print "              title: \x27"$2" vs "$3"\x27,";

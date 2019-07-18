@@ -32,7 +32,7 @@ PAREJA|       NOMBRE|  APELLIDO|                      CORREO
     13|       Daniel|   Morillo|   daniel.morillo@iic.uam.es
     13|       Adrian|     Galan|     adrian.galan@iic.uam.es
     14|     Cristina|   Pruenza| cristina.pruenza@iic.uam.es
-    14|        Sofia|     Cerda|      sofia.cerda@iic.uam.es
+    14|        Sofia|     Cerda|      sofia.munoz@iic.uam.es
     15|         Sara|    Garcia|      sara.garcia@iic.uam.es
     15|          Ana|  Alastuey|     ana.alastuey@iic.uam.es
     16|       Daniel|    Villar|    daniel.villar@iic.uam.es

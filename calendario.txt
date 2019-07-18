@@ -1,16 +1,16 @@
 MES|                           LOCAL|                       VISITANTE| PISTA|   FECHA|HORA_INI|HORA_FIN|PISTA_CONFIRMADA
 002|AlbertoParramon-IgnacioHernandez|          AndresMunoz-JorgeLopez|Pista7|20190822|   18:00|   19:00|           false
-002|       DanielMichaud-JavierMunoz|       DanielMorillo-AdrianGalan|Pista7|20190707|   17:00|   18:00|           false
+002|       DanielMichaud-JavierMunoz|       DanielMorillo-AdrianGalan|     -|       -|       -|       -|           false
 002|      LaraDominguez-TeresaSolano|          SaraGarcia-AnaAlastuey|Pista7|20190709|   18:00|   19:00|            true
 002|AlbertoParramon-IgnacioHernandez|      JoseCordoba-ManueldelValle|Pista7|20190716|   18:00|   19:00|            true
 002| AmbrosioIniesta-CarlosFernandez|    MonicaGarcia-EnriqueClemente|Pista7|20190716|   19:00|   20:00|            true
 002|  DanielVillar-MariaLuisaBagaces|          SaraGarcia-AnaAlastuey|Pista3|20190716|   18:00|   19:00|            true
 002|DiegoChicote-CarlosAlbertoMartin|  RamonCostafreda-AntonioSanchez|Pista7|20190715|   18:00|   19:00|            true
-002|      CristinaPruenza-SofiaCerda|  DanielVillar-MariaLuisaBagaces|Pista3|20190722|   18:00|   19:00|           false
+002|      CristinaPruenza-SofiaCerda|  DanielVillar-MariaLuisaBagaces|     -|       -|       -|       -|           false
 002| AinhoaGoni-JuanAntonioMontesino|       AlbertoMateos-JavierVidal|Pista7|20190729|   18:00|   19:00|            true
 002|      CristinaPruenza-SofiaCerda|      LaraDominguez-TeresaSolano|Pista3|20190731|   18:00|   19:00|           false
-002|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|Pista7|20190731|   18:00|   19:00|           false
-002|       DanielMorillo-AdrianGalan|    MonicaGarcia-EnriqueClemente|Pista7|20190731|   19:00|   20:00|           false
+002|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|     -|       -|       -|       -|           false
+002|       DanielMorillo-AdrianGalan|    MonicaGarcia-EnriqueClemente|Pista7|20190731|   18:00|   19:00|           false
 002|       AlbertoMateos-JavierVidal|  RamonCostafreda-AntonioSanchez|Pista7|20190805|   18:00|   19:00|            true
 002| AmbrosioIniesta-CarlosFernandez|       DanielMorillo-AdrianGalan|Pista7|20190806|   18:30|   19:30|           false
 002|       AlbertoMateos-JavierVidal|DiegoChicote-CarlosAlbertoMartin|Pista7|20190812|   18:00|   19:00|            true
