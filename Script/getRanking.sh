@@ -175,9 +175,10 @@ then
     if [ ! -f rankingReferencia.txt ]; then prt_error "ERROR: no existe el fichero [rankingReferencia.txt] en el directorio actual"; exit 1; fi
     if [ ! -f ranking.txt ];           then prt_error "ERROR: no existe el fichero [ranking.txt] en el directorio actual";           exit 1; fi
     if [ ! -f partidos.txt ];          then prt_error "ERROR: no existe el fichero [partidos.txt] en el directorio actual";          exit 1; fi
-    out=$( FGRL_limpiaTabla rankingReferencia.txt "${DIR_TMP}/rankingRef"  false )
-    out=$( FGRL_limpiaTabla ranking.txt           "${DIR_TMP}/ranking"     false )
-    out=$( FGRL_limpiaTabla partidos.txt          "${DIR_TMP}/partidos"    false )
+    out=$( FGRL_limpiaTabla rankingReferencia.txt "${DIR_TMP}/rankingRef" false )
+    out=$( FGRL_limpiaTabla rankingIndividual.txt "${DIR_TMP}/rankingInd" false )
+    out=$( FGRL_limpiaTabla ranking.txt           "${DIR_TMP}/ranking"    false )
+    out=$( FGRL_limpiaTabla partidos.txt          "${DIR_TMP}/partidos"   false )
     FGRL_backupFile partidos txt;  rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
     FGRL_backupFile partidos html; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
 fi
@@ -186,8 +187,9 @@ fi
 out=$( FGRL_limpiaTabla parejas.txt "${DIR_TMP}/parejas" false )
 
 # Se hace backup de los ficheros de salida, para no sobreescribir
-FGRL_backupFile ranking txt;  rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
-FGRL_backupFile ranking html; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
+FGRL_backupFile rankingIndividual txt;  rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
+FGRL_backupFile ranking           txt;  rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
+FGRL_backupFile ranking           html; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
 
 # Puntos por partidos ganados / perdidos
 PUNTOS_GANA_ARRIBA=1     # puntos que gana la pareja ganadora, si la pareja ganadora estaba situada en el ranking mas arriba que la otra pareja
@@ -428,7 +430,9 @@ out=$( bash Script/checkRanking.sh );                 rv=$?; if [ "${rv}" != "0"
 prt_info "-- Se genera el html a partir de ese fichero"
 
 # -- limpia la tabla
-out=$( FGRL_limpiaTabla ranking.txt "${DIR_TMP}/ranking" true ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+out=$( FGRL_limpiaTabla ranking.txt           "${DIR_TMP}/ranking"    true ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+out=$( FGRL_limpiaTabla rankingReferencia.txt "${DIR_TMP}/rankingRef" true ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+out=$( FGRL_limpiaTabla rankingIndividual.txt "${DIR_TMP}/rankingInd" true ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 
 # -- genera el html
 cat <<EOM >ranking.html
@@ -436,75 +440,72 @@ cat <<EOM >ranking.html
 <html>
   <head>
     <title>RANKING - Torneo de padel IIC</title>
-    <style>
-      #myInput {
-        margin-left: 5%;
-        margin-right: 5%;
-        margin-bottom: 1%;
-        width: 50%;
-      }
-      #customers {
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        border-collapse: collapse;
-        margin-left: 5%;
-        margin-right: 5%;
-        width: 90%;
-      }
-      #customers td, #customers th {
-        border: 1px solid #ddd;
-        padding: 8px;
-      }
-      #customers tr:nth-child(even){background-color: #f2f2f2;}
-      #customers tr:hover {background-color: #ddd;}
-      #customers th {
-        text-align: left;
-        background-color: #4CAF50;
-        color: white;
-        cursor: pointer;
-      }
-      h1 {
-      	color: #343434;
-      	font-weight: normal;
-      	font-family: 'Ultra', sans-serif;   
-      	font-size: 36px;
-      	line-height: 42px;
-      	text-transform: uppercase;
-      	text-shadow: 0 2px white, 0 3px #777;
-        text-align: center;
-      }
-      h2 {
-      	color: #859085;
-      	font-weight: normal;
-      	font-family: 'Ultra', sans-serif;   
-      	font-size: 36px;
-      	line-height: 42px;
-        text-align: center;
-      }
-    </style>
+    <link href='Librerias/other/padel.css' rel='stylesheet' />
   </head>
   <body>
 EOM
-echo "<h1>TORNEO DE PADEL - ${CFG_NOMBRE}</h1>" >> ranking.html
-echo "<h2>Ranking</h2>" >> ranking.html
+echo "    <h1>TORNEO DE PADEL - ${CFG_NOMBRE}</h1>" >> ranking.html
 cat <<EOM >>ranking.html
+    <h2>Ranking</h2>
     <br>
 
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Busca..." title="Busca en cualquier columna">
-    <br>
+    <div class="tab">
+      <button class="tablinks" onclick="openRank(event, 'Actual')" id="defaultOpen">Ranking actualizado</button>
+      <button class="tablinks" onclick="openRank(event, 'Referencia')">Ranking de referencia</button>
+      <button class="tablinks" onclick="openRank(event, 'Individual')">Ranking individual</button>
+    </div>
 
-    <table id="customers">
+    <div id="Actual" class="tabcontent">
+      <p>Este es el ranking más actualizado, el que tiene en cuenta todos los partidos que se han jugado hasta el momento</p>
+      <input type="text" class="myInput" id="inputActual" onkeyup='myFunction("inputActual","tableActual");' placeholder="Busca..." title="Busca en cualquier columna">
+      <br>
+      <table class="myTable" id="tableActual">
 EOM
-head -1   "${DIR_TMP}/ranking" | gawk -F"|" '{print "<tr>";for(i=1;i<=NF;i++)print "<th onclick=\"sortTable("i-1")\">" $i"</th>";print "</tr>"}' >> ranking.html
-tail -n+2 "${DIR_TMP}/ranking" | gawk -F"|" '{print "<tr>";for(i=1;i<=NF;i++)print "<td>"                              $i"</td>";print "</tr>"}' >> ranking.html
+head -1   "${DIR_TMP}/ranking" | gawk -F"|" '{printf("        <tr>\n");for(i=1;i<=NF;i++) {print "          <th onclick=\"sortTable("i-1")\">" $i"</th>";} print "        </tr>";}' >> ranking.html
+tail -n+2 "${DIR_TMP}/ranking" | gawk -F"|" '{printf("        <tr>");  for(i=1;i<=NF;i++) {printf("<td>"$i"</td>");} print "</tr>";}' >> ranking.html
 cat <<EOM >>ranking.html
-    </table>
+      </table>
+      <br>
+      <br>
+    </div>
+
+    <div id="Referencia" class="tabcontent">
+      <p>Este es el ranking que se tomó de referencia para generar los partidos y es el que se usa para saber cuantos puntos suma la pareja ganadora en cada partido</p>
+      <input type="text" class="myInput" id="inputReferencia" onkeyup='myFunction("inputReferencia","tableReferencia");' placeholder="Busca..." title="Busca en cualquier columna">
+      <br>
+      <table class="myTable" id="tableReferencia">
+EOM
+head -1   "${DIR_TMP}/rankingRef" | gawk -F"|" '{printf("        <tr>\n");for(i=1;i<=NF;i++) {print "          <th onclick=\"sortTable("i-1")\">" $i"</th>";} print "        </tr>";}' >> ranking.html
+tail -n+2 "${DIR_TMP}/rankingRef" | gawk -F"|" '{printf("        <tr>");  for(i=1;i<=NF;i++) {printf("<td>"$i"</td>");} print "</tr>";}' >> ranking.html
+cat <<EOM >>ranking.html
+      </table>
+      <br>
+      <br>
+    </div>
+
+    <div id="Individual" class="tabcontent">
+      <p>Este es el ranking individual, ya que no todas las personas juegan siempre con la misma pareja</p>
+      <input type="text" class="myInput" id="inputIndividual" onkeyup='myFunction("inputIndividual","tableIndividual");' placeholder="Busca..." title="Busca en cualquier columna">
+      <br>
+      <table class="myTable" id="tableIndividual">
+EOM
+head -1   "${DIR_TMP}/rankingInd" | gawk -F"|" '{printf("        <tr>\n");for(i=1;i<=NF;i++) {print "          <th onclick=\"sortTable("i-1")\">" $i"</th>";} print "        </tr>";}' >> ranking.html
+tail -n+2 "${DIR_TMP}/rankingInd" | gawk -F"|" '{printf("        <tr>");  for(i=1;i<=NF;i++) {printf("<td>"$i"</td>");} print "</tr>";}' >> ranking.html
+cat <<EOM >>ranking.html
+      </table>
+      <br>
+      <br>
+    </div>
+
+    <br>
+    <br>
 
     <script>
-      function myFunction() {
+      function myFunction(nameInput, nameTable) {
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("myInput");
+        input = document.getElementById(nameInput);
         filter = input.value.toUpperCase();
-        table = document.getElementById("customers");
+        table = document.getElementById(nameTable);
         tr = table.getElementsByTagName("tr");
         th = table.getElementsByTagName("th");
         for (i = 0; i < tr.length; i++) {
@@ -576,6 +577,26 @@ cat <<EOM >>ranking.html
           }
         }
       }
+    </script>
+
+    <script>
+      function openRank(evt, name) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(name).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+    </script>
+
+    <script>
+      document.getElementById("defaultOpen").click();
     </script>
 
   </body>

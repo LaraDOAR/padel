@@ -2,7 +2,80 @@
 <html>
   <head>
     <title>RANKING - Torneo de padel IIC</title>
-    <link href='Librerias/other/padel.css' rel='stylesheet' />
+    <style>
+      .myInput {
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-bottom: 1%;
+        width: 50%;
+      }
+      .myTable {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        margin-left: 5%;
+        margin-right: 5%;
+        width: 90%;
+      }
+      .myTable td, .myTable th {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      .myTable tr:nth-child(even){background-color: #f2f2f2;}
+      .myTable tr:hover {background-color: #ddd;}
+      .myTable th {
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+      }
+      h1 {
+      	color: #343434;
+      	font-weight: normal;
+      	font-family: 'Ultra', sans-serif;   
+      	font-size: 36px;
+      	line-height: 42px;
+      	text-transform: uppercase;
+      	text-shadow: 0 2px white, 0 3px #777;
+        text-align: center;
+      }
+      h2 {
+      	color: #859085;
+      	font-weight: normal;
+      	font-family: 'Ultra', sans-serif;   
+      	font-size: 36px;
+      	line-height: 42px;
+        text-align: center;
+      }
+      .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+        margin: 0 30px 0 30px;
+      }
+      .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+      }
+      .tab button:hover {
+        background-color: #ddd;
+      }
+      .tab button.active {
+        background-color: #ccc;
+      }
+      .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+        margin: 0 30px 0 30px;
+      }
+    </style>
   </head>
   <body>
     <h1>TORNEO DE PADEL - Pretemporada 2019</h1>
@@ -90,47 +163,6 @@
       <input type="text" class="myInput" id="inputIndividual" onkeyup='myFunction("inputIndividual","tableIndividual");' placeholder="Busca..." title="Busca en cualquier columna">
       <br>
       <table class="myTable" id="tableIndividual">
-        <tr>
-          <th onclick="sortTable(0)">POSICION</th>
-          <th onclick="sortTable(1)">PERSONA</th>
-          <th onclick="sortTable(2)">PUNTOS</th>
-          <th onclick="sortTable(3)">PARTIDOS_JUGADOS</th>
-          <th onclick="sortTable(4)">PARTIDOS_GANADOS</th>
-          <th onclick="sortTable(5)">JUEGOS_FAVOR</th>
-          <th onclick="sortTable(6)">JUEGOS_CONTRA</th>
-        </tr>
-        <tr><td>1</td><td>JoseCordoba</td><td>23</td><td>3</td><td>3</td><td>37</td><td>14</td></tr>
-        <tr><td>2</td><td>ManueldelValle</td><td>23</td><td>3</td><td>3</td><td>37</td><td>14</td></tr>
-        <tr><td>3</td><td>AndresMunoz</td><td>20</td><td>2</td><td>1</td><td>17</td><td>13</td></tr>
-        <tr><td>4</td><td>JorgeLopez</td><td>20</td><td>2</td><td>1</td><td>17</td><td>13</td></tr>
-        <tr><td>5</td><td>AlbertoAngulo</td><td>19</td><td>2</td><td>0</td><td>6</td><td>24</td></tr>
-        <tr><td>6</td><td>RamiroLuengo</td><td>19</td><td>2</td><td>0</td><td>6</td><td>24</td></tr>
-        <tr><td>7</td><td>AlbertoParramon</td><td>17</td><td>3</td><td>2</td><td>25</td><td>18</td></tr>
-        <tr><td>8</td><td>IgnacioHernandez</td><td>17</td><td>3</td><td>2</td><td>25</td><td>18</td></tr>
-        <tr><td>9</td><td>AinhoaGoni</td><td>16</td><td>2</td><td>0</td><td>7</td><td>24</td></tr>
-        <tr><td>10</td><td>JuanAntonioMontesino</td><td>16</td><td>2</td><td>0</td><td>7</td><td>24</td></tr>
-        <tr><td>11</td><td>AlbertoMateos</td><td>15</td><td>2</td><td>1</td><td>18</td><td>13</td></tr>
-        <tr><td>12</td><td>JavierVidal</td><td>15</td><td>2</td><td>1</td><td>18</td><td>13</td></tr>
-        <tr><td>13</td><td>AntonioSanchez</td><td>14</td><td>3</td><td>3</td><td>38</td><td>16</td></tr>
-        <tr><td>14</td><td>RamonCostafreda</td><td>14</td><td>3</td><td>3</td><td>38</td><td>16</td></tr>
-        <tr><td>15</td><td>CarlosAlbertoMartin</td><td>13</td><td>3</td><td>0</td><td>6</td><td>36</td></tr>
-        <tr><td>16</td><td>DiegoChicote</td><td>13</td><td>3</td><td>0</td><td>6</td><td>36</td></tr>
-        <tr><td>17</td><td>AmbrosioIniesta</td><td>12</td><td>3</td><td>2</td><td>35</td><td>23</td></tr>
-        <tr><td>18</td><td>CarlosFernandez</td><td>12</td><td>3</td><td>2</td><td>35</td><td>23</td></tr>
-        <tr><td>19</td><td>DanielMichaud</td><td>10</td><td>2</td><td>2</td><td>25</td><td>12</td></tr>
-        <tr><td>20</td><td>JavierMunoz</td><td>10</td><td>2</td><td>2</td><td>25</td><td>12</td></tr>
-        <tr><td>21</td><td>EnriqueClemente</td><td>9</td><td>3</td><td>0</td><td>11</td><td>36</td></tr>
-        <tr><td>22</td><td>MonicaGarcia</td><td>9</td><td>3</td><td>0</td><td>11</td><td>36</td></tr>
-        <tr><td>23</td><td>LaraDominguez</td><td>7</td><td>3</td><td>1</td><td>17</td><td>25</td></tr>
-        <tr><td>24</td><td>TeresaSolano</td><td>7</td><td>3</td><td>1</td><td>17</td><td>25</td></tr>
-        <tr><td>25</td><td>AdrianGalan</td><td>6</td><td>2</td><td>1</td><td>16</td><td>19</td></tr>
-        <tr><td>26</td><td>DanielMorillo</td><td>6</td><td>2</td><td>1</td><td>16</td><td>19</td></tr>
-        <tr><td>27</td><td>AnaAlastuey</td><td>5</td><td>3</td><td>1</td><td>19</td><td>30</td></tr>
-        <tr><td>28</td><td>SaraGarcia</td><td>5</td><td>3</td><td>1</td><td>19</td><td>30</td></tr>
-        <tr><td>29</td><td>DanielVillar</td><td>3</td><td>2</td><td>1</td><td>18</td><td>18</td></tr>
-        <tr><td>30</td><td>MariaLuisaBagaces</td><td>3</td><td>2</td><td>1</td><td>18</td><td>18</td></tr>
-        <tr><td>31</td><td>CristinaPruenza</td><td>3</td><td>2</td><td>0</td><td>10</td><td>24</td></tr>
-        <tr><td>32</td><td>SofiaCerda</td><td>3</td><td>2</td><td>0</td><td>10</td><td>24</td></tr>
       </table>
       <br>
       <br>
