@@ -208,14 +208,16 @@ then
     prt_info "-- GENERACION de un ranking inicial"
 
     nParejas=$( wc -l "${DIR_TMP}/parejas" | gawk '{printf("%d",($1+1)/2)}' )
-    gawk 'BEGIN{OFS=FS="|";}{if (NR%2==0) {pos=NR/2; punt=1+N-NR/2; print pos,ant"-"$2$3,punt,"0","0","0","0";} ant=$2$3;}' N="${nParejas}" "${DIR_TMP}/parejas" > "${DIR_TMP}/new_ranking"
+    gawk 'BEGIN{OFS=FS="|";}{if (NR%2==0) {pos=NR/2; punt=1+N-NR/2;  print pos,ant"-"$2$3,punt,"0","0","0","0";} ant=$2$3;}' N="${nParejas}" "${DIR_TMP}/parejas" > "${DIR_TMP}/new_ranking"
+    gawk 'BEGIN{OFS=FS="|";}{if (NR%2==1) {punt=1+N-(NR+1)/2;} print NR,$2$3,punt,"0","0","0","0";}'                         N="${nParejas}" "${DIR_TMP}/parejas" > "${DIR_TMP}/new_rankingInd"
     
 else
     prt_info "-- ACTUALIZACION de ranking anterior"
 
     # se copian ya que se van a ir modificando
-    cp "${DIR_TMP}/ranking" "${DIR_TMP}/new_ranking"
-    cp "${DIR_TMP}/partidos" "${DIR_TMP}/new_partidos"
+    cp "${DIR_TMP}/ranking"    "${DIR_TMP}/new_ranking"
+    cp "${DIR_TMP}/rankingInd" "${DIR_TMP}/new_rankingInd"
+    cp "${DIR_TMP}/partidos"   "${DIR_TMP}/new_partidos"
 
     # Se comprueban errores de formato
     out=$( bash Script/checkPartidos.sh ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
@@ -267,7 +269,7 @@ else
         jueContraLoc=${jueFavorVis}
         jueContraVis=${jueFavorLoc}
 
-        # Actualiza el nuevo ranking: POSICION | PAREJA | PUNTOS | PARTIDOS_JUGADOS | PARTIDOS_GANADOS | JUEGOS_FAVOR | JUEGOS_CONTRA
+        # Actualiza el nuevo ranking: POSICION | PAREJA | PUNTOS | PARTIDOS_JUGADOS | PARTIDOS_GANADOS | JUEGOS_FAVOR | JUEGOS_CONTRA       
         # -- local
         gawk 'BEGIN{FS=OFS="|"}{if ($2==PAREJA) {$3=$3+PTS; $4=$4+1; $5=$5+GAN; $6=$6+FAV; $7=$7+CON;} print;}' \
              PAREJA="${LOCAL}" PTS="${puntosLoc}" GAN="${partGanaLoc}" FAV="${jueFavorLoc}" CON="${jueContraLoc}" "${DIR_TMP}/new_ranking" > "${DIR_TMP}/new_ranking.tmp"
@@ -277,10 +279,25 @@ else
              PAREJA="${VISITANTE}" PTS="${puntosVis}" GAN="${partGanaVis}" FAV="${jueFavorVis}" CON="${jueContraVis}" "${DIR_TMP}/new_ranking" > "${DIR_TMP}/new_ranking.tmp"
         mv "${DIR_TMP}/new_ranking.tmp" "${DIR_TMP}/new_ranking"
 
-        # Actualiza el fichero partidos.txt para cambiar a RANKING=true
-        gawk 'BEGIN{OFS=FS="|";}{if ($1==M && $2==D && $3==LO && $4==V && $5==F && $6==HI && $7==HF && $8==LU && $9==SA && $10==SB && $11==SC) {$12="true";} print;}' \
-             M="${MES}" D="${DIVISION}" LO="${LOCAL}" V="${VISITANTE}" F="${FECHA}" HI="${HINI}" HF="${HFIN}" LU="${LUGAR}" SA="${SET1}" SB="${SET2}" SC="${SET3}" "${DIR_TMP}/new_partidos" > "${DIR_TMP}/new_partidos.new"
-        mv "${DIR_TMP}/new_partidos.new"  "${DIR_TMP}/new_partidos"
+        # Actualiza el nuevo ranking INDIVIDUAL: POSICION | PERSONA | PUNTOS | PARTIDOS_JUGADOS | PARTIDOS_GANADOS | JUEGOS_FAVOR | JUEGOS_CONTRA
+        # --local
+        loc1=$( echo -e "${LOCAL}"     | gawk -F"-" '{print $1}' )
+        loc2=$( echo -e "${LOCAL}"     | gawk -F"-" '{print $2}' )
+        for persona in "${loc1}" "${loc2}" "${vis1}" "${vis2}"
+        do
+            gawk 'BEGIN{FS=OFS="|"}{if ($2==PERSONA) {$3=$3+PTS; $4=$4+1; $5=$5+GAN; $6=$6+FAV; $7=$7+CON;} print;}' \
+                 PERSONA="${persona}" PTS="${puntosLoc}" GAN="${partGanaLoc}" FAV="${jueFavorLoc}" CON="${jueContraLoc}" "${DIR_TMP}/new_rankingInd" > "${DIR_TMP}/new_rankingInd.tmp"
+            mv "${DIR_TMP}/new_rankingInd.tmp" "${DIR_TMP}/new_rankingInd"
+        done
+        # -- visitante
+        vis1=$( echo -e "${VISITANTE}" | gawk -F"-" '{print $1}' )
+        vis2=$( echo -e "${VISITANTE}" | gawk -F"-" '{print $2}' )
+        for persona in "${loc1}" "${loc2}" "${vis1}" "${vis2}"
+        do
+            gawk 'BEGIN{FS=OFS="|"}{if ($2==PERSONA) {$3=$3+PTS; $4=$4+1; $5=$5+GAN; $6=$6+FAV; $7=$7+CON;} print;}' \
+             PERSONA="${persona}" PTS="${puntosVis}" GAN="${partGanaVis}" FAV="${jueFavorVis}" CON="${jueContraVis}" "${DIR_TMP}/new_rankingInd" > "${DIR_TMP}/new_rankingInd.tmp"
+            mv "${DIR_TMP}/new_rankingInd.tmp" "${DIR_TMP}/new_rankingInd"
+        done
         
     done < "${DIR_TMP}/partidos"
 
@@ -297,8 +314,8 @@ else
 fi
 
 # Se ordena por puntos + partidos ganados + juegos_favor + juego_contra
-sort -t"|" -s -r -g -k3,3 -k5,5 -k6,6 -k7,7 "${DIR_TMP}/new_ranking" > "${DIR_TMP}/new_ranking.tmp"
-mv "${DIR_TMP}/new_ranking.tmp" "${DIR_TMP}/new_ranking"
+sort -t"|" -s -r -g -k3,3 -k5,5 -k6,6 -k7,7 "${DIR_TMP}/new_ranking"    > "${DIR_TMP}/new_ranking.tmp";    mv "${DIR_TMP}/new_ranking.tmp"    "${DIR_TMP}/new_ranking"
+sort -t"|" -s -r -g -k3,3 -k5,5 -k6,6 -k7,7 "${DIR_TMP}/new_rankingInd" > "${DIR_TMP}/new_rankingInd.tmp"; mv "${DIR_TMP}/new_rankingInd.tmp" "${DIR_TMP}/new_rankingInd"
 
 # Si hay empate a puntos, se analiza el 'goal average' entre las 2: estara por encima la pareja que mas veces haya ganado las veces que se hayan enfrentado
 if [ "${ARG_GOAL_AVERAGE}" == "true" ]
@@ -409,10 +426,11 @@ then
 fi
 
 # Se actualizan las posiciones
-gawk 'BEGIN{OFS=FS="|";}{$1=NR; print}' "${DIR_TMP}/new_ranking" > "${DIR_TMP}/new_ranking.tmp"
-mv "${DIR_TMP}/new_ranking.tmp" "${DIR_TMP}/new_ranking"
+gawk 'BEGIN{OFS=FS="|";}{$1=NR; print}' "${DIR_TMP}/new_ranking"    > "${DIR_TMP}/new_ranking.tmp";    mv "${DIR_TMP}/new_ranking.tmp"    "${DIR_TMP}/new_ranking"
+gawk 'BEGIN{OFS=FS="|";}{$1=NR; print}' "${DIR_TMP}/new_rankingInd" > "${DIR_TMP}/new_rankingInd.tmp"; mv "${DIR_TMP}/new_rankingInd.tmp" "${DIR_TMP}/new_rankingInd"
 
 # Se construye el fichero final
+# -- ranking
 {
     # -- cabecera
     echo "POSICION|PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA"
@@ -420,11 +438,20 @@ mv "${DIR_TMP}/new_ranking.tmp" "${DIR_TMP}/new_ranking"
     cat "${DIR_TMP}/new_ranking"
 } > ranking.txt
 prt_info "---- Generado ${G}ranking.txt${NC}"
+# -- ranking individual
+{
+    # -- cabecera
+    echo "POSICION|PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA"
+    # -- cuerpo
+    cat "${DIR_TMP}/new_rankingInd"
+} > rankingIndividual.txt
+prt_info "---- Generado ${G}rankingIndividual.txt${NC}"
 
 # Da forma y comprueba que esta bien generado
 prt_info "-- Se formatea ranking.txt y se valida su contenido"
-out=$( bash Script/formateaTabla.sh -f ranking.txt ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
-out=$( bash Script/checkRanking.sh );                 rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+out=$( bash Script/formateaTabla.sh -f ranking.txt );           rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+out=$( bash Script/checkRanking.sh );                           rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+out=$( bash Script/formateaTabla.sh -f rankingIndividual.txt ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 
 # Se genera el html
 prt_info "-- Se genera el html a partir de ese fichero"
