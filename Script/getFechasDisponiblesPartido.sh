@@ -7,6 +7,7 @@
 # partidos ya programados, las pistas disponibles y las restricciones de los jugadores.
 #
 # Entrada
+#  -q --------------------> La salida tiene el formato para incluir en sendMail.sh
 #  -p [Pareja1+Pareja2] --> Partido a analizar
 #  -i YYYYMMDD -----------> Fecha de inicio (incluida)
 #  -f YYYYMMDD -----------> Fecha final (incluida)
@@ -84,6 +85,7 @@ AYUDA="
  partidos ya programados, las pistas disponibles y las restricciones de los jugadores.
 
  Entrada
+  -q --------------------> La salida tiene el formato para incluir en sendMail.sh
   -p [Pareja1+Pareja2] --> Partido a analizar
   -i YYYYMMDD -----------> Fecha de inicio (incluida)
   -f YYYYMMDD -----------> Fecha final (incluida)
@@ -93,14 +95,16 @@ AYUDA="
   1 --> ejecucion con errores
 "
 
-ARG_PARTIDO=""  # param obligatorio
-ARG_FINI=""     # param obligatorio
-ARG_FFIN=""     # param obligatorio
+ARG_SENDMAIL=false # por defecto, no es para sendMail
+ARG_PARTIDO=""     # param obligatorio
+ARG_FINI=""        # param obligatorio
+ARG_FFIN=""        # param obligatorio
 
 # Procesamos los argumentos de entrada
-while getopts p:i:f:oh opt
+while getopts qp:i:f:oh opt
 do
     case "${opt}" in
+        q) ARG_SENDMAIL=true;;
         p) ARG_PARTIDO=$OPTARG;;
         i) ARG_FINI=$OPTARG;;
         f) ARG_FFIN=$OPTARG;;
@@ -166,6 +170,16 @@ trap "salir;" EXIT
 ###############################################
 
 
+# Si la llamada es desde sendMail, se cambia la forma de imprimir los mensajes
+if [ "${ARG_SENDMAIL}" == "true" ]
+then
+    function prt_error { echo "" > /dev/null; }
+    function prt_warn  { echo "" > /dev/null; }
+    function prt_info  { echo "" > /dev/null; }
+    function prt_debug { echo "" > /dev/null; }
+fi
+
+
 ############# INICIALIZACION
 
 prt_info "Inicializacion..."
@@ -225,7 +239,7 @@ done < "${DIR_TMP}/calendario"
 # Se imprimen las fechas disponibles
 num=$( wc -l "${DIR_TMP}/combinaciones_todas" | gawk '{print $1}' )
 prt_info "Hay [${num}] huecos disponibles para jugar el partido ${loc} vs ${vis} entre las fechas ${ARG_FINI} - ${ARG_FFIN}, que son:"
-gawk -F"-" '{print "Dia "$7" en "$6" de "$8" a "$9 }' "${DIR_TMP}/combinaciones_todas"
+gawk -F"-" '{print "Dia "$7" en "$6" de "$8" a "$9; if (FLAG=="true") {print "<BR>";} }' FLAG="${ARG_SENDMAIL}" "${DIR_TMP}/combinaciones_todas"
 
 
 

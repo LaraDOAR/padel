@@ -184,7 +184,7 @@ do
     n2=$( head -"${l2}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $2$3}' )
     e1=$( head -"${l1}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $4}' )
     e2=$( head -"${l2}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $4}' )
-    
+
     {
         # -- cabecera email
         echo "To: ${e1}, ${e2}"
@@ -205,7 +205,7 @@ do
         echo "      #customers {"
         echo "        border-collapse: collapse;"
         echo "        margin-left: -100px;"
-        echo "        width: 500px;"
+        echo "        width: 700px;"
         echo "        align: left;"
         echo "      }"
         echo "      #customers td, #customers th {"
@@ -273,14 +273,23 @@ do
         echo "<CAPTION>Partidos pendientes, sin pista asignada</CAPTION>"
         echo "<TR>"
         echo "<TH>Rival</TH>"
+        echo "<TH>Huecos disponibles</TH>"
         echo "</TR >"
-        grep "|${n1}-${n2}|" "${DIR_TMP}/partidos" | gawk -F"|" '{if ($9=="-") print}' | sort -t"|" -k5,5 | gawk -F"|" '{
-            if ($5!="-") {next;}
-            if ($5=="-" && $NF=="true") {next;}
-            print "<TR>";
-            if ($3==PAREJA) { print "<TD>" $4 "</TD>"; }
-            else            { print "<TD>" $3 "</TD>"; }
-            print "</TR>"; }' PAREJA="${n1}-${n2}"
+        grep "|${n1}-${n2}|" "${DIR_TMP}/partidos" | gawk -F"|" '{if ($9=="-") print}' | sort -t"|" -k5,5 |
+            while IFS="|" read -r _ _ LOC VIS FECHA _ _ _ _ _ _ CONFIRMADA
+            do
+                if [ "${FECHA}" != "-" ]; then continue; fi
+                if [ "${FECHA}" == "-" ] && [ "${CONFIRMADA}" == "true" ]; then continue; fi
+                echo "<TR>"
+                # -- rival
+                if [ "${LOC}" == "${n1}-${n2}" ]; then echo "<TD>${VIS}</TD>"
+                else                                   echo "<TD>${LOC}</TD>"
+                fi
+                # -- huecos disponibles
+                out=$( bash Script/getFechasDisponiblesPartido.sh -q -p "${LOC}+${VIS}" -i "$( date +"%Y%m%d" )" -f "${CFG_FECHA_FIN}" )
+                echo "<TD>${out}</TD>"
+                echo "</TR>"
+            done
         echo "</TABLE>"
         echo "</DIV>"
 
@@ -294,7 +303,7 @@ do
         # -- fin html
         echo "</BODY>"
         echo "</HTML>"
-        
+
     } > "${DIR_TMP}/mail"
 
     # envia el email
