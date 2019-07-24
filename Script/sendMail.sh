@@ -163,6 +163,8 @@ mkdir -p tmp; DIR_TMP="tmp/tmp.${SCRIPT}.${PID}"; rm -rf "${DIR_TMP}"; mkdir "${
 out=$( FGRL_limpiaTabla parejas.txt  "${DIR_TMP}/parejas"  false )
 out=$( FGRL_limpiaTabla partidos.txt "${DIR_TMP}/partidos" false )
 
+# Crea directorio donde ira almacenando todos los emails, para evitar enviar emails repetidos
+mkdir -p emails
 
 
 ############# EJECUCION
@@ -290,7 +292,18 @@ do
                 fi
                 # -- huecos disponibles
                 out=$( bash Script/getFechasDisponiblesPartido.sh -q -p "${LOC}+${VIS}" -i "$( date +"%Y%m%d" )" -f "${CFG_FECHA_FIN}" )
-                echo "<TD>${out}</TD>"
+                if [ "${out}" != "" ]; then echo "<TD>${out}</TD>"
+                else
+                    echo "<TD>"
+                    echo "No hay ning&uacute;n hueco disponible seg&uacute;n vuestras restricciones."
+                    echo "<BR>"
+                    echo "Opciones disponibles:<BR>"
+                    echo "<UL>"
+                    echo "<LI>Jugar un viernes</LI>"
+                    echo "<LI>Jugar un d&iacute;a entre semana antes de las 18:00</LI>"
+                    echo "<LI>Algun jugador debe cambiar sus restricciones</LI>"
+                    echo "</TD>"
+                fi
                 echo "</TR>"
             done
         echo "</TABLE>"
@@ -309,6 +322,13 @@ do
 
     } > "${DIR_TMP}/mail"
 
+    # Solo se envia el email, si el email generado es diferente al ultimo que se envio
+    fileEmail="emails/mail-${n1}-${n2}.html"
+    if [ -f "${fileEmail}" ] && [ "$( diff "${DIR_TMP}/mail" "${fileEmail}" )" == "" ]; then continue; fi
+
+    # hace copia del email nuevo que va a enviar
+    cp "${DIR_TMP}/mail" "${fileEmail}"
+    
     # envia el email
     sendmail ${e1}, ${e2} < "${DIR_TMP}/mail"
 
