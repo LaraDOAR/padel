@@ -12,12 +12,12 @@ MES|DIVISION|                           LOCAL|                       VISITANTE| 
 002|       2|       AlbertoMateos-JavierVidal|  RamonCostafreda-AntonioSanchez|20190805|   18:00|   19:00|Pista7|   -|   -|   -|  false
 002|       2|DiegoChicote-CarlosAlbertoMartin|  RamonCostafreda-AntonioSanchez|20190715|   18:00|   19:00|Pista7| 1/6| 2/6|   -|   true
 002|       3| AmbrosioIniesta-CarlosFernandez|       DanielMichaud-JavierMunoz|20190819|   18:30|   19:30|Pista7|   -|   -|   -|  false
-002|       3| AmbrosioIniesta-CarlosFernandez|       DanielMorillo-AdrianGalan|20190806|   18:30|   19:30|Pista3|   -|   -|   -|  false
+002|       3| AmbrosioIniesta-CarlosFernandez|       DanielMorillo-AdrianGalan|20190806|   18:30|   19:30|Pista8|   -|   -|   -|  false
 002|       3| AmbrosioIniesta-CarlosFernandez|    MonicaGarcia-EnriqueClemente|20190716|   19:00|   20:00|Pista7| 6/2| 6/3|   -|   true
 002|       3|       DanielMichaud-JavierMunoz|       DanielMorillo-AdrianGalan|       -|       -|       -|     -|   -|   -|   -|  false
 002|       3|       DanielMichaud-JavierMunoz|    MonicaGarcia-EnriqueClemente|20190813|   18:00|   19:00|Pista8|   -|   -|   -|  false
 002|       3|       DanielMorillo-AdrianGalan|    MonicaGarcia-EnriqueClemente|20190731|   18:00|   19:00|Pista7|   -|   -|   -|  false
-002|       4|      CristinaPruenza-SofiaCerda|  DanielVillar-MariaLuisaBagaces|20190829|   18:30|   19:30|Pista3|   -|   -|   -|  false
+002|       4|      CristinaPruenza-SofiaCerda|  DanielVillar-MariaLuisaBagaces|20190829|   18:30|   19:30|Pista7|   -|   -|   -|  false
 002|       4|      CristinaPruenza-SofiaCerda|      LaraDominguez-TeresaSolano|20190731|   18:00|   19:00|Pista8|   -|   -|   -|  false
 002|       4|      CristinaPruenza-SofiaCerda|          SaraGarcia-AnaAlastuey|20190827|   18:30|   19:30|Pista9|   -|   -|   -|  false
 002|       4|  DanielVillar-MariaLuisaBagaces|      LaraDominguez-TeresaSolano|20190820|   18:30|   19:30|Pista9|   -|   -|   -|  false
