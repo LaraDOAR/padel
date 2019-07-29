@@ -135,7 +135,7 @@ export -f FGRL_getPermutacion
 #     Funcion   --->  Igual que FGRL_getPermutacion_conPesos, pero asume que las lineas de los ficheros
 #                     son de la forma: "peso texto". Esta funcion tambien genera permutaciones, pero lo hace
 #                     de manera ordenada para ir usando esas permutaciones.
-#                     Va registrando las permutaciones que están ya hechas, para porder ir usandolas.
+#                     Va registrando las permutaciones que estan ya hechas, para porder ir usandolas.
 #                     Cuando detecta la existencia del fichero "${DIR_TMP}/PERMUTACIONES.REGISTRO", para.
 #     Entrada   --->  $1 = fichero
 #                     $2 = iteracion
@@ -272,7 +272,7 @@ export -f FGRL_getPermutacion_conPesos
 #     Funcion   --->  Igual que FGRL_getPermutacion_conPesos, pero asume que las lineas de los ficheros
 #                     son de la forma: "peso texto". Esta funcion tambien genera permutaciones, pero lo hace
 #                     de manera ordenada para ir usando esas permutaciones.
-#                     Va registrando las permutaciones que están ya hechas, para porder ir usandolas.
+#                     Va registrando las permutaciones que estan ya hechas, para porder ir usandolas.
 #                     Cuando detecta la existencia del fichero "${DIR_TMP}/PERMUTACIONES.REGISTRO", para.
 #     Entrada   --->  $1 = fichero
 #                     $2 = iteracion: numero de la iteracion

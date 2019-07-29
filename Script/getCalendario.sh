@@ -314,7 +314,7 @@ function checkMoverPartido {
 ##########
 # - moverPartido
 #     Funcion   --->  Se elige un partido aleatorio y se pone en la semana siguiente. Se evita que una pareja juegue la misma semana.
-#                     Para no acumular partidos en una semana, si una semana se llena, se moverá a otra que tenga menos,
+#                     Para no acumular partidos en una semana, si una semana se llena, se movera a otra que tenga menos,
 #                     de manera rotativa hasta que todos esten mas o menos igualados.
 #     Entrada   --->  $1 = semana actual
 #                     $2 = (opcional) "check" si no se quiere mover, solo comprobar
