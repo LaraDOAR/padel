@@ -5,12 +5,12 @@ POSICION|             PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FA
        4|          JorgeLopez|    20|               2|               1|          17|           13
        5|       AlbertoAngulo|    19|               2|               0|           6|           24
        6|        RamiroLuengo|    19|               2|               0|           6|           24
-       7|     AlbertoParramon|    17|               3|               2|          25|           18
-       8|    IgnacioHernandez|    17|               3|               2|          25|           18
-       9|          AinhoaGoni|    16|               2|               0|           7|           24
-      10|JuanAntonioMontesino|    16|               2|               0|           7|           24
-      11|       AlbertoMateos|    15|               2|               1|          18|           13
-      12|         JavierVidal|    15|               2|               1|          18|           13
+       7|       AlbertoMateos|    17|               3|               2|          29|           20
+       8|         JavierVidal|    17|               3|               2|          29|           20
+       9|     AlbertoParramon|    17|               3|               2|          25|           18
+      10|    IgnacioHernandez|    17|               3|               2|          25|           18
+      11|          AinhoaGoni|    16|               3|               0|          14|           35
+      12|JuanAntonioMontesino|    16|               3|               0|          14|           35
       13|      AntonioSanchez|    14|               3|               3|          38|           16
       14|     RamonCostafreda|    14|               3|               3|          38|           16
       15| CarlosAlbertoMartin|    13|               3|               0|           6|           36

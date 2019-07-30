@@ -340,15 +340,15 @@ if [ "${rv}" != "0" ]
 then
     prt_error "Error ejecutando <bash Script/checkPartidos.sh>"
     prt_error "---- Soluciona el problema y ejecutalo a mano"
-    prt_warn "*** Despues quedaria ejecutar <bash Script/updatePartidos.sh -w> para actualizar el fichero html"
+    prt_warn "*** Despues quedaria ejecutar <bash Script/updatePartidos.sh> para actualizar el fichero html"
     exit 1
 fi
 
 # Se crea el fichero web
-bash Script/updatePartidos.sh -w; rv=$?
+bash Script/updatePartidos.sh; rv=$?
 if [ "${rv}" != "0" ]
 then
-    prt_error "Error ejecutando <bash Script/updatePartidos.sh -w>"
+    prt_error "Error ejecutando <bash Script/updatePartidos.sh>"
     prt_error "---- Soluciona el problema y ejecutalo a mano"
     exit 1
 fi

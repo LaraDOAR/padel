@@ -286,10 +286,11 @@ do
     
     # Si el set 1 y el set 2 tienen valores validos (en este punto los tiene), entonces set3=='-' si ya hay ganador o set!='-' si hay empate
     hayGanador=false
-    if [ "${jueL1}" -gt "${jueV1}" ] && [ "${jueL2}" -gt "${jueV2}" ]; then hayGanador=true; fi
-    if [ "${jueV1}" -gt "${jueL1}" ] && [ "${jueV2}" -gt "${jueL2}" ]; then hayGanador=true; fi
-    if [ "${hayGanador}" == "true" ] && [ "${set3}" == "-" ]; then continue; fi
-    if [ "${hayGanador}" == "true" ] && [ "${set3}" != "-" ]; then echo "-- En la linea ${line}, no puede ser que haya un ganador mirando set1 y set2, y que el set3!='-'"; exit 1; fi
+    if [ "${jueL1}" -gt "${jueV1}" ]  && [ "${jueL2}" -gt "${jueV2}" ]; then hayGanador=true; fi
+    if [ "${jueV1}" -gt "${jueL1}" ]  && [ "${jueV2}" -gt "${jueL2}" ]; then hayGanador=true; fi
+    if [ "${hayGanador}" == "true" ]  && [ "${set3}" == "-" ]; then continue; fi
+    if [ "${hayGanador}" == "true" ]  && [ "${set3}" != "-" ]; then echo "-- En la linea ${line}, no puede ser que haya un ganador mirando set1 y set2, y que el set3!='-'";    exit 1; fi
+    if [ "${hayGanador}" == "false" ] && [ "${set3}" == "-" ]; then echo "-- En la linea ${line}, no puede ser que NO haya un ganador mirando set1 y set2, y que el set3=='-'"; exit 1; fi
 
     # - set 3
     # --- si es 6 --> al otro lado <=4

@@ -3,8 +3,8 @@ POSICION|                          PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANAD
        2|          AndresMunoz-JorgeLopez|    20|               2|               1|          17|           13
        3|      AlbertoAngulo-RamiroLuengo|    19|               2|               0|           6|           24
        4|AlbertoParramon-IgnacioHernandez|    17|               3|               2|          25|           18
-       5| AinhoaGoni-JuanAntonioMontesino|    16|               2|               0|           7|           24
-       6|       AlbertoMateos-JavierVidal|    15|               2|               1|          18|           13
+       5|       AlbertoMateos-JavierVidal|    17|               3|               2|          29|           20
+       6| AinhoaGoni-JuanAntonioMontesino|    16|               3|               0|          14|           35
        7|  RamonCostafreda-AntonioSanchez|    14|               3|               3|          38|           16
        8|DiegoChicote-CarlosAlbertoMartin|    13|               3|               0|           6|           36
        9| AmbrosioIniesta-CarlosFernandez|    12|               3|               2|          35|           23

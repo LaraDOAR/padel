@@ -1293,9 +1293,9 @@ then
     prt_error "Error ejecutando <bash Script/checkCalendario.sh>"
     prt_error "---- Soluciona el problema y ejecutalo a mano"
     prt_warn "*** Despues quedaria ejecutar lo siguiente:"
-    prt_warn "-----  bash Script/updateCalendario.sh      # para actualizar el fichero de calendario html"
-    prt_warn "-----  bash Script/updatePartidos.sh -f -w  # para actualizar el fichero de partidos html"
-    prt_warn "-----  bash Script/checkPartidos.sh         # para comprobar formado de partidos"
+    prt_warn "-----  bash Script/updateCalendario.sh  # para actualizar el fichero de calendario html"
+    prt_warn "-----  bash Script/updatePartidos.sh    # para actualizar el fichero de partidos html"
+    prt_warn "-----  bash Script/checkPartidos.sh     # para comprobar formado de partidos"
     exit 1
 fi
 
@@ -1306,16 +1306,16 @@ then
     prt_error "Error ejecutando <bash Script/updateCalendario.sh>"
     prt_error "---- Soluciona el problema y ejecutalo a mano"
     prt_warn "*** Despues quedaria ejecutar lo siguiente:"
-    prt_warn "-----  bash Script/updatePartidos.sh -f -w  # para actualizar el fichero de partidos html"
-    prt_warn "-----  bash Script/checkPartidos.sh         # para comprobar formado de partidos"
+    prt_warn "-----  bash Script/updatePartidos.sh  # para actualizar el fichero de partidos html"
+    prt_warn "-----  bash Script/checkPartidos.sh   # para comprobar formado de partidos"
     exit 1
 fi
 
 # -- se crea el fichero web de partidos
-bash Script/updatePartidos.sh -f -w; rv=$?
+bash Script/updatePartidos.sh; rv=$?
 if [ "${rv}" != "0" ]
 then
-    prt_error "Error ejecutando <bash Script/updatePartidos.sh -f -w>"
+    prt_error "Error ejecutando <bash Script/updatePartidos.sh>"
     prt_error "---- Soluciona el problema y ejecutalo a mano"
     prt_warn "*** Despues quedaria ejecutar lo siguiente:"
     prt_warn "-----  bash Script/checkPartidos.sh         # para comprobar formado de partidos"

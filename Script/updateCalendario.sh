@@ -172,7 +172,7 @@ FGRL_backupFile partidos   html; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
 prt_info "Ejecucion..."
 
 # Actualiza los ficheros de partidos
-bash Script/updatePartidos.sh -w -f; rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+bash Script/updatePartidos.sh; rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 
 # Genera el html de calendario
 cat <<EOM >calendario.html
@@ -264,7 +264,7 @@ gawk -F"|" '
     print "              start: \x27" substr($5,1,4)"-"substr($5,5,2)"-"substr($5,7,2)"T"$6":00\x27,";
     print "              end:   \x27" substr($5,1,4)"-"substr($5,5,2)"-"substr($5,7,2)"T"$7":00\x27,";
     if ($8=="false") {
-        print "              backgroundColor: \x27green\x27,";
+        print "              backgroundColor: \x27red\x27,";
     }
     print "              resourceId: \x27" $4 "\x27";
     print "            },";
