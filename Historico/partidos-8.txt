@@ -18,7 +18,7 @@ MES|DIVISION|                           LOCAL|                       VISITANTE| 
 002|       3|       DanielMichaud-JavierMunoz|    MonicaGarcia-EnriqueClemente|20190813|   18:00|   19:00|Pista8|   -|   -|   -|  false
 002|       3|       DanielMorillo-AdrianGalan|    MonicaGarcia-EnriqueClemente|20190731|   18:00|   19:00|Pista7|   -|   -|   -|  false
 002|       4|      CristinaPruenza-SofiaCerda|  DanielVillar-MariaLuisaBagaces|20190829|   18:30|   19:30|Pista7|   -|   -|   -|  false
-002|       4|      CristinaPruenza-SofiaCerda|      LaraDominguez-TeresaSolano|20190731|   18:00|   19:00|Pista8| 0/6| 0/6|   -|   true
+002|       4|      CristinaPruenza-SofiaCerda|      LaraDominguez-TeresaSolano|20190731|   18:00|   19:00|Pista8| 0/6| 0/6|   -|  false
 002|       4|      CristinaPruenza-SofiaCerda|          SaraGarcia-AnaAlastuey|20190827|   18:30|   19:30|Pista9|   -|   -|   -|  false
 002|       4|  DanielVillar-MariaLuisaBagaces|      LaraDominguez-TeresaSolano|20190820|   18:30|   19:30|Pista9|   -|   -|   -|  false
 002|       4|  DanielVillar-MariaLuisaBagaces|          SaraGarcia-AnaAlastuey|20190716|   18:00|   19:00|Pista3| 2/6| 3/6|   -|   true
