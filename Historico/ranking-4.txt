@@ -1,0 +1,17 @@
+POSICION|                          PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA
+       1|      JoseCordoba-ManueldelValle|    23|               3|               3|          37|           14
+       2|          AndresMunoz-JorgeLopez|    20|               2|               1|          17|           13
+       3|      AlbertoAngulo-RamiroLuengo|    19|               2|               0|           6|           24
+       4|AlbertoParramon-IgnacioHernandez|    17|               3|               2|          25|           18
+       5|       AlbertoMateos-JavierVidal|    17|               3|               2|          29|           20
+       6| AinhoaGoni-JuanAntonioMontesino|    16|               3|               0|          14|           35
+       7|  RamonCostafreda-AntonioSanchez|    14|               3|               3|          38|           16
+       8|DiegoChicote-CarlosAlbertoMartin|    13|               3|               0|           6|           36
+       9| AmbrosioIniesta-CarlosFernandez|    12|               3|               2|          35|           23
+      10|       DanielMichaud-JavierMunoz|    10|               2|               2|          25|           12
+      11|    MonicaGarcia-EnriqueClemente|    10|               4|               1|          23|           44
+      12|      LaraDominguez-TeresaSolano|     8|               4|               2|          29|           25
+      13|       DanielMorillo-AdrianGalan|     6|               3|               1|          24|           31
+      14|          SaraGarcia-AnaAlastuey|     5|               3|               1|          19|           30
+      15|  DanielVillar-MariaLuisaBagaces|     3|               2|               1|          18|           18
+      16|      CristinaPruenza-SofiaCerda|     3|               3|               0|          10|           36

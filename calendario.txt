@@ -9,9 +9,9 @@ MES|                           LOCAL|                       VISITANTE| PISTA|   
 002| AinhoaGoni-JuanAntonioMontesino|       AlbertoMateos-JavierVidal|Pista7|20190729|   18:00|   19:00|            true
 002|       DanielMorillo-AdrianGalan|    MonicaGarcia-EnriqueClemente|Pista7|20190731|   18:00|   19:00|            true
 002|      CristinaPruenza-SofiaCerda|      LaraDominguez-TeresaSolano|Pista8|20190731|   18:00|   19:00|            true
-002|       AlbertoMateos-JavierVidal|  RamonCostafreda-AntonioSanchez|Pista7|20190805|   18:00|   19:00|            true
+002|       AlbertoMateos-JavierVidal|  RamonCostafreda-AntonioSanchez|Pista7|       -|       -|       -|           false
 002| AmbrosioIniesta-CarlosFernandez|       DanielMorillo-AdrianGalan|Pista8|20190806|   18:30|   19:30|            true
-002|       AlbertoMateos-JavierVidal|DiegoChicote-CarlosAlbertoMartin|Pista7|20190812|   18:00|   19:00|            true
+002|       AlbertoMateos-JavierVidal|DiegoChicote-CarlosAlbertoMartin|Pista7|       -|       -|       -|           false
 002|      AlbertoAngulo-RamiroLuengo|AlbertoParramon-IgnacioHernandez|Pista7|20190813|   18:00|   19:00|            true
 002|       DanielMichaud-JavierMunoz|    MonicaGarcia-EnriqueClemente|Pista8|20190813|   18:00|   19:00|            true
 002| AmbrosioIniesta-CarlosFernandez|       DanielMichaud-JavierMunoz|Pista7|20190819|   18:30|   19:30|            true
