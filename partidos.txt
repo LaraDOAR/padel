@@ -8,8 +8,8 @@ MES|DIVISION|                           LOCAL|                       VISITANTE| 
 002|       2| AinhoaGoni-JuanAntonioMontesino|       AlbertoMateos-JavierVidal|20190729|   18:00|   19:00|Pista7| 1/6| 6/4| 0/1|   true
 002|       2| AinhoaGoni-JuanAntonioMontesino|DiegoChicote-CarlosAlbertoMartin|20190827|   18:30|   19:30|Pista7|   -|   -|   -|  false
 002|       2| AinhoaGoni-JuanAntonioMontesino|  RamonCostafreda-AntonioSanchez|20190820|   18:30|   19:30|Pista7|   -|   -|   -|  false
-002|       2|       AlbertoMateos-JavierVidal|DiegoChicote-CarlosAlbertoMartin|       -|       -|       -|Pista7|   -|   -|   -|  false
-002|       2|       AlbertoMateos-JavierVidal|  RamonCostafreda-AntonioSanchez|       -|       -|       -|Pista7|   -|   -|   -|  false
+002|       2|       AlbertoMateos-JavierVidal|DiegoChicote-CarlosAlbertoMartin|       -|       -|       -|     -|   -|   -|   -|  false
+002|       2|       AlbertoMateos-JavierVidal|  RamonCostafreda-AntonioSanchez|20190805|   18:00|   19:00|Pista7| 0/6| 0/6|   -|   true
 002|       2|DiegoChicote-CarlosAlbertoMartin|  RamonCostafreda-AntonioSanchez|20190715|   18:00|   19:00|Pista7| 1/6| 2/6|   -|   true
 002|       3| AmbrosioIniesta-CarlosFernandez|       DanielMichaud-JavierMunoz|20190819|   18:30|   19:30|Pista7|   -|   -|   -|  false
 002|       3| AmbrosioIniesta-CarlosFernandez|       DanielMorillo-AdrianGalan|20190806|   18:30|   19:30|Pista8|   -|   -|   -|  false
