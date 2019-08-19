@@ -1,8 +1,8 @@
 POSICION|                          PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA
        1|      JoseCordoba-ManueldelValle|    23|               3|               3|          37|           14
        2|          AndresMunoz-JorgeLopez|    20|               2|               1|          17|           13
-       3|AlbertoParramon-IgnacioHernandez|    19|               4|               3|          39|           29
-       4|      AlbertoAngulo-RamiroLuengo|    19|               3|               0|          17|           38
+       3|      AlbertoAngulo-RamiroLuengo|    19|               2|               0|           6|           24
+       4|AlbertoParramon-IgnacioHernandez|    17|               3|               2|          25|           18
        5|       AlbertoMateos-JavierVidal|    17|               4|               2|          29|           32
        6|  RamonCostafreda-AntonioSanchez|    16|               4|               4|          50|           16
        7| AinhoaGoni-JuanAntonioMontesino|    16|               3|               0|          14|           35

@@ -1,5 +1,5 @@
 MES|DIVISION|                           LOCAL|                       VISITANTE|   FECHA|HORA_INI|HORA_FIN| LUGAR|SET1|SET2|SET3|RANKING
-002|       1|      AlbertoAngulo-RamiroLuengo|AlbertoParramon-IgnacioHernandez|20190813|   18:00|   19:00|Pista7| 5/7| 6/7|   -|   true
+002|       1|      AlbertoAngulo-RamiroLuengo|AlbertoParramon-IgnacioHernandez|20190813|   18:00|   19:00|Pista7| 5/7| 6/7|   -|  false
 002|       1|      AlbertoAngulo-RamiroLuengo|          AndresMunoz-JorgeLopez|20190827|   18:30|   19:30|Pista8|   -|   -|   -|  false
 002|       1|      AlbertoAngulo-RamiroLuengo|      JoseCordoba-ManueldelValle|20190820|   18:30|   19:30|Pista8|   -|   -|   -|  false
 002|       1|AlbertoParramon-IgnacioHernandez|          AndresMunoz-JorgeLopez|20190822|   18:00|   19:00|Pista7|   -|   -|   -|  false

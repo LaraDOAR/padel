@@ -3,12 +3,12 @@ POSICION|             PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FA
        2|      ManueldelValle|    23|               3|               3|          37|           14
        3|         AndresMunoz|    20|               2|               1|          17|           13
        4|          JorgeLopez|    20|               2|               1|          17|           13
-       5|     AlbertoParramon|    19|               4|               3|          39|           29
-       6|    IgnacioHernandez|    19|               4|               3|          39|           29
-       7|       AlbertoAngulo|    19|               3|               0|          17|           38
-       8|        RamiroLuengo|    19|               3|               0|          17|           38
-       9|       AlbertoMateos|    17|               4|               2|          29|           32
-      10|         JavierVidal|    17|               4|               2|          29|           32
+       5|       AlbertoAngulo|    19|               2|               0|           6|           24
+       6|        RamiroLuengo|    19|               2|               0|           6|           24
+       7|       AlbertoMateos|    17|               4|               2|          29|           32
+       8|         JavierVidal|    17|               4|               2|          29|           32
+       9|     AlbertoParramon|    17|               3|               2|          25|           18
+      10|    IgnacioHernandez|    17|               3|               2|          25|           18
       11|      AntonioSanchez|    16|               4|               4|          50|           16
       12|     RamonCostafreda|    16|               4|               4|          50|           16
       13|          AinhoaGoni|    16|               3|               0|          14|           35
