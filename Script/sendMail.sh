@@ -307,7 +307,7 @@ do
                 if [ "${out}" != "" ]
                 then
                     echo "<TD>"
-                    echo "Elegid un hueco de entre los siguientes:"
+                    echo "<B>Elegid un hueco de entre los siguientes:</B>"
                     echo "<BR>"
                     echo "${out}"
                     echo "</TD>"
