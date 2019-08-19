@@ -239,7 +239,7 @@ done < "${DIR_TMP}/calendario"
 # Se imprimen las fechas disponibles
 num=$( wc -l "${DIR_TMP}/combinaciones_todas" | gawk '{print $1}' )
 prt_info "Hay [${num}] huecos disponibles para jugar el partido ${loc} vs ${vis} entre las fechas ${ARG_FINI} - ${ARG_FFIN}, que son:"
-gawk -F"-" '{print "Dia "$7" en "$6" de "$8" a "$9; if (FLAG=="true") {print "<BR>";} }' FLAG="${ARG_SENDMAIL}" "${DIR_TMP}/combinaciones_todas"
+gawk -F"-" '{print "- Dia "$7" en "$6" de "$8" a "$9; if (FLAG=="true") {print "<BR>";} }' FLAG="${ARG_SENDMAIL}" "${DIR_TMP}/combinaciones_todas"
 
 
 

@@ -260,7 +260,9 @@ do
         echo "<TH>Lugar</TH>"
         echo "<TH>Rival</TH>"
         echo "</TR >"
-        grep "|${n1}-${n2}|" "${DIR_TMP}/partidos" | gawk -F"|" '{if ($9=="-") print}' | sort -t"|" -k5,5 | gawk -F"|" '{
+        grep "|${n1}-${n2}|" "${DIR_TMP}/partidos" | gawk -F"|" '{if ($9=="-") print}' | sort -t"|" -k5,5 | gawk -F"|" '
+        BEGIN{ vacio=1; }
+        {
             if ($5=="-") { next; }
             print "<TR>";
             print "<TD>" substr($5,7,2) "/" substr($5,5,2) "/" substr($5,1,4) "</TD>";
@@ -269,6 +271,12 @@ do
             if ($3==PAREJA) { print "<TD>" $4 "</TD>"; }
             else            { print "<TD>" $3 "</TD>"; }
             print "</TR>";
+            vacio = 0;
+        }
+        END{
+            if (vacio==1) {
+                print "<TD colspan=\"4\">No tienes partidos pendientes</TD>"
+            }
         }' PAREJA="${n1}-${n2}"
         echo "</TABLE>"
         echo "</DIV>"
@@ -283,6 +291,7 @@ do
         echo "<TH>Rival</TH>"
         echo "<TH>Huecos disponibles</TH>"
         echo "</TR >"
+        touch "${DIR_TMP}/vacio.txt"
         grep "|${n1}-${n2}|" "${DIR_TMP}/partidos" | gawk -F"|" '{if ($9=="-") print}' | sort -t"|" -k5,5 |
             while IFS="|" read -r _ _ LOC VIS FECHA _ _ _ _ _ _ CONFIRMADA
             do
@@ -295,7 +304,13 @@ do
                 fi
                 # -- huecos disponibles
                 out=$( bash Script/getFechasDisponiblesPartido.sh -q -p "${LOC}+${VIS}" -i "$( date +"%Y%m%d" )" -f "${CFG_FECHA_FIN}" )
-                if [ "${out}" != "" ]; then echo -e "<TD>${out}</TD>"
+                if [ "${out}" != "" ]
+                then
+                    echo "<TD>"
+                    echo "Elegid un hueco de entre los siguientes:"
+                    echo "<BR>"
+                    echo "${out}"
+                    echo "</TD>"
                 else
                     echo "<TD>"
                     echo "No hay ning&uacute;n hueco disponible seg&uacute;n vuestras restricciones."
@@ -308,15 +323,15 @@ do
                     echo "</TD>"
                 fi
                 echo "</TR>"
+                rm "${DIR_TMP}/vacio.txt"
             done
+        if [ -f "${DIR_TMP}/vacio.txt" ]; then rm "${DIR_TMP}/vacio.txt"; echo "<TD colspan=\"2\">No tienes partidos pendientes</TD>"; fi
         echo "</TABLE>"
         echo "</DIV>"
 
         # -- texto
         echo "<P>"
-        echo "<B>Ante cualquier incoherencia entre la informaci&oacute;n de este email y la informaci&oacute;n"
-        echo "de la web, deb&eacute;is tener en cuenta que lo dicho en este email siempre estar&aacute;"
-        echo "m&aacute;s actualizado</B>"
+        echo "Nota: <B>Tened en cuenta que la informaci&oacute;n de este email es la oficial (la web del calendario tarda algo m&aacute;s en actualizarse)</B>"
         echo "</P>"
 
         # -- fin html
