@@ -1,5 +1,5 @@
 MES|                           LOCAL|                       VISITANTE| PISTA|   FECHA|HORA_INI|HORA_FIN|PISTA_CONFIRMADA
-002|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|Pista7|20190806|   18:00|   19:00|            true
+002|          AndresMunoz-JorgeLopez|      JoseCordoba-ManueldelValle|     -|       -|       -|       -|           false
 002|       DanielMichaud-JavierMunoz|       DanielMorillo-AdrianGalan|     -|       -|       -|       -|           false
 002|      LaraDominguez-TeresaSolano|          SaraGarcia-AnaAlastuey|Pista7|20190709|   18:00|   19:00|            true
 002|DiegoChicote-CarlosAlbertoMartin|  RamonCostafreda-AntonioSanchez|Pista7|20190715|   18:00|   19:00|            true

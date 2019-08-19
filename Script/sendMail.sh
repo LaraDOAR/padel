@@ -6,7 +6,7 @@
 # de los partidos que tienen programas y que aun no han jugado.
 #
 # Entrada
-#  (no tiene)
+#  -v --> Verboso (no envia los emails, pero indica paso a paso lo que haria)
 #
 # Salida
 #   0 --> ejecucion correcta
@@ -75,20 +75,23 @@ AYUDA="
  ${SCRIPT}
 
  Script que envia un email a las personas que participan indicandoles la fecha
- # de los partidos que tienen programas y que aun no han jugado.
+ de los partidos que tienen programas y que aun no han jugado.
 
  Entrada
-  (no tiene)
+  -v --> Verboso (no envia los emails, pero indica paso a paso lo que haria)
 
  Salida:
   0 --> ejecucion correcta
   1 --> ejecucion con errores
 "
 
+ARG_VERBOSO=false
+
 # Procesamos los argumentos de entrada
-while getopts h opt
+while getopts vh opt
 do
     case "${opt}" in
+        v) ARG_VERBOSO=true;;
         h) echo -e "${AYUDA}"; exit 0;;
         *) prt_error "Parametro [${opt}] invalido"; echo -e "${AYUDA}"; exit 1;;
     esac
@@ -292,7 +295,7 @@ do
                 fi
                 # -- huecos disponibles
                 out=$( bash Script/getFechasDisponiblesPartido.sh -q -p "${LOC}+${VIS}" -i "$( date +"%Y%m%d" )" -f "${CFG_FECHA_FIN}" )
-                if [ "${out}" != "" ]; then echo "<TD>${out}</TD>"
+                if [ "${out}" != "" ]; then echo -e "<TD>${out}</TD>"
                 else
                     echo "<TD>"
                     echo "No hay ning&uacute;n hueco disponible seg&uacute;n vuestras restricciones."
@@ -325,6 +328,14 @@ do
     # Solo se envia el email, si el email generado es diferente al ultimo que se envio
     fileEmail="emails/mail-${n1}-${n2}.html"
     if [ -f "${fileEmail}" ] && [ "$( diff "${DIR_TMP}/mail" "${fileEmail}" )" == "" ]; then continue; fi
+
+    if [ "${ARG_VERBOSO}" == "true" ]
+    then
+        base=$( basename "${fileEmail}" )
+        prt_debug "${ARG_VERBOSO}" "Envia el mail [${base}] porque es diferente a lo que habia"
+        cp "${DIR_TMP}/mail" "${base}"
+        continue
+    fi
 
     # hace copia del email nuevo que va a enviar
     cp "${DIR_TMP}/mail" "${fileEmail}"
