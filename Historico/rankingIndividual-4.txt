@@ -21,13 +21,13 @@ POSICION|             PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FA
       20|         JavierMunoz|    10|               2|               2|          25|           12
       21|     EnriqueClemente|    10|               4|               1|          23|           44
       22|        MonicaGarcia|    10|               4|               1|          23|           44
-      23|       LaraDominguez|     9|               5|               3|          41|           26
-      24|        TeresaSolano|     9|               5|               3|          41|           26
+      23|       LaraDominguez|     8|               4|               2|          29|           25
+      24|        TeresaSolano|     8|               4|               2|          29|           25
       25|         AdrianGalan|     6|               4|               1|          25|           43
       26|       DanielMorillo|     6|               4|               1|          25|           43
       27|         AnaAlastuey|     5|               3|               1|          19|           30
       28|          SaraGarcia|     5|               3|               1|          19|           30
-      29|        DanielVillar|     3|               3|               1|          19|           30
-      30|   MariaLuisaBagaces|     3|               3|               1|          19|           30
+      29|        DanielVillar|     3|               2|               1|          18|           18
+      30|   MariaLuisaBagaces|     3|               2|               1|          18|           18
       31|     CristinaPruenza|     3|               3|               0|          10|           36
       32|          SofiaCerda|     3|               3|               0|          10|           36
