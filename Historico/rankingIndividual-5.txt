@@ -13,21 +13,21 @@ POSICION|             PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FA
       12|     RamonCostafreda|    16|               4|               4|          50|           16
       13|          AinhoaGoni|    16|               3|               0|          14|           35
       14|JuanAntonioMontesino|    16|               3|               0|          14|           35
-      15|       DanielMichaud|    13|               4|               4|          50|           20
-      16|         JavierMunoz|    13|               4|               4|          50|           20
-      17|     AmbrosioIniesta|    13|               5|               3|          54|           37
-      18|     CarlosFernandez|    13|               5|               3|          54|           37
-      19| CarlosAlbertoMartin|    13|               3|               0|           6|           36
-      20|        DiegoChicote|    13|               3|               0|           6|           36
-      21|     EnriqueClemente|    10|               5|               1|          24|           56
-      22|        MonicaGarcia|    10|               5|               1|          24|           56
+      15|     AmbrosioIniesta|    13|               4|               3|          47|           24
+      16|     CarlosFernandez|    13|               4|               3|          47|           24
+      17| CarlosAlbertoMartin|    13|               3|               0|           6|           36
+      18|        DiegoChicote|    13|               3|               0|           6|           36
+      19|       DanielMichaud|    10|               2|               2|          25|           12
+      20|         JavierMunoz|    10|               2|               2|          25|           12
+      21|     EnriqueClemente|    10|               4|               1|          23|           44
+      22|        MonicaGarcia|    10|               4|               1|          23|           44
       23|       LaraDominguez|     9|               5|               3|          41|           26
       24|        TeresaSolano|     9|               5|               3|          41|           26
-      25|     CristinaPruenza|     6|               5|               2|          36|           48
-      26|          SofiaCerda|     6|               5|               2|          36|           48
-      27|         AdrianGalan|     6|               4|               1|          25|           43
-      28|       DanielMorillo|     6|               4|               1|          25|           43
-      29|         AnaAlastuey|     5|               4|               1|          31|           44
-      30|          SaraGarcia|     5|               4|               1|          31|           44
-      31|        DanielVillar|     3|               4|               1|          19|           42
-      32|   MariaLuisaBagaces|     3|               4|               1|          19|           42
+      25|         AdrianGalan|     6|               4|               1|          25|           43
+      26|       DanielMorillo|     6|               4|               1|          25|           43
+      27|         AnaAlastuey|     5|               3|               1|          19|           30
+      28|          SaraGarcia|     5|               3|               1|          19|           30
+      29|        DanielVillar|     3|               3|               1|          19|           30
+      30|   MariaLuisaBagaces|     3|               3|               1|          19|           30
+      31|     CristinaPruenza|     3|               3|               0|          10|           36
+      32|          SofiaCerda|     3|               3|               0|          10|           36
