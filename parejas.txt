@@ -4,36 +4,36 @@
 #
 ####################################################
 
-PAREJA|       NOMBRE|  APELLIDO|                      CORREO
-     1|         Jose|   Cordoba|     jose.cordoba@iic.uam.es
-     1|       Manuel|  delValle|     manuel.valle@iic.uam.es
-     2|      Alberto|    Angulo|   alberto.angulo@iic.uam.es
-     2|       Ramiro|    Luengo|    ramiro.luengo@iic.uam.es
-     3|       Andres|     Munoz|     andres.munoz@iic.uam.es
-     3|        Jorge|     Lopez|      jorge.lopez@iic.uam.es
-     4|       Ainhoa|      Goni|      ainhoa.goni@iic.uam.es
-     4|  JuanAntonio| Montesino|   juan.montesino@iic.uam.es
-     5|      Alberto|    Mateos|   alberto.mateos@iic.uam.es
-     5|       Javier|     Vidal|     javier.vidal@iic.uam.es
-     6|        Diego|   Chicote|    diego.chicote@iic.uam.es
-     6|CarlosAlberto|    Martin|   alberto.martin@iic.uam.es
-     7|      Alberto|  Parramon| alberto.parramon@iic.uam.es
-     7|      Ignacio| Hernandez|ignacio.hernandez@iic.uam.es
-     8|        Ramon|Costafreda| ramon.costafresa@iic.uam.es
-     8|      Antonio|   Sanchez|  antonio.sanchez@iic.uam.es
-     9|     Ambrosio|   Iniesta| ambrosio.iniesta@iic.uam.es
-     9|       Carlos| Fernandez| carlos.fernandez@iic.uam.es
-    10|       Monica|    Garcia|    monica.garcia@iic.uam.es
-    10|      Enrique|  Clemente| enrique.clemente@iic.uam.es
-    11|       Daniel|   Michaud|   daniel.michaud@iic.uam.es
-    11|       Javier|     Munoz|     javier.munoz@iic.uam.es
-    12|         Lara| Dominguez|   lara.dominguez@iic.uam.es
-    12|       Teresa|    Solano|    teresa.solano@iic.uam.es
-    13|       Daniel|   Morillo|   daniel.morillo@iic.uam.es
-    13|       Adrian|     Galan|     adrian.galan@iic.uam.es
-    14|     Cristina|   Pruenza| cristina.pruenza@iic.uam.es
-    14|        Sofia|     Cerda|      sofia.munoz@iic.uam.es
-    15|         Sara|    Garcia|      sara.garcia@iic.uam.es
-    15|          Ana|  Alastuey|     ana.alastuey@iic.uam.es
-    16|       Daniel|    Villar|    daniel.villar@iic.uam.es
-    16|   MariaLuisa|   Bagaces|    luisa.bagaces@iic.uam.es
+PAREJA|     NOMBRE| APELLIDO|    NOMBRE.APELLIDO@iic.uam.es
+     1|     Manuel| delValle|       manuel.valle@iic.uam.es
+     1|JoseAntonio|  Cordoba|       jose.cordoba@iic.uam.es
+     2|      Jorge|    Lopez|        jorge.lopez@iic.uam.es
+     2|     Andres|    Munoz|       andres.munoz@iic.uam.es
+     3|    Alberto| Parramon|   alberto.parramon@iic.uam.es
+     3| JuanManuel| Gonzalez|juanmanuel.gonzalez@iic.uam.es
+     4|     Daniel|    Ramos|       daniel.ramos@iic.uam.es
+     4|     Alvaro|   Romero|      alvaro.romero@iic.uam.es
+     5|     Javier|    Vidal|       javier.vidal@iic.uam.es
+     5|    Alberto|   Mateos|     alberto.mateos@iic.uam.es
+     6|       Eric|    Perez|         eric.perez@iic.uam.es
+     6|     Israel|   Alonso|      israel.alonso@iic.uam.es
+     7|JuanAntonio|Montesino|     juan.montesino@iic.uam.es
+     7|     Ainhoa|     Goni|        ainhoa.goni@iic.uam.es
+     8|     Daniel|  Michaud|     daniel.michaud@iic.uam.es
+     8|     Javier|    Munoz|       javier.munoz@iic.uam.es
+     9|   Ambrosio|  Iniesta|   ambrosio.iniesta@iic.uam.es
+     9|     Carlos|Fernandez|   carlos.fernandez@iic.uam.es
+    10|      Ruben| Martinez|     ruben.martinez@iic.uam.es
+    10|       Pepe|Rodriguez|    jose.rodriguez@iic.auam.es
+    11|      Ruben| delCampo|     ruben.delcampo@iic.uam.es
+    11|      Pablo|   Lostao|       pablo.lostao@iic.uam.es
+    12|    Enrique| Clemente|   enrique.clemente@iic.uam.es
+    12|     Monica|   Garcia|      monica.garcia@iic.uam.es
+    13|     Teresa|   Solano| mariateresa.solano@iic.uam.es
+    13|       Lara|Dominguez|     lara.dominguez@iic.uam.es
+    14|   Cristina|     Leon|      cristina.leon@iic.uam.es
+    14|     Manuel|  Hidalgo|     manuel.hidalgo@iic.uam.es
+    15|     Angela|     Ruiz|        angela.ruiz@iic.uam.es
+    15|     Alvaro|  Barbero|     alvaro.barbero@iic.uam.es
+    16|       Sara|   Garcia|        sara.garcia@iic.uam.es
+    16|        Ana| Alastuey|       ana.alastuey@iic.uam.es
