@@ -167,6 +167,13 @@ do
     if [ "$( grep "|${nombre}|${apellido}|" "${DIR_TMP}/parejas" )" == "" ]; then prt_error "ERROR: La persona [${nombre}|${apellido}] no aparece en el fichero parejas.txt"; exit 1; fi
 done
 
+# Se asegura que estan en ascii los ficheros
+for f in Restricciones/restricciones-*.txt
+do
+    cat "${f}" | tr -c '[:print:]\n' ' ' > "${DIR_TMP}/aaa"
+    mv "${DIR_TMP}/aaa" "${f}"
+done
+
 # Revisa que los ficheros solo contienen fechas
 for f in Restricciones/restricciones-*.txt
 do

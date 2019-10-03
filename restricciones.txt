@@ -4,429 +4,212 @@
 #
 ####################################################
 
-  NOMBRE|  APELLIDO|   FECHA
-  Ainhoa|      Goni|20190703
-  Ainhoa|      Goni|20190704
-  Ainhoa|      Goni|20190705
-  Ainhoa|      Goni|20190706
-  Ainhoa|      Goni|20190707
-  Ainhoa|      Goni|20190708
-  Ainhoa|      Goni|20190709
-  Ainhoa|      Goni|20190710
-  Ainhoa|      Goni|20190712
-  Ainhoa|      Goni|20190713
-  Ainhoa|      Goni|20190714
-  Ainhoa|      Goni|20190715
-  Ainhoa|      Goni|20190716
-  Ainhoa|      Goni|20190717
-  Ainhoa|      Goni|20190718
-  Ainhoa|      Goni|20190719
-  Ainhoa|      Goni|20190720
-  Ainhoa|      Goni|20190721
-  Ainhoa|      Goni|20190722
-  Ainhoa|      Goni|20190723
-  Ainhoa|      Goni|20190724
-  Ainhoa|      Goni|20190725
-  Ainhoa|      Goni|20190726
-  Ainhoa|      Goni|20190727
-  Ainhoa|      Goni|20190728
-  Ainhoa|      Goni|20190731
-  Ainhoa|      Goni|20190801
-  Ainhoa|      Goni|20190802
-  Ainhoa|      Goni|20190803
-  Ainhoa|      Goni|20190804
-  Ainhoa|      Goni|20190805
-  Ainhoa|      Goni|20190806
-  Ainhoa|      Goni|20190807
-  Ainhoa|      Goni|20190808
-  Ainhoa|      Goni|20190809
-  Ainhoa|      Goni|20190810
-  Ainhoa|      Goni|20190811
-  Ainhoa|      Goni|20190812
-  Ainhoa|      Goni|20190813
-  Ainhoa|      Goni|20190814
-  Ainhoa|      Goni|20190815
-  Ainhoa|      Goni|20190816
-  Ainhoa|      Goni|20190817
-  Ainhoa|      Goni|20190818
-  Ainhoa|      Goni|20190828
-  Ainhoa|      Goni|20190829
-  Ainhoa|      Goni|20190830
-  Ainhoa|      Goni|20190831
- Alberto|    Angulo|20190705
- Alberto|    Angulo|20190706
- Alberto|    Angulo|20190707
- Alberto|    Angulo|20190708
- Alberto|    Angulo|20190709
- Alberto|    Angulo|20190710
- Alberto|    Angulo|20190711
- Alberto|    Angulo|20190712
- Alberto|    Angulo|20190713
- Alberto|    Angulo|20190714
- Alberto|    Angulo|20190715
- Alberto|    Angulo|20190716
- Alberto|    Angulo|20190717
- Alberto|    Angulo|20190718
- Alberto|    Angulo|20190719
- Alberto|    Angulo|20190720
- Alberto|    Angulo|20190721
- Alberto|    Angulo|20190722
- Alberto|    Angulo|20190723
- Alberto|    Angulo|20190724
- Alberto|    Angulo|20190725
- Alberto|    Angulo|20190726
- Alberto|    Angulo|20190727
- Alberto|    Angulo|20190728
- Alberto|    Angulo|20190729
- Alberto|    Angulo|20190730
- Alberto|    Angulo|20190731
- Alberto|    Angulo|20190801
- Alberto|    Angulo|20190802
- Alberto|    Angulo|20190803
- Alberto|    Angulo|20190804
- Alberto|    Angulo|20190805
- Alberto|    Mateos|20190701
- Alberto|    Mateos|20190702
- Alberto|    Mateos|20190703
- Alberto|    Mateos|20190704
- Alberto|    Mateos|20190705
- Alberto|    Mateos|20190706
- Alberto|    Mateos|20190707
- Alberto|    Mateos|20190708
- Alberto|    Mateos|20190709
- Alberto|    Mateos|20190710
- Alberto|    Mateos|20190711
- Alberto|    Mateos|20190712
- Alberto|    Mateos|20190713
- Alberto|    Mateos|20190714
- Alberto|    Mateos|20190716
- Alberto|    Mateos|20190717
- Alberto|    Mateos|20190718
- Alberto|    Mateos|20190719
- Alberto|    Mateos|20190720
- Alberto|    Mateos|20190721
- Alberto|    Mateos|20190723
- Alberto|    Mateos|20190725
- Alberto|    Mateos|20190730
- Alberto|    Mateos|20190801
- Alberto|    Mateos|20190806
- Alberto|    Mateos|20190808
- Alberto|    Mateos|20190813
- Alberto|    Mateos|20190815
- Alberto|    Mateos|20190816
- Alberto|    Mateos|20190817
- Alberto|    Mateos|20190818
- Alberto|    Mateos|20190820
- Alberto|    Mateos|20190822
- Alberto|    Mateos|20190827
- Alberto|    Mateos|20190829
- Alberto|  Parramon|20190701
- Alberto|  Parramon|20190703
- Alberto|  Parramon|20190708
- Alberto|  Parramon|20190710
- Alberto|  Parramon|20190715
- Alberto|  Parramon|20190717
- Alberto|  Parramon|20190722
- Alberto|  Parramon|20190724
- Alberto|  Parramon|20190729
- Alberto|  Parramon|20190731
- Alberto|  Parramon|20190804
- Alberto|  Parramon|20190805
- Alberto|  Parramon|20190806
- Alberto|  Parramon|20190807
- Alberto|  Parramon|20190808
- Alberto|  Parramon|20190809
- Alberto|  Parramon|20190810
- Alberto|  Parramon|20190811
- Alberto|  Parramon|20190812
- Alberto|  Parramon|20190814
- Alberto|  Parramon|20190819
- Alberto|  Parramon|20190821
- Alberto|  Parramon|20190825
- Alberto|  Parramon|20190826
- Alberto|  Parramon|20190827
- Alberto|  Parramon|20190828
- Alberto|  Parramon|20190829
- Alberto|  Parramon|20190830
- Alberto|  Parramon|20190831
-Ambrosio|   Iniesta|20190708
-Ambrosio|   Iniesta|20190709
-Ambrosio|   Iniesta|20190710
-Ambrosio|   Iniesta|20190711
-Ambrosio|   Iniesta|20190712
-Ambrosio|   Iniesta|20190722
-Ambrosio|   Iniesta|20190723
-Ambrosio|   Iniesta|20190724
-Ambrosio|   Iniesta|20190725
-Ambrosio|   Iniesta|20190726
-Ambrosio|   Iniesta|20190812
-Ambrosio|   Iniesta|20190813
-Ambrosio|   Iniesta|20190814
-Ambrosio|   Iniesta|20190815
-Ambrosio|   Iniesta|20190816
-Ambrosio|   Iniesta|20190817
-Ambrosio|   Iniesta|20190818
-  Andres|     Munoz|20190722
-  Andres|     Munoz|20190723
-  Andres|     Munoz|20190724
-  Andres|     Munoz|20190725
-  Andres|     Munoz|20190726
-  Andres|     Munoz|20190727
-  Andres|     Munoz|20190728
-  Andres|     Munoz|20190729
-  Andres|     Munoz|20190730
-  Andres|     Munoz|20190731
-  Andres|     Munoz|20190801
-  Andres|     Munoz|20190802
-  Andres|     Munoz|20190803
-  Andres|     Munoz|20190804
-Cristina|   Pruenza|20190701
-Cristina|   Pruenza|20190702
-Cristina|   Pruenza|20190703
-Cristina|   Pruenza|20190704
-Cristina|   Pruenza|20190705
-Cristina|   Pruenza|20190706
-Cristina|   Pruenza|20190707
-Cristina|   Pruenza|20190708
-Cristina|   Pruenza|20190709
-Cristina|   Pruenza|20190710
-Cristina|   Pruenza|20190711
-Cristina|   Pruenza|20190712
-Cristina|   Pruenza|20190713
-Cristina|   Pruenza|20190714
-Cristina|   Pruenza|20190715
-Cristina|   Pruenza|20190716
-Cristina|   Pruenza|20190717
-Cristina|   Pruenza|20190812
-Cristina|   Pruenza|20190813
-Cristina|   Pruenza|20190814
-Cristina|   Pruenza|20190815
-Cristina|   Pruenza|20190816
-Cristina|   Pruenza|20190817
-Cristina|   Pruenza|20190818
-Cristina|   Pruenza|20190819
-Cristina|   Pruenza|20190820
-Cristina|   Pruenza|20190821
-Cristina|   Pruenza|20190822
-Cristina|   Pruenza|20190823
-Cristina|   Pruenza|20190824
-  Daniel|   Michaud|20190716
-  Daniel|   Michaud|20190717
-  Daniel|   Michaud|20190718
-  Daniel|   Michaud|20190719
-  Daniel|   Michaud|20190720
-  Daniel|   Michaud|20190721
-  Daniel|   Michaud|20190722
-  Daniel|   Michaud|20190723
-  Daniel|   Michaud|20190724
-  Daniel|   Michaud|20190725
-  Daniel|   Michaud|20190726
-  Daniel|   Michaud|20190727
-  Daniel|   Michaud|20190728
-  Daniel|   Michaud|20190729
-  Daniel|   Michaud|20190730
-  Daniel|   Michaud|20190731
-  Daniel|   Michaud|20190801
-  Daniel|   Michaud|20190802
-  Daniel|   Michaud|20190803
-  Daniel|   Michaud|20190804
-  Daniel|   Michaud|20190805
-  Daniel|   Michaud|20190806
-  Daniel|   Michaud|20190807
-  Daniel|   Michaud|20190808
-  Daniel|   Michaud|20190809
-  Daniel|   Michaud|20190810
-  Daniel|   Michaud|20190811
-  Daniel|   Michaud|20190812
-  Daniel|   Morillo|20190714
-  Daniel|   Morillo|20190715
-  Daniel|   Morillo|20190716
-  Daniel|   Morillo|20190717
-  Daniel|   Morillo|20190718
-  Daniel|   Morillo|20190719
-  Daniel|   Morillo|20190720
-  Daniel|   Morillo|20190721
-  Daniel|   Morillo|20190723
-  Daniel|   Morillo|20190813
-  Daniel|   Morillo|20190814
-  Daniel|   Morillo|20190815
-  Daniel|   Morillo|20190816
-  Daniel|   Morillo|20190817
-  Daniel|   Morillo|20190818
-  Daniel|   Morillo|20190819
-  Daniel|   Morillo|20190820
-  Daniel|   Morillo|20190821
-  Daniel|   Morillo|20190822
-  Daniel|   Morillo|20190823
-  Daniel|   Morillo|20190824
-  Daniel|   Morillo|20190825
-  Daniel|   Morillo|20190826
-  Daniel|   Morillo|20190827
-  Daniel|   Morillo|20190828
-  Daniel|   Morillo|20190829
-  Daniel|   Morillo|20190830
-  Daniel|   Morillo|20190831
-  Daniel|    Villar|20190702
-  Daniel|    Villar|20190726
-  Daniel|    Villar|20190727
-  Daniel|    Villar|20190728
-  Daniel|    Villar|20190729
-  Daniel|    Villar|20190730
-  Daniel|    Villar|20190731
-  Daniel|    Villar|20190801
-  Daniel|    Villar|20190802
-  Daniel|    Villar|20190803
-  Daniel|    Villar|20190804
-  Daniel|    Villar|20190805
-  Daniel|    Villar|20190806
-  Daniel|    Villar|20190807
-  Daniel|    Villar|20190808
-  Daniel|    Villar|20190809
-  Daniel|    Villar|20190810
-  Daniel|    Villar|20190811
-  Daniel|    Villar|20190812
-  Daniel|    Villar|20190813
-  Daniel|    Villar|20190814
-  Daniel|    Villar|20190815
-  Daniel|    Villar|20190816
-  Daniel|    Villar|20190817
-  Daniel|    Villar|20190818
-   Diego|   Chicote|20190719
-   Diego|   Chicote|20190720
-   Diego|   Chicote|20190721
-   Diego|   Chicote|20190722
-   Diego|   Chicote|20190723
-   Diego|   Chicote|20190724
-   Diego|   Chicote|20190725
-   Diego|   Chicote|20190726
-   Diego|   Chicote|20190727
-   Diego|   Chicote|20190728
-   Diego|   Chicote|20190729
-   Diego|   Chicote|20190730
-   Diego|   Chicote|20190731
-   Diego|   Chicote|20190816
-   Diego|   Chicote|20190817
-   Diego|   Chicote|20190818
-   Diego|   Chicote|20190819
-   Diego|   Chicote|20190820
-   Diego|   Chicote|20190821
-   Diego|   Chicote|20190822
-   Diego|   Chicote|20190823
-    Jose|   Cordoba|20190701
-    Jose|   Cordoba|20190702
-    Jose|   Cordoba|20190703
-    Jose|   Cordoba|20190704
-    Jose|   Cordoba|20190705
-    Jose|   Cordoba|20190706
-    Jose|   Cordoba|20190707
-    Jose|   Cordoba|20190708
-    Jose|   Cordoba|20190709
-    Jose|   Cordoba|20190710
-    Jose|   Cordoba|20190711
-    Jose|   Cordoba|20190712
-    Jose|   Cordoba|20190713
-    Jose|   Cordoba|20190714
-    Lara| Dominguez|20190715
-    Lara| Dominguez|20190716
-    Lara| Dominguez|20190717
-    Lara| Dominguez|20190718
-    Lara| Dominguez|20190719
-    Lara| Dominguez|20190801
-    Lara| Dominguez|20190802
-    Lara| Dominguez|20190803
-    Lara| Dominguez|20190804
-    Lara| Dominguez|20190805
-    Lara| Dominguez|20190806
-    Lara| Dominguez|20190807
-    Lara| Dominguez|20190808
-    Lara| Dominguez|20190809
-    Lara| Dominguez|20190810
-    Lara| Dominguez|20190811
-    Lara| Dominguez|20190812
-    Lara| Dominguez|20190813
-    Lara| Dominguez|20190814
-    Lara| Dominguez|20190815
-    Lara| Dominguez|20190816
-    Lara| Dominguez|20190817
-    Lara| Dominguez|20190818
-    Lara| Dominguez|20190819
-    Lara| Dominguez|20190826
-    Lara| Dominguez|20190827
-    Lara| Dominguez|20190828
-    Lara| Dominguez|20190829
-    Lara| Dominguez|20190830
-    Lara| Dominguez|20190831
-  Monica|    Garcia|20190710
-  Monica|    Garcia|20190711
-  Monica|    Garcia|20190712
-  Monica|    Garcia|20190713
-  Monica|    Garcia|20190714
-  Monica|    Garcia|20190715
-  Monica|    Garcia|20190722
-  Monica|    Garcia|20190723
-  Monica|    Garcia|20190724
-  Monica|    Garcia|20190725
-  Monica|    Garcia|20190726
-  Monica|    Garcia|20190816
-  Monica|    Garcia|20190817
-  Monica|    Garcia|20190818
-  Monica|    Garcia|20190819
-  Monica|    Garcia|20190820
-  Monica|    Garcia|20190821
-  Monica|    Garcia|20190822
-  Monica|    Garcia|20190823
-  Monica|    Garcia|20190824
-  Monica|    Garcia|20190825
-  Monica|    Garcia|20190826
-  Monica|    Garcia|20190827
-  Monica|    Garcia|20190828
-  Monica|    Garcia|20190829
-  Monica|    Garcia|20190830
-  Monica|    Garcia|20190831
-   Ramon|Costafreda|20190701
-   Ramon|Costafreda|20190702
-   Ramon|Costafreda|20190703
-   Ramon|Costafreda|20190704
-   Ramon|Costafreda|20190705
-   Ramon|Costafreda|20190706
-   Ramon|Costafreda|20190707
-   Ramon|Costafreda|20190708
-   Ramon|Costafreda|20190709
-   Ramon|Costafreda|20190710
-   Ramon|Costafreda|20190711
-   Ramon|Costafreda|20190712
-   Ramon|Costafreda|20190713
-   Ramon|Costafreda|20190714
-    Sara|    Garcia|20190722
-    Sara|    Garcia|20190723
-    Sara|    Garcia|20190724
-    Sara|    Garcia|20190725
-    Sara|    Garcia|20190726
-    Sara|    Garcia|20190727
-    Sara|    Garcia|20190728
-    Sara|    Garcia|20190729
-    Sara|    Garcia|20190730
-    Sara|    Garcia|20190731
-    Sara|    Garcia|20190801
-    Sara|    Garcia|20190802
-    Sara|    Garcia|20190803
-    Sara|    Garcia|20190804
-    Sara|    Garcia|20190805
-    Sara|    Garcia|20190806
-    Sara|    Garcia|20190807
-    Sara|    Garcia|20190808
-    Sara|    Garcia|20190809
-    Sara|    Garcia|20190810
-    Sara|    Garcia|20190811
-    Sara|    Garcia|20190812
-    Sara|    Garcia|20190813
-    Sara|    Garcia|20190814
-    Sara|    Garcia|20190815
-    Sara|    Garcia|20190816
-    Sara|    Garcia|20190817
-    Sara|    Garcia|20190818
-    Sara|    Garcia|20190819
-    Sara|    Garcia|20190820
-    Sara|    Garcia|20190821
-    Sara|    Garcia|20190822
-    Sara|    Garcia|20190823
+     NOMBRE| APELLIDO|   FECHA
+     Ainhoa|     Goni|20191004
+     Ainhoa|     Goni|20191007
+     Ainhoa|     Goni|20191009
+     Ainhoa|     Goni|20191014
+     Ainhoa|     Goni|20191016
+     Ainhoa|     Goni|20191021
+     Ainhoa|     Goni|20191023
+     Ainhoa|     Goni|20191025
+     Ainhoa|     Goni|20191028
+     Ainhoa|     Goni|20191030
+     Ainhoa|     Goni|20191031
+    Alberto| Parramon|20191030
+    Alberto| Parramon|20191031
+     Alvaro|  Barbero|20191001
+     Alvaro|  Barbero|20191004
+     Alvaro|  Barbero|20191008
+     Alvaro|  Barbero|20191010
+     Alvaro|  Barbero|20191022
+     Alvaro|  Barbero|20191029
+     Alvaro|  Barbero|20191031
+     Alvaro|   Romero|20191002
+     Alvaro|   Romero|20191004
+     Alvaro|   Romero|20191009
+     Alvaro|   Romero|20191011
+     Alvaro|   Romero|20191016
+     Alvaro|   Romero|20191018
+     Alvaro|   Romero|20191023
+     Alvaro|   Romero|20191025
+     Alvaro|   Romero|20191030
+     Alvaro|   Romero|20191101
+     Alvaro|   Romero|20191106
+     Alvaro|   Romero|20191108
+     Alvaro|   Romero|20191113
+     Alvaro|   Romero|20191115
+     Alvaro|   Romero|20191120
+     Alvaro|   Romero|20191122
+     Alvaro|   Romero|20191127
+     Alvaro|   Romero|20191129
+     Alvaro|   Romero|20191204
+     Alvaro|   Romero|20191206
+     Alvaro|   Romero|20191211
+     Alvaro|   Romero|20191213
+     Alvaro|   Romero|20191218
+   Ambrosio|  Iniesta|20191007
+   Ambrosio|  Iniesta|20191011
+   Ambrosio|  Iniesta|20191014
+   Ambrosio|  Iniesta|20191018
+   Ambrosio|  Iniesta|20191021
+   Ambrosio|  Iniesta|20191025
+   Ambrosio|  Iniesta|20191028
+   Ambrosio|  Iniesta|20191029
+        Ana| Alastuey|20191011
+        Ana| Alastuey|20191014
+     Andres|    Munoz|20191003
+     Andres|    Munoz|20191017
+     Angela|     Ruiz|20191002
+     Angela|     Ruiz|20191003
+     Angela|     Ruiz|20191004
+     Angela|     Ruiz|20191011
+     Angela|     Ruiz|20191018
+     Angela|     Ruiz|20191025
+   Cristina|     Leon|20191003
+   Cristina|     Leon|20191004
+   Cristina|     Leon|20191009
+   Cristina|     Leon|20191011
+   Cristina|     Leon|20191017
+   Cristina|     Leon|20191018
+   Cristina|     Leon|20191022
+   Cristina|     Leon|20191025
+     Daniel|    Ramos|20191004
+     Daniel|    Ramos|20191011
+     Daniel|    Ramos|20191018
+     Daniel|    Ramos|20191025
+    Enrique| Clemente|20191001
+    Enrique| Clemente|20191008
+    Enrique| Clemente|20191015
+    Enrique| Clemente|20191022
+    Enrique| Clemente|20191029
+       Eric|    Perez|20191001
+       Eric|    Perez|20191003
+       Eric|    Perez|20191004
+       Eric|    Perez|20191008
+       Eric|    Perez|20191010
+       Eric|    Perez|20191011
+       Eric|    Perez|20191015
+       Eric|    Perez|20191017
+       Eric|    Perez|20191018
+       Eric|    Perez|20191022
+       Eric|    Perez|20191024
+       Eric|    Perez|20191025
+       Eric|    Perez|20191029
+       Eric|    Perez|20191031
+     Israel|   Alonso|20191001
+     Israel|   Alonso|20191003
+     Israel|   Alonso|20191004
+     Israel|   Alonso|20191008
+     Israel|   Alonso|20191010
+     Israel|   Alonso|20191011
+     Israel|   Alonso|20191015
+     Israel|   Alonso|20191017
+     Israel|   Alonso|20191018
+     Israel|   Alonso|20191022
+     Israel|   Alonso|20191024
+     Israel|   Alonso|20191025
+     Israel|   Alonso|20191029
+     Israel|   Alonso|20191031
+     Javier|    Munoz|20191004
+     Javier|    Munoz|20191011
+     Javier|    Munoz|20191018
+     Javier|    Munoz|20191025
+      Jorge|    Lopez|20191009
+      Jorge|    Lopez|20191030
+      Jorge|    Lopez|20191105
+      Jorge|    Lopez|20191106
+       Jose|  Cordoba|20191001
+       Jose|  Cordoba|20191002
+       Jose|  Cordoba|20191003
+       Jose|  Cordoba|20191004
+       Jose|  Cordoba|20191008
+       Jose|  Cordoba|20191009
+       Jose|  Cordoba|20191011
+       Jose|  Cordoba|20191015
+       Jose|  Cordoba|20191016
+       Jose|  Cordoba|20191018
+       Jose|  Cordoba|20191022
+       Jose|  Cordoba|20191023
+       Jose|  Cordoba|20191025
+       Jose|  Cordoba|20191029
+       Jose|  Cordoba|20191030
+JuanAntonio|Montesino|20191004
+JuanAntonio|Montesino|20191007
+JuanAntonio|Montesino|20191009
+JuanAntonio|Montesino|20191011
+JuanAntonio|Montesino|20191014
+JuanAntonio|Montesino|20191016
+JuanAntonio|Montesino|20191018
+JuanAntonio|Montesino|20191021
+JuanAntonio|Montesino|20191023
+JuanAntonio|Montesino|20191025
+JuanAntonio|Montesino|20191028
+JuanAntonio|Montesino|20191030
+ JuanManuel| Gonzalez|20191017
+     Manuel| delValle|20191001
+     Manuel| delValle|20191002
+     Manuel| delValle|20191003
+     Manuel| delValle|20191004
+     Manuel| delValle|20191008
+     Manuel| delValle|20191009
+     Manuel| delValle|20191011
+     Manuel| delValle|20191015
+     Manuel| delValle|20191016
+     Manuel| delValle|20191018
+     Manuel| delValle|20191022
+     Manuel| delValle|20191023
+     Manuel| delValle|20191025
+     Manuel| delValle|20191029
+     Manuel| delValle|20191030
+     Monica|   Garcia|20191001
+     Monica|   Garcia|20191003
+     Monica|   Garcia|20191008
+     Monica|   Garcia|20191010
+     Monica|   Garcia|20191015
+     Monica|   Garcia|20191017
+     Monica|   Garcia|20191022
+     Monica|   Garcia|20191024
+     Monica|   Garcia|20191029
+     Monica|   Garcia|20191031
+      Pablo|   Lostao|20191025
+      Pablo|   Lostao|20191028
+       Pepe|Rodriguez|20191003
+       Pepe|Rodriguez|20191015
+      Ruben| Martinez|20191001
+      Ruben| Martinez|20191002
+      Ruben| Martinez|20191003
+      Ruben| Martinez|20191004
+      Ruben| Martinez|20191008
+      Ruben| Martinez|20191009
+      Ruben| Martinez|20191010
+      Ruben| Martinez|20191011
+      Ruben| Martinez|20191015
+      Ruben| Martinez|20191016
+      Ruben| Martinez|20191017
+      Ruben| Martinez|20191018
+      Ruben| Martinez|20191022
+      Ruben| Martinez|20191023
+      Ruben| Martinez|20191024
+      Ruben| Martinez|20191025
+      Ruben| Martinez|20191029
+      Ruben| Martinez|20191030
+      Ruben| Martinez|20191031
+       Sara|   Garcia|20191001
+       Sara|   Garcia|20191004
+       Sara|   Garcia|20191008
+       Sara|   Garcia|20191011
+       Sara|   Garcia|20191015
+       Sara|   Garcia|20191018
+       Sara|   Garcia|20191022
+       Sara|   Garcia|20191025
+       Sara|   Garcia|20191029
+     Teresa|   Solano|20191004
+     Teresa|   Solano|20191007
+     Teresa|   Solano|20191009
+     Teresa|   Solano|20191014
+     Teresa|   Solano|20191016
+     Teresa|   Solano|20191021
+     Teresa|   Solano|20191023
+     Teresa|   Solano|20191028
+     Teresa|   Solano|20191030

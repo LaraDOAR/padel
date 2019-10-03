@@ -480,6 +480,11 @@ out=$( bash Script/formateaTabla.sh -f ranking.txt );           rv=$?; if [ "${r
 out=$( bash Script/checkRanking.sh );                           rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 out=$( bash Script/formateaTabla.sh -f rankingIndividual.txt ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 
+if [ "${ARG_INICIAL}" == "true" ]
+then
+    cp ranking.txt rankingReferencia.txt
+fi
+
 # Se genera el html
 prt_info "-- Se genera el html a partir de ese fichero"
 

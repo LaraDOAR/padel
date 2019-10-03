@@ -20,23 +20,21 @@ exit 1
 
 ##### 1/6 - Configurar ficheros iniciales
 
-# -- copiar index de la web al home
-cp Example/index.html
-
 # -- copiar de los de ejemplo
 cp Example/infoTorneo.cfg .    # datos del torneo
 cp Example/pistas.txt .        # informacion sobre las pistas disponibles
 cp Example/parejas.txt .       # informacion sobre las personas y las parejas que forman
-cp Example/restricciones.txt . # restricciones de las personsa
 
 # -- editar
 vim infoTorneo.cfg
 vim pistas.txt
 vim parejas.txt
-vim restricciones.txt
 
 # -- crear directorio de backup
 mkdir -p Historico
+
+# -- obtener restricciones
+bash Script/getRestricciones.sh
 
 # -- dar formato a las tablas (sobreescribe las tablas)
 bash Script/formateaTabla.sh -f pistas.txt
@@ -57,16 +55,12 @@ bash Script/checkRestricciones.sh
 # -- Puntos iniciales para conservar el ranking
 
 # -- ejecuta con opcion inicial
-bash Script/getRanking.sh -i
+bash Script/getRanking.sh -i -o
 # -- ficheros de salida
-# ranking.txt
 # ranking.html
-
-# -- guardar como los ficheros de referencia
-cp ranking.txt  rankingReferencia.txt
-cp ranking.html rankingReferencia.html
-
-
+# ranking.txt
+# rankingIndividual.txt
+# rankingReferencia.txt
 
 
 

@@ -178,9 +178,9 @@ if [ "${out}" !=  "" ]; then echo -e "${out}"; exit 1; fi
 prt_info "-- 3/5 - Formato de las columnas"
 while IFS="|" read -r NOMBRE APELLIDO FECHA
 do
-    if ! [[ ${FECHA}    =~ ^[0-9]{8}$    ]]; then echo "La fecha ${FECHA} no es de la forma YYYYMMDD";                             exit 1; fi
-    if ! [[ ${NOMBRE}   =~ ^[A-Z][a-z]+$ ]]; then echo "El campo NOMBRE=${NOMBRE} no es un string que empieza por mayusculas";     exit 1; fi
-    if ! [[ ${APELLIDO} =~ ^[A-Z][a-z]+$ ]]; then echo "El campo APELLIDO=${APELLIDO} no es un string que empieza por mayusculas"; exit 1; fi
+    if ! [[ ${FECHA}    =~ ^[0-9]{8}$  ]]; then echo "La fecha ${FECHA} no es de la forma YYYYMMDD";                                           exit 1; fi
+    if ! [[ ${NOMBRE}   =~ ^[a-zA-Z]+$ ]]; then echo "El campo NOMBRE=${NOMBRE} no es un string con solo letras a-zA-Z";                       exit 1; fi
+    if ! [[ ${APELLIDO} =~ ^[a-zA-Z]+$ ]]; then echo "El campo APELLIDO=${APELLIDO} no es un string con solo letras a-zA-Z";                   exit 1; fi
     date +"%Y%m%d" -d "${FECHA} +5 days" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then echo "La fecha ${FECHA} no es una fecha valida"; exit 1; fi
 done < "${DIR_TMP}/restricciones"
 

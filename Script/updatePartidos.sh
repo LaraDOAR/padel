@@ -175,19 +175,20 @@ if [ "${rv}" != "0" ]; then prt_error "Error ejeuctando <bash Script/formateaTab
 out=$( bash Script/checkPartidos.sh ); rv=$?
 if [ "${rv}" != "0" ]; then prt_error "Error ejeuctando <bash Script/checkPartidos.sh>"; echo -e "${out}"; exit 1; fi
 
-# Deben existir los siguientes ficheros
-if [ ! -f calendario.txt ]; then prt_error "ERROR: no existe el fichero [calendario.txt] en el directorio actual"; exit 1; fi
-
-# Limpiar tabla
-out=$( FGRL_limpiaTabla partidos.txt "${DIR_TMP}/partidos" true )
-out=$( FGRL_limpiaTabla "calendario.txt" "${DIR_TMP}/calendario" false ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
-
-while IFS="|" read -r MES LO VI LU FE HI HF _
-do
-    gawk 'BEGIN{FS=OFS="|";}{m=$1; l=$3; v=$4; gsub(" ","",m); gsub(" ","",l); gsub(" ","",v); if (m==MES && l==LO && v==VI) {$5=FE; $6=HI; $7=HF; $8=LU}; print;}' \
-         MES="${MES}" LO="${LO}" VI="${VI}" FE="${FE}" HI="${HI}" HF="${HF}" LU="${LU}" "partidos.txt" > "${DIR_TMP}/partidos.txt.tmp"
-    mv "${DIR_TMP}/partidos.txt.tmp" "partidos.txt"
-done < "${DIR_TMP}/calendario"
+# Si existe el calendario, se hace la actualizacion tambien de las fechas
+if [ -f calendario.txt ]
+then
+    # Limpiar tabla
+    out=$( FGRL_limpiaTabla partidos.txt "${DIR_TMP}/partidos" true )
+    out=$( FGRL_limpiaTabla calendario.txt "${DIR_TMP}/calendario" false ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
+    
+    while IFS="|" read -r MES LO VI LU FE HI HF _
+    do
+        gawk 'BEGIN{FS=OFS="|";}{m=$1; l=$3; v=$4; gsub(" ","",m); gsub(" ","",l); gsub(" ","",v); if (m==MES && l==LO && v==VI) {$5=FE; $6=HI; $7=HF; $8=LU}; print;}' \
+             MES="${MES}" LO="${LO}" VI="${VI}" FE="${FE}" HI="${HI}" HF="${HF}" LU="${LU}" "partidos.txt" > "${DIR_TMP}/partidos.txt.tmp"
+        mv "${DIR_TMP}/partidos.txt.tmp" "partidos.txt"
+    done < "${DIR_TMP}/calendario"
+fi
 
 out=$( bash Script/formateaTabla.sh -f "partidos.txt" ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
 prt_info "---- Generado ${G}partidos.txt${N}"

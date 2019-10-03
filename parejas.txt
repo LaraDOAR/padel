@@ -6,7 +6,7 @@
 
 PAREJA|     NOMBRE| APELLIDO|    NOMBRE.APELLIDO@iic.uam.es
      1|     Manuel| delValle|       manuel.valle@iic.uam.es
-     1|JoseAntonio|  Cordoba|       jose.cordoba@iic.uam.es
+     1|       Jose|  Cordoba|       jose.cordoba@iic.uam.es
      2|      Jorge|    Lopez|        jorge.lopez@iic.uam.es
      2|     Andres|    Munoz|       andres.munoz@iic.uam.es
      3|    Alberto| Parramon|   alberto.parramon@iic.uam.es
