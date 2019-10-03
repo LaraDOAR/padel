@@ -288,18 +288,27 @@ then
     prt_info "1/2 - Se calculan las divisiones que va a haber"
     nParejas=$( wc -l "${DIR_TMP}/ranking" | gawk '{print $1}' )
     nDivisiones=$( echo "" | gawk '{printf("%d",A/B+0.5)}' A="${nParejas}" B="${ARG_NUM_PAREJAS}" )
-    nPartidos=$(( nDivisiones -1 ))
     prt_info "---- Habra ${nDivisiones} divisiones con ${ARG_NUM_PAREJAS} parejas en cada una, que jugaran ${nPartidos} partidos cada una"
 
     # 2/2 - Se generan los emparejamientos
     prt_info "2/2 - Se generan los emparejamientos"
-    nLineas=0
+    nLineaInicio=0
     for i in $( seq 1 "${nDivisiones}" )
     do
-        prt_info "---- Division ${i}"
-        nLineas=$(( ARG_NUM_PAREJAS*(i-1) + 1 ))
+        nLineaInicio=$(( ARG_NUM_PAREJAS*(i-1) + 1 ))
+        
+        # En caso de que nParejas no sea multiplo de ARG_NUM_PAREJA, lo que hacemos es meter en la ultima division (la mas baja) el 'pico' de parejas que quedarian
+        if [ "${i}" == "${nDivisiones}" ] && [ "$(( nParejas % ARG_NUM_PAREJAS ))" != "0" ]
+        then
+            nLineasALeer=$(( ARG_NUM_PAREJAS + $(( nParejas % ARG_NUM_PAREJAS )) ))
+        else
+            nLineasALeer=${ARG_NUM_PAREJAS}
+        fi
+        nPartidos=$(( nLineasALeer -1 ))
+        prt_info "---- Division ${i}, con ${nLineasALeer} parejas, que jugaran ${nPartidos} partidos cada una"
+        
         # -- se agrupan las parejas por divisiones
-        tail -n+${nLineas} "${DIR_TMP}/ranking" | head -"${ARG_NUM_PAREJAS}" > "${DIR_TMP}/division"
+        tail -n+${nLineaInicio} "${DIR_TMP}/ranking" | head -"${nLineasALeer}" > "${DIR_TMP}/division"
         # -- se calculan todas las permutaciones
         FGRL_getPermutacion "${DIR_TMP}/division" 1 # genera los ficheros DIR_TMP/division.permX donde X=numero de la permutacion
         # -- se van anadiendo los partidos
