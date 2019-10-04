@@ -27,10 +27,7 @@
      Alvaro|  Barbero|20191031
      Alvaro|   Romero|20191002
      Alvaro|   Romero|20191004
-     Alvaro|   Romero|20191007
-     Alvaro|   Romero|20191008
      Alvaro|   Romero|20191009
-     Alvaro|   Romero|20191010
      Alvaro|   Romero|20191011
      Alvaro|   Romero|20191016
      Alvaro|   Romero|20191018
@@ -51,7 +48,6 @@
      Alvaro|   Romero|20191211
      Alvaro|   Romero|20191213
      Alvaro|   Romero|20191218
-     Alvaro|   Romero|20191220
    Ambrosio|  Iniesta|20191007
    Ambrosio|  Iniesta|20191011
    Ambrosio|  Iniesta|20191014

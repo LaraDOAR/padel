@@ -7,7 +7,7 @@ MES|DIVISION|                             LOCAL|                      VISITANTE|
 001|       2|            EricPerez-IsraelAlonso|      JavierVidal-AlbertoMateos|20191023|   18:00|   19:00|Pista3|   -|   -|   -|  false
 001|       3|   AmbrosioIniesta-CarlosFernandez|      DanielMichaud-JavierMunoz|20191010|   19:00|   20:00|Pista9|   -|   -|   -|  false
 001|       3|   AmbrosioIniesta-CarlosFernandez|JuanAntonioMontesino-AinhoaGoni|20191017|   19:00|   20:00|Pista9|   -|   -|   -|  false
-001|       3|         DanielMichaud-JavierMunoz|JuanAntonioMontesino-AinhoaGoni|       -|       -|       -|     -|   -|   -|   -|  false
+001|       3|         DanielMichaud-JavierMunoz|JuanAntonioMontesino-AinhoaGoni|20191022|   18:00|   19:00|Pista3|   -|   -|   -|  false
 001|       4|      EnriqueClemente-MonicaGarcia|      RubendelCampo-PabloLostao|20191011|   16:00|   17:00|Pista9|   -|   -|   -|  false
 001|       4|      EnriqueClemente-MonicaGarcia|    RubenMartinez-PepeRodriguez|20191014|   19:00|   20:00|Pista3|   -|   -|   -|  false
 001|       4|         RubendelCampo-PabloLostao|    RubenMartinez-PepeRodriguez|20191021|   18:00|   19:00|Pista3|   -|   -|   -|  false
