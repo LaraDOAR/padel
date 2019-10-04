@@ -236,6 +236,15 @@ do
     sed -i "/-${PISTA}-${FECHA}-${HINI}-${HFIN}/d" "${DIR_TMP}/combinaciones_todas"
 done < "${DIR_TMP}/calendario"
 
+# Se cambia el formato de las fechas (formato: -DanielRamos-AlvaroRomero-EricPerez-IsraelAlonso-Pista3-20191021-19:00-20:00)
+while read -r line
+do
+    fecha=$( echo -e "${line}" | gawk -F"-" '{print $7}' )
+    fecha=$( date +"%d/%m/%Y" -d "${fecha}" )
+    echo -e "${line}" | gawk 'BEGIN{FS=OFS="-"}{$7=FECHA; print}' FECHA="${fecha}" >> "${DIR_TMP}/combinaciones_todas.tmp"
+done < "${DIR_TMP}/combinaciones_todas"
+mv "${DIR_TMP}/combinaciones_todas.tmp" "${DIR_TMP}/combinaciones_todas"
+
 # Se imprimen las fechas disponibles
 num=$( wc -l "${DIR_TMP}/combinaciones_todas" | gawk '{print $1}' )
 prt_info "Hay [${num}] huecos disponibles para jugar el partido ${loc} vs ${vis} entre las fechas ${ARG_FINI} - ${ARG_FFIN}, que son:"
