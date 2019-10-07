@@ -323,7 +323,7 @@ do
                     echo "</TD>"
                 fi
                 echo "</TR>"
-                rm "${DIR_TMP}/vacio.txt"
+                rm -f "${DIR_TMP}/vacio.txt"
             done
         if [ -f "${DIR_TMP}/vacio.txt" ]; then rm "${DIR_TMP}/vacio.txt"; echo "<TD colspan=\"2\">No tienes partidos pendientes</TD>"; fi
         echo "</TABLE>"
