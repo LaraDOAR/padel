@@ -23,7 +23,6 @@
      Alvaro|  Barbero|20191008
      Alvaro|  Barbero|20191010
      Alvaro|  Barbero|20191022
-     Alvaro|  Barbero|20191024
      Alvaro|  Barbero|20191029
      Alvaro|  Barbero|20191031
      Alvaro|   Romero|20191002
@@ -68,7 +67,6 @@
      Angela|     Ruiz|20191002
      Angela|     Ruiz|20191003
      Angela|     Ruiz|20191004
-     Angela|     Ruiz|20191007
      Angela|     Ruiz|20191011
      Angela|     Ruiz|20191018
      Angela|     Ruiz|20191025
@@ -153,12 +151,6 @@ JuanAntonio|Montesino|20191025
 JuanAntonio|Montesino|20191028
 JuanAntonio|Montesino|20191030
  JuanManuel| Gonzalez|20191017
-       Lara|Dominguez|20191007
-       Lara|Dominguez|20191008
-       Lara|Dominguez|20191010
-       Lara|Dominguez|20191018
-       Lara|Dominguez|20191021
-       Lara|Dominguez|20191024
      Manuel| delValle|20191001
      Manuel| delValle|20191002
      Manuel| delValle|20191003
@@ -225,4 +217,3 @@ JuanAntonio|Montesino|20191030
      Teresa|   Solano|20191023
      Teresa|   Solano|20191028
      Teresa|   Solano|20191030
-     Teresa|   Solano|20191031

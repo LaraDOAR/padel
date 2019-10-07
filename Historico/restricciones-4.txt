@@ -23,7 +23,6 @@
      Alvaro|  Barbero|20191008
      Alvaro|  Barbero|20191010
      Alvaro|  Barbero|20191022
-     Alvaro|  Barbero|20191024
      Alvaro|  Barbero|20191029
      Alvaro|  Barbero|20191031
      Alvaro|   Romero|20191002
@@ -68,7 +67,6 @@
      Angela|     Ruiz|20191002
      Angela|     Ruiz|20191003
      Angela|     Ruiz|20191004
-     Angela|     Ruiz|20191007
      Angela|     Ruiz|20191011
      Angela|     Ruiz|20191018
      Angela|     Ruiz|20191025
