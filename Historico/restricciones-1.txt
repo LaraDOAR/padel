@@ -23,11 +23,15 @@
      Alvaro|  Barbero|20191008
      Alvaro|  Barbero|20191010
      Alvaro|  Barbero|20191022
+     Alvaro|  Barbero|20191024
      Alvaro|  Barbero|20191029
      Alvaro|  Barbero|20191031
      Alvaro|   Romero|20191002
      Alvaro|   Romero|20191004
+     Alvaro|   Romero|20191007
+     Alvaro|   Romero|20191008
      Alvaro|   Romero|20191009
+     Alvaro|   Romero|20191010
      Alvaro|   Romero|20191011
      Alvaro|   Romero|20191016
      Alvaro|   Romero|20191018
@@ -48,6 +52,7 @@
      Alvaro|   Romero|20191211
      Alvaro|   Romero|20191213
      Alvaro|   Romero|20191218
+     Alvaro|   Romero|20191220
    Ambrosio|  Iniesta|20191007
    Ambrosio|  Iniesta|20191011
    Ambrosio|  Iniesta|20191014
@@ -63,6 +68,7 @@
      Angela|     Ruiz|20191002
      Angela|     Ruiz|20191003
      Angela|     Ruiz|20191004
+     Angela|     Ruiz|20191007
      Angela|     Ruiz|20191011
      Angela|     Ruiz|20191018
      Angela|     Ruiz|20191025
@@ -112,9 +118,13 @@
      Israel|   Alonso|20191029
      Israel|   Alonso|20191031
      Javier|    Munoz|20191004
+     Javier|    Munoz|20191008
      Javier|    Munoz|20191011
+     Javier|    Munoz|20191015
      Javier|    Munoz|20191018
+     Javier|    Munoz|20191022
      Javier|    Munoz|20191025
+     Javier|    Munoz|20191029
       Jorge|    Lopez|20191009
       Jorge|    Lopez|20191030
       Jorge|    Lopez|20191105
@@ -147,6 +157,12 @@ JuanAntonio|Montesino|20191025
 JuanAntonio|Montesino|20191028
 JuanAntonio|Montesino|20191030
  JuanManuel| Gonzalez|20191017
+       Lara|Dominguez|20191007
+       Lara|Dominguez|20191008
+       Lara|Dominguez|20191010
+       Lara|Dominguez|20191018
+       Lara|Dominguez|20191021
+       Lara|Dominguez|20191024
      Manuel| delValle|20191001
      Manuel| delValle|20191002
      Manuel| delValle|20191003
@@ -208,8 +224,10 @@ JuanAntonio|Montesino|20191030
      Teresa|   Solano|20191007
      Teresa|   Solano|20191009
      Teresa|   Solano|20191014
+     Teresa|   Solano|20191015
      Teresa|   Solano|20191016
      Teresa|   Solano|20191021
      Teresa|   Solano|20191023
      Teresa|   Solano|20191028
      Teresa|   Solano|20191030
+     Teresa|   Solano|20191031
