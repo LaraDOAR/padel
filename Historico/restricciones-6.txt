@@ -118,13 +118,9 @@
      Israel|   Alonso|20191029
      Israel|   Alonso|20191031
      Javier|    Munoz|20191004
-     Javier|    Munoz|20191008
      Javier|    Munoz|20191011
-     Javier|    Munoz|20191015
      Javier|    Munoz|20191018
-     Javier|    Munoz|20191022
      Javier|    Munoz|20191025
-     Javier|    Munoz|20191029
       Jorge|    Lopez|20191009
       Jorge|    Lopez|20191030
       Jorge|    Lopez|20191105
