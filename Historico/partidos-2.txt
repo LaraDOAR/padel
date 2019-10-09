@@ -16,4 +16,4 @@ MES|DIVISION|                             LOCAL|                      VISITANTE|
 001|       5|          AngelaRuiz-AlvaroBarbero|     TeresaSolano-LaraDominguez|20191017|   19:00|   20:00|Pista3|   -|   -|   -|  false
 001|       5|        CristinaLeon-ManuelHidalgo|         SaraGarcia-AnaAlastuey|20191024|   18:00|   19:00|Pista3|   -|   -|   -|  false
 001|       5|        CristinaLeon-ManuelHidalgo|     TeresaSolano-LaraDominguez|20191015|   18:00|   19:00|Pista3|   -|   -|   -|  false
-001|       5|            SaraGarcia-AnaAlastuey|     TeresaSolano-LaraDominguez|20191031|   18:00|   19:00|Pista9|   -|   -|   -|  false
+001|       5|            SaraGarcia-AnaAlastuey|     TeresaSolano-LaraDominguez|20191029|   18:00|   19:00|Pista3|   -|   -|   -|  false
