@@ -1,6 +1,6 @@
 MES|DIVISION|                             LOCAL|                      VISITANTE|   FECHA|HORA_INI|HORA_FIN| LUGAR|SET1|SET2|SET3|RANKING
-001|       1|AlbertoParramon-JuanManuelGonzalez|         JorgeLopez-AndresMunoz|20191011|   15:00|   16:00|Pista9|   -|   -|   -|  false
-001|       1|AlbertoParramon-JuanManuelGonzalez|     ManueldelValle-JoseCordoba|20191014|   18:00|   19:00|Pista3|   -|   -|   -|  false
+001|       1|AlbertoParramon-JuanManuelGonzalez|         JorgeLopez-AndresMunoz|       -|       -|       -|     -|   -|   -|   -|  false
+001|       1|AlbertoParramon-JuanManuelGonzalez|     ManueldelValle-JoseCordoba|       -|       -|       -|     -|   -|   -|   -|  false
 001|       1|            JorgeLopez-AndresMunoz|     ManueldelValle-JoseCordoba|20191024|   18:00|   19:00|Pista9|   -|   -|   -|  false
 001|       2|          DanielRamos-AlvaroRomero|         EricPerez-IsraelAlonso|       -|       -|       -|     -|   -|   -|   -|  false
 001|       2|          DanielRamos-AlvaroRomero|      JavierVidal-AlbertoMateos|       -|       -|       -|     -|   -|   -|   -|  false
