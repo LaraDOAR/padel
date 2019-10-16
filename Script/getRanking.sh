@@ -223,7 +223,7 @@ else
     out=$( bash Script/checkPartidos.sh ); rv=$?; if [ "${rv}" != "0" ]; then echo -e "${out}"; exit 1; fi
     
     # Se recorre la lista de partidos
-    while IFS="|" read -r MES DIVISION LOCAL VISITANTE FECHA HINI HFIN LUGAR SET1 SET2 SET3 RANKING
+    while IFS="|" read -r MES DIVISION LOCAL VISITANTE FECHA HINI HFIN LUGAR SET1 SET2 SET3 PUNTOS RANKING
     do
 
         # Se ignora si es un resultado que ya se ha metido en el ranking
@@ -232,22 +232,64 @@ else
         # Se ignora si es un partido que no tiene fecha+hora+lugar
         if [ "${FECHA}" == "-" ] && [ "${HINI}" == "-" ] && [ "${HFIN}" == "-" ] && [ "${LUGAR}" == "-" ]; then continue; fi
 
-        # Se ignora si es un partido que no tiene inicializados los sets
-        if [ "${SET1}" == "-" ] && [ "${SET2}" == "-" ] && [ "${SET3}" == "-" ]; then continue; fi
-
-        jueL1=$( echo -e "${SET1}" | gawk -F"/" '{print $1}' ); jueV1=$( echo -e "${SET1}" | gawk -F"/" '{print $2}' )
-        jueL2=$( echo -e "${SET2}" | gawk -F"/" '{print $1}' ); jueV2=$( echo -e "${SET2}" | gawk -F"/" '{print $2}' )
-        jueL3=$( echo -e "${SET3}" | gawk -F"/" '{print $1}' ); jueV3=$( echo -e "${SET3}" | gawk -F"/" '{print $2}' )
+        # Variables necesarias
         posRankLoc=$( gawk -F"|" '{if ($2==PAREJA) print $1+0}' PAREJA="${LOCAL}"     "${DIR_TMP}/rankingRef" )
         posRankVis=$( gawk -F"|" '{if ($2==PAREJA) print $1+0}' PAREJA="${VISITANTE}" "${DIR_TMP}/rankingRef" )
         difPos=$(( posRankLoc - posRankVis )); if [ "${difPos}" -lt "1" ]; then difPos=$(( difPos * (-1) )); fi
 
-        # Se averigua el ganador
-        ganador="visitante"
-        if [ "${jueL1}" -gt "${jueV1}" ] && [ "${jueL2}" -gt "${jueV2}" ];                                  then ganador="local"; fi
-        if [ "${jueL1}" -gt "${jueV1}" ] && [ "${jueL2}" -lt "${jueV2}" ] && [ "${jueL3}" -gt "${jueV3}" ]; then ganador="local"; fi
-        if [ "${jueL1}" -lt "${jueV1}" ] && [ "${jueL2}" -gt "${jueV2}" ] && [ "${jueL3}" -gt "${jueV3}" ]; then ganador="local"; fi
+        if [ "${CFG_MODO_PUNTUACION}" == "SETS" ]
+        then
 
+            # Se ignora si es un partido que no tiene inicializados los sets
+            if [ "${SET1}" == "-" ] && [ "${SET2}" == "-" ] && [ "${SET3}" == "-" ]; then continue; fi
+
+            jueL1=$( echo -e "${SET1}" | gawk -F"/" '{print $1}' ); jueV1=$( echo -e "${SET1}" | gawk -F"/" '{print $2}' )
+            jueL2=$( echo -e "${SET2}" | gawk -F"/" '{print $1}' ); jueV2=$( echo -e "${SET2}" | gawk -F"/" '{print $2}' )
+            jueL3=$( echo -e "${SET3}" | gawk -F"/" '{print $1}' ); jueV3=$( echo -e "${SET3}" | gawk -F"/" '{print $2}' )
+            
+            # Se averigua el ganador
+            ganador="visitante"
+            if [ "${jueL1}" -gt "${jueV1}" ] && [ "${jueL2}" -gt "${jueV2}" ];                                  then ganador="local"; fi
+            if [ "${jueL1}" -gt "${jueV1}" ] && [ "${jueL2}" -lt "${jueV2}" ] && [ "${jueL3}" -gt "${jueV3}" ]; then ganador="local"; fi
+            if [ "${jueL1}" -lt "${jueV1}" ] && [ "${jueL2}" -gt "${jueV2}" ] && [ "${jueL3}" -gt "${jueV3}" ]; then ganador="local"; fi
+
+            # *** JUEGOS_FAVOR (jueFavorLoc / jueFavorVis)
+            jueFavorLoc=$(( jueL1 + jueL2 )); if [ "${SET3}" != "-" ]; then jueFavorLoc=$(( jueFavorLoc + jueL3 )); fi
+            jueFavorVis=$(( jueV1 + jueV2 )); if [ "${SET3}" != "-" ]; then jueFavorVis=$(( jueFavorVis + jueV3 )); fi
+            
+            # *** JUEGOS_CONTRA (jueContraLoc / jueContraVis)
+            jueContraLoc=${jueFavorVis}
+            jueContraVis=${jueFavorLoc}
+            
+
+        elif [ "${CFG_MODO_PUNTUACION}" == "PUNTOS" ]
+        then
+            # Se ignora si es un partido que no tiene inicializados los puntos
+            if [ "${PUNTOS}" == "-" ]; then continue; fi
+
+            jueL=$( echo -e "${PUNTOS}" | gawk -F"/" '{print $1}' ); jueV=$( echo -e "${PUNTOS}" | gawk -F"/" '{print $2}' )
+
+            # Se averigua el ganador
+            if   [ "${jueL}" -gt "${jueV}" ]; then ganador="local"
+            elif [ "${jueV}" -gt "${jueL}" ]; then ganador="visitante"
+            else                              prt_error "-- No hay ganador en el partido [${LOCAL} vs ${VISITANTE}]"; exit 1
+            fi
+
+            # *** JUEGOS_FAVOR (jueFavorLoc / jueFavorVis)
+            jueFavorLoc=${jueL}
+            jueFavorVis=${jueV}
+            
+            # *** JUEGOS_CONTRA (jueContraLoc / jueContraVis)
+            jueContraLoc=${jueFavorVis}
+            jueContraVis=${jueFavorLoc}
+            
+
+        else
+            prt_error "CFG_MODO_PUNTUACION=${CFG_MODO_PUNTUACION} es invalido, solo puede ser SETS o PUNTOS"; exit 1
+        fi
+
+        # Parte de la actualizacion comun, sea cual sea el modo de puntuacion de los partidos
+        
         # *** PUNTOS (puntosLoc / puntosVis)
         if [ "${ganador}" == "local" ]     && [ "${posRankLoc}" -gt "${posRankVis}" ]; then puntosLoc=$(( PUNTOS_GANA_ABAJO + difPos ));  puntosVis=${PUNTOS_PIERDE_ARRIBA}; fi
         if [ "${ganador}" == "local" ]     && [ "${posRankLoc}" -lt "${posRankVis}" ]; then puntosLoc=${PUNTOS_GANA_ARRIBA}; puntosVis=${PUNTOS_PIERDE_ABAJO};  fi
@@ -261,14 +303,7 @@ else
         if [ "${ganador}" == "local" ];     then partGanaLoc=1; partGanaVis=0; fi
         if [ "${ganador}" == "visitante" ]; then partGanaLoc=0; partGanaVis=1; fi
 
-        # *** JUEGOS_FAVOR (jueFavorLoc / jueFavorVis)
-        jueFavorLoc=$(( jueL1 + jueL2 )); if [ "${SET3}" != "-" ]; then jueFavorLoc=$(( jueFavorLoc + jueL3 )); fi
-        jueFavorVis=$(( jueV1 + jueV2 )); if [ "${SET3}" != "-" ]; then jueFavorVis=$(( jueFavorVis + jueV3 )); fi
-                                                                        
-        # *** JUEGOS_CONTRA (jueContraLoc / jueContraVis)
-        jueContraLoc=${jueFavorVis}
-        jueContraVis=${jueFavorLoc}
-
+        
         # Actualiza el nuevo ranking: POSICION | PAREJA | PUNTOS | PARTIDOS_JUGADOS | PARTIDOS_GANADOS | JUEGOS_FAVOR | JUEGOS_CONTRA       
         # -- local
         gawk 'BEGIN{FS=OFS="|"}{if ($2==PAREJA) {$3=$3+PTS; $4=$4+1; $5=$5+GAN; $6=$6+FAV; $7=$7+CON;} print;}' \
@@ -300,8 +335,8 @@ else
         done
 
         # Actualiza el fichero partidos.txt para cambiar a RANKING=true
-        gawk 'BEGIN{OFS=FS="|";}{if ($1==M && $2==D && $3==LO && $4==V && $5==F && $6==HI && $7==HF && $8==LU && $9==SA && $10==SB && $11==SC) {$12="true";} print;}' \
-             M="${MES}" D="${DIVISION}" LO="${LOCAL}" V="${VISITANTE}" F="${FECHA}" HI="${HINI}" HF="${HFIN}" LU="${LUGAR}" SA="${SET1}" SB="${SET2}" SC="${SET3}" "${DIR_TMP}/new_partidos" > "${DIR_TMP}/new_partidos.new"
+        gawk 'BEGIN{OFS=FS="|";}{if ($1==M && $2==D && $3==LO && $4==V && $5==F && $6==HI && $7==HF && $8==LU && $9==SA && $10==SB && $11==SC && $12==PU) {$13="true";} print;}' \
+             M="${MES}" D="${DIVISION}" LO="${LOCAL}" V="${VISITANTE}" F="${FECHA}" HI="${HINI}" HF="${HFIN}" LU="${LUGAR}" SA="${SET1}" SB="${SET2}" SC="${SET3}" PU="${PUNTOS}" "${DIR_TMP}/new_partidos" > "${DIR_TMP}/new_partidos.new"
         mv "${DIR_TMP}/new_partidos.new"  "${DIR_TMP}/new_partidos"
         
     done < "${DIR_TMP}/partidos"
@@ -369,6 +404,7 @@ then
             prt_info "---- Hay empates para la linea [${line}], pero no se han enfrentado nunca, asi que no hay nada que hacer"
             continue
         fi
+
         
         # El 'Goal Average Particular' es contar cuantos sets ha ganado uno y cuantos ha ganado otro
         # En el caso de las 3 parejas, tendriamos 6 valores:
@@ -390,24 +426,44 @@ then
             j=$( basename "${f}" | gawk -F"[p_.]" '{print $3}' ); pB=$( head -"${j}" "${DIR_TMP}/new_ranking" | tail -1 | gawk -F"|" '{print $2}' )
 
             # Por cada linea = cada partido, se cuentan los sets
-            while IFS="|" read -r MES DIVISION LOCAL VISITANTE FECHA HINI HFIN LUGAR SET1 SET2 SET3 RANKING
+            while IFS="|" read -r MES DIVISION LOCAL VISITANTE FECHA HINI HFIN LUGAR SET1 SET2 SET3 PUNTOS RANKING
             do
-                # Se averiguan los juegos de cada set
-                jueL1=$( echo -e "${SET1}" | gawk -F"/" '{print $1}' ); jueV1=$( echo -e "${SET1}" | gawk -F"/" '{print $2}' )
-                jueL2=$( echo -e "${SET2}" | gawk -F"/" '{print $1}' ); jueV2=$( echo -e "${SET2}" | gawk -F"/" '{print $2}' )
-                jueL3=$( echo -e "${SET3}" | gawk -F"/" '{print $1}' ); jueV3=$( echo -e "${SET3}" | gawk -F"/" '{print $2}' )
+                if [ "${CFG_MODO_PUNTUACION}" == "SETS" ]
+                then
+                    # Se averiguan los juegos de cada set
+                    jueL1=$( echo -e "${SET1}" | gawk -F"/" '{print $1}' ); jueV1=$( echo -e "${SET1}" | gawk -F"/" '{print $2}' )
+                    jueL2=$( echo -e "${SET2}" | gawk -F"/" '{print $1}' ); jueV2=$( echo -e "${SET2}" | gawk -F"/" '{print $2}' )
+                    jueL3=$( echo -e "${SET3}" | gawk -F"/" '{print $1}' ); jueV3=$( echo -e "${SET3}" | gawk -F"/" '{print $2}' )
 
-                # Se averigua:
-                # -- el ganador
-                # -- los sets a favor y los sets en contra (del ganador)
-                ganador=""; setFavor=""; setContra=""
-                if [ "${jueL1}" -gt "${jueV1}" ] && [ "${jueL2}" -gt "${jueV2}" ];                                  then ganador="local";     setFavor=2; setContra=0; fi
-                if [ "${jueL1}" -gt "${jueV1}" ] && [ "${jueL2}" -lt "${jueV2}" ] && [ "${jueL3}" -gt "${jueV3}" ]; then ganador="local";     setFavor=2; setContra=1; fi
-                if [ "${jueL1}" -lt "${jueV1}" ] && [ "${jueL2}" -gt "${jueV2}" ] && [ "${jueL3}" -gt "${jueV3}" ]; then ganador="local";     setFavor=2; setContra=1; fi
-                if [ "${jueL1}" -lt "${jueV1}" ] && [ "${jueL2}" -lt "${jueV2}" ];                                  then ganador="visitante"; setFavor=2; setContra=0; fi
-                if [ "${jueL1}" -lt "${jueV1}" ] && [ "${jueL2}" -gt "${jueV2}" ] && [ "${jueL3}" -lt "${jueV3}" ]; then ganador="visitante"; setFavor=2; setContra=1; fi
-                if [ "${jueL1}" -gt "${jueV1}" ] && [ "${jueL2}" -lt "${jueV2}" ] && [ "${jueL3}" -lt "${jueV3}" ]; then ganador="visitante"; setFavor=2; setContra=1; fi
-                if [ "${ganador}" == "" ] || [ "${setFavor}" == "" ] || [ "${setContra}" == "" ]; then prt_error "error de script"; exit 1; fi
+                    # Se averigua:
+                    # -- el ganador
+                    # -- los sets a favor y los sets en contra (del ganador)
+                    ganador=""; setFavor=""; setContra=""
+                    if [ "${jueL1}" -gt "${jueV1}" ] && [ "${jueL2}" -gt "${jueV2}" ];                                  then ganador="local";     setFavor=2; setContra=0; fi
+                    if [ "${jueL1}" -gt "${jueV1}" ] && [ "${jueL2}" -lt "${jueV2}" ] && [ "${jueL3}" -gt "${jueV3}" ]; then ganador="local";     setFavor=2; setContra=1; fi
+                    if [ "${jueL1}" -lt "${jueV1}" ] && [ "${jueL2}" -gt "${jueV2}" ] && [ "${jueL3}" -gt "${jueV3}" ]; then ganador="local";     setFavor=2; setContra=1; fi
+                    if [ "${jueL1}" -lt "${jueV1}" ] && [ "${jueL2}" -lt "${jueV2}" ];                                  then ganador="visitante"; setFavor=2; setContra=0; fi
+                    if [ "${jueL1}" -lt "${jueV1}" ] && [ "${jueL2}" -gt "${jueV2}" ] && [ "${jueL3}" -lt "${jueV3}" ]; then ganador="visitante"; setFavor=2; setContra=1; fi
+                    if [ "${jueL1}" -gt "${jueV1}" ] && [ "${jueL2}" -lt "${jueV2}" ] && [ "${jueL3}" -lt "${jueV3}" ]; then ganador="visitante"; setFavor=2; setContra=1; fi
+                    if [ "${ganador}" == "" ] || [ "${setFavor}" == "" ] || [ "${setContra}" == "" ]; then prt_error "error de script"; exit 1; fi
+
+                elif [ "${CFG_MODO_PUNTUACION}" == "PUNTOS" ]
+                then
+                    # Se averiguan los puntos
+                    jueL=$( echo -e "${PUNTOS}" | gawk -F"/" '{print $1}' ); jueV=$( echo -e "${PUNTOS}" | gawk -F"/" '{print $2}' )
+
+                    # Se averigua:
+                    # -- el ganador
+                    # -- los puntos a favor y los puntos en contra (del ganador)
+                    ganador=""; puntosFavor=""; puntosContra=""
+                    if [ "${jueL}" -gt "${jueV}" ]; then ganador="local" ;    puntosFavor=${jueL}; puntosContra=${jueV}; fi
+                    if [ "${jueV}" -gt "${jueL}" ]; then ganador="visitante"; puntosFavor=${jueV}; puntosContra=${jueL}; fi
+                    if [ "${ganador}" == "" ] || [ "${puntosFavor}" == "" ] || [ "${puntosContra}" == "" ]; then prt_error "error de script"; exit 1; fi
+            
+                    # Para compartir codigo
+                    setFavor=${puntosFavor}
+                    setContra=${puntosContra}
+                fi
 
                 if   ( [ "${pA}" == "${LOCAL}" ] && [ "${ganador}" == "local"     ] ) || ( [ "${pA}" == "${VISITANTE}" ] && [ "${ganador}" == "visitante" ] ); then new=$((   setFavor - setContra ))
                 elif ( [ "${pA}" == "${LOCAL}" ] && [ "${ganador}" == "visitante" ] ) || ( [ "${pA}" == "${VISITANTE}" ] && [ "${ganador}" == "local"     ] ); then new=$(( - setFavor + setContra ))
