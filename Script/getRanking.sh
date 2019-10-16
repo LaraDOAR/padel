@@ -195,7 +195,7 @@ FGRL_backupFile ranking           html; rv=$?; if [ "${rv}" != "0" ]; then exit 
 PUNTOS_GANA_ARRIBA=1     # puntos que gana la pareja ganadora, si la pareja ganadora estaba situada en el ranking mas arriba que la otra pareja
 PUNTOS_GANA_ABAJO=1      # puntos que gana la pareja ganadora, si la pareja ganadora estaba situada en el ranking mas abajo que la otra pareja
 PUNTOS_PIERDE_ARRIBA=0   # puntos que gana la pareja perdedora, si la pareja ganadora estaba situada en el ranking mas arriba que la otra pareja
-PUNTOR_PIERDE_ABAJO=0    # puntos que gana la pareja perdedora, si la pareja ganadora estaba situada en el ranking mas abajo que la otra pareja
+PUNTOS_PIERDE_ABAJO=0    # puntos que gana la pareja perdedora, si la pareja ganadora estaba situada en el ranking mas abajo que la otra pareja
 
 
 ############# EJECUCION

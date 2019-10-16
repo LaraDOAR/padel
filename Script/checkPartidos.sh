@@ -333,7 +333,7 @@ do
         if [ "${puntos}" == "-" ]; then continue; fi
 
         # Debe haber un ganador
-        if [ "${jueL}" == "${jueV}" ]; then echo "-- En la linea ${line}, no hay ganador"; exit 1; fi
+        if [ "${puntosL}" == "${puntosV}" ]; then echo "-- En la linea ${line}, no hay ganador"; exit 1; fi
         
         # Los sets deben estar desactivados
         if [ "${set1}" != "-" ]; then echo "-- En la linea ${line}, la columna SET1 no esta desactivada, y el modo de puntuacion es [${CFG_MODO_PUNTUACION}]"; exit 1; fi
