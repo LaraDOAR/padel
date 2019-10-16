@@ -192,6 +192,9 @@ do
     e2=$( head -"${l2}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $4}' )
     persona1=$( head -"${l1}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $2 " " $3}' )
     persona2=$( head -"${l2}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $2 " " $3}' )
+    if [ "${persona2:0:1}" == "I" ]; then aux=e
+    else                                  aux=y
+    fi
 
     # averigua la columna de los resultados
     if   [ "${CFG_MODO_PUNTUACION}" == "SETS" ];   then COL_PUNTOS=9
@@ -246,7 +249,7 @@ do
 
         # -- texto
         echo "<P>"
-        echo "Hola <B style='color:blue'>${persona1}</B> y <B style='color:blue'>${persona2}</B>!"
+        echo "Hola <B style='color:blue'>${persona1}</B> ${aux} <B style='color:blue'>${persona2}</B> !"
         echo "<BR><BR>"
         echo "Este email se env&iacute;a porque ha habido modificaciones en el calendario que os pueden afectar."
         echo "<BR>"
