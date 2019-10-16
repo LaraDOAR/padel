@@ -190,6 +190,8 @@ do
     n2=$( head -"${l2}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $2$3}' )
     e1=$( head -"${l1}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $4}' )
     e2=$( head -"${l2}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $4}' )
+    persona1=$( head -"${l1}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $2 " " $3}' )
+    persona2=$( head -"${l2}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $2 " " $3}' )
 
     # averigua la columna de los resultados
     if   [ "${CFG_MODO_PUNTUACION}" == "SETS" ];   then COL_PUNTOS=9
@@ -244,17 +246,16 @@ do
 
         # -- texto
         echo "<P>"
-        echo "Este email se env&iacute;a porque bien hay nuevos partidos en el calendario o bien porque"
-        echo "ha habido modificaciones en el calendario que te pueden afectar."
+        echo "Hola <B style='color:blue'>${persona1}</B> y <B style='color:blue'>${persona2}</B>!"
+        echo "<BR><BR>"
+        echo "Este email se env&iacute;a porque ha habido modificaciones en el calendario que os pueden afectar."
+        echo "<BR>"
+        echo "<B>Ignorad emails anteriores.</B>"
         echo "</P>"
         echo "<P>"
-        echo "<B>Ignora emails anteriores.</B>"
-        echo "</P>"
-        echo "<P>"
-        echo "Por favor, comprueba que no tienes restricciones y est&aacute;s libre en esas fechas."
-        echo "</P>"
-        echo "<P>"
-        echo "Para informar de cualquier problema escribe al email <A HREF="padel@iic.uam.es">padel@iic.uam.es</A>"
+        echo "Por favor, comprobad que no teneis restricciones y est&aacute;is libres en esas fechas."
+        echo "<BR>"
+        echo "Para informar de cualquier problema escribid al email <A HREF="padel@iic.uam.es">padel@iic.uam.es</A>"
         echo "</P>"
 
         # -- tabla partidos pendientes con fecha
