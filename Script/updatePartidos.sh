@@ -175,7 +175,7 @@ if [ "${rv}" != "0" ]; then prt_error "Error ejeuctando <bash Script/formateaTab
 out=$( bash Script/checkPartidos.sh ); rv=$?
 if [ "${rv}" != "0" ]; then prt_error "Error ejeuctando <bash Script/checkPartidos.sh>"; echo -e "${out}"; exit 1; fi
 
-# Si existe el calendario, se hace la actualizacion tambien de las fechas
+# Si existe el calendario, se hace la actualizacion tambien de las fechas: fecha, hora ini, hora fin  y lugar
 if [ -f calendario.txt ]
 then
     # Limpiar tabla

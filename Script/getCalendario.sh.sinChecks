@@ -351,8 +351,8 @@ function moverPartido {
         while IFS="|" read -r _ _ _LOC _VIS _
         do
             gawk '{print LOC"_"VIS, $0}' LOC="${_LOC}" VIS="${_VIS}" "${DIR_TMP}/huecosLibresContador.${_LOC}-${_VIS}"
-            #done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -${_num} > "${DIR_TMP}/moverPartido.contador"
-            done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -100 > "${DIR_TMP}/moverPartido.contador"
+        #done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -${_num} > "${DIR_TMP}/moverPartido.contador"
+        done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -100 > "${DIR_TMP}/moverPartido.contador"
         
         # Se elige al azar
         _nLineas=$( wc -l "${DIR_TMP}/moverPartido.contador" | gawk '{print $1}' )
@@ -428,7 +428,7 @@ function checkCompatible {
     done
     
     # Se mira uno a uno cada partido
-    while IFS="|" read -r _ _div _loc _vis _ _ _ _ _ _ _ _
+    while IFS="|" read -r _ _div _loc _vis _
     do
         prt_debug "${ARG_VERBOSO}" "Div=${_div} ---> ${_loc} vs ${_vis}"
         rm -f "${DIR_TMP}/parejaCompatible"
@@ -666,8 +666,8 @@ trap "salir;" EXIT
 ###
 ###############################################
 
-### CABECERA DEL FICHERO DE PARTIDOS ---> Mes | Division |                     Local |            Visitante |    Fecha | Hora_ini | Hora_fin |   Lugar | Set1 | Set2 | Set3 | Ranking
-###                                         1 |        1 | AlbertoMateos-IsraelAlonso| EricPerez-DanielRamos| 20190507 |    18:00 |    19:30 | Pista 7 |  7/5 |  6/5 |    - |  false
+### CABECERA DEL FICHERO DE PARTIDOS ---> Mes | Division |                     Local |            Visitante |    Fecha | Hora_ini | Hora_fin |   Lugar | Set1 | Set2 | Set3 | Puntos | Ranking
+###                                         1 |        1 | AlbertoMateos-IsraelAlonso| EricPerez-DanielRamos| 20190507 |    18:00 |    19:30 | Pista 7 |  7/5 |  6/5 |    - |      - | false
 
 
 ############# INICIALIZACION
@@ -778,7 +778,7 @@ do
 done < "${DIR_TMP}/restricciones"
 # -- por cada partido busca si existe en las combinaciones posibles
 IMPOSIBLE=false
-while IFS="|" read -r _ _ LOCAL VISITANTE _ _ _ _ _ _ _ _
+while IFS="|" read -r _ _ LOCAL VISITANTE _
 do
     if [ "$( grep -c -e "-${LOCAL}-${VISITANTE}-" "${DIR_TMP}/combinaciones_todas" )" == "0" ]
     then
@@ -895,7 +895,7 @@ do
 
     # 6/10 - Se comprueba que todas las parejas tienen algun hueco
     prt_info "---- 6/10 - Se comprueba que todas las parejas tienen algun hueco"
-    while IFS="|" read -r _ _ LOCAL VISITANTE _ _ _ _ _ _ _
+    while IFS="|" read -r _ _ LOCAL VISITANTE _
     do
         out=$( grep -e " ${LOCAL} vs ${VISITANTE}" "${DIR_TMP}/combinaciones_ordenadas" )
         if [ "${out}" == "" ]

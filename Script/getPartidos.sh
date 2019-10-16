@@ -196,7 +196,7 @@ FGRL_backupFile partidos txt; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
 prt_info "Ejecucion..."
 
 # -- cabecera: solo la primera vez
-if [ ! -f partidos.txt ]; then echo "MES|DIVISION|LOCAL|VISITANTE|FECHA|HORA_INI|HORA_FIN|LUGAR|SET1|SET2|SET3|RANKING" > partidos.txt
+if [ ! -f partidos.txt ]; then echo "MES|DIVISION|LOCAL|VISITANTE|FECHA|HORA_INI|HORA_FIN|LUGAR|SET1|SET2|SET3|PUNTOS|RANKING" > partidos.txt
 else                           prt_warn "-- Como ya existe partidos.txt, se anadiran a este fichero los nuevos partidos, no se empieza de cero"
 fi
 
@@ -314,7 +314,7 @@ then
         # -- se van anadiendo los partidos
         for f in "${DIR_TMP}/division.perm"*
         do
-            gawk 'BEGIN{OFS=FS="|";}{if (NR%2==0) {J=sprintf("%03d",J); print J,DIV,ant,$2,"-","-","-","-","-","-","-","false";} ant=$2}' J="${ARG_MES}" DIV="${i}" "${f}" >> "${DIR_TMP}/division.partidos"
+            gawk 'BEGIN{OFS=FS="|";}{if (NR%2==0) {J=sprintf("%03d",J); print J,DIV,ant,$2,"-","-","-","-","-","-","-","-","false";} ant=$2}' J="${ARG_MES}" DIV="${i}" "${f}" >> "${DIR_TMP}/division.partidos"
         done
         sort -u "${DIR_TMP}/division.partidos" > "${DIR_TMP}/division.partidos.tmp"; mv "${DIR_TMP}/division.partidos.tmp" "${DIR_TMP}/division.partidos"
         # -- local y visitante son lo mismo, asi que se eliminan las repetidas

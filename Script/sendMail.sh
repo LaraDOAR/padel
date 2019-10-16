@@ -148,8 +148,9 @@ trap "salir;" EXIT
 ###
 ###############################################
 
-### CABECERA DEL FICHERO DE PARTIDOS ---> Mes | Division |                     Local |            Visitante |    Fecha | Hora_ini | Hora_fin |   Lugar | Set1 | Set2 | Set3 | Ranking
-###                                         1 |        1 | AlbertoMateos-IsraelAlonso| EricPerez-DanielRamos| 20190507 |    18:00 |    19:30 | Pista 7 |  7/5 |  6/5 |    - |  false
+###                                        1       2                     3                        4              5          6          7          8       9      10    11      12       13
+### CABECERA DEL FICHERO DE PARTIDOS ---> Mes | Division |                     Local |            Visitante |    Fecha | Hora_ini | Hora_fin |   Lugar | Set1 | Set2 | Set3 | Puntos | Ranking
+###                                         1 |        1 | AlbertoMateos-IsraelAlonso| EricPerez-DanielRamos| 20190507 |    18:00 |    19:30 | Pista 7 |  7/5 |  6/5 |    - |      - | false
 
 ### CABECERA DEL FICHERO DE PAREJAS ---> PAREJA|       NOMBRE|  APELLIDO|                      CORREO
 ###                                           1|         Jose|   Cordoba|     jose.cordoba@iic.uam.es
@@ -189,6 +190,12 @@ do
     n2=$( head -"${l2}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $2$3}' )
     e1=$( head -"${l1}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $4}' )
     e2=$( head -"${l2}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $4}' )
+
+    # averigua la columna de los resultados
+    if   [ "${CFG_MODO_PUNTUACION}" == "SETS" ];   then COL_PUNTOS=9
+    elif [ "${CFG_MODO_PUNTUACION}" == "PUNTOS" ]; then COL_PUNTOS=12
+    else                                           prt_error "CFG_MODO_PUNTUACION=${CFG_MODO_PUNTUACION} es invalido, solo puede ser SETS o PUNTOS"; exit 1
+    fi
 
     {
         # -- cabecera email
@@ -260,7 +267,7 @@ do
         echo "<TH>Lugar</TH>"
         echo "<TH>Rival</TH>"
         echo "</TR >"
-        grep "|${n1}-${n2}|" "${DIR_TMP}/partidos" | gawk -F"|" '{if ($9=="-") print}' | sort -t"|" -k5,5 | gawk -F"|" '
+        grep "|${n1}-${n2}|" "${DIR_TMP}/partidos" | gawk -F"|" '{if ($COL=="-") print}' COL="${COL_PUNTOS}" | sort -t"|" -k5,5 | gawk -F"|" '
         BEGIN{ vacio=1; }
         {
             if ($5=="-") { next; }
@@ -292,8 +299,8 @@ do
         echo "<TH>Huecos disponibles</TH>"
         echo "</TR >"
         touch "${DIR_TMP}/vacio.txt"
-        grep "|${n1}-${n2}|" "${DIR_TMP}/partidos" | gawk -F"|" '{if ($9=="-") print}' | sort -t"|" -k5,5 |
-            while IFS="|" read -r _ _ LOC VIS FECHA _ _ _ _ _ _ CONFIRMADA
+        grep "|${n1}-${n2}|" "${DIR_TMP}/partidos" | gawk -F"|" '{if ($COL=="-") print}' COL="${COL_PUNTOS}" | sort -t"|" -k5,5 |
+            while IFS="|" read -r _ _ LOC VIS FECHA _ _ _ _ _ _ _ CONFIRMADA
             do
                 if [ "${FECHA}" != "-" ]; then continue; fi
                 if [ "${FECHA}" == "-" ] && [ "${CONFIRMADA}" == "true" ]; then continue; fi
