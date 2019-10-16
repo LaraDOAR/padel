@@ -255,7 +255,7 @@ cat <<EOM >partidos.html
   </head>
   <body>
 EOM
-echo "    <h1>TORNEO DE PADEL - ${CFG_NOMBRE}</h1>" >> partidos.html
+echo "    <h1><a href=\"./index.html\">TORNEO DE PADEL - ${CFG_NOMBRE}</a></h1>" >> partidos.html
 echo "    <h2>Partidos</h2>" >> partidos.html
 cat <<EOM >>partidos.html
 

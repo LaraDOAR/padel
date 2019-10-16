@@ -391,7 +391,7 @@ cat <<EOM >>calendario.html
   </head>
   <body>
 EOM
-echo "    <h1>TORNEO DE PADEL - ${CFG_NOMBRE}</h1>" >> calendario.html
+echo "    <h1><a href=\"./index.html\">TORNEO DE PADEL - ${CFG_NOMBRE}</a></h1>" >> calendario.html
 cat <<EOM >>calendario.html
     <div id='calendar'></div>
   </body>

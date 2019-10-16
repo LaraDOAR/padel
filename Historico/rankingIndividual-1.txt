@@ -1,0 +1,33 @@
+POSICION|             PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA
+       1|      ManueldelValle|    16|               0|               0|           0|            0
+       2|         JoseCordoba|    16|               0|               0|           0|            0
+       3|          JorgeLopez|    15|               0|               0|           0|            0
+       4|         AndresMunoz|    15|               0|               0|           0|            0
+       5|     AlbertoParramon|    14|               0|               0|           0|            0
+       6|  JuanManuelGonzalez|    14|               0|               0|           0|            0
+       7|         DanielRamos|    13|               0|               0|           0|            0
+       8|        AlvaroRomero|    13|               0|               0|           0|            0
+       9|         JavierVidal|    12|               0|               0|           0|            0
+      10|       AlbertoMateos|    12|               0|               0|           0|            0
+      11|           EricPerez|    11|               0|               0|           0|            0
+      12|        IsraelAlonso|    11|               0|               0|           0|            0
+      13|JuanAntonioMontesino|    10|               0|               0|           0|            0
+      14|          AinhoaGoni|    10|               0|               0|           0|            0
+      15|       DanielMichaud|     9|               0|               0|           0|            0
+      16|         JavierMunoz|     9|               0|               0|           0|            0
+      17|     AmbrosioIniesta|     8|               0|               0|           0|            0
+      18|     CarlosFernandez|     8|               0|               0|           0|            0
+      19|       RubenMartinez|     7|               0|               0|           0|            0
+      20|       PepeRodriguez|     7|               0|               0|           0|            0
+      21|       RubendelCampo|     6|               0|               0|           0|            0
+      22|         PabloLostao|     6|               0|               0|           0|            0
+      23|     EnriqueClemente|     5|               0|               0|           0|            0
+      24|        MonicaGarcia|     5|               0|               0|           0|            0
+      25|        TeresaSolano|     4|               0|               0|           0|            0
+      26|       LaraDominguez|     4|               0|               0|           0|            0
+      27|        CristinaLeon|     3|               0|               0|           0|            0
+      28|       ManuelHidalgo|     3|               0|               0|           0|            0
+      29|          AngelaRuiz|     2|               0|               0|           0|            0
+      30|       AlvaroBarbero|     2|               0|               0|           0|            0
+      31|          SaraGarcia|     1|               0|               0|           0|            0
+      32|         AnaAlastuey|     1|               0|               0|           0|            0

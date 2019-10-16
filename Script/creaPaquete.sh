@@ -170,6 +170,9 @@ cp -r Librerias "${DIR_TMP}"
 cp Doc/Normativa-Federacion.pdf "${DIR_TMP}"
 cp Doc/Reglamento-Torneo.pdf "${DIR_TMP}"
 
+# -- se modifica el index (para ponerle el titulo)
+sed -i "s/TITULO_A_SUSTITUIR/${CFG_NOMBRE}/g" "${DIR_TMP}/index.html"
+
 # -- se eliminan otros
 rm padelToWeb*.zip
 

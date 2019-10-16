@@ -559,7 +559,7 @@ cat <<EOM >ranking.html
   </head>
   <body>
 EOM
-echo "    <h1>TORNEO DE PADEL - ${CFG_NOMBRE}</h1>" >> ranking.html
+echo "    <h1><a href=\"./index.html\">TORNEO DE PADEL - ${CFG_NOMBRE}</a></h1>" >> ranking.html
 cat <<EOM >>ranking.html
     <h2>Ranking</h2>
     <br>
