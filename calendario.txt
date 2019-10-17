@@ -1,7 +1,7 @@
 MES|                             LOCAL|                      VISITANTE| PISTA|   FECHA|HORA_INI|HORA_FIN|PISTA_CONFIRMADA
 001|          AngelaRuiz-AlvaroBarbero|     CristinaLeon-ManuelHidalgo|Pista3|20191016|   18:00|   19:00|            true
 001|          DanielRamos-AlvaroRomero|         EricPerez-IsraelAlonso|     -|       -|       -|       -|           false
-001|            SaraGarcia-AnaAlastuey|     TeresaSolano-LaraDominguez|Pista9|20191031|   18:00|   19:00|           false
+001|            SaraGarcia-AnaAlastuey|     TeresaSolano-LaraDominguez|Pista7|20191031|   18:00|   19:00|            true
 001|      EnriqueClemente-MonicaGarcia|      RubendelCampo-PabloLostao|Pista9|20191011|   16:00|   17:00|            true
 001|AlbertoParramon-JuanManuelGonzalez|         JorgeLopez-AndresMunoz|     -|       -|       -|       -|           false
 001|   AmbrosioIniesta-CarlosFernandez|      DanielMichaud-JavierMunoz|Pista3|20191010|   19:00|   20:00|            true
@@ -9,11 +9,11 @@ MES|                             LOCAL|                      VISITANTE| PISTA|  
 001|      EnriqueClemente-MonicaGarcia|    RubenMartinez-PepeRodriguez|Pista3|20191014|   19:00|   20:00|            true
 001|        CristinaLeon-ManuelHidalgo|     TeresaSolano-LaraDominguez|Pista3|20191015|   18:00|   19:00|            true
 001|          AngelaRuiz-AlvaroBarbero|         SaraGarcia-AnaAlastuey|Pista3|20191017|   18:00|   19:00|            true
-001|   AmbrosioIniesta-CarlosFernandez|JuanAntonioMontesino-AinhoaGoni|Pista9|20191017|   19:00|   20:00|           false
+001|   AmbrosioIniesta-CarlosFernandez|JuanAntonioMontesino-AinhoaGoni|Pista7|20191017|   19:00|   20:00|            true
 001|          DanielRamos-AlvaroRomero|      JavierVidal-AlbertoMateos|     -|       -|       -|       -|           false
-001|         RubendelCampo-PabloLostao|    RubenMartinez-PepeRodriguez|Pista3|20191021|   19:00|   20:00|            true
+001|         RubendelCampo-PabloLostao|    RubenMartinez-PepeRodriguez|Pista3|20191021|   18:00|   19:00|            true
 001|            EricPerez-IsraelAlonso|      JavierVidal-AlbertoMateos|Pista3|20191023|   18:00|   19:00|            true
-001|          AngelaRuiz-AlvaroBarbero|     TeresaSolano-LaraDominguez|Pista3|20191017|   19:00|   20:00|           false
-001|        CristinaLeon-ManuelHidalgo|         SaraGarcia-AnaAlastuey|Pista3|20191024|   18:00|   19:00|           false
-001|            JorgeLopez-AndresMunoz|     ManueldelValle-JoseCordoba|Pista9|20191024|   18:00|   19:00|           false
-001|         DanielMichaud-JavierMunoz|JuanAntonioMontesino-AinhoaGoni|Pista9|20191024|   19:00|   20:00|           false
+001|          AngelaRuiz-AlvaroBarbero|     TeresaSolano-LaraDominguez|Pista3|20191017|   19:00|   20:00|            true
+001|        CristinaLeon-ManuelHidalgo|         SaraGarcia-AnaAlastuey|Pista3|20191024|   18:00|   19:00|            true
+001|            JorgeLopez-AndresMunoz|     ManueldelValle-JoseCordoba|Pista7|20191024|   18:00|   19:00|            true
+001|         DanielMichaud-JavierMunoz|JuanAntonioMontesino-AinhoaGoni|Pista7|20191024|   19:00|   20:00|            true

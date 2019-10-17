@@ -172,7 +172,7 @@ prt_info "Ejecucion..."
 echo ""
 echo "Lista de reservar pendientes de confirmacion:"
 
-gawk -F"|" '{if ($8=="false" || $8!="true") print $4, $5, $6}' "${DIR_TMP}/calendario" |
+gawk -F"|" '{if (($8=="false" || $8!="true") && ($5!="-")) print $4, $5, $6}' "${DIR_TMP}/calendario" |
     sort -k2,2 -k1,1 |
     while read -r PISTA FECHA HORA
     do
