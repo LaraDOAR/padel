@@ -1,7 +1,7 @@
 POSICION|                            PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA
-       1|        ManueldelValle-JoseCordoba|    16|               0|               0|           0|            0
-       2|            JorgeLopez-AndresMunoz|    15|               0|               0|           0|            0
-       3|AlbertoParramon-JuanManuelGonzalez|    14|               0|               0|           0|            0
+       1|            JorgeLopez-AndresMunoz|    16|               1|               1|          15|            0
+       2|        ManueldelValle-JoseCordoba|    16|               0|               0|           0|            0
+       3|AlbertoParramon-JuanManuelGonzalez|    14|               1|               0|           0|           15
        4|          DanielRamos-AlvaroRomero|    13|               0|               0|           0|            0
        5|         JavierVidal-AlbertoMateos|    12|               0|               0|           0|            0
        6|            EricPerez-IsraelAlonso|    11|               0|               0|           0|            0
@@ -10,8 +10,8 @@ POSICION|                            PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GAN
        9|       RubenMartinez-PepeRodriguez|     8|               1|               1|          10|            3
       10|   AmbrosioIniesta-CarlosFernandez|     8|               1|               0|           6|            9
       11|         RubendelCampo-PabloLostao|     7|               1|               1|          15|            0
-      12|        CristinaLeon-ManuelHidalgo|     5|               1|               1|          11|            9
+      12|        CristinaLeon-ManuelHidalgo|     6|               2|               2|          20|           13
       13|      EnriqueClemente-MonicaGarcia|     5|               2|               0|           3|           25
       14|        TeresaSolano-LaraDominguez|     4|               1|               0|           9|           11
-      15|          AngelaRuiz-AlvaroBarbero|     2|               0|               0|           0|            0
+      15|          AngelaRuiz-AlvaroBarbero|     2|               1|               0|           4|            9
       16|            SaraGarcia-AnaAlastuey|     1|               0|               0|           0|            0

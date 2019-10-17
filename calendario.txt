@@ -3,9 +3,9 @@ MES|                             LOCAL|                      VISITANTE| PISTA|  
 001|          DanielRamos-AlvaroRomero|         EricPerez-IsraelAlonso|     -|       -|       -|       -|           false
 001|            SaraGarcia-AnaAlastuey|     TeresaSolano-LaraDominguez|Pista7|20191031|   18:00|   19:00|            true
 001|      EnriqueClemente-MonicaGarcia|      RubendelCampo-PabloLostao|Pista9|20191011|   16:00|   17:00|            true
-001|AlbertoParramon-JuanManuelGonzalez|         JorgeLopez-AndresMunoz|     -|       -|       -|       -|           false
+001|AlbertoParramon-JuanManuelGonzalez|         JorgeLopez-AndresMunoz|Pista9|20191015|   18:00|   19:00|            true
 001|   AmbrosioIniesta-CarlosFernandez|      DanielMichaud-JavierMunoz|Pista3|20191010|   19:00|   20:00|            true
-001|AlbertoParramon-JuanManuelGonzalez|     ManueldelValle-JoseCordoba|     -|       -|       -|       -|           false
+001|AlbertoParramon-JuanManuelGonzalez|     ManueldelValle-JoseCordoba|     -|       -|       -|       -|            true
 001|      EnriqueClemente-MonicaGarcia|    RubenMartinez-PepeRodriguez|Pista3|20191014|   19:00|   20:00|            true
 001|        CristinaLeon-ManuelHidalgo|     TeresaSolano-LaraDominguez|Pista3|20191015|   18:00|   19:00|            true
 001|          AngelaRuiz-AlvaroBarbero|         SaraGarcia-AnaAlastuey|Pista3|20191017|   18:00|   19:00|            true
