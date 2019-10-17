@@ -1,5 +1,5 @@
 MES|                             LOCAL|                      VISITANTE| PISTA|   FECHA|HORA_INI|HORA_FIN|PISTA_CONFIRMADA
-001|          AngelaRuiz-AlvaroBarbero|     CristinaLeon-ManuelHidalgo|Pista3|20191016|   18:00|   19:00|           false
+001|          AngelaRuiz-AlvaroBarbero|     CristinaLeon-ManuelHidalgo|Pista3|20191016|   18:00|   19:00|            true
 001|          DanielRamos-AlvaroRomero|         EricPerez-IsraelAlonso|     -|       -|       -|       -|           false
 001|            SaraGarcia-AnaAlastuey|     TeresaSolano-LaraDominguez|Pista9|20191031|   18:00|   19:00|           false
 001|      EnriqueClemente-MonicaGarcia|      RubendelCampo-PabloLostao|Pista9|20191011|   16:00|   17:00|            true
