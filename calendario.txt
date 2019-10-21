@@ -15,5 +15,5 @@ MES|                             LOCAL|                      VISITANTE| PISTA|  
 001|            EricPerez-IsraelAlonso|      JavierVidal-AlbertoMateos|Pista3|20191023|   18:00|   19:00|            true
 001|          AngelaRuiz-AlvaroBarbero|     TeresaSolano-LaraDominguez|Pista3|20191017|   19:00|   20:00|            true
 001|        CristinaLeon-ManuelHidalgo|         SaraGarcia-AnaAlastuey|Pista3|20191024|   18:00|   19:00|            true
-001|            JorgeLopez-AndresMunoz|     ManueldelValle-JoseCordoba|Pista7|20191024|   18:00|   19:00|            true
-001|         DanielMichaud-JavierMunoz|JuanAntonioMontesino-AinhoaGoni|Pista7|20191024|   19:00|   20:00|            true
+001|            JorgeLopez-AndresMunoz|     ManueldelValle-JoseCordoba|     -|       -|       -|       -|           false
+001|         DanielMichaud-JavierMunoz|JuanAntonioMontesino-AinhoaGoni|Pista7|20191024|   18:00|   19:00|            true

@@ -141,6 +141,7 @@
        Jose|  Cordoba|20191018
        Jose|  Cordoba|20191022
        Jose|  Cordoba|20191023
+       Jose|  Cordoba|20191024
        Jose|  Cordoba|20191025
        Jose|  Cordoba|20191029
        Jose|  Cordoba|20191030
