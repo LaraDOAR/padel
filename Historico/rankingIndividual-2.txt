@@ -9,16 +9,16 @@ POSICION|             PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FA
        8|        AlvaroRomero|    13|               0|               0|           0|            0
        9|         JavierVidal|    12|               0|               0|           0|            0
       10|       AlbertoMateos|    12|               0|               0|           0|            0
-      11|     AmbrosioIniesta|    11|               2|               1|          17|           19
-      12|     CarlosFernandez|    11|               2|               1|          17|           19
-      13|           EricPerez|    11|               0|               0|           0|            0
-      14|        IsraelAlonso|    11|               0|               0|           0|            0
-      15|       DanielMichaud|    10|               1|               1|           9|            6
-      16|         JavierMunoz|    10|               1|               1|           9|            6
-      17|JuanAntonioMontesino|    10|               1|               0|          10|           11
-      18|          AinhoaGoni|    10|               1|               0|          10|           11
-      19|       RubenMartinez|     8|               1|               1|          10|            3
-      20|       PepeRodriguez|     8|               1|               1|          10|            3
+      11|           EricPerez|    11|               0|               0|           0|            0
+      12|        IsraelAlonso|    11|               0|               0|           0|            0
+      13|       DanielMichaud|    10|               1|               1|           9|            6
+      14|         JavierMunoz|    10|               1|               1|           9|            6
+      15|JuanAntonioMontesino|    10|               0|               0|           0|            0
+      16|          AinhoaGoni|    10|               0|               0|           0|            0
+      17|       RubenMartinez|     8|               1|               1|          10|            3
+      18|       PepeRodriguez|     8|               1|               1|          10|            3
+      19|     AmbrosioIniesta|     8|               1|               0|           6|            9
+      20|     CarlosFernandez|     8|               1|               0|           6|            9
       21|       RubendelCampo|     7|               1|               1|          15|            0
       22|         PabloLostao|     7|               1|               1|          15|            0
       23|        CristinaLeon|     6|               2|               2|          20|           13

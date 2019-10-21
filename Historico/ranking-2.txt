@@ -4,11 +4,11 @@ POSICION|                            PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GAN
        3|AlbertoParramon-JuanManuelGonzalez|    14|               1|               0|           0|           15
        4|          DanielRamos-AlvaroRomero|    13|               0|               0|           0|            0
        5|         JavierVidal-AlbertoMateos|    12|               0|               0|           0|            0
-       6|   AmbrosioIniesta-CarlosFernandez|    11|               2|               1|          17|           19
-       7|            EricPerez-IsraelAlonso|    11|               0|               0|           0|            0
-       8|         DanielMichaud-JavierMunoz|    10|               1|               1|           9|            6
-       9|   JuanAntonioMontesino-AinhoaGoni|    10|               1|               0|          10|           11
-      10|       RubenMartinez-PepeRodriguez|     8|               1|               1|          10|            3
+       6|            EricPerez-IsraelAlonso|    11|               0|               0|           0|            0
+       7|         DanielMichaud-JavierMunoz|    10|               1|               1|           9|            6
+       8|   JuanAntonioMontesino-AinhoaGoni|    10|               0|               0|           0|            0
+       9|       RubenMartinez-PepeRodriguez|     8|               1|               1|          10|            3
+      10|   AmbrosioIniesta-CarlosFernandez|     8|               1|               0|           6|            9
       11|         RubendelCampo-PabloLostao|     7|               1|               1|          15|            0
       12|        CristinaLeon-ManuelHidalgo|     6|               2|               2|          20|           13
       13|        TeresaSolano-LaraDominguez|     5|               2|               1|          23|           22
