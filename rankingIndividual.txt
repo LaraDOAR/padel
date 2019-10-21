@@ -23,11 +23,11 @@ POSICION|             PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FA
       22|         PabloLostao|     7|               1|               1|          15|            0
       23|        CristinaLeon|     6|               2|               2|          20|           13
       24|       ManuelHidalgo|     6|               2|               2|          20|           13
-      25|     EnriqueClemente|     5|               2|               0|           3|           25
-      26|        MonicaGarcia|     5|               2|               0|           3|           25
-      27|        TeresaSolano|     4|               1|               0|           9|           11
-      28|       LaraDominguez|     4|               1|               0|           9|           11
-      29|          AngelaRuiz|     2|               1|               0|           4|            9
-      30|       AlvaroBarbero|     2|               1|               0|           4|            9
-      31|          SaraGarcia|     1|               0|               0|           0|            0
-      32|         AnaAlastuey|     1|               0|               0|           0|            0
+      25|        TeresaSolano|     5|               2|               1|          23|           22
+      26|       LaraDominguez|     5|               2|               1|          23|           22
+      27|     EnriqueClemente|     5|               2|               0|           3|           25
+      28|        MonicaGarcia|     5|               2|               0|           3|           25
+      29|          AngelaRuiz|     3|               3|               1|          30|           25
+      30|       AlvaroBarbero|     3|               3|               1|          30|           25
+      31|          SaraGarcia|     1|               1|               0|           2|           15
+      32|         AnaAlastuey|     1|               1|               0|           2|           15

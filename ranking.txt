@@ -11,7 +11,7 @@ POSICION|                            PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GAN
       10|   AmbrosioIniesta-CarlosFernandez|     8|               1|               0|           6|            9
       11|         RubendelCampo-PabloLostao|     7|               1|               1|          15|            0
       12|        CristinaLeon-ManuelHidalgo|     6|               2|               2|          20|           13
-      13|      EnriqueClemente-MonicaGarcia|     5|               2|               0|           3|           25
-      14|        TeresaSolano-LaraDominguez|     4|               1|               0|           9|           11
-      15|          AngelaRuiz-AlvaroBarbero|     2|               1|               0|           4|            9
-      16|            SaraGarcia-AnaAlastuey|     1|               0|               0|           0|            0
+      13|        TeresaSolano-LaraDominguez|     5|               2|               1|          23|           22
+      14|      EnriqueClemente-MonicaGarcia|     5|               2|               0|           3|           25
+      15|          AngelaRuiz-AlvaroBarbero|     3|               3|               1|          30|           25
+      16|            SaraGarcia-AnaAlastuey|     1|               1|               0|           2|           15
