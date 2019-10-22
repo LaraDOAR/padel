@@ -8,8 +8,8 @@ POSICION|                            PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GAN
        7|            EricPerez-IsraelAlonso|    11|               0|               0|           0|            0
        8|         DanielMichaud-JavierMunoz|    10|               1|               1|           9|            6
        9|   JuanAntonioMontesino-AinhoaGoni|    10|               1|               0|          10|           11
-      10|       RubenMartinez-PepeRodriguez|     8|               1|               1|          10|            3
-      11|         RubendelCampo-PabloLostao|     7|               1|               1|          15|            0
+      10|         RubendelCampo-PabloLostao|     9|               2|               2|          30|            1
+      11|       RubenMartinez-PepeRodriguez|     8|               2|               1|          11|           18
       12|        CristinaLeon-ManuelHidalgo|     6|               2|               2|          20|           13
       13|        TeresaSolano-LaraDominguez|     5|               2|               1|          23|           22
       14|      EnriqueClemente-MonicaGarcia|     5|               2|               0|           3|           25

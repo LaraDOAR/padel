@@ -17,10 +17,10 @@ POSICION|             PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FA
       16|         JavierMunoz|    10|               1|               1|           9|            6
       17|JuanAntonioMontesino|    10|               1|               0|          10|           11
       18|          AinhoaGoni|    10|               1|               0|          10|           11
-      19|       RubenMartinez|     8|               1|               1|          10|            3
-      20|       PepeRodriguez|     8|               1|               1|          10|            3
-      21|       RubendelCampo|     7|               1|               1|          15|            0
-      22|         PabloLostao|     7|               1|               1|          15|            0
+      19|       RubendelCampo|     9|               2|               2|          30|            1
+      20|         PabloLostao|     9|               2|               2|          30|            1
+      21|       RubenMartinez|     8|               2|               1|          11|           18
+      22|       PepeRodriguez|     8|               2|               1|          11|           18
       23|        CristinaLeon|     6|               2|               2|          20|           13
       24|       ManuelHidalgo|     6|               2|               2|          20|           13
       25|        TeresaSolano|     5|               2|               1|          23|           22
