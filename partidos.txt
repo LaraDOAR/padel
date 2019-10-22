@@ -4,7 +4,7 @@ MES|DIVISION|                             LOCAL|                      VISITANTE|
 001|       1|            JorgeLopez-AndresMunoz|     ManueldelValle-JoseCordoba|20191028|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
 001|       2|          DanielRamos-AlvaroRomero|         EricPerez-IsraelAlonso|       -|       -|       -|     -|   -|   -|   -|     -|  false
 001|       2|          DanielRamos-AlvaroRomero|      JavierVidal-AlbertoMateos|       -|       -|       -|     -|   -|   -|   -|     -|  false
-001|       2|            EricPerez-IsraelAlonso|      JavierVidal-AlbertoMateos|20191023|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
+001|       2|            EricPerez-IsraelAlonso|      JavierVidal-AlbertoMateos|       -|       -|       -|     -|   -|   -|   -|     -|  false
 001|       3|   AmbrosioIniesta-CarlosFernandez|      DanielMichaud-JavierMunoz|20191010|   19:00|   20:00|Pista3|   -|   -|   -|   6/9|   true
 001|       3|   AmbrosioIniesta-CarlosFernandez|JuanAntonioMontesino-AinhoaGoni|20191017|   19:00|   20:00|Pista7|   -|   -|   -| 11/10|   true
 001|       3|         DanielMichaud-JavierMunoz|JuanAntonioMontesino-AinhoaGoni|20191024|   18:00|   19:00|Pista7|   -|   -|   -|     -|  false
