@@ -12,7 +12,7 @@ MES|                             LOCAL|                      VISITANTE| PISTA|  
 001|   AmbrosioIniesta-CarlosFernandez|JuanAntonioMontesino-AinhoaGoni|Pista7|20191017|   19:00|   20:00|            true
 001|          DanielRamos-AlvaroRomero|      JavierVidal-AlbertoMateos|     -|       -|       -|       -|           false
 001|         RubendelCampo-PabloLostao|    RubenMartinez-PepeRodriguez|Pista3|20191021|   19:00|   20:00|            true
-001|            EricPerez-IsraelAlonso|      JavierVidal-AlbertoMateos|     -|       -|       -|       -|               -
+001|            EricPerez-IsraelAlonso|      JavierVidal-AlbertoMateos|     -|       -|       -|       -|           false
 001|          AngelaRuiz-AlvaroBarbero|     TeresaSolano-LaraDominguez|Pista3|20191017|   19:00|   20:00|            true
 001|        CristinaLeon-ManuelHidalgo|         SaraGarcia-AnaAlastuey|Pista3|20191024|   18:00|   19:00|            true
 001|            JorgeLopez-AndresMunoz|     ManueldelValle-JoseCordoba|Pista3|20191028|   19:00|   20:00|           false
