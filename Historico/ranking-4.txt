@@ -10,8 +10,8 @@ POSICION|                            PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GAN
        9|         DanielMichaud-JavierMunoz|    10|               2|               1|          19|           18
       10|         RubendelCampo-PabloLostao|     9|               2|               2|          30|            1
       11|       RubenMartinez-PepeRodriguez|     8|               2|               1|          11|           18
-      12|        CristinaLeon-ManuelHidalgo|     7|               3|               3|          35|           14
+      12|        CristinaLeon-ManuelHidalgo|     6|               2|               2|          20|           13
       13|        TeresaSolano-LaraDominguez|     5|               2|               1|          23|           22
       14|      EnriqueClemente-MonicaGarcia|     5|               2|               0|           3|           25
       15|          AngelaRuiz-AlvaroBarbero|     3|               3|               1|          30|           25
-      16|            SaraGarcia-AnaAlastuey|     1|               2|               0|           3|           30
+      16|            SaraGarcia-AnaAlastuey|     1|               1|               0|           2|           15

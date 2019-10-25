@@ -164,9 +164,6 @@ JuanAntonio|Montesino|20191030
        Lara|Dominguez|20191018
        Lara|Dominguez|20191021
        Lara|Dominguez|20191024
-       Lara|Dominguez|20191104
-       Lara|Dominguez|20191113
-       Lara|Dominguez|20191119
      Manuel| delValle|20191001
      Manuel| delValle|20191002
      Manuel| delValle|20191003
