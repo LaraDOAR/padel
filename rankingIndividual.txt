@@ -1,8 +1,8 @@
 POSICION|             PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA
-       1|          JorgeLopez|    16|               1|               1|          15|            0
-       2|         AndresMunoz|    16|               1|               1|          15|            0
-       3|      ManueldelValle|    16|               0|               0|           0|            0
-       4|         JoseCordoba|    16|               0|               0|           0|            0
+       1|      ManueldelValle|    17|               1|               1|          15|            3
+       2|         JoseCordoba|    17|               1|               1|          15|            3
+       3|          JorgeLopez|    16|               2|               1|          18|           15
+       4|         AndresMunoz|    16|               2|               1|          18|           15
        5|         DanielRamos|    14|               1|               1|          15|            3
        6|        AlvaroRomero|    14|               1|               1|          15|            3
        7|     AlbertoParramon|    14|               1|               0|           0|           15

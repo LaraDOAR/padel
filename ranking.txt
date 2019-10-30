@@ -1,6 +1,6 @@
 POSICION|                            PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA
-       1|            JorgeLopez-AndresMunoz|    16|               1|               1|          15|            0
-       2|        ManueldelValle-JoseCordoba|    16|               0|               0|           0|            0
+       1|        ManueldelValle-JoseCordoba|    17|               1|               1|          15|            3
+       2|            JorgeLopez-AndresMunoz|    16|               2|               1|          18|           15
        3|          DanielRamos-AlvaroRomero|    14|               1|               1|          15|            3
        4|AlbertoParramon-JuanManuelGonzalez|    14|               1|               0|           0|           15
        5|         JavierVidal-AlbertoMateos|    12|               0|               0|           0|            0
