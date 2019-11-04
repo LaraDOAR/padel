@@ -3,8 +3,8 @@ MES|DIVISION|                             LOCAL|                      VISITANTE|
 001|       1|AlbertoParramon-JuanManuelGonzalez|     ManueldelValle-JoseCordoba|       -|       -|       -|     -|   -|   -|   -|     -|   true
 001|       1|            JorgeLopez-AndresMunoz|     ManueldelValle-JoseCordoba|20191028|   19:00|   20:00|Pista3|   -|   -|   -|  3/15|   true
 001|       2|          DanielRamos-AlvaroRomero|         EricPerez-IsraelAlonso|20191028|   18:00|   19:00|Pista3|   -|   -|   -|  15/3|   true
-001|       2|          DanielRamos-AlvaroRomero|      JavierVidal-AlbertoMateos|       -|       -|       -|     -|   -|   -|   -|     -|  false
-001|       2|            EricPerez-IsraelAlonso|      JavierVidal-AlbertoMateos|       -|       -|       -|     -|   -|   -|   -|     -|  false
+001|       2|          DanielRamos-AlvaroRomero|      JavierVidal-AlbertoMateos|       -|       -|       -|     -|   -|   -|   -|     -|   true
+001|       2|            EricPerez-IsraelAlonso|      JavierVidal-AlbertoMateos|       -|       -|       -|     -|   -|   -|   -|     -|   true
 001|       3|   AmbrosioIniesta-CarlosFernandez|      DanielMichaud-JavierMunoz|20191010|   19:00|   20:00|Pista3|   -|   -|   -|   6/9|   true
 001|       3|   AmbrosioIniesta-CarlosFernandez|JuanAntonioMontesino-AinhoaGoni|20191017|   19:00|   20:00|Pista7|   -|   -|   -| 11/10|   true
 001|       3|         DanielMichaud-JavierMunoz|JuanAntonioMontesino-AinhoaGoni|20191024|   18:00|   19:00|Pista7|   -|   -|   -| 10/12|   true
@@ -16,4 +16,4 @@ MES|DIVISION|                             LOCAL|                      VISITANTE|
 001|       5|          AngelaRuiz-AlvaroBarbero|     TeresaSolano-LaraDominguez|20191017|   19:00|   20:00|Pista3|   -|   -|   -| 11/14|   true
 001|       5|        CristinaLeon-ManuelHidalgo|         SaraGarcia-AnaAlastuey|20191024|   18:00|   19:00|Pista3|   -|   -|   -|  15/1|   true
 001|       5|        CristinaLeon-ManuelHidalgo|     TeresaSolano-LaraDominguez|20191015|   18:00|   19:00|Pista3|   -|   -|   -|  11/9|   true
-001|       5|            SaraGarcia-AnaAlastuey|     TeresaSolano-LaraDominguez|20191031|   18:00|   19:00|Pista7|   -|   -|   -|     -|  false
+001|       5|            SaraGarcia-AnaAlastuey|     TeresaSolano-LaraDominguez|20191031|   18:00|   19:00|Pista7|   -|   -|   -|  2/15|   true

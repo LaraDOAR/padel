@@ -16,8 +16,6 @@
      Ainhoa|     Goni|20191028
      Ainhoa|     Goni|20191030
      Ainhoa|     Goni|20191031
-    Alberto| Parramon|20191030
-    Alberto| Parramon|20191031
      Alvaro|  Barbero|20191001
      Alvaro|  Barbero|20191004
      Alvaro|  Barbero|20191008
@@ -157,7 +155,6 @@ JuanAntonio|Montesino|20191023
 JuanAntonio|Montesino|20191025
 JuanAntonio|Montesino|20191028
 JuanAntonio|Montesino|20191030
- JuanManuel| Gonzalez|20191017
        Lara|Dominguez|20191007
        Lara|Dominguez|20191008
        Lara|Dominguez|20191010

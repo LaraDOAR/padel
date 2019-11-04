@@ -1,8 +1,8 @@
 POSICION|             PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA
-       1|          JorgeLopez|    16|               1|               1|          15|            0
-       2|         AndresMunoz|    16|               1|               1|          15|            0
-       3|      ManueldelValle|    16|               0|               0|           0|            0
-       4|         JoseCordoba|    16|               0|               0|           0|            0
+       1|      ManueldelValle|    17|               1|               1|          15|            3
+       2|         JoseCordoba|    17|               1|               1|          15|            3
+       3|          JorgeLopez|    16|               2|               1|          18|           15
+       4|         AndresMunoz|    16|               2|               1|          18|           15
        5|         DanielRamos|    14|               1|               1|          15|            3
        6|        AlvaroRomero|    14|               1|               1|          15|            3
        7|     AlbertoParramon|    14|               1|               0|           0|           15
@@ -23,11 +23,11 @@ POSICION|             PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FA
       22|       PepeRodriguez|     8|               2|               1|          11|           18
       23|        CristinaLeon|     7|               3|               3|          35|           14
       24|       ManuelHidalgo|     7|               3|               3|          35|           14
-      25|        TeresaSolano|     5|               2|               1|          23|           22
-      26|       LaraDominguez|     5|               2|               1|          23|           22
+      25|        TeresaSolano|     6|               3|               2|          38|           24
+      26|       LaraDominguez|     6|               3|               2|          38|           24
       27|     EnriqueClemente|     5|               2|               0|           3|           25
       28|        MonicaGarcia|     5|               2|               0|           3|           25
       29|          AngelaRuiz|     3|               3|               1|          30|           25
       30|       AlvaroBarbero|     3|               3|               1|          30|           25
-      31|          SaraGarcia|     1|               2|               0|           3|           30
-      32|         AnaAlastuey|     1|               2|               0|           3|           30
+      31|          SaraGarcia|     1|               3|               0|           5|           45
+      32|         AnaAlastuey|     1|               3|               0|           5|           45
