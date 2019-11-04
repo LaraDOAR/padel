@@ -11,9 +11,6 @@
 # Puede llevar cabecera. Para dar formato <bash Script/formateaTabla.sh -f repitenEnLaSemana.txt>
 #
 # Entrada
-#  -m [n]        --> Numero del mes (1,2,3...)
-#  -i [YYYYMMDD] --> Fecha de inicio del mes
-#  -f [YYYYMMDD] --> Fecha fin del mes (fecha en la que se dan por jugados todos los partidos)
 #  -v            --> Verboso (para ver las iteraciones del algoritmo)
 #
 # Salida
@@ -92,9 +89,6 @@ AYUDA="
  Puede llevar cabecera. Para dar formato <bash Script/formateaTabla.sh -f repitenEnLaSemana.txt>
 
  Entrada
-  -m [n]        --> Numero del mes (1,2,3...)
-  -i [YYYYMMDD] --> Fecha de inicio del mes
-  -f [YYYYMMDD] --> Fecha fin del mes (fecha en la que se dan por jugados todos los partidos)
   -v            --> Verboso (para ver las iteraciones del algoritmo)
 
  Salida:
@@ -102,30 +96,18 @@ AYUDA="
   1 --> ejecucion con errores
 "
 
-ARG_MES=""               # parametro obligatorio
-ARG_FECHA_INI=""         # parametro obligatorio
-ARG_FECHA_FIN=""         # parametro obligatorio
 ARG_VERBOSO=false        # por defecto, no es verboso
 
 # Procesamos los argumentos de entrada
-while getopts m:i:f:vh opt
+while getopts vh opt
 do
     case "${opt}" in
-        m) ARG_MES=$OPTARG;;
-        i) ARG_FECHA_INI=$OPTARG;;
-        f) ARG_FECHA_FIN=$OPTARG;;
         v) ARG_VERBOSO=true;;
         h) echo -e "${AYUDA}"; exit 0;;
         *) prt_error "Parametro [${opt}] invalido"; echo -e "${AYUDA}"; exit 1;;
     esac
 done
 
-if [ "${ARG_MES}" == "" ];         then prt_error "ERROR: ARG_MES vacio, necesario el parametro -m";                     exit 1; fi
-if [ "${ARG_FECHA_INI}" == "" ];   then prt_error "ERROR: ARG_FECHA_INI vacio, necesario el parametro -i";               exit 1; fi
-if [ "${ARG_FECHA_FIN}" == "" ];   then prt_error "ERROR: ARG_FECHA_FIN vacio, necesario el parametro -f";               exit 1; fi
-if ! [[ ${ARG_MES} =~ ^[0-9]+$ ]]; then prt_error "ERROR: ARG_MES=${ARG_MES}, no es un numero entero valido (param -m)"; exit 1; fi
-date +"%Y%m%d" -d "${ARG_FECHA_INI} +5 days" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then prt_error "ERROR: ARG_FECHA_INI=${ARG_FECHA_INI} no es una fecha valida (param -i)"; exit 1; fi
-date +"%Y%m%d" -d "${ARG_FECHA_FIN} +5 days" > /dev/null 2>&1; rv=$?; if [ "${rv}" != "0" ]; then prt_error "ERROR: ARG_FECHA_INI=${ARG_FECHA_INI} no es una fecha valida (param -f)"; exit 1; fi
 
 
 
@@ -447,8 +429,8 @@ function checkCompatible {
             # -- se averigua en que semana esta ese partido: se sabe _s, _fIni y _fFin
             for _s in $( seq 1 "${nSemanas}" )
             do
-                _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
-                _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+                _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${CFG_FECHA_INI} +${_n} days" )
+                _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${CFG_FECHA_INI} +${_n} days" )
                 if [ "${_fecha}" -ge "${_fIni}" ] && [ "${_fecha}" -le "${_fFin}" ]; then break; fi
             done
             _semanaPartido=${_s}
@@ -469,8 +451,8 @@ function checkCompatible {
                     _fecha=$( echo -e "${_line}" | gawk -F"-" '{print $6}' )
                     for _s in $( seq 1 "${nSemanas}" )
                     do
-                        _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
-                        _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+                        _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${CFG_FECHA_INI} +${_n} days" )
+                        _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${CFG_FECHA_INI} +${_n} days" )
                         if [ "${_fecha}" -ge "${_fIni}" ] && [ "${_fecha}" -le "${_fFin}" ]; then break; fi
                     done
 
@@ -537,8 +519,8 @@ function checkCompatible {
         _cabecera=$( printf "%70s |" "DIVISION" )
         for _s in $( seq 1 "${nSemanas}" )
         do
-            _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
-            _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+            _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${CFG_FECHA_INI} +${_n} days" )
+            _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${CFG_FECHA_INI} +${_n} days" )
             gawk -F"|" '{if ($2>=MIN && $2<=MAX) print $2}' MIN="${_fIni}" MAX="${_fFin}" "${DIR_TMP}/pistas" | sort -u > "${DIR_TMP}/listaDias.semana${_s}"
             _cabecera="${_cabecera} $( gawk '{printf("%02d | ",substr($1,7))}' "${DIR_TMP}/listaDias.semana${_s}" )"
             _cabecera="${_cabecera}### |"
@@ -698,13 +680,13 @@ prt_info "Ejecucion..."
 
 # Solo nos quedamos con los partidos de la jornada que corresponde y
 # los que no tengan ya ranking ----> para eliminar partidos de INCOMPATIBILIDAD TOTAL
-gawk -F"|" '{if ($1+0==MES && $13=="false") print}' MES="${ARG_MES}" "${DIR_TMP}/partidos" > "${DIR_TMP}/partidos.tmp"
+gawk -F"|" '{if ($1+0==MES && $13=="false") print}' MES="${CFG_JORNADA}" "${DIR_TMP}/partidos" > "${DIR_TMP}/partidos.tmp"
 mv "${DIR_TMP}/partidos.tmp" "${DIR_TMP}/partidos"
 
 # 1/9 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana
 prt_info "-- 1/9 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana"
-dIni=$( date -d "${ARG_FECHA_INI}" +%s )
-dFin=$( date -d "${ARG_FECHA_FIN}" +%s )
+dIni=$( date -d "${CFG_FECHA_INI}" +%s )
+dFin=$( date -d "${CFG_FECHA_FIN}" +%s )
 nSemanas=$( echo "" | gawk '{printf("%d",((FIN-INI)/(86400*7))+0.5)}' INI="${dIni}" FIN="${dFin}" )
 prt_info "---- Hay ${nSemanas} semanas"
 for semana in $( seq 1 "${nSemanas}" )
@@ -722,8 +704,8 @@ _nDivisiones=$( gawk -F"|" '{print $2}' "${DIR_TMP}/partidos" | sort -u | wc -l 
 _cabecera=$( printf "%70s |" "DIVISION" )
 for _s in $( seq 1 "${nSemanas}" )
 do
-    _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
-    _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+    _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${CFG_FECHA_INI} +${_n} days" )
+    _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${CFG_FECHA_INI} +${_n} days" )
     gawk -F"|" '{if ($2>=MIN && $2<=MAX) print $2}' MIN="${_fIni}" MAX="${_fFin}" "${DIR_TMP}/pistas" | sort -u > "${DIR_TMP}/listaDias.semana${_s}"
     _cabecera="${_cabecera} $( gawk '{printf("%02d | ",substr($1,7))}' "${DIR_TMP}/listaDias.semana${_s}" )"
     _cabecera="${_cabecera}### |"
@@ -834,8 +816,8 @@ do
     # 1/10 - Se calculan las fechas limite de la semana
     prt_info "---- 1/10 - Se calculan las fechas limite de la semana"
     if [ "${semana}" == "0" ]; then semana=1; else semana=$(( (semana % nSemanas) + 1 )); fi
-    n=$(( (semana - 1) * 7 )); FECHA_INI=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${n} days" )
-    n=$(( n + 5 ));            FECHA_FIN=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${n} days" )
+    n=$(( (semana - 1) * 7 )); FECHA_INI=$( date +"%Y%m%d" -d "${CFG_FECHA_INI} +${n} days" )
+    n=$(( n + 5 ));            FECHA_FIN=$( date +"%Y%m%d" -d "${CFG_FECHA_INI} +${n} days" )
     prt_info "------ SEMANA ${semana}/${nSemanas} = ${FECHA_INI} - ${FECHA_FIN}"
     semanaSig=$(( (semana % nSemanas) + 1 ))
 
@@ -1083,8 +1065,8 @@ do
                 _fecha=$( echo -e "${hueco}" | gawk -F"-" '{print $2}' )  # Pista3-20190603-18:00-19:00
                 for _s in $( seq 1 "${nSemanas}" )
                 do
-                    _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
-                    _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} +${_n} days" )
+                    _n=$(( (_s - 1) * 7 )); _fIni=$( date +"%Y%m%d" -d "${CFG_FECHA_INI} +${_n} days" )
+                    _n=$(( _n + 5 ));       _fFin=$( date +"%Y%m%d" -d "${CFG_FECHA_INI} +${_n} days" )
                     if [ "${_fecha}" -ge "${_fIni}" ] && [ "${_fecha}" -le "${_fFin}" ]; then break; fi
                 done
                 # -- se eliminan los partidos de la misma division en esas fechas
@@ -1231,7 +1213,7 @@ prt_info "-- 7/9 - Se unen los partidos de todas las semanas"
 #  -- cabecera
 echo "MES|LOCAL|VISITANTE|PISTA|FECHA|HORA_INI|HORA_FIN|PISTA_CONFIRMADA" > calendario.txt.new
 # -- se escriben los nuevos partidos
-cat "${DIR_TMP}/calendario.semana"*".txt" | gawk -F"-" 'BEGIN{OFS="|"}{MES=sprintf("%03d",MES); print MES,$2"-"$3,$4"-"$5,$6,$7,$8,$9,"false"}' MES="${ARG_MES}" >> calendario.txt.new
+cat "${DIR_TMP}/calendario.semana"*".txt" | gawk -F"-" 'BEGIN{OFS="|"}{MES=sprintf("%03d",MES); print MES,$2"-"$3,$4"-"$5,$6,$7,$8,$9,"false"}' MES="${CFG_JORNADA}" >> calendario.txt.new
 # -- se escribe lo que ya teniamos
 if [ -f "${DIR_TMP}/calendario" ]; then cat "${DIR_TMP}/calendario" >> calendario.txt.new; fi
 # -- se cambia el nombre
@@ -1243,8 +1225,8 @@ prt_info "-- 8/9 - Se reordenan los partidos dentro de cada dia"
 out=$( FGRL_limpiaTabla calendario.txt "${DIR_TMP}/calendario" false )
 out=$( FGRL_limpiaTabla ranking.txt    "${DIR_TMP}/ranking"    false )
 out=$( FGRL_limpiaTabla pistas.txt     "${DIR_TMP}/pistas"     false )
-fecha=$( date +"%Y%m%d" -d "${ARG_FECHA_INI} -1 days" ) # porque despues va a sumar 1 dia
-while [ "${fecha}" -le "${ARG_FECHA_FIN}" ]
+fecha=$( date +"%Y%m%d" -d "${CFG_FECHA_INI} -1 days" ) # porque despues va a sumar 1 dia
+while [ "${fecha}" -le "${CFG_FECHA_FIN}" ]
 do
     fecha=$( date +"%Y%m%d" -d "${fecha} +1 days" )
     # Solo se hace algo si hay mas de 1 partido y mas 1 pista

@@ -55,7 +55,7 @@ bash Script/checkRestricciones.sh
 # -- Puntos iniciales para conservar el ranking
 
 # -- ejecuta con opcion inicial
-bash Script/getRanking.sh -i -o
+bash Script/getRanking.sh -i
 # -- ficheros de salida
 # ranking.html
 # ranking.txt
@@ -70,8 +70,7 @@ bash Script/getRanking.sh -i -o
 
 # -- ejecuta script
 NUMERO_PAREJAS_POR_DIVISION=3 # numero de partidos que se quieran jugar + 1
-JORNADA=1
-bash Script/getPartidos.sh -m "${JORNADA}" -n "${NUMERO_PAREJAS_POR_DIVISION}"
+bash Script/getPartidos.sh -n "${NUMERO_PAREJAS_POR_DIVISION}"
 # -- ficheros de salida
 # partidos.txt
 # partidos.html
@@ -84,14 +83,9 @@ bash Script/getPartidos.sh -m "${JORNADA}" -n "${NUMERO_PAREJAS_POR_DIVISION}"
 # -- Se genera a partir del fichero de partidos
 # -- Genera los ficheros de calendario, pero tambien actualiza el fichero de partidos anterior
 
-# -- inicializa variables
-FECHA_INI_MES=20191007
-FECHA_FIN_MES=20191101
-JORNADA=1
-
 # -- ejecuta el script
-bash Script/getCalendario.sh -m "${JORNADA}" -i "${FECHA_INI_MES}" -f "${FECHA_FIN_MES}"
-bash Script/getCalendario.sh.sinChecks -m "${JORNADA}" -i "${FECHA_INI_MES}" -f "${FECHA_FIN_MES}"
+bash Script/getCalendario.sh
+bash Script/getCalendario.sh.sinChecks
 # -- ficheros de salida
 # calendario.txt
 # calendario.html
@@ -107,10 +101,10 @@ bash Script/getCalendario.sh.sinChecks -m "${JORNADA}" -i "${FECHA_INI_MES}" -f 
 
 ##### 5/6 - Hacer backup de todos los ficheros generados
 # -- Sirve para tener constancia de todos los ficheros que se van generando
-
+. infoTorneo.cfg
 for f in infoTorneo.cfg pistas.txt parejas.txt restricciones.txt rankingIndividual.txt rankingReferencia.txt ranking.txt ranking.html partidos.txt partidos.html calendario.txt calendario.html
 do
-    cp ${f} Historico/jornada01-versionInicial-${f}
+    cp ${f} Historico/jornada${CFG_JORNADA}-versionInicial-${f}
 done
 
 

@@ -16,9 +16,6 @@ exit 1
 ################################################################################################################################
 ################## GENERAR PARTIDOS PARA EL RESTO DE JORNADAS
 
-MES=2
-FECHA_INI_JORNADA=20190701
-FECHA_FIN_JORNADA=20190726
 NUMERO_PAREJAS_POR_DIVISION=5   # numero de partidos que se quieran jugar + 1
 
 # Se supone ya actualizado el ranking con los resultados de la ultima jornada/mes
@@ -31,11 +28,11 @@ cp ranking.html rankingReferencia.html
 # 1/3 - Averiguar que partidos hay que jugar segun el ranking actual
 
 # NOTA: si hay partidos del mes pasado que no se han jugado y se han pospuesto a esta jornada
-#  - Editar el fichero partidos.txt, dejando el MES que esta y borrando datos de FECHA, HORA y LUGAR
+#  - Editar el fichero partidos.txt, dejando el MES/JORNADA que esta y borrando datos de FECHA, HORA y LUGAR
 #  - La nueva ejecucion de getPartidos.sh, anyadira partidos nuevos
 
 # -- ejecuta script
-bash Script/getPartidos.sh -m "${MES}" -n "${NUMERO_PAREJAS_POR_DIVISION}"
+bash Script/getPartidos.sh -n "${NUMERO_PAREJAS_POR_DIVISION}"
 # -- ficheros de salida
 # partidos.txt
 # partidos.html
@@ -44,7 +41,7 @@ bash Script/getPartidos.sh -m "${MES}" -n "${NUMERO_PAREJAS_POR_DIVISION}"
 # 2/3 - Generar calendario de cuando se juega cada partido
 
 # -- ejecuta el script
-bash Script/getCalendario.sh -m "${MES}" -i "${FECHA_INI_JORNADA}" -f "${FECHA_FIN_JORNADA}"
+bash Script/getCalendario.sh
 # -- ficheros de salida
 # calendario.txt
 # calendario.html

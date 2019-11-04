@@ -237,6 +237,7 @@ do
 done < "${DIR_TMP}/calendario"
 
 # Se cambia el formato de las fechas (formato: -DanielRamos-AlvaroRomero-EricPerez-IsraelAlonso-Pista3-20191021-19:00-20:00)
+touch "${DIR_TMP}/combinaciones_todas.tmp"
 while read -r line
 do
     fecha=$( echo -e "${line}" | gawk -F"-" '{print $7}' )

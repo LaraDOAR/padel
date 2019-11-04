@@ -175,6 +175,14 @@ mkdir -p emails
 
 prt_info "Ejecucion..."
 
+# Filtra los partidos que ya estan en el ranking, y por tanto, ya estan jugados
+gawk 'BEGIN{OFS=FS="|";}{if ($NF=="false") print;}' "${DIR_TMP}/partidos" > "${DIR_TMP}/partidos.tmp"
+mv "${DIR_TMP}/partidos.tmp" "${DIR_TMP}/partidos"
+
+# Filtra los partidos de la jornada actual
+gawk 'BEGIN{OFS=FS="|";}{if ($1+1==JORNADA) print;}' JORNADA="${CFG_JORNADA}" "${DIR_TMP}/partidos" > "${DIR_TMP}/partidos.tmp"
+mv "${DIR_TMP}/partidos.tmp" "${DIR_TMP}/partidos"
+
 # Averigua el numero de parejas
 nParejas=$( gawk -F"|" '{print $1}' "${DIR_TMP}/parejas" | sort -g | tail -1 )
 
@@ -194,12 +202,6 @@ do
     persona2=$( head -"${l2}" "${DIR_TMP}/parejas" | tail -1 | gawk -F"|" '{print $2 " " $3}' )
     if [ "${persona2:0:1}" == "I" ]; then aux=e
     else                                  aux=y
-    fi
-
-    # averigua la columna de los resultados
-    if   [ "${CFG_MODO_PUNTUACION}" == "SETS" ];   then COL_PUNTOS=9
-    elif [ "${CFG_MODO_PUNTUACION}" == "PUNTOS" ]; then COL_PUNTOS=12
-    else                                           prt_error "CFG_MODO_PUNTUACION=${CFG_MODO_PUNTUACION} es invalido, solo puede ser SETS o PUNTOS"; exit 1
     fi
 
     {
@@ -271,7 +273,7 @@ do
         echo "<TH>Lugar</TH>"
         echo "<TH>Rival</TH>"
         echo "</TR >"
-        grep "|${n1}-${n2}|" "${DIR_TMP}/partidos" | gawk -F"|" '{if ($COL=="-") print}' COL="${COL_PUNTOS}" | sort -t"|" -k5,5 | gawk -F"|" '
+        grep "|${n1}-${n2}|" "${DIR_TMP}/partidos" | sort -t"|" -k5,5 | gawk -F"|" '
         BEGIN{ vacio=1; }
         {
             if ($5=="-") { next; }
@@ -303,7 +305,7 @@ do
         echo "<TH>Huecos disponibles</TH>"
         echo "</TR >"
         touch "${DIR_TMP}/vacio.txt"
-        grep "|${n1}-${n2}|" "${DIR_TMP}/partidos" | gawk -F"|" '{if ($COL=="-") print}' COL="${COL_PUNTOS}" | sort -t"|" -k5,5 |
+        grep "|${n1}-${n2}|" "${DIR_TMP}/partidos" | sort -t"|" -k5,5 |
             while IFS="|" read -r _ _ LOC VIS FECHA _ _ _ _ _ _ _ CONFIRMADA
             do
                 if [ "${FECHA}" != "-" ]; then continue; fi
