@@ -6,7 +6,9 @@
 # de restricciones que hay en el directorio Restricciones
 #
 # Entrada
-#  (no tiene)
+#  -z ---> Indica que hay que extraer las restricciones desde el zip que manda Esther (por defecto, No)
+#          Si se indica, se extraen las restricciones del zip, se anyaden (con buen formato) a las que hay,
+#          y ya despues se sigue con el funcionamiento normal.
 #
 # Salida
 #   0 --> ejecucion correcta
@@ -77,17 +79,22 @@ AYUDA="
  de restricciones que hay en el directorio Restricciones.
 
  Entrada
-  (no tiene)
+  -z ---> Indica que hay que extraer las restricciones desde el zip que manda Esther (por defecto, No)
+          Si se indica, se extraen las restricciones del zip, se anyaden (con buen formato) a las que hay,
+          y ya despues se sigue con el funcionamiento normal.
 
  Salida:
   0 --> ejecucion correcta
   1 --> ejecucion con errores
 "
 
+ARG_DESDE_ZIP=0
+
 # Procesamos los argumentos de entrada
-while getopts h opt
+while getopts zh opt
 do
     case "${opt}" in
+        z) ARG_DESDE_ZIP=1;;
         h) echo -e "${AYUDA}"; exit 0;;
         *) prt_error "Parametro [${opt}] invalido"; echo -e "${AYUDA}"; exit 1;;
     esac
@@ -167,6 +174,30 @@ do
     if [ "$( grep "|${nombre}|${apellido}|" "${DIR_TMP}/parejas" )" == "" ]; then prt_error "ERROR: La persona [${nombre}|${apellido}] no aparece en el fichero parejas.txt"; exit 1; fi
 done
 
+
+##################### EXTRACCION DESDE ZIP
+if [ "${ARG_DESDE_ZIP}"  == "1" ]
+then
+    if [ ! -f Restricciones/restricciones.zip ]; then prt_error "ERROR: el fichero zip de restricciones debe llamarse [restricciones.zip] y debe estar en el directorio [Restricciones/]"; exit 1; fi
+    
+    mkdir "${DIR_TMP}/unzip" "${DIR_TMP}/unzip-txt"
+    unzip Restricciones/restricciones.zip -d "${DIR_TMP}/unzip" > /dev/null; rv=$?
+    if [ "${rv}" != "0" ]; then prt_error "ERROR haciendo < unzip Restricciones/restricciones.zip -d ${DIR_TMP}/unzip >"; exit 1; fi
+    mv "${DIR_TMP}/unzip/"*/*.txt "${DIR_TMP}/unzip-txt"
+
+    # Se cambian las ñ (ascii = 164) por n en los nombres de los ficheros
+    for f in "${DIR_TMP}/unzip-txt/"*; do n=$( echo -e "${f}" | sed 's/\xd0\xb4/n/g' ); if [ "${f}" != "${n}" ]; then mv "${f}" "${n}"; fi; done
+
+    # Se vuelcan los contenidos
+    for f in "${DIR_TMP}/unzip-txt/"*
+    do
+        base=$( basename "${f}" )
+        iconv --to-code="ISO 8859-1" "${f}" | sed '/^[[:space:]]*$/d' | gawk '{print substr($0,1,8)}' >> "Restricciones/${base}"
+    done
+    
+fi
+
+
 # Se asegura que estan en ascii los ficheros
 for f in Restricciones/restricciones-*.txt
 do
@@ -181,6 +212,13 @@ do
     do
         if ! [[ ${line} =~ ^[0-9]{8}$ ]]; then prt_error "ERROR: El fichero [${f}] contiene la linea [${line}] que no es una fecha"; exit 1; fi
     done < "${f}"
+done
+
+# Registros unicos
+for f in Restricciones/restricciones-*.txt
+do
+    gawk '{print substr($0,1,8)}' "${f}" | sort -u > "${f}.sorted"
+    mv "${f}.sorted" "${f}"
 done
 
 # Se hace backup de los ficheros de salida, para no sobreescribir

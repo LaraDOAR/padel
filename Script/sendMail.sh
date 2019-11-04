@@ -153,7 +153,7 @@ trap "salir;" EXIT
 ###                                         1 |        1 | AlbertoMateos-IsraelAlonso| EricPerez-DanielRamos| 20190507 |    18:00 |    19:30 | Pista 7 |  7/5 |  6/5 |    - |      - | false
 
 ### CABECERA DEL FICHERO DE PAREJAS ---> PAREJA|       NOMBRE|  APELLIDO|                      CORREO
-###                                           1|         Jose|   Cordoba|     jose.cordoba@iic.uam.es
+###                                           1|  JoseAntonio|   Cordoba|     jose.cordoba@iic.uam.es
 
 
 ############# INICIALIZACION
