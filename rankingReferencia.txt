@@ -8,7 +8,7 @@ POSICION|                              PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_G
        7|           DanielMichaud-JavierMunoz|     9|               0|               0|           0|            0
        8|     AmbrosioIniesta-CarlosFernandez|     8|               0|               0|           0|            0
        9|RubenMartinez-JoseFranciscoRodriguez|     7|               0|               0|           0|            0
-      10|           RubendelCampo-PabloLostao|     6|               0|               0|           0|            0
+      10|           RubenDelCampo-PabloLostao|     6|               0|               0|           0|            0
       11|        EnriqueClemente-MonicaGarcia|     5|               0|               0|           0|            0
       12|     MariaTeresaSolano-LaraDominguez|     4|               0|               0|           0|            0
       13|          CristinaLeon-ManuelHidalgo|     3|               0|               0|           0|            0

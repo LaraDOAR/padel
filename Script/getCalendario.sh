@@ -352,7 +352,8 @@ function moverPartido {
         do
             gawk '{print LOC"_"VIS, $0}' LOC="${_LOC}" VIS="${_VIS}" "${DIR_TMP}/huecosLibresContador.${_LOC}-${_VIS}"
         #done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -${_num} > "${DIR_TMP}/moverPartido.contador"
-        done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -100 > "${DIR_TMP}/moverPartido.contador"
+        #done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 | tail -100 > "${DIR_TMP}/moverPartido.contador"
+        done < "${DIR_TMP}/partidos.semana${_s}" | sort -g -k2,2 > "${DIR_TMP}/moverPartido.contador"
         
         # Se elige al azar
         _nLineas=$( wc -l "${DIR_TMP}/moverPartido.contador" | gawk '{print $1}' )
@@ -360,7 +361,7 @@ function moverPartido {
         _partido=$( head -${_num} "${DIR_TMP}/moverPartido.contador" | tail -1 | gawk '{print $1}' )
         _LOC=$( echo -e "${_partido}" | gawk -F"_" '{print $1}' )
         _VIS=$( echo -e "${_partido}" | gawk -F"_" '{print $2}' )
-        prt_info "------- <moverPartido ${_s} ${_check}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}, elegido aleatoriamente"
+        prt_info "------- <moverPartido ${_s} ${_check}> El partido [${_LOC} vs ${_VIS}] se mueve de la semana ${_s} a ${_sSig}, elegido aleatoriamente < shuf -i 1-${_nLineas} -n 1 >"
         rm "${DIR_TMP}/moverPartido.contador"
 
         grep -e "|${_LOC}|${_VIS}|"   "${DIR_TMP}/partidos.semana${_s}" >> "${DIR_TMP}/partidos.semana${_sSig}"  # se mueve a la semana siguiente
@@ -556,9 +557,10 @@ function checkCompatible {
                 do
                     while read -r _fecha
                     do
-                        _pa=$( echo -e "${_loc}" | gawk -F"-" '{print $1}' )
-                        _pb=$( echo -e "${_vis}" | gawk -F"-" '{print $1}' )
-                        if [ "$( grep "${_pa}" "${DIR_TMP}/restricciones.CHECK" | grep "${_fecha}" )" != "" ] || [ "$( grep "${_pb}" "${DIR_TMP}/restricciones.CHECK" | grep "${_fecha}" )" != "" ]
+                        _pa1=$( echo -e "${_loc}" | gawk -F"-" '{print $1}' ); _pa2=$( echo -e "${_loc}" | gawk -F"-" '{print $2}' )
+                        _pb1=$( echo -e "${_vis}" | gawk -F"-" '{print $1}' ); _pb2=$( echo -e "${_vis}" | gawk -F"-" '{print $2}' )
+                        if     [ "$( grep "${_pa1}" "${DIR_TMP}/restricciones.CHECK" | grep "${_fecha}" )" != "" ] || [ "$( grep "${_pb1}" "${DIR_TMP}/restricciones.CHECK" | grep "${_fecha}" )" != "" ] ||
+                               [ "$( grep "${_pa2}" "${DIR_TMP}/restricciones.CHECK" | grep "${_fecha}" )" != "" ] || [ "$( grep "${_pb2}" "${DIR_TMP}/restricciones.CHECK" | grep "${_fecha}" )" != "" ]
                         then
                             printf " X | "
                         else
@@ -694,8 +696,9 @@ FGRL_backupFile calendario html; rv=$?; if [ "${rv}" != "0" ]; then exit 1; fi
 
 prt_info "Ejecucion..."
 
-# Solo nos quedamos con los partidos de la jornada que corresponde
-gawk -F"|" '{if ($1+0==MES) print}' MES="${ARG_MES}" "${DIR_TMP}/partidos" > "${DIR_TMP}/partidos.tmp"
+# Solo nos quedamos con los partidos de la jornada que corresponde y
+# los que no tengan ya ranking ----> para eliminar partidos de INCOMPATIBILIDAD TOTAL
+gawk -F"|" '{if ($1+0==MES && $13=="false") print}' MES="${ARG_MES}" "${DIR_TMP}/partidos" > "${DIR_TMP}/partidos.tmp"
 mv "${DIR_TMP}/partidos.tmp" "${DIR_TMP}/partidos"
 
 # 1/9 - Se hace por semanas para evitar que una pareja juegue mas de 1 partido la misma semana
@@ -741,9 +744,10 @@ do
             semanaLibre=false
             while read -r _fecha
             do
-                _pa=$( echo -e "${_loc}" | gawk -F"-" '{print $1}' )
-                _pb=$( echo -e "${_vis}" | gawk -F"-" '{print $1}' )
-                if [ "$( grep "${_pa}" "${DIR_TMP}/restricciones.DISPO" | grep "${_fecha}" )" != "" ] || [ "$( grep "${_pb}" "${DIR_TMP}/restricciones.DISPO" | grep "${_fecha}" )" != "" ]
+                _pa1=$( echo -e "${_loc}" | gawk -F"-" '{print $1}' ); _pa2=$( echo -e "${_loc}" | gawk -F"-" '{print $2}' )
+                _pb1=$( echo -e "${_vis}" | gawk -F"-" '{print $1}' ); _pb2=$( echo -e "${_vis}" | gawk -F"-" '{print $2}' )
+                if     [ "$( grep "${_pa1}" "${DIR_TMP}/restricciones.DISPO" | grep "${_fecha}" )" != "" ] || [ "$( grep "${_pb1}" "${DIR_TMP}/restricciones.DISPO" | grep "${_fecha}" )" != "" ] ||
+                       [ "$( grep "${_pa2}" "${DIR_TMP}/restricciones.DISPO" | grep "${_fecha}" )" != "" ] || [ "$( grep "${_pb2}" "${DIR_TMP}/restricciones.DISPO" | grep "${_fecha}" )" != "" ]
                 then
                     printf " X | "
                 else
@@ -901,6 +905,7 @@ do
         if [ "${out}" == "" ]
         then
             prt_error "------ El partido [${LOCAL} vs ${VISITANTE}] no se puede jugar, no esta en las opciones disponibles ordenadas"
+            prt_debug "${ARG_VERBOSO}"  "[ ${LOCAL} vs ${VISITANTE}] no esta en el fichero:"; if [ "${ARG_VERBOSO}" == "1" ]; then cat  "${DIR_TMP}/combinaciones_todas"; fi
             prt_warn "------ Se mueve ese partido de la semana ${semana} a la siguiente, la semana ${semanaSig}"
             grep -e "|${LOCAL}|${VISITANTE}|" "${DIR_TMP}/partidos" >> "${DIR_TMP}/partidos.semana${semanaSig}" # se mueve a la siguiente
             sed -i "/|${LOCAL}|${VISITANTE}|/d" "${DIR_TMP}/partidos.semana${semana}" # se quita de la semana actual

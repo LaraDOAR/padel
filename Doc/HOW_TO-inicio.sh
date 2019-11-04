@@ -70,7 +70,8 @@ bash Script/getRanking.sh -i -o
 
 # -- ejecuta script
 NUMERO_PAREJAS_POR_DIVISION=3 # numero de partidos que se quieran jugar + 1
-bash Script/getPartidos.sh -m 1 -n "${NUMERO_PAREJAS_POR_DIVISION}"
+JORNADA=1
+bash Script/getPartidos.sh -m "${JORNADA}" -n "${NUMERO_PAREJAS_POR_DIVISION}"
 # -- ficheros de salida
 # partidos.txt
 # partidos.html
@@ -86,10 +87,11 @@ bash Script/getPartidos.sh -m 1 -n "${NUMERO_PAREJAS_POR_DIVISION}"
 # -- inicializa variables
 FECHA_INI_MES=20191007
 FECHA_FIN_MES=20191101
+JORNADA=1
 
 # -- ejecuta el script
-bash Script/getCalendario.sh -m 1 -i "${FECHA_INI_MES}" -f "${FECHA_FIN_MES}"
-bash Script/getCalendario.sh.sinChecks -m 1 -i "${FECHA_INI_MES}" -f "${FECHA_FIN_MES}"
+bash Script/getCalendario.sh -m "${JORNADA}" -i "${FECHA_INI_MES}" -f "${FECHA_FIN_MES}"
+bash Script/getCalendario.sh.sinChecks -m "${JORNADA}" -i "${FECHA_INI_MES}" -f "${FECHA_FIN_MES}"
 # -- ficheros de salida
 # calendario.txt
 # calendario.html

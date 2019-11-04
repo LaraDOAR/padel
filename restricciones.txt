@@ -439,7 +439,12 @@ JoseFrancisco|Rodriguez|20191230
          Lara|Dominguez|20191024
          Lara|Dominguez|20191104
          Lara|Dominguez|20191113
+         Lara|Dominguez|20191115
+         Lara|Dominguez|20191118
          Lara|Dominguez|20191119
+         Lara|Dominguez|20191120
+         Lara|Dominguez|20191121
+         Lara|Dominguez|20191122
        Manuel| delValle|20191001
        Manuel| delValle|20191002
        Manuel| delValle|20191003
