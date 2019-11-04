@@ -1,14 +1,19 @@
 MES|                          LOCAL|                           VISITANTE| PISTA|   FECHA|HORA_INI|HORA_FIN|PISTA_CONFIRMADA
 002|       DanielRamos-AlvaroRomero|   ManueldelValle-JoseAntonioCordoba|     -|       -|       -|       -|           false
-002|     CristinaLeon-ManuelHidalgo|RubenMartinez-JoseFranciscoRodriguez|Pista3|20191111|   18:00|   19:00|           false
-002|       AngelaRuiz-AlvaroBarbero|        EnriqueClemente-MonicaGarcia|Pista3|20191113|   18:00|   19:00|           false
+002|       AngelaRuiz-AlvaroBarbero|        EnriqueClemente-MonicaGarcia|Pista3|20191111|   18:00|   19:00|           false
 002|      DanielMichaud-JavierMunoz|           RubenDelCampo-PabloLostao|Pista7|20191114|   19:00|   20:00|           false
-002|AmbrosioIniesta-CarlosFernandez|           JavierVidal-AlbertoMateos|Pista7|20191114|   18:00|   19:00|           false
-002|       DanielRamos-AlvaroRomero|              JorgeLopez-AndresMunoz|Pista3|20191112|   18:00|   19:00|           false
-002|   EnriqueClemente-MonicaGarcia|              SaraGarcia-AnaAlastuey|Pista3|20191120|   19:00|   20:00|           false
-002|         EricPerez-IsraelAlonso|           RubenDelCampo-PabloLostao|Pista3|20191120|   18:00|   19:00|           false
-002|      JavierVidal-AlbertoMateos|     JuanAntonioMontesino-AinhoaGoni|Pista7|20191121|   18:00|   19:00|           false
+002|AmbrosioIniesta-CarlosFernandez|           JavierVidal-AlbertoMateos|Pista3|20191112|   18:00|   19:00|           false
+002|     CristinaLeon-ManuelHidalgo|     MariaTeresaSolano-LaraDominguez|Pista3|20191112|   19:00|   20:00|           false
+002|       DanielRamos-AlvaroRomero|              JorgeLopez-AndresMunoz|Pista7|20191114|   18:00|   19:00|           false
+002|     CristinaLeon-ManuelHidalgo|RubenMartinez-JoseFranciscoRodriguez|Pista3|20191118|   18:00|   19:00|           false
+002|         EricPerez-IsraelAlonso|           RubenDelCampo-PabloLostao|Pista3|20191120|   19:00|   20:00|           false
+002|       AngelaRuiz-AlvaroBarbero|              SaraGarcia-AnaAlastuey|Pista3|20191118|   19:00|   20:00|           false
+002|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|Pista3|20191120|   18:00|   19:00|           false
+002|AmbrosioIniesta-CarlosFernandez|     JuanAntonioMontesino-AinhoaGoni|Pista3|20191119|   18:00|   19:00|           false
 002|      DanielMichaud-JavierMunoz|              EricPerez-IsraelAlonso|Pista3|20191127|   18:00|   19:00|           false
+002|   EnriqueClemente-MonicaGarcia|              SaraGarcia-AnaAlastuey|Pista3|20191127|   19:00|   20:00|           false
+002|      JavierVidal-AlbertoMateos|     JuanAntonioMontesino-AinhoaGoni|Pista3|20191128|   18:00|   19:00|           false
+002|MariaTeresaSolano-LaraDominguez|RubenMartinez-JoseFranciscoRodriguez|     -|       -|       -|       -|            true
 001|       AngelaRuiz-AlvaroBarbero|          CristinaLeon-ManuelHidalgo|Pista3|20191016|   18:00|   19:00|            true
 001|       DanielRamos-AlvaroRomero|              EricPerez-IsraelAlonso|Pista3|20191028|   18:00|   19:00|            true
 001|         SaraGarcia-AnaAlastuey|     MariaTeresaSolano-LaraDominguez|Pista7|20191031|   18:00|   19:00|            true

@@ -1034,8 +1034,21 @@ do
                 fi
 
                 # Se coge el primer hueco en el que puede ir
-                # *** Dando prioridad a pista buena + hora temprana
-                hueco=$( grep -e "-${pLocal}-${pVisitante}" "${DIR_TMP}/comb_todas" | sort -t"-" -k6,6r -k8,8 -k7,7 | head -1 | cut -d"-" -f 6- )  #Damos por hecho que las pistas con mas numeracion son mejores
+                # *** Dando prioridad a pista buena + hora temprana + ultima posicion los viernes
+                hueco=$(
+                    grep -e "-${pLocal}-${pVisitante}" "${DIR_TMP}/comb_todas" |  # Formato:"-CristinaLeon-ManuelHidalgo-MariaTeresaSolano-LaraDominguez-Pista3-20191112-18:00-19:00"
+                        sort -t"-" -k6,6r -k8,8 -k7,7 | # se ordena por pista (damos por hecho que las pistas con mas numeracion son mejores) + hora + fecha
+                        while read -r line              # se averigua el dia de la semana que es: Lun=1 ... Dom=7
+                        do
+                            fecha=$( echo -e "${line}" | gawk -F"-" '{print $7}' )
+                            n=$( date +%u -d "${fecha}" )
+                            if [ "${n}" -lt "5" ]; then n=0; fi
+                            echo "${n}|${line}"
+                        done |                                    
+                        sort -t"|" -k1,1 | gawk -F"|" '{print $2}' | # se mueven los viernes/sabados/domingos al final
+                        head -1 |         # se coge el primero
+                        cut -d"-" -f 6-   # nos quedamos con el hueco=Pista3-20190603-18:00-19:00
+                     )
                 fechaHueco=$( echo -e "${hueco}" | gawk -F"-" '{print $2}'  )
                 prt_debug "${ARG_VERBOSO}" "------ en el hueco [${hueco}]"
 

@@ -180,7 +180,7 @@ gawk 'BEGIN{OFS=FS="|";}{if ($NF=="false") print;}' "${DIR_TMP}/partidos" > "${D
 mv "${DIR_TMP}/partidos.tmp" "${DIR_TMP}/partidos"
 
 # Filtra los partidos de la jornada actual
-gawk 'BEGIN{OFS=FS="|";}{if ($1+1==JORNADA) print;}' JORNADA="${CFG_JORNADA}" "${DIR_TMP}/partidos" > "${DIR_TMP}/partidos.tmp"
+gawk 'BEGIN{OFS=FS="|";}{if ($1+0==JORNADA) print;}' JORNADA="${CFG_JORNADA}" "${DIR_TMP}/partidos" > "${DIR_TMP}/partidos.tmp"
 mv "${DIR_TMP}/partidos.tmp" "${DIR_TMP}/partidos"
 
 # Averigua el numero de parejas

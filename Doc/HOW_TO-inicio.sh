@@ -93,7 +93,7 @@ bash Script/getCalendario.sh.sinChecks
 # partidos.html
 
 # -- enviar email con la informacion de los partidos de cada persona
-**************bash Script/sendMails.sh -m 1
+**************bash Script/sendMail.sh
 
 
 
