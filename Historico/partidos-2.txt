@@ -2,13 +2,13 @@ MES|DIVISION|                          LOCAL|                           VISITANT
 002|       1|       DanielRamos-AlvaroRomero|              JorgeLopez-AndresMunoz|20191114|   18:00|   19:00|Pista7|   -|   -|   -|     -|  false
 002|       1|       DanielRamos-AlvaroRomero|   ManueldelValle-JoseAntonioCordoba|20191120|   18:00|   19:00|Pista7|   -|   -|   -|     -|  false
 002|       1|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|20191120|   19:00|   20:00|Pista7|   -|   -|   -|     -|  false
-002|       2|AmbrosioIniesta-CarlosFernandez|           JavierVidal-AlbertoMateos|20191112|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
-002|       2|AmbrosioIniesta-CarlosFernandez|     JuanAntonioMontesino-AinhoaGoni|20191119|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
+002|       2|AmbrosioIniesta-CarlosFernandez|           JavierVidal-AlbertoMateos|20191112|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
+002|       2|AmbrosioIniesta-CarlosFernandez|     JuanAntonioMontesino-AinhoaGoni|20191119|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 002|       2|      JavierVidal-AlbertoMateos|     JuanAntonioMontesino-AinhoaGoni|20191128|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 002|       3|      DanielMichaud-JavierMunoz|              EricPerez-IsraelAlonso|20191127|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 002|       3|      DanielMichaud-JavierMunoz|           RubenDelCampo-PabloLostao|20191114|   19:00|   20:00|Pista7|   -|   -|   -|     -|  false
 002|       3|         EricPerez-IsraelAlonso|           RubenDelCampo-PabloLostao|20191120|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
-002|       4|     CristinaLeon-ManuelHidalgo|     MariaTeresaSolano-LaraDominguez|20191112|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
+002|       4|     CristinaLeon-ManuelHidalgo|     MariaTeresaSolano-LaraDominguez|20191112|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
 002|       4|     CristinaLeon-ManuelHidalgo|RubenMartinez-JoseFranciscoRodriguez|20191118|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 002|       4|MariaTeresaSolano-LaraDominguez|RubenMartinez-JoseFranciscoRodriguez|       -|       -|       -|     -|   -|   -|   -|     -|   true
 002|       5|       AngelaRuiz-AlvaroBarbero|        EnriqueClemente-MonicaGarcia|       -|       -|       -|     -|   -|   -|   -|     -|  false
