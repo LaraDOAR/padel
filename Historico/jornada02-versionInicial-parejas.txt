@@ -1,0 +1,37 @@
+####################################################
+#
+# INFORMACION SOBRE LOS PARTICIPANTES Y LAS PAREJAS QUE FORMAN
+#
+####################################################
+
+PAREJA|       NOMBRE| APELLIDO|   NOMBRE.APELLIDO@iic.uam.es
+     1|       Manuel| delValle|      manuel.valle@iic.uam.es
+     1|  JoseAntonio|  Cordoba|      jose.cordoba@iic.uam.es
+     2|        Jorge|    Lopez|       jorge.lopez@iic.uam.es
+     2|       Andres|    Munoz|      andres.munoz@iic.uam.es
+     3|       Daniel|    Ramos|      daniel.ramos@iic.uam.es
+     3|       Alvaro|   Romero|     alvaro.romero@iic.uam.es
+     4|       Javier|    Vidal|      javier.vidal@iic.uam.es
+     4|      Alberto|   Mateos|    alberto.mateos@iic.uam.es
+     5|         Eric|    Perez|        eric.perez@iic.uam.es
+     5|       Israel|   Alonso|     israel.alonso@iic.uam.es
+     6|  JuanAntonio|Montesino|    juan.montesino@iic.uam.es
+     6|       Ainhoa|     Goni|       ainhoa.goni@iic.uam.es
+     7|       Daniel|  Michaud|    daniel.michaud@iic.uam.es
+     7|       Javier|    Munoz|      javier.munoz@iic.uam.es
+     8|     Ambrosio|  Iniesta|  ambrosio.iniesta@iic.uam.es
+     8|       Carlos|Fernandez|  carlos.fernandez@iic.uam.es
+     9|        Ruben| Martinez|    ruben.martinez@iic.uam.es
+     9|JoseFrancisco|Rodriguez|    jose.rodriguez@iic.uam.es
+    10|        Ruben| DelCampo|    ruben.delcampo@iic.uam.es
+    10|        Pablo|   Lostao|      pablo.lostao@iic.uam.es
+    11|      Enrique| Clemente|  enrique.clemente@iic.uam.es
+    11|       Monica|   Garcia|     monica.garcia@iic.uam.es
+    12|  MariaTeresa|   Solano|mariateresa.solano@iic.uam.es
+    12|         Lara|Dominguez|    lara.dominguez@iic.uam.es
+    13|     Cristina|     Leon|     cristina.leon@iic.uam.es
+    13|       Manuel|  Hidalgo|    manuel.hidalgo@iic.uam.es
+    14|       Angela|     Ruiz|       angela.ruiz@iic.uam.es
+    14|       Alvaro|  Barbero|    alvaro.barbero@iic.uam.es
+    15|         Sara|   Garcia|       sara.garcia@iic.uam.es
+    15|          Ana| Alastuey|      ana.alastuey@iic.uam.es

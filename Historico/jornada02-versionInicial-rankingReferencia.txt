@@ -1,0 +1,16 @@
+POSICION|                              PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA
+       1|   ManueldelValle-JoseAntonioCordoba|    16|               0|               0|           0|            0
+       2|              JorgeLopez-AndresMunoz|    15|               0|               0|           0|            0
+       3|            DanielRamos-AlvaroRomero|    13|               0|               0|           0|            0
+       4|           JavierVidal-AlbertoMateos|    12|               0|               0|           0|            0
+       5|              EricPerez-IsraelAlonso|    11|               0|               0|           0|            0
+       6|     JuanAntonioMontesino-AinhoaGoni|    10|               0|               0|           0|            0
+       7|           DanielMichaud-JavierMunoz|     9|               0|               0|           0|            0
+       8|     AmbrosioIniesta-CarlosFernandez|     8|               0|               0|           0|            0
+       9|RubenMartinez-JoseFranciscoRodriguez|     7|               0|               0|           0|            0
+      10|           RubenDelCampo-PabloLostao|     6|               0|               0|           0|            0
+      11|        EnriqueClemente-MonicaGarcia|     5|               0|               0|           0|            0
+      12|     MariaTeresaSolano-LaraDominguez|     4|               0|               0|           0|            0
+      13|          CristinaLeon-ManuelHidalgo|     3|               0|               0|           0|            0
+      14|            AngelaRuiz-AlvaroBarbero|     2|               0|               0|           0|            0
+      15|              SaraGarcia-AnaAlastuey|     1|               0|               0|           0|            0

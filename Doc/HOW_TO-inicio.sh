@@ -102,9 +102,10 @@ bash Script/getCalendario.sh.sinChecks
 ##### 5/6 - Hacer backup de todos los ficheros generados
 # -- Sirve para tener constancia de todos los ficheros que se van generando
 . infoTorneo.cfg
+JORNADA=$( printf "%02d" "${CFG_JORNADA}" )
 for f in infoTorneo.cfg pistas.txt parejas.txt restricciones.txt rankingIndividual.txt rankingReferencia.txt ranking.txt ranking.html partidos.txt partidos.html calendario.txt calendario.html
 do
-    cp ${f} Historico/jornada${CFG_JORNADA}-versionInicial-${f}
+    cp ${f} Historico/jornada${JORNADA}-versionInicial-${f}
 done
 
 

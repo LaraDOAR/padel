@@ -1,0 +1,31 @@
+POSICION|               PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA
+       1|        ManueldelValle|    17|               1|               1|          15|            3
+       2|    JoseAntonioCordoba|    17|               1|               1|          15|            3
+       3|            JorgeLopez|    16|               2|               1|          18|           15
+       4|           AndresMunoz|    16|               2|               1|          18|           15
+       5|           DanielRamos|    14|               1|               1|          15|            3
+       6|          AlvaroRomero|    14|               1|               1|          15|            3
+       7|           JavierVidal|    12|               0|               0|           0|            0
+       8|         AlbertoMateos|    12|               0|               0|           0|            0
+       9|  JuanAntonioMontesino|    11|               2|               1|          22|           21
+      10|            AinhoaGoni|    11|               2|               1|          22|           21
+      11|       AmbrosioIniesta|    11|               2|               1|          17|           19
+      12|       CarlosFernandez|    11|               2|               1|          17|           19
+      13|             EricPerez|    11|               1|               0|           3|           15
+      14|          IsraelAlonso|    11|               1|               0|           3|           15
+      15|         DanielMichaud|    10|               2|               1|          19|           18
+      16|           JavierMunoz|    10|               2|               1|          19|           18
+      17|         RubenDelCampo|     9|               2|               2|          30|            1
+      18|           PabloLostao|     9|               2|               2|          30|            1
+      19|         RubenMartinez|     8|               2|               1|          11|           18
+      20|JoseFranciscoRodriguez|     8|               2|               1|          11|           18
+      21|          CristinaLeon|     7|               3|               3|          35|           14
+      22|         ManuelHidalgo|     7|               3|               3|          35|           14
+      23|     MariaTeresaSolano|     6|               3|               2|          38|           24
+      24|         LaraDominguez|     6|               3|               2|          38|           24
+      25|       EnriqueClemente|     5|               2|               0|           3|           25
+      26|          MonicaGarcia|     5|               2|               0|           3|           25
+      27|            AngelaRuiz|     3|               3|               1|          30|           25
+      28|         AlvaroBarbero|     3|               3|               1|          30|           25
+      29|            SaraGarcia|     1|               3|               0|           5|           45
+      30|           AnaAlastuey|     1|               3|               0|           5|           45
