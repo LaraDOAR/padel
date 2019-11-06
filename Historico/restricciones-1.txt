@@ -137,7 +137,6 @@
        Angela|     Ruiz|20191025
        Angela|     Ruiz|20191101
        Angela|     Ruiz|20191108
-       Angela|     Ruiz|20191111
        Angela|     Ruiz|20191114
        Angela|     Ruiz|20191115
        Angela|     Ruiz|20191122
