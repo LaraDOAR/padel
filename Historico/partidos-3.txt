@@ -11,7 +11,7 @@ MES|DIVISION|                          LOCAL|                           VISITANT
 002|       4|     CristinaLeon-ManuelHidalgo|     MariaTeresaSolano-LaraDominguez|20191112|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 002|       4|     CristinaLeon-ManuelHidalgo|RubenMartinez-JoseFranciscoRodriguez|20191118|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 002|       4|MariaTeresaSolano-LaraDominguez|RubenMartinez-JoseFranciscoRodriguez|       -|       -|       -|     -|   -|   -|   -|     -|   true
-002|       5|       AngelaRuiz-AlvaroBarbero|        EnriqueClemente-MonicaGarcia|       -|       -|       -|     -|   -|   -|   -|     -|  false
+002|       5|       AngelaRuiz-AlvaroBarbero|        EnriqueClemente-MonicaGarcia|20191120|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 002|       5|       AngelaRuiz-AlvaroBarbero|              SaraGarcia-AnaAlastuey|20191118|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
 002|       5|   EnriqueClemente-MonicaGarcia|              SaraGarcia-AnaAlastuey|20191127|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
 001|       1|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|20191028|   19:00|   20:00|Pista3|   -|   -|   -|  3/15|   true
