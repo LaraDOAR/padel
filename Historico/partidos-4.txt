@@ -1,12 +1,12 @@
 MES|DIVISION|                          LOCAL|                           VISITANTE|   FECHA|HORA_INI|HORA_FIN| LUGAR|SET1|SET2|SET3|PUNTOS|RANKING
-002|       1|       DanielRamos-AlvaroRomero|              JorgeLopez-AndresMunoz|20191114|   18:00|   19:00|Pista7|   -|   -|   -|     -|  false
+002|       1|       DanielRamos-AlvaroRomero|              JorgeLopez-AndresMunoz|20191114|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 002|       1|       DanielRamos-AlvaroRomero|   ManueldelValle-JoseAntonioCordoba|20191120|   18:00|   19:00|Pista7|   -|   -|   -|     -|  false
 002|       1|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|20191120|   19:00|   20:00|Pista7|   -|   -|   -|     -|  false
 002|       2|AmbrosioIniesta-CarlosFernandez|           JavierVidal-AlbertoMateos|20191112|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
 002|       2|AmbrosioIniesta-CarlosFernandez|     JuanAntonioMontesino-AinhoaGoni|20191119|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
 002|       2|      JavierVidal-AlbertoMateos|     JuanAntonioMontesino-AinhoaGoni|20191128|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 002|       3|      DanielMichaud-JavierMunoz|              EricPerez-IsraelAlonso|20191127|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
-002|       3|      DanielMichaud-JavierMunoz|           RubenDelCampo-PabloLostao|20191114|   19:00|   20:00|Pista7|   -|   -|   -|     -|  false
+002|       3|      DanielMichaud-JavierMunoz|           RubenDelCampo-PabloLostao|20191114|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
 002|       3|         EricPerez-IsraelAlonso|           RubenDelCampo-PabloLostao|20191120|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 002|       4|     CristinaLeon-ManuelHidalgo|     MariaTeresaSolano-LaraDominguez|20191112|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 002|       4|     CristinaLeon-ManuelHidalgo|RubenMartinez-JoseFranciscoRodriguez|20191118|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
