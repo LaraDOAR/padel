@@ -246,7 +246,6 @@
        Israel|   Alonso|20191115
        Israel|   Alonso|20191118
        Israel|   Alonso|20191119
-       Israel|   Alonso|20191120
        Israel|   Alonso|20191121
        Israel|   Alonso|20191122
        Israel|   Alonso|20191125
