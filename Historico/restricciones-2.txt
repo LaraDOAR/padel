@@ -180,14 +180,7 @@
        Daniel|    Ramos|20191118
        Daniel|    Ramos|20191119
        Daniel|    Ramos|20191122
-       Daniel|    Ramos|20191126
-       Daniel|    Ramos|20191127
        Daniel|    Ramos|20191129
-       Daniel|    Ramos|20191202
-       Daniel|    Ramos|20191203
-       Daniel|    Ramos|20191204
-       Daniel|    Ramos|20191205
-       Daniel|    Ramos|20191206
       Enrique| Clemente|20191001
       Enrique| Clemente|20191008
       Enrique| Clemente|20191015
