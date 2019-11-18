@@ -1,7 +1,7 @@
 MES|                          LOCAL|                           VISITANTE| PISTA|   FECHA|HORA_INI|HORA_FIN|PISTA_CONFIRMADA
 002|       DanielRamos-AlvaroRomero|   ManueldelValle-JoseAntonioCordoba|Pista7|20191120|   18:00|   19:00|            true
 002|       AngelaRuiz-AlvaroBarbero|        EnriqueClemente-MonicaGarcia|Pista3|20191120|   19:00|   20:00|           false
-002|      DanielMichaud-JavierMunoz|           RubenDelCampo-PabloLostao|Pista7|20191121|   18:00|   19:00|           false
+002|      DanielMichaud-JavierMunoz|           RubenDelCampo-PabloLostao|Pista7|20191121|   18:00|   19:00|            true
 002|AmbrosioIniesta-CarlosFernandez|           JavierVidal-AlbertoMateos|Pista3|20191112|   19:00|   20:00|            true
 002|     CristinaLeon-ManuelHidalgo|     MariaTeresaSolano-LaraDominguez|Pista3|20191112|   18:00|   19:00|            true
 002|       DanielRamos-AlvaroRomero|              JorgeLopez-AndresMunoz|     -|       -|       -|       -|           false
