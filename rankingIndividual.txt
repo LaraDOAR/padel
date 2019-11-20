@@ -5,27 +5,27 @@ POSICION|               PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_
        4|           AndresMunoz|    16|               2|               1|          18|           15
        5|           DanielRamos|    14|               1|               1|          15|            3
        6|          AlvaroRomero|    14|               1|               1|          15|            3
-       7|           JavierVidal|    13|               1|               1|           6|            5
-       8|         AlbertoMateos|    13|               1|               1|           6|            5
-       9|       AmbrosioIniesta|    11|               3|               1|          22|           25
-      10|       CarlosFernandez|    11|               3|               1|          22|           25
-      11|  JuanAntonioMontesino|    11|               2|               1|          22|           21
-      12|            AinhoaGoni|    11|               2|               1|          22|           21
+       7|  JuanAntonioMontesino|    13|               3|               2|          37|           30
+       8|            AinhoaGoni|    13|               3|               2|          37|           30
+       9|           JavierVidal|    13|               1|               1|           6|            5
+      10|         AlbertoMateos|    13|               1|               1|           6|            5
+      11|       AmbrosioIniesta|    11|               4|               1|          31|           40
+      12|       CarlosFernandez|    11|               4|               1|          31|           40
       13|             EricPerez|    11|               1|               0|           3|           15
       14|          IsraelAlonso|    11|               1|               0|           3|           15
       15|         DanielMichaud|    10|               2|               1|          19|           18
       16|           JavierMunoz|    10|               2|               1|          19|           18
       17|         RubenDelCampo|     9|               2|               2|          30|            1
       18|           PabloLostao|     9|               2|               2|          30|            1
-      19|          CristinaLeon|     8|               4|               4|          46|           18
-      20|         ManuelHidalgo|     8|               4|               4|          46|           18
-      21|         RubenMartinez|     8|               2|               1|          11|           18
-      22|JoseFranciscoRodriguez|     8|               2|               1|          11|           18
+      19|         RubenMartinez|     9|               3|               2|          26|           23
+      20|JoseFranciscoRodriguez|     9|               3|               2|          26|           23
+      21|          CristinaLeon|     8|               5|               4|          51|           33
+      22|         ManuelHidalgo|     8|               5|               4|          51|           33
       23|     MariaTeresaSolano|     6|               4|               2|          42|           35
       24|         LaraDominguez|     6|               4|               2|          42|           35
       25|       EnriqueClemente|     5|               2|               0|           3|           25
       26|          MonicaGarcia|     5|               2|               0|           3|           25
-      27|            AngelaRuiz|     3|               3|               1|          30|           25
-      28|         AlvaroBarbero|     3|               3|               1|          30|           25
-      29|            SaraGarcia|     1|               3|               0|           5|           45
-      30|           AnaAlastuey|     1|               3|               0|           5|           45
+      27|            AngelaRuiz|     4|               4|               2|          45|           28
+      28|         AlvaroBarbero|     4|               4|               2|          45|           28
+      29|            SaraGarcia|     1|               4|               0|           8|           60
+      30|           AnaAlastuey|     1|               4|               0|           8|           60
