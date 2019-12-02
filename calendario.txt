@@ -1,6 +1,6 @@
 MES|                          LOCAL|                           VISITANTE| PISTA|   FECHA|HORA_INI|HORA_FIN|PISTA_CONFIRMADA
-002|       DanielRamos-AlvaroRomero|   ManueldelValle-JoseAntonioCordoba|Pista7|20191120|   18:00|   19:00|            true
-002|       AngelaRuiz-AlvaroBarbero|        EnriqueClemente-MonicaGarcia|Pista3|20191120|   19:00|   20:00|           false
+002|       DanielRamos-AlvaroRomero|   ManueldelValle-JoseAntonioCordoba|     -|       -|       -|       -|           false
+002|       AngelaRuiz-AlvaroBarbero|        EnriqueClemente-MonicaGarcia|     -|       -|       -|       -|           false
 002|      DanielMichaud-JavierMunoz|           RubenDelCampo-PabloLostao|Pista7|20191121|   18:00|   19:00|            true
 002|AmbrosioIniesta-CarlosFernandez|           JavierVidal-AlbertoMateos|Pista3|20191112|   19:00|   20:00|            true
 002|     CristinaLeon-ManuelHidalgo|     MariaTeresaSolano-LaraDominguez|Pista3|20191112|   18:00|   19:00|            true
@@ -8,9 +8,9 @@ MES|                          LOCAL|                           VISITANTE| PISTA|
 002|     CristinaLeon-ManuelHidalgo|RubenMartinez-JoseFranciscoRodriguez|Pista7|20191118|   18:00|   19:00|            true
 002|         EricPerez-IsraelAlonso|           RubenDelCampo-PabloLostao|     -|       -|       -|       -|           false
 002|       AngelaRuiz-AlvaroBarbero|              SaraGarcia-AnaAlastuey|Pista7|20191118|   19:00|   20:00|            true
-002|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|Pista7|20191120|   19:00|   20:00|            true
+002|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|     -|       -|       -|       -|           false
 002|AmbrosioIniesta-CarlosFernandez|     JuanAntonioMontesino-AinhoaGoni|Pista3|20191119|   19:00|   20:00|            true
-002|      DanielMichaud-JavierMunoz|              EricPerez-IsraelAlonso|Pista3|20191127|   18:00|   19:00|            true
+002|      DanielMichaud-JavierMunoz|              EricPerez-IsraelAlonso|     -|       -|       -|       -|           false
 002|   EnriqueClemente-MonicaGarcia|              SaraGarcia-AnaAlastuey|Pista3|20191127|   19:00|   20:00|            true
 002|      JavierVidal-AlbertoMateos|     JuanAntonioMontesino-AinhoaGoni|Pista3|20191128|   18:00|   19:00|            true
 002|MariaTeresaSolano-LaraDominguez|RubenMartinez-JoseFranciscoRodriguez|     -|       -|       -|       -|            true
