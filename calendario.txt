@@ -6,7 +6,7 @@ MES|                          LOCAL|                           VISITANTE| PISTA|
 002|     CristinaLeon-ManuelHidalgo|     MariaTeresaSolano-LaraDominguez|Pista3|20191112|   18:00|   19:00|            true
 002|       DanielRamos-AlvaroRomero|              JorgeLopez-AndresMunoz|     -|       -|       -|       -|           false
 002|     CristinaLeon-ManuelHidalgo|RubenMartinez-JoseFranciscoRodriguez|Pista7|20191118|   18:00|   19:00|            true
-002|         EricPerez-IsraelAlonso|           RubenDelCampo-PabloLostao|Pista3|20191211|   18:00|   19:00|           false
+002|         EricPerez-IsraelAlonso|           RubenDelCampo-PabloLostao|Pista3|20191211|   18:00|   19:00|            true
 002|       AngelaRuiz-AlvaroBarbero|              SaraGarcia-AnaAlastuey|Pista7|20191118|   19:00|   20:00|            true
 002|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|     -|       -|       -|       -|           false
 002|AmbrosioIniesta-CarlosFernandez|     JuanAntonioMontesino-AinhoaGoni|Pista3|20191119|   19:00|   20:00|            true
