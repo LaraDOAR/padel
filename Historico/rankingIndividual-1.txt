@@ -23,9 +23,9 @@ POSICION|               PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_
       22|         ManuelHidalgo|     8|               5|               4|          51|           33
       23|     MariaTeresaSolano|     6|               4|               2|          42|           35
       24|         LaraDominguez|     6|               4|               2|          42|           35
-      25|       EnriqueClemente|     5|               2|               0|           3|           25
-      26|          MonicaGarcia|     5|               2|               0|           3|           25
+      25|       EnriqueClemente|     6|               3|               1|          18|           27
+      26|          MonicaGarcia|     6|               3|               1|          18|           27
       27|            AngelaRuiz|     4|               4|               2|          45|           28
       28|         AlvaroBarbero|     4|               4|               2|          45|           28
-      29|            SaraGarcia|     1|               4|               0|           8|           60
-      30|           AnaAlastuey|     1|               4|               0|           8|           60
+      29|            SaraGarcia|     1|               5|               0|          10|           75
+      30|           AnaAlastuey|     1|               5|               0|          10|           75

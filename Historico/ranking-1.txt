@@ -11,6 +11,6 @@ POSICION|                              PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_G
       10|RubenMartinez-JoseFranciscoRodriguez|     9|               3|               2|          26|           23
       11|          CristinaLeon-ManuelHidalgo|     8|               5|               4|          51|           33
       12|     MariaTeresaSolano-LaraDominguez|     6|               4|               2|          42|           35
-      13|        EnriqueClemente-MonicaGarcia|     5|               2|               0|           3|           25
+      13|        EnriqueClemente-MonicaGarcia|     6|               3|               1|          18|           27
       14|            AngelaRuiz-AlvaroBarbero|     4|               4|               2|          45|           28
-      15|              SaraGarcia-AnaAlastuey|     1|               4|               0|           8|           60
+      15|              SaraGarcia-AnaAlastuey|     1|               5|               0|          10|           75

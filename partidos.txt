@@ -7,11 +7,11 @@ MES|DIVISION|                          LOCAL|                           VISITANT
 002|       2|      JavierVidal-AlbertoMateos|     JuanAntonioMontesino-AinhoaGoni|20191128|   18:00|   19:00|Pista3|   -|   -|   -|  7/14|   true
 002|       3|      DanielMichaud-JavierMunoz|              EricPerez-IsraelAlonso|       -|       -|       -|     -|   -|   -|   -|     -|  false
 002|       3|      DanielMichaud-JavierMunoz|           RubenDelCampo-PabloLostao|20191121|   18:00|   19:00|Pista7|   -|   -|   -|  1/15|   true
-002|       3|         EricPerez-IsraelAlonso|           RubenDelCampo-PabloLostao|20191211|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
+002|       3|         EricPerez-IsraelAlonso|           RubenDelCampo-PabloLostao|20191211|   18:00|   19:00|Pista3|   -|   -|   -|  3/15|   true
 002|       4|     CristinaLeon-ManuelHidalgo|     MariaTeresaSolano-LaraDominguez|20191112|   18:00|   19:00|Pista3|   -|   -|   -|  11/4|   true
 002|       4|     CristinaLeon-ManuelHidalgo|RubenMartinez-JoseFranciscoRodriguez|20191118|   18:00|   19:00|Pista7|   -|   -|   -|  5/15|   true
 002|       4|MariaTeresaSolano-LaraDominguez|RubenMartinez-JoseFranciscoRodriguez|       -|       -|       -|     -|   -|   -|   -|     -|   true
-002|       5|       AngelaRuiz-AlvaroBarbero|        EnriqueClemente-MonicaGarcia|       -|       -|       -|     -|   -|   -|   -|     -|  false
+002|       5|       AngelaRuiz-AlvaroBarbero|        EnriqueClemente-MonicaGarcia|20191219|   18:00|   19:00|Pista7|   -|   -|   -|     -|  false
 002|       5|       AngelaRuiz-AlvaroBarbero|              SaraGarcia-AnaAlastuey|20191118|   19:00|   20:00|Pista7|   -|   -|   -|  15/3|   true
 002|       5|   EnriqueClemente-MonicaGarcia|              SaraGarcia-AnaAlastuey|20191127|   19:00|   20:00|Pista3|   -|   -|   -|  15/2|   true
 001|       1|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|20191028|   19:00|   20:00|Pista3|   -|   -|   -|  3/15|   true
