@@ -1,6 +1,6 @@
 MES|DIVISION|                          LOCAL|                           VISITANTE|   FECHA|HORA_INI|HORA_FIN| LUGAR|SET1|SET2|SET3|PUNTOS|RANKING
 002|       1|       DanielRamos-AlvaroRomero|              JorgeLopez-AndresMunoz|       -|       -|       -|     -|   -|   -|   -|     -|  false
-002|       1|       DanielRamos-AlvaroRomero|   ManueldelValle-JoseAntonioCordoba|20191216|   19:00|   20:00|Pista7|   -|   -|   -|  3/15|   true
+002|       1|       DanielRamos-AlvaroRomero|   ManueldelValle-JoseAntonioCordoba|20191216|   19:00|   20:00|Pista7|   -|   -|   -|  3/15|  false
 002|       1|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|       -|       -|       -|     -|   -|   -|   -|     -|  false
 002|       2|AmbrosioIniesta-CarlosFernandez|           JavierVidal-AlbertoMateos|20191112|   19:00|   20:00|Pista3|   -|   -|   -|   5/6|   true
 002|       2|AmbrosioIniesta-CarlosFernandez|     JuanAntonioMontesino-AinhoaGoni|20191119|   19:00|   20:00|Pista3|   -|   -|   -|  9/15|   true

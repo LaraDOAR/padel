@@ -1,14 +1,14 @@
 POSICION|               PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA
-       1|        ManueldelValle|    18|               2|               2|          30|            6
-       2|    JoseAntonioCordoba|    18|               2|               2|          30|            6
+       1|        ManueldelValle|    17|               1|               1|          15|            3
+       2|    JoseAntonioCordoba|    17|               1|               1|          15|            3
        3|  JuanAntonioMontesino|    16|               4|               3|          51|           37
        4|            AinhoaGoni|    16|               4|               3|          51|           37
        5|            JorgeLopez|    16|               2|               1|          18|           15
        6|           AndresMunoz|    16|               2|               1|          18|           15
        7|         RubenDelCampo|    14|               4|               4|          60|            5
        8|           PabloLostao|    14|               4|               4|          60|            5
-       9|           DanielRamos|    14|               2|               1|          18|           18
-      10|          AlvaroRomero|    14|               2|               1|          18|           18
+       9|           DanielRamos|    14|               1|               1|          15|            3
+      10|          AlvaroRomero|    14|               1|               1|          15|            3
       11|           JavierVidal|    13|               2|               1|          13|           19
       12|         AlbertoMateos|    13|               2|               1|          13|           19
       13|       AmbrosioIniesta|    11|               4|               1|          31|           40
