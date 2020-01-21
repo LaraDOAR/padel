@@ -357,19 +357,21 @@ do
     fileEmail="emails/mail-${n1}-${n2}.html"
     if [ -f "${fileEmail}" ] && [ "$( diff "${DIR_TMP}/mail" "${fileEmail}" )" == "" ]; then continue; fi
 
+    # Prepara los ficheros de debug
+    base=$( basename "${fileEmail}" )
+    cp "${DIR_TMP}/mail" "${base}"
+
     if [ "${ARG_VERBOSO}" == "true" ]
     then
-        base=$( basename "${fileEmail}" )
         prt_debug "${ARG_VERBOSO}" "Envia el mail [${base}] porque es diferente a lo que habia"
         cp "${DIR_TMP}/mail" "${base}"
-        continue
+    else
+        # hace copia del email nuevo que va a enviar
+        cp "${DIR_TMP}/mail" "${fileEmail}"
+        # envia el email
+        sendmail ${e1}, ${e2} < "${DIR_TMP}/mail"
+        rm -f "${base}"
     fi
-
-    # hace copia del email nuevo que va a enviar
-    cp "${DIR_TMP}/mail" "${fileEmail}"
-    
-    # envia el email
-    sendmail ${e1}, ${e2} < "${DIR_TMP}/mail"
 
 done
 

@@ -86,6 +86,12 @@ bash Script/getCalendario.sh.sinChecks
 # partidos.txt
 # partidos.html
 
+# -- editar en el calendario:
+# ---- segun restricciones de hora
+# ---- para que los mejores usen las mejores pistas
+vim calendario.txt
+bash Script/updateCalendario.sh
+
 # -- enviar email con la informacion de los partidos de cada persona
 bash Script/sendMail.sh -v  # para ver lo que se va a mandar
 bash Script/sendMail.sh     # para mandarlo

@@ -1,0 +1,734 @@
+####################################################
+#
+# INFORMACION SOBRE LAS RESTRICCIONES QUE TIENE CADA PERSONA
+#
+####################################################
+
+       NOMBRE| APELLIDO|   FECHA
+       Ainhoa|     Goni|20191004
+       Ainhoa|     Goni|20191007
+       Ainhoa|     Goni|20191009
+       Ainhoa|     Goni|20191014
+       Ainhoa|     Goni|20191016
+       Ainhoa|     Goni|20191021
+       Ainhoa|     Goni|20191023
+       Ainhoa|     Goni|20191025
+       Ainhoa|     Goni|20191028
+       Ainhoa|     Goni|20191030
+       Ainhoa|     Goni|20191031
+       Ainhoa|     Goni|20191101
+       Ainhoa|     Goni|20191104
+       Ainhoa|     Goni|20191106
+       Ainhoa|     Goni|20191111
+       Ainhoa|     Goni|20191113
+       Ainhoa|     Goni|20191118
+       Ainhoa|     Goni|20191120
+       Ainhoa|     Goni|20191125
+       Ainhoa|     Goni|20191126
+       Ainhoa|     Goni|20191127
+       Ainhoa|     Goni|20191202
+       Ainhoa|     Goni|20191204
+       Ainhoa|     Goni|20191205
+       Ainhoa|     Goni|20191211
+       Ainhoa|     Goni|20191213
+       Ainhoa|     Goni|20191216
+       Ainhoa|     Goni|20191218
+       Ainhoa|     Goni|20191220
+       Ainhoa|     Goni|20191223
+       Ainhoa|     Goni|20191226
+       Ainhoa|     Goni|20191227
+       Ainhoa|     Goni|20191230
+       Ainhoa|     Goni|20200102
+       Ainhoa|     Goni|20200103
+       Ainhoa|     Goni|20200108
+       Ainhoa|     Goni|20200113
+       Ainhoa|     Goni|20200115
+       Ainhoa|     Goni|20200117
+       Ainhoa|     Goni|20200120
+       Ainhoa|     Goni|20200122
+       Alvaro|  Barbero|20191001
+       Alvaro|  Barbero|20191004
+       Alvaro|  Barbero|20191008
+       Alvaro|  Barbero|20191010
+       Alvaro|  Barbero|20191022
+       Alvaro|  Barbero|20191024
+       Alvaro|  Barbero|20191029
+       Alvaro|  Barbero|20191031
+       Alvaro|  Barbero|20191104
+       Alvaro|  Barbero|20191105
+       Alvaro|  Barbero|20191119
+       Alvaro|  Barbero|20191122
+       Alvaro|  Barbero|20191126
+       Alvaro|  Barbero|20191128
+       Alvaro|  Barbero|20200114
+       Alvaro|  Barbero|20200121
+       Alvaro|  Barbero|20200123
+       Alvaro|  Barbero|20200127
+       Alvaro|  Barbero|20200128
+       Alvaro|  Barbero|20200129
+       Alvaro|  Barbero|20200204
+       Alvaro|  Barbero|20200205
+       Alvaro|  Barbero|20200206
+       Alvaro|  Barbero|20200207
+       Alvaro|  Barbero|20200210
+       Alvaro|  Barbero|20200211
+       Alvaro|  Barbero|20200212
+       Alvaro|  Barbero|20200213
+       Alvaro|  Barbero|20200217
+       Alvaro|  Barbero|20200218
+       Alvaro|  Barbero|20200226
+       Alvaro|  Barbero|20200227
+       Alvaro|   Romero|20191002
+       Alvaro|   Romero|20191004
+       Alvaro|   Romero|20191007
+       Alvaro|   Romero|20191008
+       Alvaro|   Romero|20191009
+       Alvaro|   Romero|20191010
+       Alvaro|   Romero|20191011
+       Alvaro|   Romero|20191016
+       Alvaro|   Romero|20191018
+       Alvaro|   Romero|20191023
+       Alvaro|   Romero|20191025
+       Alvaro|   Romero|20191030
+       Alvaro|   Romero|20191101
+       Alvaro|   Romero|20191105
+       Alvaro|   Romero|20191106
+       Alvaro|   Romero|20191108
+       Alvaro|   Romero|20191111
+       Alvaro|   Romero|20191113
+       Alvaro|   Romero|20191115
+       Alvaro|   Romero|20191119
+       Alvaro|   Romero|20191120
+       Alvaro|   Romero|20191122
+       Alvaro|   Romero|20191125
+       Alvaro|   Romero|20191127
+       Alvaro|   Romero|20191129
+       Alvaro|   Romero|20191204
+       Alvaro|   Romero|20191206
+       Alvaro|   Romero|20191211
+       Alvaro|   Romero|20191213
+       Alvaro|   Romero|20191218
+       Alvaro|   Romero|20191220
+     Ambrosio|  Iniesta|20191007
+     Ambrosio|  Iniesta|20191011
+     Ambrosio|  Iniesta|20191014
+     Ambrosio|  Iniesta|20191018
+     Ambrosio|  Iniesta|20191021
+     Ambrosio|  Iniesta|20191025
+     Ambrosio|  Iniesta|20191028
+     Ambrosio|  Iniesta|20191029
+     Ambrosio|  Iniesta|20191104
+     Ambrosio|  Iniesta|20191106
+     Ambrosio|  Iniesta|20191107
+     Ambrosio|  Iniesta|20191108
+     Ambrosio|  Iniesta|20191111
+     Ambrosio|  Iniesta|20191113
+     Ambrosio|  Iniesta|20191115
+     Ambrosio|  Iniesta|20191118
+     Ambrosio|  Iniesta|20191120
+     Ambrosio|  Iniesta|20191125
+     Ambrosio|  Iniesta|20191127
+     Ambrosio|  Iniesta|20191202
+     Ambrosio|  Iniesta|20191204
+     Ambrosio|  Iniesta|20191205
+     Ambrosio|  Iniesta|20191209
+     Ambrosio|  Iniesta|20191210
+     Ambrosio|  Iniesta|20191211
+     Ambrosio|  Iniesta|20191212
+     Ambrosio|  Iniesta|20191213
+     Ambrosio|  Iniesta|20191223
+     Ambrosio|  Iniesta|20191226
+     Ambrosio|  Iniesta|20191227
+     Ambrosio|  Iniesta|20191230
+          Ana| Alastuey|20191011
+          Ana| Alastuey|20191014
+          Ana| Alastuey|20191106
+          Ana| Alastuey|20191108
+          Ana| Alastuey|20191223
+          Ana| Alastuey|20191226
+          Ana| Alastuey|20191227
+          Ana| Alastuey|20191230
+          Ana| Alastuey|20200212
+          Ana| Alastuey|20200213
+          Ana| Alastuey|20200214
+       Andres|    Munoz|20191003
+       Andres|    Munoz|20191017
+       Andres|    Munoz|20191104
+       Andres|    Munoz|20191111
+       Andres|    Munoz|20191118
+       Andres|    Munoz|20191125
+       Andres|    Munoz|20200102
+       Andres|    Munoz|20200103
+       Andres|    Munoz|20200107
+       Andres|    Munoz|20200113
+       Andres|    Munoz|20200120
+       Andres|    Munoz|20200127
+       Andres|    Munoz|20200128
+       Andres|    Munoz|20200210
+       Andres|    Munoz|20200217
+       Andres|    Munoz|20200224
+       Angela|     Ruiz|20190101
+       Angela|     Ruiz|20190102
+       Angela|     Ruiz|20190103
+       Angela|     Ruiz|20190106
+       Angela|     Ruiz|20190110
+       Angela|     Ruiz|20190117
+       Angela|     Ruiz|20190124
+       Angela|     Ruiz|20190127
+       Angela|     Ruiz|20190131
+       Angela|     Ruiz|20190207
+       Angela|     Ruiz|20190210
+       Angela|     Ruiz|20190214
+       Angela|     Ruiz|20190221
+       Angela|     Ruiz|20190228
+       Angela|     Ruiz|20191002
+       Angela|     Ruiz|20191003
+       Angela|     Ruiz|20191004
+       Angela|     Ruiz|20191007
+       Angela|     Ruiz|20191011
+       Angela|     Ruiz|20191018
+       Angela|     Ruiz|20191025
+       Angela|     Ruiz|20191101
+       Angela|     Ruiz|20191108
+       Angela|     Ruiz|20191111
+       Angela|     Ruiz|20191114
+       Angela|     Ruiz|20191115
+       Angela|     Ruiz|20191122
+       Angela|     Ruiz|20191128
+       Angela|     Ruiz|20191129
+       Angela|     Ruiz|20191202
+       Angela|     Ruiz|20191203
+       Angela|     Ruiz|20191204
+       Angela|     Ruiz|20191205
+       Angela|     Ruiz|20191206
+       Angela|     Ruiz|20191209
+       Angela|     Ruiz|20191213
+       Angela|     Ruiz|20191220
+       Angela|     Ruiz|20191224
+       Angela|     Ruiz|20191225
+       Angela|     Ruiz|20191227
+       Angela|     Ruiz|20191231
+       Carlos|Fernandez|20200113
+       Carlos|Fernandez|20200114
+       Carlos|Fernandez|20200115
+       Daniel|    Ramos|20191004
+       Daniel|    Ramos|20191011
+       Daniel|    Ramos|20191018
+       Daniel|    Ramos|20191025
+       Daniel|    Ramos|20191101
+       Daniel|    Ramos|20191108
+       Daniel|    Ramos|20191113
+       Daniel|    Ramos|20191115
+       Daniel|    Ramos|20191118
+       Daniel|    Ramos|20191119
+       Daniel|    Ramos|20191122
+       Daniel|    Ramos|20191126
+       Daniel|    Ramos|20191127
+       Daniel|    Ramos|20191129
+       Daniel|    Ramos|20191202
+       Daniel|    Ramos|20191203
+       Daniel|    Ramos|20191204
+       Daniel|    Ramos|20191205
+       Daniel|    Ramos|20191206
+       Daniel|    Ramos|20200110
+       Daniel|    Ramos|20200117
+       Daniel|    Ramos|20200124
+       Daniel|    Ramos|20200131
+      Enrique| Clemente|20191001
+      Enrique| Clemente|20191008
+      Enrique| Clemente|20191015
+      Enrique| Clemente|20191022
+      Enrique| Clemente|20191029
+      Enrique| Clemente|20191101
+      Enrique| Clemente|20191105
+      Enrique| Clemente|20191112
+      Enrique| Clemente|20191118
+      Enrique| Clemente|20191119
+      Enrique| Clemente|20191126
+      Enrique| Clemente|20191129
+      Enrique| Clemente|20191203
+      Enrique| Clemente|20191206
+      Enrique| Clemente|20191209
+      Enrique| Clemente|20191210
+      Enrique| Clemente|20191211
+      Enrique| Clemente|20191212
+      Enrique| Clemente|20191217
+      Enrique| Clemente|20191224
+      Enrique| Clemente|20191225
+      Enrique| Clemente|20191231
+      Enrique| Clemente|20200114
+      Enrique| Clemente|20200121
+      Enrique| Clemente|20200128
+         Eric|    Perez|20191001
+         Eric|    Perez|20191003
+         Eric|    Perez|20191004
+         Eric|    Perez|20191008
+         Eric|    Perez|20191010
+         Eric|    Perez|20191011
+         Eric|    Perez|20191015
+         Eric|    Perez|20191017
+         Eric|    Perez|20191018
+         Eric|    Perez|20191022
+         Eric|    Perez|20191024
+         Eric|    Perez|20191025
+         Eric|    Perez|20191029
+         Eric|    Perez|20191031
+       Israel|   Alonso|20191001
+       Israel|   Alonso|20191003
+       Israel|   Alonso|20191004
+       Israel|   Alonso|20191008
+       Israel|   Alonso|20191010
+       Israel|   Alonso|20191011
+       Israel|   Alonso|20191015
+       Israel|   Alonso|20191017
+       Israel|   Alonso|20191018
+       Israel|   Alonso|20191022
+       Israel|   Alonso|20191024
+       Israel|   Alonso|20191025
+       Israel|   Alonso|20191029
+       Israel|   Alonso|20191031
+       Israel|   Alonso|20191105
+       Israel|   Alonso|20191107
+       Israel|   Alonso|20191108
+       Israel|   Alonso|20191112
+       Israel|   Alonso|20191114
+       Israel|   Alonso|20191115
+       Israel|   Alonso|20191118
+       Israel|   Alonso|20191119
+       Israel|   Alonso|20191120
+       Israel|   Alonso|20191121
+       Israel|   Alonso|20191122
+       Israel|   Alonso|20191125
+       Israel|   Alonso|20191126
+       Israel|   Alonso|20191128
+       Israel|   Alonso|20191129
+       Israel|   Alonso|20191203
+       Israel|   Alonso|20191205
+       Israel|   Alonso|20191210
+       Israel|   Alonso|20191212
+       Israel|   Alonso|20191213
+       Israel|   Alonso|20191216
+       Israel|   Alonso|20191217
+       Israel|   Alonso|20191218
+       Israel|   Alonso|20191219
+       Israel|   Alonso|20191220
+       Israel|   Alonso|20191223
+       Israel|   Alonso|20191226
+       Israel|   Alonso|20191227
+       Israel|   Alonso|20191230
+       Javier|    Munoz|20191004
+       Javier|    Munoz|20191008
+       Javier|    Munoz|20191011
+       Javier|    Munoz|20191015
+       Javier|    Munoz|20191018
+       Javier|    Munoz|20191022
+       Javier|    Munoz|20191025
+       Javier|    Munoz|20191029
+       Javier|    Munoz|20191101
+       Javier|    Munoz|20191105
+       Javier|    Munoz|20191108
+       Javier|    Munoz|20191112
+       Javier|    Munoz|20191115
+       Javier|    Munoz|20191119
+       Javier|    Munoz|20191122
+       Javier|    Munoz|20191126
+       Javier|    Munoz|20191129
+       Javier|    Munoz|20191203
+       Javier|    Munoz|20191209
+       Javier|    Munoz|20191223
+       Javier|    Munoz|20191224
+       Javier|    Munoz|20191225
+       Javier|    Munoz|20191226
+       Javier|    Munoz|20191227
+       Javier|    Munoz|20191230
+       Javier|    Munoz|20191231
+       Javier|    Munoz|20200113
+       Javier|    Munoz|20200114
+       Javier|    Munoz|20200117
+       Javier|    Munoz|20200120
+       Javier|    Munoz|20200121
+       Javier|    Munoz|20200122
+       Javier|    Munoz|20200123
+       Javier|    Munoz|20200124
+       Javier|    Munoz|20200128
+       Javier|    Munoz|20200131
+        Jorge|    Lopez|20191009
+        Jorge|    Lopez|20191030
+        Jorge|    Lopez|20191105
+        Jorge|    Lopez|20191106
+  JoseAntonio|  Cordoba|20191001
+  JoseAntonio|  Cordoba|20191002
+  JoseAntonio|  Cordoba|20191003
+  JoseAntonio|  Cordoba|20191004
+  JoseAntonio|  Cordoba|20191008
+  JoseAntonio|  Cordoba|20191009
+  JoseAntonio|  Cordoba|20191011
+  JoseAntonio|  Cordoba|20191015
+  JoseAntonio|  Cordoba|20191016
+  JoseAntonio|  Cordoba|20191018
+  JoseAntonio|  Cordoba|20191022
+  JoseAntonio|  Cordoba|20191023
+  JoseAntonio|  Cordoba|20191024
+  JoseAntonio|  Cordoba|20191025
+  JoseAntonio|  Cordoba|20191029
+  JoseAntonio|  Cordoba|20191030
+  JoseAntonio|  Cordoba|20191031
+  JoseAntonio|  Cordoba|20191105
+  JoseAntonio|  Cordoba|20191107
+  JoseAntonio|  Cordoba|20191112
+  JoseAntonio|  Cordoba|20191114
+  JoseAntonio|  Cordoba|20191119
+  JoseAntonio|  Cordoba|20191121
+  JoseAntonio|  Cordoba|20191126
+  JoseAntonio|  Cordoba|20191128
+  JoseAntonio|  Cordoba|20191203
+  JoseAntonio|  Cordoba|20191205
+  JoseAntonio|  Cordoba|20191210
+  JoseAntonio|  Cordoba|20191212
+  JoseAntonio|  Cordoba|20191217
+  JoseAntonio|  Cordoba|20191219
+  JoseAntonio|  Cordoba|20191224
+  JoseAntonio|  Cordoba|20191226
+  JoseAntonio|  Cordoba|20191231
+  JoseAntonio|  Cordoba|20200102
+  JoseAntonio|  Cordoba|20200107
+  JoseAntonio|  Cordoba|20200109
+  JoseAntonio|  Cordoba|20200114
+  JoseAntonio|  Cordoba|20200116
+  JoseAntonio|  Cordoba|20200121
+  JoseAntonio|  Cordoba|20200123
+  JoseAntonio|  Cordoba|20200128
+  JoseAntonio|  Cordoba|20200130
+  JoseAntonio|  Cordoba|20200204
+  JoseAntonio|  Cordoba|20200206
+  JoseAntonio|  Cordoba|20200211
+  JoseAntonio|  Cordoba|20200213
+  JoseAntonio|  Cordoba|20200218
+  JoseAntonio|  Cordoba|20200220
+  JoseAntonio|  Cordoba|20200225
+  JoseAntonio|  Cordoba|20200227
+  JoseAntonio|  Cordoba|20200303
+  JoseAntonio|  Cordoba|20200305
+  JoseAntonio|  Cordoba|20200310
+  JoseAntonio|  Cordoba|20200312
+  JoseAntonio|  Cordoba|20200317
+  JoseAntonio|  Cordoba|20200319
+  JoseAntonio|  Cordoba|20200324
+  JoseAntonio|  Cordoba|20200326
+  JoseAntonio|  Cordoba|20200331
+  JoseAntonio|  Cordoba|20200402
+  JoseAntonio|  Cordoba|20200407
+  JoseAntonio|  Cordoba|20200409
+  JoseAntonio|  Cordoba|20200414
+  JoseAntonio|  Cordoba|20200416
+  JoseAntonio|  Cordoba|20200421
+  JoseAntonio|  Cordoba|20200423
+  JoseAntonio|  Cordoba|20200428
+  JoseAntonio|  Cordoba|20200430
+  JoseAntonio|  Cordoba|20200505
+  JoseAntonio|  Cordoba|20200507
+  JoseAntonio|  Cordoba|20200512
+  JoseAntonio|  Cordoba|20200514
+  JoseAntonio|  Cordoba|20200519
+  JoseAntonio|  Cordoba|20200521
+  JoseAntonio|  Cordoba|20200526
+  JoseAntonio|  Cordoba|20200528
+  JoseAntonio|  Cordoba|20200602
+  JoseAntonio|  Cordoba|20200604
+  JoseAntonio|  Cordoba|20200609
+  JoseAntonio|  Cordoba|20200611
+  JoseAntonio|  Cordoba|20200616
+  JoseAntonio|  Cordoba|20200618
+  JoseAntonio|  Cordoba|20200623
+  JoseAntonio|  Cordoba|20200625
+  JoseAntonio|  Cordoba|20200630
+  JoseAntonio|  Cordoba|20200702
+  JoseAntonio|  Cordoba|20200707
+  JoseAntonio|  Cordoba|20200709
+  JoseAntonio|  Cordoba|20200714
+  JoseAntonio|  Cordoba|20200716
+  JoseAntonio|  Cordoba|20200721
+  JoseAntonio|  Cordoba|20200723
+  JoseAntonio|  Cordoba|20200728
+  JoseAntonio|  Cordoba|20200730
+  JoseAntonio|  Cordoba|20200804
+  JoseAntonio|  Cordoba|20200806
+JoseFrancisco|Rodriguez|20191003
+JoseFrancisco|Rodriguez|20191015
+JoseFrancisco|Rodriguez|20191220
+JoseFrancisco|Rodriguez|20191223
+JoseFrancisco|Rodriguez|20191226
+JoseFrancisco|Rodriguez|20191227
+JoseFrancisco|Rodriguez|20191230
+  JuanAntonio|Montesino|20191004
+  JuanAntonio|Montesino|20191007
+  JuanAntonio|Montesino|20191009
+  JuanAntonio|Montesino|20191011
+  JuanAntonio|Montesino|20191014
+  JuanAntonio|Montesino|20191016
+  JuanAntonio|Montesino|20191018
+  JuanAntonio|Montesino|20191021
+  JuanAntonio|Montesino|20191023
+  JuanAntonio|Montesino|20191025
+  JuanAntonio|Montesino|20191028
+  JuanAntonio|Montesino|20191030
+  JuanAntonio|Montesino|20191104
+  JuanAntonio|Montesino|20191105
+  JuanAntonio|Montesino|20191106
+  JuanAntonio|Montesino|20191111
+  JuanAntonio|Montesino|20191112
+  JuanAntonio|Montesino|20191113
+  JuanAntonio|Montesino|20191118
+  JuanAntonio|Montesino|20191120
+  JuanAntonio|Montesino|20191122
+  JuanAntonio|Montesino|20191125
+  JuanAntonio|Montesino|20191126
+  JuanAntonio|Montesino|20191127
+  JuanAntonio|Montesino|20191202
+  JuanAntonio|Montesino|20191203
+  JuanAntonio|Montesino|20191204
+  JuanAntonio|Montesino|20191205
+  JuanAntonio|Montesino|20191211
+  JuanAntonio|Montesino|20191213
+  JuanAntonio|Montesino|20191216
+  JuanAntonio|Montesino|20191217
+  JuanAntonio|Montesino|20191218
+  JuanAntonio|Montesino|20191219
+  JuanAntonio|Montesino|20191220
+  JuanAntonio|Montesino|20191223
+  JuanAntonio|Montesino|20191226
+  JuanAntonio|Montesino|20191227
+  JuanAntonio|Montesino|20191230
+  JuanAntonio|Montesino|20200102
+  JuanAntonio|Montesino|20200103
+  JuanAntonio|Montesino|20200107
+  JuanAntonio|Montesino|20200108
+  JuanAntonio|Montesino|20200109
+  JuanAntonio|Montesino|20200113
+  JuanAntonio|Montesino|20200115
+  JuanAntonio|Montesino|20200120
+  JuanAntonio|Montesino|20200121
+  JuanAntonio|Montesino|20200122
+  JuanAntonio|Montesino|20200123
+  JuanAntonio|Montesino|20200127
+  JuanAntonio|Montesino|20200131
+         Lara|Dominguez|20191007
+         Lara|Dominguez|20191008
+         Lara|Dominguez|20191010
+         Lara|Dominguez|20191018
+         Lara|Dominguez|20191021
+         Lara|Dominguez|20191024
+         Lara|Dominguez|20191104
+         Lara|Dominguez|20191113
+         Lara|Dominguez|20191115
+         Lara|Dominguez|20191118
+         Lara|Dominguez|20191119
+         Lara|Dominguez|20191120
+         Lara|Dominguez|20191121
+         Lara|Dominguez|20191122
+       Manuel| delValle|20191001
+       Manuel| delValle|20191002
+       Manuel| delValle|20191003
+       Manuel| delValle|20191004
+       Manuel| delValle|20191008
+       Manuel| delValle|20191009
+       Manuel| delValle|20191011
+       Manuel| delValle|20191015
+       Manuel| delValle|20191016
+       Manuel| delValle|20191018
+       Manuel| delValle|20191022
+       Manuel| delValle|20191023
+       Manuel| delValle|20191025
+       Manuel| delValle|20191029
+       Manuel| delValle|20191030
+       Manuel| delValle|20200115
+       Manuel| delValle|20200121
+       Manuel| delValle|20200128
+       Manuel| delValle|20200204
+       Manuel| delValle|20200211
+       Manuel| delValle|20200218
+       Manuel| delValle|20200225
+  MariaTeresa|   Solano|20191004
+  MariaTeresa|   Solano|20191007
+  MariaTeresa|   Solano|20191009
+  MariaTeresa|   Solano|20191014
+  MariaTeresa|   Solano|20191015
+  MariaTeresa|   Solano|20191016
+  MariaTeresa|   Solano|20191021
+  MariaTeresa|   Solano|20191023
+  MariaTeresa|   Solano|20191028
+  MariaTeresa|   Solano|20191030
+  MariaTeresa|   Solano|20191031
+  MariaTeresa|   Solano|20191104
+  MariaTeresa|   Solano|20191106
+  MariaTeresa|   Solano|20191108
+  MariaTeresa|   Solano|20191111
+  MariaTeresa|   Solano|20191113
+  MariaTeresa|   Solano|20191118
+  MariaTeresa|   Solano|20191120
+  MariaTeresa|   Solano|20191125
+  MariaTeresa|   Solano|20191127
+  MariaTeresa|   Solano|20191202
+  MariaTeresa|   Solano|20191204
+  MariaTeresa|   Solano|20191210
+  MariaTeresa|   Solano|20191211
+  MariaTeresa|   Solano|20191216
+  MariaTeresa|   Solano|20191218
+  MariaTeresa|   Solano|20191223
+  MariaTeresa|   Solano|20191226
+  MariaTeresa|   Solano|20191230
+       Monica|   Garcia|20191001
+       Monica|   Garcia|20191003
+       Monica|   Garcia|20191008
+       Monica|   Garcia|20191010
+       Monica|   Garcia|20191015
+       Monica|   Garcia|20191017
+       Monica|   Garcia|20191022
+       Monica|   Garcia|20191024
+       Monica|   Garcia|20191029
+       Monica|   Garcia|20191031
+       Monica|   Garcia|20191101
+       Monica|   Garcia|20191115
+       Monica|   Garcia|20191121
+       Monica|   Garcia|20191122
+       Monica|   Garcia|20191125
+       Monica|   Garcia|20191206
+       Monica|   Garcia|20191209
+       Monica|   Garcia|20191213
+       Monica|   Garcia|20191220
+       Monica|   Garcia|20191224
+       Monica|   Garcia|20191225
+       Monica|   Garcia|20191231
+       Monica|   Garcia|20200113
+       Monica|   Garcia|20200114
+        Pablo|   Lostao|20191025
+        Pablo|   Lostao|20191028
+        Pablo|   Lostao|20191104
+        Pablo|   Lostao|20191111
+        Pablo|   Lostao|20191113
+        Pablo|   Lostao|20191118
+        Pablo|   Lostao|20191125
+        Pablo|   Lostao|20191127
+        Pablo|   Lostao|20200101
+        Pablo|   Lostao|20200102
+        Pablo|   Lostao|20200103
+        Pablo|   Lostao|20200104
+        Pablo|   Lostao|20200105
+        Pablo|   Lostao|20200106
+        Pablo|   Lostao|20200107
+        Pablo|   Lostao|20200108
+        Pablo|   Lostao|20200109
+        Pablo|   Lostao|20200110
+        Pablo|   Lostao|20200111
+        Pablo|   Lostao|20200112
+        Pablo|   Lostao|20200113
+        Pablo|   Lostao|20200116
+        Pablo|   Lostao|20200118
+        Pablo|   Lostao|20200119
+        Pablo|   Lostao|20200120
+        Pablo|   Lostao|20200122
+        Pablo|   Lostao|20200128
+        Pablo|   Lostao|20200129
+        Pablo|   Lostao|20200130
+        Pablo|   Lostao|20200131
+        Ruben| Martinez|20191001
+        Ruben| Martinez|20191002
+        Ruben| Martinez|20191003
+        Ruben| Martinez|20191004
+        Ruben| Martinez|20191008
+        Ruben| Martinez|20191009
+        Ruben| Martinez|20191010
+        Ruben| Martinez|20191011
+        Ruben| Martinez|20191015
+        Ruben| Martinez|20191016
+        Ruben| Martinez|20191017
+        Ruben| Martinez|20191018
+        Ruben| Martinez|20191022
+        Ruben| Martinez|20191023
+        Ruben| Martinez|20191024
+        Ruben| Martinez|20191025
+        Ruben| Martinez|20191029
+        Ruben| Martinez|20191030
+        Ruben| Martinez|20191031
+        Ruben| Martinez|20191101
+        Ruben| Martinez|20191105
+        Ruben| Martinez|20191106
+        Ruben| Martinez|20191107
+        Ruben| Martinez|20191108
+        Ruben| Martinez|20191112
+        Ruben| Martinez|20191113
+        Ruben| Martinez|20191114
+        Ruben| Martinez|20191115
+        Ruben| Martinez|20191119
+        Ruben| Martinez|20191120
+        Ruben| Martinez|20191121
+        Ruben| Martinez|20191122
+        Ruben| Martinez|20191126
+        Ruben| Martinez|20191127
+        Ruben| Martinez|20191128
+        Ruben| Martinez|20191129
+        Ruben| Martinez|20191203
+        Ruben| Martinez|20191204
+        Ruben| Martinez|20191205
+        Ruben| Martinez|20191210
+        Ruben| Martinez|20191211
+        Ruben| Martinez|20191212
+        Ruben| Martinez|20191213
+        Ruben| Martinez|20191217
+        Ruben| Martinez|20191218
+        Ruben| Martinez|20191219
+        Ruben| Martinez|20191220
+        Ruben| Martinez|20191226
+        Ruben| Martinez|20191227
+        Ruben| Martinez|20191230
+        Ruben| Martinez|20200115
+        Ruben| Martinez|20200117
+        Ruben| Martinez|20200121
+        Ruben| Martinez|20200124
+        Ruben| Martinez|20200131
+        Ruben| Martinez|20200207
+        Ruben| Martinez|20200214
+        Ruben| Martinez|20200221
+        Ruben| Martinez|20200228
+         Sara|   Garcia|20191001
+         Sara|   Garcia|20191004
+         Sara|   Garcia|20191008
+         Sara|   Garcia|20191011
+         Sara|   Garcia|20191015
+         Sara|   Garcia|20191018
+         Sara|   Garcia|20191022
+         Sara|   Garcia|20191025
+         Sara|   Garcia|20191029
+         Sara|   Garcia|20191105
+         Sara|   Garcia|20191107
+         Sara|   Garcia|20191112
+         Sara|   Garcia|20191114
+         Sara|   Garcia|20191119
+         Sara|   Garcia|20191121
+         Sara|   Garcia|20191126
+         Sara|   Garcia|20191128
+         Sara|   Garcia|20191203
+         Sara|   Garcia|20191205
+         Sara|   Garcia|20191210
+         Sara|   Garcia|20191212
+         Sara|   Garcia|20191217
+         Sara|   Garcia|20191219
+         Sara|   Garcia|20191224
+         Sara|   Garcia|20191226
+         Sara|   Garcia|20191231
+         Sara|   Garcia|20200114
+         Sara|   Garcia|20200116
+         Sara|   Garcia|20200120
+         Sara|   Garcia|20200121
+         Sara|   Garcia|20200122
+         Sara|   Garcia|20200123
+         Sara|   Garcia|20200128
+         Sara|   Garcia|20200130
+         Sara|   Garcia|20200204
+         Sara|   Garcia|20200206
+         Sara|   Garcia|20200211
+         Sara|   Garcia|20200213
+         Sara|   Garcia|20200218
+         Sara|   Garcia|20200220
+         Sara|   Garcia|20200225
+         Sara|   Garcia|20200227

@@ -821,6 +821,19 @@ do
     prt_info "------ SEMANA ${semana}/${nSemanas} = ${FECHA_INI} - ${FECHA_FIN}"
     semanaSig=$(( (semana % nSemanas) + 1 ))
 
+    # (MISMA COMPROBACION QUE EN EL PUNTO) 10/10 - Comprueba si debe terminar: ya hay un calendario para todas las semanas
+    # -- es necesaria hacerla porque a veces se colocan todos los partidos bien, pero no se usan todas las semanas
+    # -- y como se quedan semanas en blanco, entra en bucle infinito
+    # -- por eso comprobamos si ya esta todo bien
+    prt_info "---- BIS 10/10 - Comprueba si debe terminar: ya hay un calendario para todas las semanas"
+    FINALIZADO=true
+    for s in $( seq 1 "${nSemanas}" )
+    do
+        checkSemana "${DIR_TMP}/partidos.semana${s}" "${DIR_TMP}/calendario.semana${s}.txt"; rv=$?
+        if [ "${rv}" == "1" ]; then FINALIZADO=false; break; fi
+    done
+    if [ "${FINALZADO}" == "true" ]; then prt_info "------ Termina porque ya esta el calendario de todos los partidos"; continue; fi
+
     # Se comprueba si hay partidos a colocar esa semana
     if [ ! -s "${DIR_TMP}/partidos.semana${semana}" ]
     then
