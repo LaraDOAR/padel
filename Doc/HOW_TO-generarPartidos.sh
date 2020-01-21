@@ -71,7 +71,7 @@ bash Script/checkCalendario.sh
 # 3/5 - GENERAR PARTIDOS Y CALENDARIO
 
 # -- generar nuevos partidos
-NUMERO_PAREJAS_POR_DIVISION=4   # numero de partidos que se quieran jugar + 1
+NUMERO_PAREJAS_POR_DIVISION=3   # numero de partidos que se quieran jugar + 1
 bash Script/getPartidos.sh -n "${NUMERO_PAREJAS_POR_DIVISION}"
 # -- ficheros de salida
 # partidos.txt
