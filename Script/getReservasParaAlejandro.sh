@@ -170,7 +170,7 @@ out=$( FGRL_limpiaTabla calendario.txt "${DIR_TMP}/calendario" false )
 prt_info "Ejecucion..."
 
 echo ""
-echo "Lista de reservar pendientes de confirmacion:"
+echo "Lista de reservas pendientes de confirmacion:"
 
 gawk -F"|" '{if (($8=="false" || $8!="true") && ($5!="-")) print $4, $5, $6}' "${DIR_TMP}/calendario" |
     sort -k2,2 -k1,1 |
