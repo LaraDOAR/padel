@@ -16,42 +16,96 @@ exit 1
 ################################################################################################################################
 ################## GENERAR PARTIDOS PARA EL RESTO DE JORNADAS
 
-NUMERO_PAREJAS_POR_DIVISION=5   # numero de partidos que se quieran jugar + 1
-
 # Se supone ya actualizado el ranking con los resultados de la ultima jornada/mes
 
+# 1/5 - ORGANIZAR DIRECTORIO HISTORICO
+
+# -- guardar una copia de todos los ficheros en el historico
+. infoTorneo.cfg
+JORNADA=$( printf "%02d" "${CFG_JORNADA}" )
+for f in infoTorneo.cfg pistas.txt parejas.txt restricciones.txt rankingIndividual.txt rankingReferencia.txt ranking.txt ranking.html partidos.txt partidos.html calendario.txt calendario.html
+do
+    cp ${f} Historico/jornada${JORNADA}-versionFinal-${f}
+done
+
+# -- eliminar eliminar los ficheros que sobren de Historico
+rm Historico/[...]
+
+
+
+
+# 2/5 - CONFIGURACION DE FICHEROS DE CONFIGURACION
+
+# -- editar el fichero infoTorneo.cfg, para cambiar las fechas de inicio y de fin, y el numero de jornada
+vim infoTorneo.cfg
+
+# -- editar el fichero de pistas para anyadir las nuevas
+vim pistas.txt
+bash Script/checkPistas.sh
+
+# -- hacer cambios, si es que hay que hacerlos, en el fichero de parejas (sobre todo que parejas juegan esta jornada y cuales no)
+vim parejas.txt
+bash Script/checkParejas.sh
+
+# -- actualizar restricciones
+bash Script/getRestricciones.sh -z
+bash Script/checkRestricciones.sh
+rm Restricciones/restricciones.zip
+
 # -- guardar como los ficheros de referencia
-cp ranking.txt  rankingReferencia.txt
-cp ranking.html rankingReferencia.html
+bash Script/getRanking.sh  # no deberia cambiar nada
+bash Script/checkRanking.sh
+cp ranking.txt rankingReferencia.txt
+
+# -- editar en el fichero partidos.txt los partidos del mes pasado que no se han jugado
+# ---- Si se han pospuesto para este mes, borrar los datos de FECHA, HORA y LUGAR
+# ---- Si no se van a jugar, cambiar la columna RANKING de false a true
+vim partidos.txt
+bash Script/checkPartidos.sh
+
+# -- comprobar tambien el buen formato del calendario
+bash Script/checkCalendario.sh
 
 
-# 1/3 - Averiguar que partidos hay que jugar segun el ranking actual
 
-# NOTA: si hay partidos del mes pasado que no se han jugado y se han pospuesto a esta jornada
-#  - Editar el fichero partidos.txt, dejando el MES/JORNADA que esta y borrando datos de FECHA, HORA y LUGAR
-#  - La nueva ejecucion de getPartidos.sh, anyadira partidos nuevos
+# 3/5 - GENERAR PARTIDOS Y CALENDARIO
 
-# -- ejecuta script
+# -- generar nuevos partidos
+NUMERO_PAREJAS_POR_DIVISION=4   # numero de partidos que se quieran jugar + 1
 bash Script/getPartidos.sh -n "${NUMERO_PAREJAS_POR_DIVISION}"
 # -- ficheros de salida
 # partidos.txt
 # partidos.html
 
-
-# 2/3 - Generar calendario de cuando se juega cada partido
-
-# -- ejecuta el script
+# -- generar calendario de cuando se juega cada partido
 bash Script/getCalendario.sh
+bash Script/getCalendario.sh.sinChecks
 # -- ficheros de salida
 # calendario.txt
 # calendario.html
 # partidos.txt
 # partidos.html
 
+# -- enviar email con la informacion de los partidos de cada persona
+bash Script/sendMail.sh -v  # para ver lo que se va a mandar
+bash Script/sendMail.sh     # para mandarlo
 
-# 3/3 - Subir el nuevo calendario a la web
+
+
+
+# 4/5 - HACER BACKUP DE TODOS LOS FICHERO GENERADOS
+. infoTorneo.cfg
+JORNADA=$( printf "%02d" "${CFG_JORNADA}" )
+for f in infoTorneo.cfg pistas.txt parejas.txt restricciones.txt rankingIndividual.txt rankingReferencia.txt ranking.txt ranking.html partidos.txt partidos.html calendario.txt calendario.html
+do
+    cp ${f} Historico/jornada${JORNADA}-versionInicial-${f}
+done
+
+
+
+
+# 5/5 - CREAR PAQUETE PARA LA WEB
 bash Script/creaPaquete.sh
-# -- hablar con Daniel Duran para que lo suba a la web
 
 
 

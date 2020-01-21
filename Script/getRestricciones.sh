@@ -9,6 +9,8 @@
 #  -z ---> Indica que hay que extraer las restricciones desde el zip que manda Esther (por defecto, No)
 #          Si se indica, se extraen las restricciones del zip, se anyaden (con buen formato) a las que hay,
 #          y ya despues se sigue con el funcionamiento normal.
+#          El fichero debe estar en el directorio correcto y tener el siguiente nombre:
+#          --- Restricciones/restricciones.zip
 #
 # Salida
 #   0 --> ejecucion correcta
@@ -82,6 +84,8 @@ AYUDA="
   -z ---> Indica que hay que extraer las restricciones desde el zip que manda Esther (por defecto, No)
           Si se indica, se extraen las restricciones del zip, se anyaden (con buen formato) a las que hay,
           y ya despues se sigue con el funcionamiento normal.
+          El fichero debe estar en el directorio correcto y tener el siguiente nombre:
+          --- Restricciones/restricciones.zip
 
  Salida:
   0 --> ejecucion correcta

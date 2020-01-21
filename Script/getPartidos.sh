@@ -194,6 +194,10 @@ if [ ! -f partidos.txt ]; then echo "MES|DIVISION|LOCAL|VISITANTE|FECHA|HORA_INI
 else                           prt_warn "-- Como ya existe partidos.txt, se anadiran a este fichero los nuevos partidos, no se empieza de cero"
 fi
 
+# -- como hay parejas que no participan, se eliminan del fichero del ranking
+sed -i '/false$/d' "${DIR_TMP}/ranking"
+
+
 ##########################################################################
 ### POR JORNADA: pareja1 vs pareja2, pareja3 vs pareja4...
 ###

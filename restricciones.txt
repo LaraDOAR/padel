@@ -38,6 +38,14 @@
        Ainhoa|     Goni|20191226
        Ainhoa|     Goni|20191227
        Ainhoa|     Goni|20191230
+       Ainhoa|     Goni|20200102
+       Ainhoa|     Goni|20200103
+       Ainhoa|     Goni|20200108
+       Ainhoa|     Goni|20200113
+       Ainhoa|     Goni|20200115
+       Ainhoa|     Goni|20200117
+       Ainhoa|     Goni|20200120
+       Ainhoa|     Goni|20200122
        Alvaro|  Barbero|20191001
        Alvaro|  Barbero|20191004
        Alvaro|  Barbero|20191008
@@ -52,6 +60,24 @@
        Alvaro|  Barbero|20191122
        Alvaro|  Barbero|20191126
        Alvaro|  Barbero|20191128
+       Alvaro|  Barbero|20200114
+       Alvaro|  Barbero|20200121
+       Alvaro|  Barbero|20200123
+       Alvaro|  Barbero|20200127
+       Alvaro|  Barbero|20200128
+       Alvaro|  Barbero|20200129
+       Alvaro|  Barbero|20200204
+       Alvaro|  Barbero|20200205
+       Alvaro|  Barbero|20200206
+       Alvaro|  Barbero|20200207
+       Alvaro|  Barbero|20200210
+       Alvaro|  Barbero|20200211
+       Alvaro|  Barbero|20200212
+       Alvaro|  Barbero|20200213
+       Alvaro|  Barbero|20200217
+       Alvaro|  Barbero|20200218
+       Alvaro|  Barbero|20200226
+       Alvaro|  Barbero|20200227
        Alvaro|   Romero|20191002
        Alvaro|   Romero|20191004
        Alvaro|   Romero|20191007
@@ -122,12 +148,39 @@
           Ana| Alastuey|20191226
           Ana| Alastuey|20191227
           Ana| Alastuey|20191230
+          Ana| Alastuey|20200212
+          Ana| Alastuey|20200213
+          Ana| Alastuey|20200214
        Andres|    Munoz|20191003
        Andres|    Munoz|20191017
        Andres|    Munoz|20191104
        Andres|    Munoz|20191111
        Andres|    Munoz|20191118
        Andres|    Munoz|20191125
+       Andres|    Munoz|20200102
+       Andres|    Munoz|20200103
+       Andres|    Munoz|20200107
+       Andres|    Munoz|20200113
+       Andres|    Munoz|20200120
+       Andres|    Munoz|20200127
+       Andres|    Munoz|20200128
+       Andres|    Munoz|20200210
+       Andres|    Munoz|20200217
+       Andres|    Munoz|20200224
+       Angela|     Ruiz|20190101
+       Angela|     Ruiz|20190102
+       Angela|     Ruiz|20190103
+       Angela|     Ruiz|20190106
+       Angela|     Ruiz|20190110
+       Angela|     Ruiz|20190117
+       Angela|     Ruiz|20190124
+       Angela|     Ruiz|20190127
+       Angela|     Ruiz|20190131
+       Angela|     Ruiz|20190207
+       Angela|     Ruiz|20190210
+       Angela|     Ruiz|20190214
+       Angela|     Ruiz|20190221
+       Angela|     Ruiz|20190228
        Angela|     Ruiz|20191002
        Angela|     Ruiz|20191003
        Angela|     Ruiz|20191004
@@ -155,20 +208,9 @@
        Angela|     Ruiz|20191225
        Angela|     Ruiz|20191227
        Angela|     Ruiz|20191231
-     Cristina|     Leon|20191003
-     Cristina|     Leon|20191004
-     Cristina|     Leon|20191009
-     Cristina|     Leon|20191011
-     Cristina|     Leon|20191017
-     Cristina|     Leon|20191018
-     Cristina|     Leon|20191022
-     Cristina|     Leon|20191025
-     Cristina|     Leon|20191101
-     Cristina|     Leon|20191107
-     Cristina|     Leon|20191108
-     Cristina|     Leon|20191115
-     Cristina|     Leon|20191122
-     Cristina|     Leon|20191129
+       Carlos|Fernandez|20200113
+       Carlos|Fernandez|20200114
+       Carlos|Fernandez|20200115
        Daniel|    Ramos|20191004
        Daniel|    Ramos|20191011
        Daniel|    Ramos|20191018
@@ -188,6 +230,10 @@
        Daniel|    Ramos|20191204
        Daniel|    Ramos|20191205
        Daniel|    Ramos|20191206
+       Daniel|    Ramos|20200110
+       Daniel|    Ramos|20200117
+       Daniel|    Ramos|20200124
+       Daniel|    Ramos|20200131
       Enrique| Clemente|20191001
       Enrique| Clemente|20191008
       Enrique| Clemente|20191015
@@ -210,6 +256,9 @@
       Enrique| Clemente|20191224
       Enrique| Clemente|20191225
       Enrique| Clemente|20191231
+      Enrique| Clemente|20200114
+      Enrique| Clemente|20200121
+      Enrique| Clemente|20200128
          Eric|    Perez|20191001
          Eric|    Perez|20191003
          Eric|    Perez|20191004
@@ -293,6 +342,16 @@
        Javier|    Munoz|20191227
        Javier|    Munoz|20191230
        Javier|    Munoz|20191231
+       Javier|    Munoz|20200113
+       Javier|    Munoz|20200114
+       Javier|    Munoz|20200117
+       Javier|    Munoz|20200120
+       Javier|    Munoz|20200121
+       Javier|    Munoz|20200122
+       Javier|    Munoz|20200123
+       Javier|    Munoz|20200124
+       Javier|    Munoz|20200128
+       Javier|    Munoz|20200131
         Jorge|    Lopez|20191009
         Jorge|    Lopez|20191030
         Jorge|    Lopez|20191105
@@ -440,6 +499,19 @@ JoseFrancisco|Rodriguez|20191230
   JuanAntonio|Montesino|20191226
   JuanAntonio|Montesino|20191227
   JuanAntonio|Montesino|20191230
+  JuanAntonio|Montesino|20200102
+  JuanAntonio|Montesino|20200103
+  JuanAntonio|Montesino|20200107
+  JuanAntonio|Montesino|20200108
+  JuanAntonio|Montesino|20200109
+  JuanAntonio|Montesino|20200113
+  JuanAntonio|Montesino|20200115
+  JuanAntonio|Montesino|20200120
+  JuanAntonio|Montesino|20200121
+  JuanAntonio|Montesino|20200122
+  JuanAntonio|Montesino|20200123
+  JuanAntonio|Montesino|20200127
+  JuanAntonio|Montesino|20200131
          Lara|Dominguez|20191007
          Lara|Dominguez|20191008
          Lara|Dominguez|20191010
@@ -469,6 +541,13 @@ JoseFrancisco|Rodriguez|20191230
        Manuel| delValle|20191025
        Manuel| delValle|20191029
        Manuel| delValle|20191030
+       Manuel| delValle|20200115
+       Manuel| delValle|20200121
+       Manuel| delValle|20200128
+       Manuel| delValle|20200204
+       Manuel| delValle|20200211
+       Manuel| delValle|20200218
+       Manuel| delValle|20200225
   MariaTeresa|   Solano|20191004
   MariaTeresa|   Solano|20191007
   MariaTeresa|   Solano|20191009
@@ -520,6 +599,8 @@ JoseFrancisco|Rodriguez|20191230
        Monica|   Garcia|20191224
        Monica|   Garcia|20191225
        Monica|   Garcia|20191231
+       Monica|   Garcia|20200113
+       Monica|   Garcia|20200114
         Pablo|   Lostao|20191025
         Pablo|   Lostao|20191028
         Pablo|   Lostao|20191104
@@ -528,6 +609,28 @@ JoseFrancisco|Rodriguez|20191230
         Pablo|   Lostao|20191118
         Pablo|   Lostao|20191125
         Pablo|   Lostao|20191127
+        Pablo|   Lostao|20200101
+        Pablo|   Lostao|20200102
+        Pablo|   Lostao|20200103
+        Pablo|   Lostao|20200104
+        Pablo|   Lostao|20200105
+        Pablo|   Lostao|20200106
+        Pablo|   Lostao|20200107
+        Pablo|   Lostao|20200108
+        Pablo|   Lostao|20200109
+        Pablo|   Lostao|20200110
+        Pablo|   Lostao|20200111
+        Pablo|   Lostao|20200112
+        Pablo|   Lostao|20200113
+        Pablo|   Lostao|20200116
+        Pablo|   Lostao|20200118
+        Pablo|   Lostao|20200119
+        Pablo|   Lostao|20200120
+        Pablo|   Lostao|20200122
+        Pablo|   Lostao|20200128
+        Pablo|   Lostao|20200129
+        Pablo|   Lostao|20200130
+        Pablo|   Lostao|20200131
         Ruben| Martinez|20191001
         Ruben| Martinez|20191002
         Ruben| Martinez|20191003
@@ -578,6 +681,15 @@ JoseFrancisco|Rodriguez|20191230
         Ruben| Martinez|20191226
         Ruben| Martinez|20191227
         Ruben| Martinez|20191230
+        Ruben| Martinez|20200115
+        Ruben| Martinez|20200117
+        Ruben| Martinez|20200121
+        Ruben| Martinez|20200124
+        Ruben| Martinez|20200131
+        Ruben| Martinez|20200207
+        Ruben| Martinez|20200214
+        Ruben| Martinez|20200221
+        Ruben| Martinez|20200228
          Sara|   Garcia|20191001
          Sara|   Garcia|20191004
          Sara|   Garcia|20191008
@@ -604,3 +716,19 @@ JoseFrancisco|Rodriguez|20191230
          Sara|   Garcia|20191224
          Sara|   Garcia|20191226
          Sara|   Garcia|20191231
+         Sara|   Garcia|20200114
+         Sara|   Garcia|20200116
+         Sara|   Garcia|20200120
+         Sara|   Garcia|20200121
+         Sara|   Garcia|20200122
+         Sara|   Garcia|20200123
+         Sara|   Garcia|20200128
+         Sara|   Garcia|20200130
+         Sara|   Garcia|20200204
+         Sara|   Garcia|20200206
+         Sara|   Garcia|20200211
+         Sara|   Garcia|20200213
+         Sara|   Garcia|20200218
+         Sara|   Garcia|20200220
+         Sara|   Garcia|20200225
+         Sara|   Garcia|20200227

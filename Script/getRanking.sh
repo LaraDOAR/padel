@@ -158,8 +158,8 @@ trap "salir;" EXIT
 ###
 ###############################################
 
-### CABECERA DEL FICHERO DE RANKING ---> POSICION |       PAREJA  |  PUNTOS | PARTIDOS_JUGADOS | PARTIDOS_GANADOS | JUEGOS_FAVOR | JUEGOS_CONTRA
-###                                             1 | AlbertoMateos |      10 |                3 |                2 |           12 |             6
+### CABECERA DEL FICHERO DE RANKING ---> POSICION |       PAREJA  |  PUNTOS | PARTIDOS_JUGADOS | PARTIDOS_GANADOS | JUEGOS_FAVOR | JUEGOS_CONTRA| PARTICIPA_EN_JORNADA
+###                                             1 | AlbertoMateos |      10 |                3 |                2 |           12 |             6|                 true
 
 
 ############# INICIALIZACION
@@ -208,8 +208,8 @@ then
     prt_info "-- GENERACION de un ranking inicial"
 
     nParejas=$( wc -l "${DIR_TMP}/parejas" | gawk '{printf("%d",($1+1)/2)}' )
-    gawk 'BEGIN{OFS=FS="|";}{if (NR%2==0) {pos=NR/2; punt=1+N-NR/2;  print pos,ant"-"$2$3,punt,"0","0","0","0";} ant=$2$3;}' N="${nParejas}" "${DIR_TMP}/parejas" > "${DIR_TMP}/new_ranking"
-    gawk 'BEGIN{OFS=FS="|";}{if (NR%2==1) {punt=1+N-(NR+1)/2;} print NR,$2$3,punt,"0","0","0","0";}'                         N="${nParejas}" "${DIR_TMP}/parejas" > "${DIR_TMP}/new_rankingInd"
+    gawk 'BEGIN{OFS=FS="|";}{if (NR%2==0) {pos=NR/2; punt=1+N-NR/2;  print pos,ant"-"$2$3,punt,"0","0","0","0",$5;} ant=$2$3;}' N="${nParejas}" "${DIR_TMP}/parejas" > "${DIR_TMP}/new_ranking"
+    gawk 'BEGIN{OFS=FS="|";}{if (NR%2==1) {punt=1+N-(NR+1)/2;} print NR,$2$3,punt,"0","0","0","0",$5;}'                         N="${nParejas}" "${DIR_TMP}/parejas" > "${DIR_TMP}/new_rankingInd"
     
 else
     prt_info "-- ACTUALIZACION de ranking anterior"
@@ -304,7 +304,7 @@ else
         if [ "${ganador}" == "visitante" ]; then partGanaLoc=0; partGanaVis=1; fi
 
         
-        # Actualiza el nuevo ranking: POSICION | PAREJA | PUNTOS | PARTIDOS_JUGADOS | PARTIDOS_GANADOS | JUEGOS_FAVOR | JUEGOS_CONTRA       
+        # Actualiza el nuevo ranking: POSICION | PAREJA | PUNTOS | PARTIDOS_JUGADOS | PARTIDOS_GANADOS | JUEGOS_FAVOR | JUEGOS_CONTRA
         # -- local
         gawk 'BEGIN{FS=OFS="|"}{if ($2==PAREJA) {$3=$3+PTS; $4=$4+1; $5=$5+GAN; $6=$6+FAV; $7=$7+CON;} print;}' \
              PAREJA="${LOCAL}" PTS="${puntosLoc}" GAN="${partGanaLoc}" FAV="${jueFavorLoc}" CON="${jueContraLoc}" "${DIR_TMP}/new_ranking" > "${DIR_TMP}/new_ranking.tmp"
@@ -516,7 +516,7 @@ gawk 'BEGIN{OFS=FS="|";}{$1=NR; print}' "${DIR_TMP}/new_rankingInd" > "${DIR_TMP
 # -- ranking
 {
     # -- cabecera
-    echo "POSICION|PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA"
+    echo "POSICION|PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA|PARTICIPA_EN_JORNADA"
     # -- cuerpo
     cat "${DIR_TMP}/new_ranking"
 } > ranking.txt
@@ -524,7 +524,7 @@ prt_info "---- Generado ${G}ranking.txt${NC}"
 # -- ranking individual
 {
     # -- cabecera
-    echo "POSICION|PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA"
+    echo "POSICION|PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA|PARTICIPA_EN_JORNADA"
     # -- cuerpo
     cat "${DIR_TMP}/new_rankingInd"
 } > rankingIndividual.txt

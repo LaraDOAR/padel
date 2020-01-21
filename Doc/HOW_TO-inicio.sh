@@ -93,8 +93,8 @@ bash Script/getCalendario.sh.sinChecks
 # partidos.html
 
 # -- enviar email con la informacion de los partidos de cada persona
-**************bash Script/sendMail.sh
-
+bash Script/sendMail.sh -v  # para ver lo que se va a mandar
+bash Script/sendMail.sh     # para mandarlo
 
 
 
@@ -114,4 +114,3 @@ done
 
 ##### 6/6 - Subir los html para que sean visibles para todo el mundo
 bash Script/creaPaquete.sh
-# -- hablar con Daniel Duran para que lo suba a la web
