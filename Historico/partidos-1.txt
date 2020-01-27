@@ -1,7 +1,7 @@
 MES|DIVISION|                          LOCAL|                           VISITANTE|   FECHA|HORA_INI|HORA_FIN| LUGAR|SET1|SET2|SET3|PUNTOS|RANKING
-003|       1|         JorgeLopez-AndresMunoz|     JuanAntonioMontesino-AinhoaGoni|       -|       -|       -|     -|   -|   -|   -|     -|  false
+003|       1|         JorgeLopez-AndresMunoz|     JuanAntonioMontesino-AinhoaGoni|20200205|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 003|       1|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|20200212|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
-003|       1|JuanAntonioMontesino-AinhoaGoni|   ManueldelValle-JoseAntonioCordoba|       -|       -|       -|     -|   -|   -|   -|     -|  false
+003|       1|JuanAntonioMontesino-AinhoaGoni|   ManueldelValle-JoseAntonioCordoba|20200217|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 003|       2|       DanielRamos-AlvaroRomero|           JavierVidal-AlbertoMateos|20200204|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 003|       2|       DanielRamos-AlvaroRomero|           RubenDelCampo-PabloLostao|20200211|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 003|       2|      JavierVidal-AlbertoMateos|           RubenDelCampo-PabloLostao|20200218|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
