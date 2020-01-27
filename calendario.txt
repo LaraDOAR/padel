@@ -10,7 +10,7 @@ MES|                          LOCAL|                           VISITANTE| PISTA|
 003|       DanielRamos-AlvaroRomero|           RubenDelCampo-PabloLostao|Pista3|20200211|   18:00|   19:00|           false
 003|       AngelaRuiz-AlvaroBarbero|              SaraGarcia-AnaAlastuey|Pista3|20200219|   18:00|   19:00|           false
 003|JuanAntonioMontesino-AinhoaGoni|   ManueldelValle-JoseAntonioCordoba|     -|       -|       -|       -|           false
-003|      DanielMichaud-JavierMunoz|              EricPerez-IsraelAlonso|Pista3|20200217|   19:00|   20:00|           false
+003|      DanielMichaud-JavierMunoz|              EricPerez-IsraelAlonso|Pista3|20200217|   18:00|   19:00|           false
 003|      JavierVidal-AlbertoMateos|           RubenDelCampo-PabloLostao|Pista3|20200218|   18:00|   19:00|           false
 002|       DanielRamos-AlvaroRomero|   ManueldelValle-JoseAntonioCordoba|Pista7|20191216|   19:00|   20:00|            true
 002|       AngelaRuiz-AlvaroBarbero|        EnriqueClemente-MonicaGarcia|     -|       -|       -|       -|            true
