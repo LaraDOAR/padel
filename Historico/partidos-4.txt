@@ -1,11 +1,11 @@
 MES|DIVISION|                          LOCAL|                           VISITANTE|   FECHA|HORA_INI|HORA_FIN| LUGAR|SET1|SET2|SET3|PUNTOS|RANKING
 003|       1|         JorgeLopez-AndresMunoz|     JuanAntonioMontesino-AinhoaGoni|20200218|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
-003|       1|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|20200210|   18:00|   19:00|Pista7|   -|   -|   -|     -|  false
+003|       1|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|20200212|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 003|       1|JuanAntonioMontesino-AinhoaGoni|   ManueldelValle-JoseAntonioCordoba|20200214|   15:00|   16:00|Pista7|   -|   -|   -|     -|  false
 003|       2|       DanielRamos-AlvaroRomero|           JavierVidal-AlbertoMateos|20200204|   18:00|   19:00|Pista7|   -|   -|   -|     -|  false
 003|       2|       DanielRamos-AlvaroRomero|           RubenDelCampo-PabloLostao|20200211|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 003|       2|      JavierVidal-AlbertoMateos|           RubenDelCampo-PabloLostao|20200218|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
-003|       3|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|20200226|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
+003|       3|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|20200204|   19:00|   20:00|Pista7|   -|   -|   -|     -|  false
 003|       3|AmbrosioIniesta-CarlosFernandez|              EricPerez-IsraelAlonso|20200210|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
 003|       3|      DanielMichaud-JavierMunoz|              EricPerez-IsraelAlonso|20200217|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 003|       4|   BartoszPenkala-ManuelHidalgo|RubenMartinez-JoseFranciscoRodriguez|20200203|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
