@@ -306,7 +306,7 @@ do
         echo "</TR >"
         touch "${DIR_TMP}/vacio.txt"
         grep "|${n1}-${n2}|" "${DIR_TMP}/partidos" | sort -t"|" -k5,5 |
-            while IFS="|" read -r _ _ LOC VIS FECHA _ _ _ _ _ _ _ CONFIRMADA
+            while IFS="|" read -r _ _ LOC VIS FECHA _ _ _ _ _ _ _ CONFIRMADA  # CONFIRMADA = RANKING
             do
                 if [ "${FECHA}" != "-" ]; then continue; fi
                 if [ "${FECHA}" == "-" ] && [ "${CONFIRMADA}" == "true" ]; then continue; fi
