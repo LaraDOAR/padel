@@ -6,8 +6,8 @@ MES|DIVISION|                          LOCAL|                           VISITANT
 003|       2|       DanielRamos-AlvaroRomero|           RubenDelCampo-PabloLostao|20200211|   18:00|   19:00|Pista7|   -|   -|   -|     -|  false
 003|       2|      JavierVidal-AlbertoMateos|           RubenDelCampo-PabloLostao|20200218|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 003|       3|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|20200226|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
-003|       3|AmbrosioIniesta-CarlosFernandez|              EricPerez-IsraelAlonso|       -|       -|       -|     -|   -|   -|   -|     -|  false
-003|       3|      DanielMichaud-JavierMunoz|              EricPerez-IsraelAlonso|       -|       -|       -|     -|   -|   -|   -|     -|  false
+003|       3|AmbrosioIniesta-CarlosFernandez|              EricPerez-IsraelAlonso|20200210|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
+003|       3|      DanielMichaud-JavierMunoz|              EricPerez-IsraelAlonso|20200217|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 003|       4|   BartoszPenkala-ManuelHidalgo|RubenMartinez-JoseFranciscoRodriguez|20200203|   18:00|   19:00|Pista3|   -|   -|   -|  2/15|   true
 003|       5|       AngelaRuiz-AlvaroBarbero|        EnriqueClemente-MonicaGarcia|20200203|   19:00|   20:00|Pista7|   -|   -|   -|  9/15|   true
 003|       5|       AngelaRuiz-AlvaroBarbero|              SaraGarcia-AnaAlastuey|20200219|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false

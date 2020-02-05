@@ -13,8 +13,8 @@ PAREJA|       NOMBRE| APELLIDO|   NOMBRE.APELLIDO@iic.uam.es|JUEGA
      3|       Alvaro|   Romero|     alvaro.romero@iic.uam.es| true
      4|       Javier|    Vidal|      javier.vidal@iic.uam.es| true
      4|      Alberto|   Mateos|    alberto.mateos@iic.uam.es| true
-     5|         Eric|    Perez|        eric.perez@iic.uam.es| true
-     5|       Israel|   Alonso|     israel.alonso@iic.uam.es| true
+     5|         Eric|    Perez|        eric.perez@iic.uam.es|false
+     5|       Israel|   Alonso|     israel.alonso@iic.uam.es|false
      6|  JuanAntonio|Montesino|    juan.montesino@iic.uam.es| true
      6|       Ainhoa|     Goni|       ainhoa.goni@iic.uam.es| true
      7|       Daniel|  Michaud|    daniel.michaud@iic.uam.es| true
