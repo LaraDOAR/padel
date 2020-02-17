@@ -1,6 +1,6 @@
 MES|DIVISION|                          LOCAL|                           VISITANTE|   FECHA|HORA_INI|HORA_FIN| LUGAR|SET1|SET2|SET3|PUNTOS|RANKING
 003|       1|         JorgeLopez-AndresMunoz|     JuanAntonioMontesino-AinhoaGoni|20200218|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
-003|       1|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|20200210|   18:00|   19:00|Pista7|   -|   -|   -|     -|  false
+003|       1|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|20200210|   18:00|   19:00|Pista7|   -|   -|   -|  5/15|   true
 003|       1|JuanAntonioMontesino-AinhoaGoni|   ManueldelValle-JoseAntonioCordoba|20200214|   15:00|   16:00|Pista7|   -|   -|   -|     -|  false
 003|       2|       DanielRamos-AlvaroRomero|           JavierVidal-AlbertoMateos|20200204|   18:00|   19:00|Pista7|   -|   -|   -|  15/3|   true
 003|       2|       DanielRamos-AlvaroRomero|           RubenDelCampo-PabloLostao|20200211|   18:00|   19:00|Pista7|   -|   -|   -|     -|  false
@@ -11,7 +11,7 @@ MES|DIVISION|                          LOCAL|                           VISITANT
 003|       4|   BartoszPenkala-ManuelHidalgo|RubenMartinez-JoseFranciscoRodriguez|20200203|   18:00|   19:00|Pista3|   -|   -|   -|  2/15|   true
 003|       5|       AngelaRuiz-AlvaroBarbero|        EnriqueClemente-MonicaGarcia|20200203|   19:00|   20:00|Pista7|   -|   -|   -|  9/15|   true
 003|       5|       AngelaRuiz-AlvaroBarbero|              SaraGarcia-AnaAlastuey|20200219|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
-003|       5|   EnriqueClemente-MonicaGarcia|              SaraGarcia-AnaAlastuey|20200210|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
+003|       5|   EnriqueClemente-MonicaGarcia|              SaraGarcia-AnaAlastuey|20200210|   18:00|   19:00|Pista3|   -|   -|   -|  15/0|   true
 002|       1|       DanielRamos-AlvaroRomero|              JorgeLopez-AndresMunoz|       -|       -|       -|     -|   -|   -|   -|     -|   true
 002|       1|       DanielRamos-AlvaroRomero|   ManueldelValle-JoseAntonioCordoba|20191216|   19:00|   20:00|Pista7|   -|   -|   -|  3/15|   true
 002|       1|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|       -|       -|       -|     -|   -|   -|   -|     -|   true

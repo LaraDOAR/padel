@@ -1,10 +1,10 @@
 POSICION|               PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA|PARTICIPA_EN_JORNADA
-       1|        ManueldelValle|    18|               2|               2|          30|            6|                true
-       2|    JoseAntonioCordoba|    18|               2|               2|          30|            6|                true
+       1|        ManueldelValle|    19|               3|               3|          45|           11|                true
+       2|    JoseAntonioCordoba|    19|               3|               3|          45|           11|                true
        3|  JuanAntonioMontesino|    16|               4|               3|          51|           37|                true
        4|            AinhoaGoni|    16|               4|               3|          51|           37|                true
-       5|            JorgeLopez|    16|               2|               1|          18|           15|                true
-       6|           AndresMunoz|    16|               2|               1|          18|           15|                true
+       5|            JorgeLopez|    16|               3|               1|          23|           30|                true
+       6|           AndresMunoz|    16|               3|               1|          23|           30|                true
        7|           DanielRamos|    15|               3|               2|          33|           21|                true
        8|          AlvaroRomero|    15|               3|               2|          33|           21|                true
        9|         RubenDelCampo|    14|               4|               4|          60|            5|                true
@@ -21,11 +21,11 @@ POSICION|               PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_
       20|           JavierMunoz|    10|               3|               1|          20|           33|                true
       21|        BartoszPenkala|     8|               6|               4|          53|           48|                true
       22|         ManuelHidalgo|     8|               6|               4|          53|           48|                true
-      23|       EnriqueClemente|     7|               4|               2|          33|           36|                true
-      24|          MonicaGarcia|     7|               4|               2|          33|           36|                true
+      23|       EnriqueClemente|     8|               5|               3|          48|           36|                true
+      24|          MonicaGarcia|     8|               5|               3|          48|           36|                true
       25|     MariaTeresaSolano|     6|               4|               2|          42|           35|               false
       26|         LaraDominguez|     6|               4|               2|          42|           35|               false
       27|            AngelaRuiz|     4|               5|               2|          54|           43|                true
       28|         AlvaroBarbero|     4|               5|               2|          54|           43|                true
-      29|            SaraGarcia|     1|               5|               0|          10|           75|                true
-      30|           AnaAlastuey|     1|               5|               0|          10|           75|                true
+      29|            SaraGarcia|     1|               6|               0|          10|           90|                true
+      30|           AnaAlastuey|     1|               6|               0|          10|           90|                true
