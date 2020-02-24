@@ -5,12 +5,12 @@ POSICION|               PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_
        4|           AndresMunoz|    18|               4|               2|          38|           34|                true
        5|  JuanAntonioMontesino|    16|               5|               3|          55|           52|                true
        6|            AinhoaGoni|    16|               5|               3|          55|           52|                true
-       7|         RubenDelCampo|    15|               5|               5|          68|           11|                true
-       8|           PabloLostao|    15|               5|               5|          68|           11|                true
-       9|           DanielRamos|    15|               3|               2|          33|           21|                true
-      10|          AlvaroRomero|    15|               3|               2|          33|           21|                true
-      11|           JavierVidal|    13|               4|               1|          22|           42|                true
-      12|         AlbertoMateos|    13|               4|               1|          22|           42|                true
+       7|           DanielRamos|    15|               3|               2|          33|           21|                true
+       8|          AlvaroRomero|    15|               3|               2|          33|           21|                true
+       9|         RubenDelCampo|    14|               4|               4|          60|            5|                true
+      10|           PabloLostao|    14|               4|               4|          60|            5|                true
+      11|           JavierVidal|    13|               3|               1|          16|           34|                true
+      12|         AlbertoMateos|    13|               3|               1|          16|           34|                true
       13|       AmbrosioIniesta|    11|               4|               1|          31|           40|                true
       14|       CarlosFernandez|    11|               4|               1|          31|           40|                true
       15|             EricPerez|    11|               2|               0|           6|           30|               false

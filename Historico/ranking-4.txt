@@ -2,9 +2,9 @@ POSICION|                              PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_G
        1|   ManueldelValle-JoseAntonioCordoba|    19|               3|               3|          45|           11|                true
        2|              JorgeLopez-AndresMunoz|    18|               4|               2|          38|           34|                true
        3|     JuanAntonioMontesino-AinhoaGoni|    16|               5|               3|          55|           52|                true
-       4|           RubenDelCampo-PabloLostao|    15|               5|               5|          68|           11|                true
-       5|            DanielRamos-AlvaroRomero|    15|               3|               2|          33|           21|                true
-       6|           JavierVidal-AlbertoMateos|    13|               4|               1|          22|           42|                true
+       4|            DanielRamos-AlvaroRomero|    15|               3|               2|          33|           21|                true
+       5|           RubenDelCampo-PabloLostao|    14|               4|               4|          60|            5|                true
+       6|           JavierVidal-AlbertoMateos|    13|               3|               1|          16|           34|                true
        7|     AmbrosioIniesta-CarlosFernandez|    11|               4|               1|          31|           40|                true
        8|              EricPerez-IsraelAlonso|    11|               2|               0|           6|           30|               false
        9|RubenMartinez-JoseFranciscoRodriguez|    10|               4|               3|          41|           25|                true
