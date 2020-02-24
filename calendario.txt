@@ -3,15 +3,15 @@ MES|                          LOCAL|                           VISITANTE| PISTA|
 003|   BartoszPenkala-ManuelHidalgo|RubenMartinez-JoseFranciscoRodriguez|Pista3|20200203|   18:00|   19:00|            true
 003|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|Pista3|20200226|   19:00|   20:00|           false
 003|       DanielRamos-AlvaroRomero|           JavierVidal-AlbertoMateos|Pista7|20200204|   18:00|   19:00|            true
-003|         JorgeLopez-AndresMunoz|     JuanAntonioMontesino-AinhoaGoni|Pista3|20200218|   19:00|   20:00|           false
+003|         JorgeLopez-AndresMunoz|     JuanAntonioMontesino-AinhoaGoni|Pista3|20200218|   19:00|   20:00|            true
 003|   EnriqueClemente-MonicaGarcia|              SaraGarcia-AnaAlastuey|Pista3|20200210|   18:00|   19:00|            true
 003|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|Pista7|20200210|   18:00|   19:00|            true
 003|AmbrosioIniesta-CarlosFernandez|              EricPerez-IsraelAlonso|     -|       -|       -|       -|            true
 003|       DanielRamos-AlvaroRomero|           RubenDelCampo-PabloLostao|Pista7|20200211|   18:00|   19:00|            true
-003|       AngelaRuiz-AlvaroBarbero|              SaraGarcia-AnaAlastuey|Pista3|20200219|   18:00|   19:00|           false
+003|       AngelaRuiz-AlvaroBarbero|              SaraGarcia-AnaAlastuey|Pista3|20200219|   18:00|   19:00|            true
 003|JuanAntonioMontesino-AinhoaGoni|   ManueldelValle-JoseAntonioCordoba|Pista7|20200214|   15:00|   16:00|            true
 003|      DanielMichaud-JavierMunoz|              EricPerez-IsraelAlonso|     -|       -|       -|       -|            true
-003|      JavierVidal-AlbertoMateos|           RubenDelCampo-PabloLostao|Pista3|20200218|   18:00|   19:00|           false
+003|      JavierVidal-AlbertoMateos|           RubenDelCampo-PabloLostao|Pista3|20200218|   18:00|   19:00|            true
 002|       DanielRamos-AlvaroRomero|   ManueldelValle-JoseAntonioCordoba|Pista7|20191216|   19:00|   20:00|            true
 002|       AngelaRuiz-AlvaroBarbero|        EnriqueClemente-MonicaGarcia|     -|       -|       -|       -|            true
 002|      DanielMichaud-JavierMunoz|           RubenDelCampo-PabloLostao|Pista7|20191121|   18:00|   19:00|            true
