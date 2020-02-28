@@ -1,9 +1,9 @@
 POSICION|                              PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA|PARTICIPA_EN_JORNADA
-       1|   ManueldelValle-JoseAntonioCordoba|    19|               3|               3|          45|           11|                true
+       1|   ManueldelValle-JoseAntonioCordoba|    20|               4|               4|          60|           13|                true
        2|              JorgeLopez-AndresMunoz|    18|               4|               2|          38|           34|                true
-       3|     JuanAntonioMontesino-AinhoaGoni|    16|               5|               3|          55|           52|                true
-       4|           RubenDelCampo-PabloLostao|    15|               5|               5|          68|           11|                true
-       5|            DanielRamos-AlvaroRomero|    15|               3|               2|          33|           21|                true
+       3|            DanielRamos-AlvaroRomero|    17|               4|               3|          41|           28|                true
+       4|     JuanAntonioMontesino-AinhoaGoni|    16|               6|               3|          57|           67|                true
+       5|           RubenDelCampo-PabloLostao|    15|               6|               5|          75|           19|                true
        6|           JavierVidal-AlbertoMateos|    13|               4|               1|          22|           42|                true
        7|     AmbrosioIniesta-CarlosFernandez|    11|               4|               1|          31|           40|                true
        8|              EricPerez-IsraelAlonso|    11|               2|               0|           6|           30|               false
@@ -11,6 +11,6 @@ POSICION|                              PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_G
       10|           DanielMichaud-JavierMunoz|    10|               3|               1|          20|           33|                true
       11|        BartoszPenkala-ManuelHidalgo|     8|               6|               4|          53|           48|                true
       12|        EnriqueClemente-MonicaGarcia|     8|               5|               3|          48|           36|                true
-      13|     MariaTeresaSolano-LaraDominguez|     6|               4|               2|          42|           35|               false
+      13|     MariaTeresaSolano-LaraDominguez|     6|               4|               2|          42|           35|                true
       14|            AngelaRuiz-AlvaroBarbero|     5|               6|               3|          69|           44|                true
       15|              SaraGarcia-AnaAlastuey|     1|               7|               0|          11|          105|                true

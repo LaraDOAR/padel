@@ -27,8 +27,8 @@ PAREJA|       NOMBRE| APELLIDO|   NOMBRE.APELLIDO@iic.uam.es|JUEGA
     10|        Pablo|   Lostao|      pablo.lostao@iic.uam.es| true
     11|      Enrique| Clemente|  enrique.clemente@iic.uam.es| true
     11|       Monica|   Garcia|     monica.garcia@iic.uam.es| true
-    12|  MariaTeresa|   Solano|mariateresa.solano@iic.uam.es| true
-    12|         Lara|Dominguez|    lara.dominguez@iic.uam.es| true
+    12|  MariaTeresa|   Solano|mariateresa.solano@iic.uam.es|false
+    12|         Lara|Dominguez|    lara.dominguez@iic.uam.es|false
     13|      Bartosz|  Penkala|   bartosz.penkala@iic.uam.es| true
     13|       Manuel|  Hidalgo|    manuel.hidalgo@iic.uam.es| true
     14|       Angela|     Ruiz|       angela.ruiz@iic.uam.es| true

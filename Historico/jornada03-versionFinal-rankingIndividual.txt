@@ -1,16 +1,16 @@
 POSICION|               PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_FAVOR|JUEGOS_CONTRA|PARTICIPA_EN_JORNADA
-       1|        ManueldelValle|    19|               3|               3|          45|           11|                true
-       2|    JoseAntonioCordoba|    19|               3|               3|          45|           11|                true
+       1|        ManueldelValle|    20|               4|               4|          60|           13|                true
+       2|    JoseAntonioCordoba|    20|               4|               4|          60|           13|                true
        3|            JorgeLopez|    18|               4|               2|          38|           34|                true
        4|           AndresMunoz|    18|               4|               2|          38|           34|                true
-       5|  JuanAntonioMontesino|    16|               5|               3|          55|           52|                true
-       6|            AinhoaGoni|    16|               5|               3|          55|           52|                true
-       7|           DanielRamos|    15|               3|               2|          33|           21|                true
-       8|          AlvaroRomero|    15|               3|               2|          33|           21|                true
-       9|         RubenDelCampo|    14|               4|               4|          60|            5|                true
-      10|           PabloLostao|    14|               4|               4|          60|            5|                true
-      11|           JavierVidal|    13|               3|               1|          16|           34|                true
-      12|         AlbertoMateos|    13|               3|               1|          16|           34|                true
+       5|           DanielRamos|    17|               4|               3|          41|           28|                true
+       6|          AlvaroRomero|    17|               4|               3|          41|           28|                true
+       7|  JuanAntonioMontesino|    16|               6|               3|          57|           67|                true
+       8|            AinhoaGoni|    16|               6|               3|          57|           67|                true
+       9|         RubenDelCampo|    15|               6|               5|          75|           19|                true
+      10|           PabloLostao|    15|               6|               5|          75|           19|                true
+      11|           JavierVidal|    13|               4|               1|          22|           42|                true
+      12|         AlbertoMateos|    13|               4|               1|          22|           42|                true
       13|       AmbrosioIniesta|    11|               4|               1|          31|           40|                true
       14|       CarlosFernandez|    11|               4|               1|          31|           40|                true
       15|             EricPerez|    11|               2|               0|           6|           30|               false
