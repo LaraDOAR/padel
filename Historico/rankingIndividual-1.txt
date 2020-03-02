@@ -11,14 +11,14 @@ POSICION|               PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_
       10|           PabloLostao|    15|               6|               5|          75|           19|                true
       11|           JavierVidal|    13|               4|               1|          22|           42|                true
       12|         AlbertoMateos|    13|               4|               1|          22|           42|                true
-      13|       AmbrosioIniesta|    12|               5|               2|          39|           44|                true
-      14|       CarlosFernandez|    12|               5|               2|          39|           44|                true
+      13|       AmbrosioIniesta|    11|               4|               1|          31|           40|                true
+      14|       CarlosFernandez|    11|               4|               1|          31|           40|                true
       15|             EricPerez|    11|               2|               0|           6|           30|               false
       16|          IsraelAlonso|    11|               2|               0|           6|           30|               false
       17|         RubenMartinez|    10|               4|               3|          41|           25|                true
       18|JoseFranciscoRodriguez|    10|               4|               3|          41|           25|                true
-      19|         DanielMichaud|    10|               4|               1|          24|           41|                true
-      20|           JavierMunoz|    10|               4|               1|          24|           41|                true
+      19|         DanielMichaud|    10|               3|               1|          20|           33|                true
+      20|           JavierMunoz|    10|               3|               1|          20|           33|                true
       21|        BartoszPenkala|     8|               6|               4|          53|           48|                true
       22|         ManuelHidalgo|     8|               6|               4|          53|           48|                true
       23|       EnriqueClemente|     8|               5|               3|          48|           36|                true
