@@ -14,7 +14,7 @@ MES|                          LOCAL|                           VISITANTE| PISTA|
 004|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|Pista3|20200325|   18:00|   19:00|           false
 003|       AngelaRuiz-AlvaroBarbero|        EnriqueClemente-MonicaGarcia|Pista7|20200203|   19:00|   20:00|            true
 003|   BartoszPenkala-ManuelHidalgo|RubenMartinez-JoseFranciscoRodriguez|Pista3|20200203|   18:00|   19:00|            true
-003|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|Pista3|20200226|   19:00|   20:00|           false
+003|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|Pista3|20200226|   19:00|   20:00|            true
 003|       DanielRamos-AlvaroRomero|           JavierVidal-AlbertoMateos|Pista7|20200204|   18:00|   19:00|            true
 003|         JorgeLopez-AndresMunoz|     JuanAntonioMontesino-AinhoaGoni|Pista3|20200218|   19:00|   20:00|            true
 003|   EnriqueClemente-MonicaGarcia|              SaraGarcia-AnaAlastuey|Pista3|20200210|   18:00|   19:00|            true
