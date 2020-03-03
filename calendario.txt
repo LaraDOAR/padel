@@ -2,7 +2,7 @@ MES|                          LOCAL|                           VISITANTE| PISTA|
 004|       AngelaRuiz-AlvaroBarbero|     MariaTeresaSolano-LaraDominguez|Pista3|20200303|   19:00|   20:00|           false
 004|      JavierVidal-AlbertoMateos|     JuanAntonioMontesino-AinhoaGoni|     -|       -|       -|       -|           false
 004|   BartoszPenkala-ManuelHidalgo|        EnriqueClemente-MonicaGarcia|Pista3|20200304|   19:00|   20:00|           false
-004|       DanielRamos-AlvaroRomero|              JorgeLopez-AndresMunoz|Pista3|20200304|   18:00|   19:00|           false
+004|       DanielRamos-AlvaroRomero|              JorgeLopez-AndresMunoz|     -|       -|       -|       -|           false
 004|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|Pista3|20200324|   19:00|   20:00|           false
 004|      JavierVidal-AlbertoMateos|           RubenDelCampo-PabloLostao|Pista3|20200311|   18:00|   19:00|           false
 004|AmbrosioIniesta-CarlosFernandez|RubenMartinez-JoseFranciscoRodriguez|Pista3|20200309|   19:00|   20:00|           false

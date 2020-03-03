@@ -1,5 +1,5 @@
 MES|DIVISION|                          LOCAL|                           VISITANTE|   FECHA|HORA_INI|HORA_FIN| LUGAR|SET1|SET2|SET3|PUNTOS|RANKING
-004|       1|       DanielRamos-AlvaroRomero|              JorgeLopez-AndresMunoz|20200304|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
+004|       1|       DanielRamos-AlvaroRomero|              JorgeLopez-AndresMunoz|       -|       -|       -|     -|   -|   -|   -|     -|  false
 004|       1|       DanielRamos-AlvaroRomero|   ManueldelValle-JoseAntonioCordoba|20200316|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 004|       1|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|20200325|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 004|       2|      JavierVidal-AlbertoMateos|     JuanAntonioMontesino-AinhoaGoni|       -|       -|       -|     -|   -|   -|   -|     -|  false
