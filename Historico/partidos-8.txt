@@ -5,7 +5,7 @@ MES|DIVISION|                          LOCAL|                           VISITANT
 004|       2|      JavierVidal-AlbertoMateos|     JuanAntonioMontesino-AinhoaGoni|       -|       -|       -|     -|   -|   -|   -|     -|  false
 004|       2|      JavierVidal-AlbertoMateos|           RubenDelCampo-PabloLostao|20200311|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 004|       2|JuanAntonioMontesino-AinhoaGoni|           RubenDelCampo-PabloLostao|20200324|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
-004|       3|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|       -|       -|       -|     -|   -|   -|   -|     -|  false
+004|       3|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|20200324|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
 004|       3|AmbrosioIniesta-CarlosFernandez|RubenMartinez-JoseFranciscoRodriguez|20200309|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
 004|       3|      DanielMichaud-JavierMunoz|RubenMartinez-JoseFranciscoRodriguez|20200316|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
 004|       4|   BartoszPenkala-ManuelHidalgo|        EnriqueClemente-MonicaGarcia|20200304|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false

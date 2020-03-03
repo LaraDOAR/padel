@@ -5,11 +5,11 @@ MES|DIVISION|                          LOCAL|                           VISITANT
 004|       2|      JavierVidal-AlbertoMateos|     JuanAntonioMontesino-AinhoaGoni|       -|       -|       -|     -|   -|   -|   -|     -|  false
 004|       2|      JavierVidal-AlbertoMateos|           RubenDelCampo-PabloLostao|20200311|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 004|       2|JuanAntonioMontesino-AinhoaGoni|           RubenDelCampo-PabloLostao|20200324|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
-004|       3|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|       -|       -|       -|     -|   -|   -|   -|     -|  false
+004|       3|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|20200324|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
 004|       3|AmbrosioIniesta-CarlosFernandez|RubenMartinez-JoseFranciscoRodriguez|20200309|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
 004|       3|      DanielMichaud-JavierMunoz|RubenMartinez-JoseFranciscoRodriguez|20200316|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
 004|       4|   BartoszPenkala-ManuelHidalgo|        EnriqueClemente-MonicaGarcia|20200304|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
-004|       5|       AngelaRuiz-AlvaroBarbero|     MariaTeresaSolano-LaraDominguez|20200303|   19:00|   20:00|Pista7|   -|   -|   -|     -|  false
+004|       5|       AngelaRuiz-AlvaroBarbero|     MariaTeresaSolano-LaraDominguez|20200303|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
 004|       5|       AngelaRuiz-AlvaroBarbero|              SaraGarcia-AnaAlastuey|20200318|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
 004|       5|MariaTeresaSolano-LaraDominguez|              SaraGarcia-AnaAlastuey|20200313|   15:00|   16:00|Pista7|   -|   -|   -|     -|  false
 003|       1|         JorgeLopez-AndresMunoz|     JuanAntonioMontesino-AinhoaGoni|20200218|   19:00|   20:00|Pista3|   -|   -|   -|  15/4|   true

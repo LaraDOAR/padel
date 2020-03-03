@@ -422,7 +422,6 @@
        Javier|    Munoz|20200124
        Javier|    Munoz|20200128
        Javier|    Munoz|20200131
-       Javier|    Munoz|20200324
        Javier|    Vidal|20200302
        Javier|    Vidal|20200303
        Javier|    Vidal|20200305
