@@ -11,6 +11,6 @@ POSICION|                              PAREJA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_G
       10|           DanielMichaud-JavierMunoz|    10|               4|               1|          24|           41|                true
       11|        BartoszPenkala-ManuelHidalgo|     8|               6|               4|          53|           48|                true
       12|        EnriqueClemente-MonicaGarcia|     8|               5|               3|          48|           36|                true
-      13|     MariaTeresaSolano-LaraDominguez|     7|               5|               2|          51|           44|                true
-      14|            AngelaRuiz-AlvaroBarbero|     6|               7|               3|          78|           53|                true
+      13|     MariaTeresaSolano-LaraDominguez|     6|               4|               2|          42|           35|                true
+      14|            AngelaRuiz-AlvaroBarbero|     5|               6|               3|          69|           44|                true
       15|              SaraGarcia-AnaAlastuey|     1|               7|               0|          11|          105|                true

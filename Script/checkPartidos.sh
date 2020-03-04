@@ -259,6 +259,7 @@ do
     set2=$(   echo -e "${line}" | gawk -F"|" '{print $10}' ); jueL2=$(   echo -e "${set2}"   | gawk -F"/" '{print $1}' ); jueV2=$(   echo -e "${set2}"   | gawk -F"/" '{print $2}' )
     set3=$(   echo -e "${line}" | gawk -F"|" '{print $11}' ); jueL3=$(   echo -e "${set3}"   | gawk -F"/" '{print $1}' ); jueV3=$(   echo -e "${set3}"   | gawk -F"/" '{print $2}' )
     puntos=$( echo -e "${line}" | gawk -F"|" '{print $12}' ); puntosL=$( echo -e "${puntos}" | gawk -F"/" '{print $1}' ); puntosV=$( echo -e "${puntos}" | gawk -F"/" '{print $2}' )
+    rank=$(   echo -e "${line}" | gawk -F"|" '{print $13}' );
 
     if [ "${CFG_MODO_PUNTUACION}" == "SETS" ]
     then
@@ -332,8 +333,8 @@ do
         # Si aun esta sin inicializar puede ser que aun no se ha jugado, es correcto
         if [ "${puntos}" == "-" ]; then continue; fi
 
-        # Debe haber un ganador
-        if [ "${puntosL}" == "${puntosV}" ]; then echo "-- En la linea ${line}, no hay ganador"; exit 1; fi
+        # Debe haber un ganador (los empates se ponen a mano)
+        if [ "${rank}" == "false" ] && [ "${puntosL}" == "${puntosV}" ]; then echo "-- En la linea ${line}, no hay ganador"; exit 1; fi
         
         # Los sets deben estar desactivados
         if [ "${set1}" != "-" ]; then echo "-- En la linea ${line}, la columna SET1 no esta desactivada, y el modo de puntuacion es [${CFG_MODO_PUNTUACION}]"; exit 1; fi
