@@ -1,24 +1,24 @@
 MES|DIVISION|                          LOCAL|                           VISITANTE|   FECHA|HORA_INI|HORA_FIN| LUGAR|SET1|SET2|SET3|PUNTOS|RANKING
-004|       1|       DanielRamos-AlvaroRomero|              JorgeLopez-AndresMunoz|20200304|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
-004|       1|       DanielRamos-AlvaroRomero|   ManueldelValle-JoseAntonioCordoba|20200316|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
-004|       1|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|20200325|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
+004|       1|       DanielRamos-AlvaroRomero|              JorgeLopez-AndresMunoz|       -|       -|       -|     -|   -|   -|   -|     -|  false
+004|       1|       DanielRamos-AlvaroRomero|   ManueldelValle-JoseAntonioCordoba|       -|       -|       -|     -|   -|   -|   -|     -|  false
+004|       1|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|       -|       -|       -|     -|   -|   -|   -|     -|  false
 004|       2|      JavierVidal-AlbertoMateos|     JuanAntonioMontesino-AinhoaGoni|       -|       -|       -|     -|   -|   -|   -|     -|  false
-004|       2|      JavierVidal-AlbertoMateos|           RubenDelCampo-PabloLostao|20200311|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
-004|       2|JuanAntonioMontesino-AinhoaGoni|           RubenDelCampo-PabloLostao|20200324|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
-004|       3|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|20200302|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
-004|       3|AmbrosioIniesta-CarlosFernandez|RubenMartinez-JoseFranciscoRodriguez|20200309|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
-004|       3|      DanielMichaud-JavierMunoz|RubenMartinez-JoseFranciscoRodriguez|20200316|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
-004|       4|   BartoszPenkala-ManuelHidalgo|        EnriqueClemente-MonicaGarcia|20200304|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
-004|       5|       AngelaRuiz-AlvaroBarbero|     MariaTeresaSolano-LaraDominguez|20200303|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
-004|       5|       AngelaRuiz-AlvaroBarbero|              SaraGarcia-AnaAlastuey|20200318|   18:00|   19:00|Pista3|   -|   -|   -|     -|  false
-004|       5|MariaTeresaSolano-LaraDominguez|              SaraGarcia-AnaAlastuey|20200327|   15:00|   16:00|Pista7|   -|   -|   -|     -|  false
+004|       2|      JavierVidal-AlbertoMateos|           RubenDelCampo-PabloLostao|       -|       -|       -|     -|   -|   -|   -|     -|  false
+004|       2|JuanAntonioMontesino-AinhoaGoni|           RubenDelCampo-PabloLostao|       -|       -|       -|     -|   -|   -|   -|     -|  false
+004|       3|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|       -|       -|       -|     -|   -|   -|   -|     -|  false
+004|       3|AmbrosioIniesta-CarlosFernandez|RubenMartinez-JoseFranciscoRodriguez|20200309|   19:00|   20:00|Pista3|   -|   -|   -|  5/11|   true
+004|       3|      DanielMichaud-JavierMunoz|RubenMartinez-JoseFranciscoRodriguez|       -|       -|       -|     -|   -|   -|   -|     -|  false
+004|       4|   BartoszPenkala-ManuelHidalgo|        EnriqueClemente-MonicaGarcia|20200304|   19:00|   20:00|Pista3|   -|   -|   -|  14/6|   true
+004|       5|       AngelaRuiz-AlvaroBarbero|     MariaTeresaSolano-LaraDominguez|20200303|   19:00|   20:00|Pista7|   -|   -|   -|   9/9|   true
+004|       5|       AngelaRuiz-AlvaroBarbero|              SaraGarcia-AnaAlastuey|       -|       -|       -|     -|   -|   -|   -|     -|  false
+004|       5|MariaTeresaSolano-LaraDominguez|              SaraGarcia-AnaAlastuey|       -|       -|       -|     -|   -|   -|   -|     -|  false
 003|       1|         JorgeLopez-AndresMunoz|     JuanAntonioMontesino-AinhoaGoni|20200218|   19:00|   20:00|Pista3|   -|   -|   -|  15/4|   true
 003|       1|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|20200210|   18:00|   19:00|Pista7|   -|   -|   -|  5/15|   true
 003|       1|JuanAntonioMontesino-AinhoaGoni|   ManueldelValle-JoseAntonioCordoba|20200214|   15:00|   16:00|Pista7|   -|   -|   -|  2/15|   true
 003|       2|       DanielRamos-AlvaroRomero|           JavierVidal-AlbertoMateos|20200204|   18:00|   19:00|Pista7|   -|   -|   -|  15/3|   true
 003|       2|       DanielRamos-AlvaroRomero|           RubenDelCampo-PabloLostao|20200211|   18:00|   19:00|Pista7|   -|   -|   -|   8/7|   true
 003|       2|      JavierVidal-AlbertoMateos|           RubenDelCampo-PabloLostao|20200218|   18:00|   19:00|Pista3|   -|   -|   -|   6/8|   true
-003|       3|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|20200226|   19:00|   20:00|Pista3|   -|   -|   -|     -|  false
+003|       3|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|20200226|   19:00|   20:00|Pista3|   -|   -|   -|   8/4|   true
 003|       3|AmbrosioIniesta-CarlosFernandez|              EricPerez-IsraelAlonso|       -|       -|       -|     -|   -|   -|   -|     -|   true
 003|       3|      DanielMichaud-JavierMunoz|              EricPerez-IsraelAlonso|       -|       -|       -|     -|   -|   -|   -|     -|   true
 003|       4|   BartoszPenkala-ManuelHidalgo|RubenMartinez-JoseFranciscoRodriguez|20200203|   18:00|   19:00|Pista3|   -|   -|   -|  2/15|   true

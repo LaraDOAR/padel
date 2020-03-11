@@ -291,6 +291,7 @@
        Daniel|    Ramos|20200117
        Daniel|    Ramos|20200124
        Daniel|    Ramos|20200131
+       Daniel|    Ramos|20200304
        Daniel|    Ramos|20200306
        Daniel|    Ramos|20200313
        Daniel|    Ramos|20200320
@@ -421,6 +422,7 @@
        Javier|    Munoz|20200124
        Javier|    Munoz|20200128
        Javier|    Munoz|20200131
+       Javier|    Munoz|20200324
        Javier|    Vidal|20200302
        Javier|    Vidal|20200303
        Javier|    Vidal|20200305
@@ -706,6 +708,7 @@ JoseFrancisco|Rodriguez|20191230
   MariaTeresa|   Solano|20200318
   MariaTeresa|   Solano|20200323
   MariaTeresa|   Solano|20200325
+  MariaTeresa|   Solano|20200327
   MariaTeresa|   Solano|20200330
        Monica|   Garcia|20191001
        Monica|   Garcia|20191003

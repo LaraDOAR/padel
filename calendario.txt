@@ -3,15 +3,15 @@ MES|                          LOCAL|                           VISITANTE| PISTA|
 004|      JavierVidal-AlbertoMateos|     JuanAntonioMontesino-AinhoaGoni|     -|       -|       -|       -|           false
 004|   BartoszPenkala-ManuelHidalgo|        EnriqueClemente-MonicaGarcia|Pista3|20200304|   19:00|   20:00|            true
 004|       DanielRamos-AlvaroRomero|              JorgeLopez-AndresMunoz|     -|       -|       -|       -|           false
-004|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|Pista7|20200326|   19:00|   20:00|           false
-004|      JavierVidal-AlbertoMateos|           RubenDelCampo-PabloLostao|Pista3|20200311|   18:00|   19:00|            true
+004|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|     -|       -|       -|       -|           false
+004|      JavierVidal-AlbertoMateos|           RubenDelCampo-PabloLostao|     -|       -|       -|       -|           false
 004|AmbrosioIniesta-CarlosFernandez|RubenMartinez-JoseFranciscoRodriguez|Pista3|20200309|   19:00|   20:00|            true
-004|       AngelaRuiz-AlvaroBarbero|              SaraGarcia-AnaAlastuey|Pista3|20200318|   18:00|   19:00|            true
-004|       DanielRamos-AlvaroRomero|   ManueldelValle-JoseAntonioCordoba|Pista3|20200316|   18:00|   19:00|            true
-004|      DanielMichaud-JavierMunoz|RubenMartinez-JoseFranciscoRodriguez|Pista3|20200316|   19:00|   20:00|            true
-004|JuanAntonioMontesino-AinhoaGoni|           RubenDelCampo-PabloLostao|Pista3|20200324|   18:00|   19:00|            true
-004|MariaTeresaSolano-LaraDominguez|              SaraGarcia-AnaAlastuey|Pista7|20200313|   15:00|   16:00|            true
-004|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|Pista3|20200325|   18:00|   19:00|            true
+004|       AngelaRuiz-AlvaroBarbero|              SaraGarcia-AnaAlastuey|     -|       -|       -|       -|           false
+004|       DanielRamos-AlvaroRomero|   ManueldelValle-JoseAntonioCordoba|     -|       -|       -|       -|           false
+004|      DanielMichaud-JavierMunoz|RubenMartinez-JoseFranciscoRodriguez|     -|       -|       -|       -|           false
+004|JuanAntonioMontesino-AinhoaGoni|           RubenDelCampo-PabloLostao|     -|       -|       -|       -|           false
+004|MariaTeresaSolano-LaraDominguez|              SaraGarcia-AnaAlastuey|     -|       -|       -|       -|           false
+004|         JorgeLopez-AndresMunoz|   ManueldelValle-JoseAntonioCordoba|     -|       -|       -|       -|           false
 003|       AngelaRuiz-AlvaroBarbero|        EnriqueClemente-MonicaGarcia|Pista7|20200203|   19:00|   20:00|            true
 003|   BartoszPenkala-ManuelHidalgo|RubenMartinez-JoseFranciscoRodriguez|Pista3|20200203|   18:00|   19:00|            true
 003|AmbrosioIniesta-CarlosFernandez|           DanielMichaud-JavierMunoz|Pista3|20200226|   19:00|   20:00|            true

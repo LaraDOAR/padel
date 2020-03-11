@@ -9,20 +9,20 @@ POSICION|               PERSONA|PUNTOS|PARTIDOS_JUGADOS|PARTIDOS_GANADOS|JUEGOS_
        8|            AinhoaGoni|    16|               6|               3|          57|           67|                true
        9|         RubenDelCampo|    15|               6|               5|          75|           19|                true
       10|           PabloLostao|    15|               6|               5|          75|           19|                true
-      11|           JavierVidal|    13|               4|               1|          22|           42|                true
-      12|         AlbertoMateos|    13|               4|               1|          22|           42|                true
-      13|       AmbrosioIniesta|    12|               5|               2|          39|           44|                true
-      14|       CarlosFernandez|    12|               5|               2|          39|           44|                true
-      15|             EricPerez|    11|               2|               0|           6|           30|               false
-      16|          IsraelAlonso|    11|               2|               0|           6|           30|               false
-      17|         RubenMartinez|    10|               4|               3|          41|           25|                true
-      18|JoseFranciscoRodriguez|    10|               4|               3|          41|           25|                true
+      11|         RubenMartinez|    13|               5|               4|          52|           30|                true
+      12|JoseFranciscoRodriguez|    13|               5|               4|          52|           30|                true
+      13|           JavierVidal|    13|               4|               1|          22|           42|                true
+      14|         AlbertoMateos|    13|               4|               1|          22|           42|                true
+      15|       AmbrosioIniesta|    12|               6|               2|          44|           55|                true
+      16|       CarlosFernandez|    12|               6|               2|          44|           55|                true
+      17|             EricPerez|    11|               2|               0|           6|           30|               false
+      18|          IsraelAlonso|    11|               2|               0|           6|           30|               false
       19|         DanielMichaud|    10|               4|               1|          24|           41|                true
       20|           JavierMunoz|    10|               4|               1|          24|           41|                true
-      21|        BartoszPenkala|     8|               6|               4|          53|           48|                true
-      22|         ManuelHidalgo|     8|               6|               4|          53|           48|                true
-      23|       EnriqueClemente|     8|               5|               3|          48|           36|                true
-      24|          MonicaGarcia|     8|               5|               3|          48|           36|                true
+      21|        BartoszPenkala|     9|               7|               5|          67|           54|                true
+      22|         ManuelHidalgo|     9|               7|               5|          67|           54|                true
+      23|       EnriqueClemente|     8|               6|               3|          54|           50|                true
+      24|          MonicaGarcia|     8|               6|               3|          54|           50|                true
       25|     MariaTeresaSolano|     7|               5|               2|          51|           44|               false
       26|         LaraDominguez|     7|               5|               2|          51|           44|               false
       27|            AngelaRuiz|     6|               7|               3|          78|           53|                true
